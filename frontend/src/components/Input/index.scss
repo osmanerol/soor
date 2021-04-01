@@ -1,0 +1,17 @@
+.chakra-input{
+    &:focus{
+        box-shadow: none! important;
+        border-color: inherit! important;
+        outline: none! important;
+    }
+}
+    
+.chakra-input__right-element{
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+.error{
+    color: red;
+}

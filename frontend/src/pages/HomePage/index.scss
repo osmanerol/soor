@@ -1,0 +1,134 @@
+.homepage-container{
+    margin-top: 83.6px;
+    .sub-title{
+        line-height: 1.8em;
+    }
+    .top-content-container{
+        padding: 20px 0!important;
+        .top-image{
+            img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+    .numeric-info-container{
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #fafbfd;
+        .data{
+            .text{
+                font-weight: 500;
+            }
+        }
+    }
+    .instructors-container{
+        .chakra-button{
+            background-color: #1781f1;
+            color: #fff;
+            &:hover{
+                text-decoration: none;
+            }
+        }
+    }
+    .student-comments-container{
+        padding-top: 60px;
+        padding-bottom: 60px;
+        background-color: #f2f6fc;
+    }
+}
+
+@media screen and (max-width: 576px){
+    .homepage-container{
+        .numeric-info-container{
+            .title{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+            .number{
+                font-size: 20px;
+                color: #1781f1;
+            }
+            .text{
+                font-size: 14px;
+            }
+        }
+        .instructors{
+            .button-container{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                div{
+                    width: 300px! important;
+                }
+            }
+        }
+        .student-comments-container{
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f2f6fc;
+        }
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px){
+    .homepage-container{
+        .numeric-info-container{
+            .title{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+            .number{
+                font-size: 26px;
+                color: #1781f1;
+            }
+        }
+        .student-comments-container{
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+    }
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 992px){
+    .homepage-container{
+        .numeric-info-container{
+            .title{
+                display: flex;
+                align-items: center;
+            }
+            .number{
+                font-size: 26px;
+                color: #1781f1;
+            }
+        }
+        .student-comments-container{
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+    }
+}
+
+@media screen and (min-width: 992px){
+    .homepage-container{
+        .numeric-info-container{
+            .title{
+                display: flex;
+                align-items: center;
+            }
+            .number{
+                font-size: 26px;
+                color: #1781f1;
+            }
+        }
+        .student-comments-container{
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+    }
+}

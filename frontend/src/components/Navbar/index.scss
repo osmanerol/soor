@@ -1,0 +1,70 @@
+.navbar{
+    transition: all .5s ease;
+    background-color: #fff! important;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    .navbar-brand{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        img{
+            width: 30px;
+            height: 30px;
+            margin-right: 6px;
+            transition: transform .8s ease-in-out;
+        }
+        span{
+            font-weight: 800;
+            font-size: 1.4em;
+        }
+        &:hover{
+            img{
+                transform: rotate(360deg);
+            }
+        }
+    }
+    .nav-link{
+        font-weight: 600;
+        color: #000! important;
+    }
+    .navbar-nav{
+        .signup-button{
+            background-color: #1781f1;
+            color: #fff! important;
+            padding-left: 1.5em;
+            padding-right: 1.5em;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        }
+        .login-button{
+            background-color: #ff595e;
+            color: #fff! important;
+            padding-left: 1.5em;
+            padding-right: 1.5em;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            margin-right: 10px;
+        }
+    }
+    .navbar-form{
+        input{
+            border-radius: 20px;
+        }
+    }
+}
+
+.chakra-slide{
+    .navbar-form{
+        input{
+            border-radius: 20px;
+        }
+    }
+    .css-q7rpbt{
+        &:focus{
+            box-shadow: none! important;
+        }
+    }
+}
+
+@media screen and (min-width:768px){
+    .navbar{
+    }
+}
