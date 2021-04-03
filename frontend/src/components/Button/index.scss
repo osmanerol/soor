@@ -3,3 +3,9 @@
         box-shadow: none! important;
     }
 }
+
+.chakra-button{
+    &:hover{
+        text-decoration: none;
+    }
+}

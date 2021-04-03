@@ -28,12 +28,12 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
         <div className={className}>
             { text && <small>{text}</small> }
             <InputGroup>
-                { leftIcon && <InputLeftElement pointerEvents="none" children={leftIcon} /> }
+                { leftIcon && <InputLeftElement pointerEvents='none' children={leftIcon} /> }
                 <Input id={id} name={id} type={type} placeholder={placeholder} bg={background} size={size} variant={variant} control={control} onChange={onChange} disabled={disabled} defaultValue={defaultValue} ref={selectRef} />
                 { rightIcon && <InputRightElement children={rightIcon} /> }
             </InputGroup>
             {
-                errors  && <small className="error">{errors[id!]?.message}</small>
+                errors  && <small className='error'>{errors[id!]?.message}</small>
             }
         </div>
     );

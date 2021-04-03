@@ -1,0 +1,64 @@
+.top-content-container{
+    .top-filter{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        .header{
+            font-size: 24px;
+        }
+        .chakra-button{
+            background-color: #0e49b5;
+            color: #fff;
+        }
+    }
+    .top-image{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            width: 90%;
+            height: 90%;
+        }
+    }
+}
+
+@media screen and (max-width: 576px){
+    .top-content-container{
+        .top-filter{
+            padding: 10px 0 10px 0;
+            .header{
+                font-size: 18px;
+            }
+        }
+        .top-image{
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px){
+    .top-content-container{
+        .top-filter{
+            padding-top: 20px;
+            padding-bottom: 10px;
+        }
+        .top-image{
+            padding-top: 10px;
+            padding-bottom: 20px;
+        }
+    }
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 992px){
+    .top-content-container{
+        padding: 20px 0! important;
+    }
+}
+
+@media screen and (min-width: 992px){
+    .top-content-container{
+        padding: 20px 0! important;
+    }
+}

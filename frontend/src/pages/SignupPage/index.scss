@@ -9,8 +9,8 @@
             flex-direction: row;
             align-items: center;
             img{
-                width: 24px;
-                height: 24px;
+                width: 18px;
+                height: 18px;
                 margin-right: 6px;
                 transition: transform .8s ease-in-out;
             }
@@ -19,6 +19,15 @@
                     transform: rotate(360deg);
                 }
             }
+        }
+        .sub-title{
+            font-weight: 600;
+        }
+    }
+    .user-type{
+        p{
+            font-size: 14px;
+            margin-top: 4px;
         }
     }
 }

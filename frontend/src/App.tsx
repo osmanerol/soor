@@ -4,6 +4,7 @@ import { Switch, Route, useLocation} from 'react-router-dom';
 
 import { Navbar } from './components'; 
 import HomePage from './pages/HomePage';
+import LessonFilterPage from './pages/LessonFilterPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 /*
@@ -25,6 +26,7 @@ const App = () => {
         <Route path='/' exact strict component={HomePage} />
         <Route path='/login' exact strict component={LoginPage} />
         <Route path='/signup' exact strict component={SignupPage} />
+        <Route path='/lesson-filter/:lesson' exact strict component={LessonFilterPage} />
         {
           /*
         <Route path='/lesson-filter/:lesson' exact strict component={LessonFilterPage} />

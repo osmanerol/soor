@@ -1,0 +1,35 @@
+.lesson-filter-page-container{
+    margin-top: 70.8px;
+    .pagination-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        .page-link{
+            &:focus{
+                box-shadow: none! important;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 576px){
+    .lesson-filter-page-container{
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px){
+    .lesson-filter-page-container{
+    }
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 992px){
+    .lesson-filter-page-container{
+    }
+}
+
+@media screen and (min-width: 992px){
+    .lesson-filter-page-container{
+        
+    }
+}

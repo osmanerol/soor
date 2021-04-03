@@ -1,0 +1,6 @@
+.chakra-select{
+    &:focus{
+        border-color: inherit! important;
+        box-shadow: none! important;
+    }
+}

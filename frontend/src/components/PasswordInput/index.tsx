@@ -24,10 +24,10 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
         <div className={className}>
             { text && <small>{text}</small> }
             <InputGroup>
-                <Input type={show ? "text" : "password"} placeholder={placeholder} size={size} variant={variant} control={control} onChange={onChange} disabled={disabled} />
-                <InputRightElement width="4.5rem">
-                    <Button h="1.75rem" size="sm" onClick={handleClick}>
-                        {show ? "Gizle" : "Göster"}
+                <Input type={show ? 'text' : 'password'} placeholder={placeholder} size={size} variant={variant} control={control} onChange={onChange} disabled={disabled} />
+                <InputRightElement width='4.5rem'>
+                    <Button h='1.75rem' size='sm' onClick={handleClick}>
+                        {show ? 'Gizle' : 'Göster'}
                     </Button>
                 </InputRightElement>
             </InputGroup>

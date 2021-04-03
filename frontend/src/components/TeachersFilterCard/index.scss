@@ -1,0 +1,120 @@
+.teacher-filter-card-container{
+    .teacher-card{
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: row;
+        .image-container{
+            overflow: hidden;
+            img{
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                transition: all .5s ease;
+            }
+        }
+        .info-container{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            .text-container{
+                .name{
+                    font-weight: 500;
+                }
+            }
+            .numeric-container{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                .items{
+                    text-align: center;
+                }
+            }
+            .detail-button{
+                .chakra-button{
+                    width: 120px! important;
+                    background-color: #457b9d;
+                    color: #fff;
+                    transition: all .5s ease;
+                    &:hover{
+                        width: 140px! important;
+                    }
+                }
+            }
+        }
+    }
+    &:hover{
+        img{
+            transform: scale(1.05);
+        }
+    }
+}
+
+@media screen and (max-width: 576px){
+    .teacher-filter-card-container{
+        .teacher-card{
+            height: 160px;
+            .image-container{
+                width: 120px;
+            }
+            .info-container{
+                width: calc(100% - 120px);
+                padding: 14px;
+            }
+            .numeric-container{
+                font-size: .8em;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px){
+    .teacher-filter-card-container{
+        .teacher-card{
+            height: 180px;
+            .image-container{
+                width: 140px;
+            }
+            .info-container{
+                width: calc(100% - 140px);
+                padding: 16px 24px;
+            }
+            .numeric-container{
+                font-size: .9em;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px){
+    .teacher-filter-card-container{
+        .teacher-card{
+            height: 200px;
+            .image-container{
+                width: 140px;
+            }
+            .info-container{
+                width: calc(100% - 140px);
+                padding: 10px;
+            }
+            .numeric-container{
+                font-size: .9em;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 992px){
+    .teacher-filter-card-container{
+        .teacher-card{
+            height: 220px;
+            .image-container{
+                width: 200px;
+            }
+            .info-container{
+                width: calc(100% - 200px);
+                padding: 24px;
+            }
+        }
+    }
+}

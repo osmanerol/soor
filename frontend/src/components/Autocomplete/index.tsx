@@ -93,7 +93,7 @@ const Index: FC<IDefaultProps> = (props: IDefaultProps) => {
                 ref={selectRef}
             />
             {
-                errors  && <small className="error">{errors[id!]?.message}</small>
+                errors  && <small className='error'>{errors[id!]?.message}</small>
             }
         </div>
     );

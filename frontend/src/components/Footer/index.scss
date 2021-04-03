@@ -1,0 +1,167 @@
+.footer-container{
+    background-color: #2b2e4a;
+    color: #fff;
+    padding: 40px 0;
+    .chakra-heading{
+        padding-bottom: 8px;
+        margin-bottom: 8px;
+        position: relative;
+        &::after{
+            content: "";
+            width: 40px;
+            height: 2px;
+            background: #03a9f4;
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+        }
+    }
+    .chakra-heading{
+        padding-top: 20px ;
+    }
+    .items-container{
+        padding: 0 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        ul{
+            list-style: none;
+            li{
+                margin-bottom: 6px;
+                font-size: 15px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                a{
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    .icon{
+                        margin-right: 6px;
+                    }
+                    &:hover{
+                        color: #03a9f4;
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+    .copyright{
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width: 576px){
+    .footer-container{
+        .items-container{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .about{
+                width: 50%;
+            }
+            .personel{
+                width: 50%;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+    }
+}
+
+/*.footer-container{
+    background-color: #2b2e4a;
+    color: #fff;
+    padding: 40px 0;
+    .chakra-heading{
+        padding-bottom: 8px;
+        margin-bottom: 8px;
+        position: relative;
+        &::after{
+            content: "";
+            width: 40px;
+            height: 2px;
+            background: #03a9f4;
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+        }
+    }
+    .chakra-heading{
+        padding-top: 20px ;
+    }
+    .items-container{
+        padding: 0 10px;
+    }
+    ul{
+        list-style: none;
+        li{
+            margin-bottom: 6px;
+            font-size: 15px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            a{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                .icon{
+                    margin-right: 6px;
+                }
+                &:hover{
+                    color: #03a9f4;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+    .copyright{
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width: 576px){
+    .footer-container{
+        .items-container{
+            display: flex;
+            flex-direction: column;
+            .about{
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .contact{
+                width: 60%;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 576px){
+    .footer-container{
+        .items-container{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .about{
+                width: 60%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .contact{
+                width: 60%;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+            }
+        }
+    }
+}
+*/

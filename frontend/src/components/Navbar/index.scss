@@ -1,15 +1,15 @@
 .navbar{
     transition: all .5s ease;
     background-color: #fff! important;
-    padding-top: 1em;
-    padding-bottom: 1em;
+    padding-top: .6em;
+    padding-bottom: .6em;
     .navbar-brand{
         display: flex;
         flex-direction: row;
         align-items: center;
         img{
-            width: 30px;
-            height: 30px;
+            width: 24px;
+            height: 24px;
             margin-right: 6px;
             transition: transform .8s ease-in-out;
         }
@@ -24,47 +24,96 @@
         }
     }
     .nav-link{
-        font-weight: 600;
+        font-weight: 500;
         color: #000! important;
     }
     .navbar-nav{
-        .signup-button{
-            background-color: #1781f1;
-            color: #fff! important;
-            padding-left: 1.5em;
-            padding-right: 1.5em;
-            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-        }
         .login-button{
-            background-color: #ff595e;
+            color: #4f46e5! important;
+            padding-left: 1.5em;
+            padding-right: 1.5em;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            margin-right: 10px;
+            transition: all .5s;
+            &:hover{
+                transform: scale(1.1);
+            }
+        }
+        .signup-button{
+            background-color: #0e49b5;
             color: #fff! important;
             padding-left: 1.5em;
             padding-right: 1.5em;
-            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-            margin-right: 10px;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            transition: all .5s;
+            &:hover{
+                transform: scale(1.1);
+            }
         }
-    }
-    .navbar-form{
-        input{
-            border-radius: 20px;
+        .navbar-dropdown{
+            a{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                &:after{
+                    display: none;
+                }
+            }
+            .dropdown-menu{
+                border: none! important;
+                box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+                &:after{
+                    content: '';
+                    position:absolute;
+                    left: 14px;
+                    top: -6px;
+                    border-style: solid;
+                    border-width: 0 15px 10px 15px;;
+                    border-color: transparent transparent #fff transparent;  
+                }
+                .dropdown-item{
+                    padding: 8px 16px;
+                    .notification{
+                        margin-left: 10px;
+                        border-radius: 100%;
+                        color: #cd0a0a;
+                    }
+                }
+            }
+        }
+        .profile-image-container{
+            width: 40px;
+            height: 40px;
+            .navbar-image{
+                width: 100%;
+                height: 100%;
+                border-radius: 100%;
+                box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            }
+            .notification-alert{
+                position: absolute;
+                top: 4px;
+                right: 0;
+                width: 5px;
+                height: 5px;
+                border-radius: 100%;
+                background-color: #cd0a0a;
+            }
         }
     }
 }
 
 .chakra-slide{
-    .navbar-form{
-        input{
-            border-radius: 20px;
+    .chakra-modal__body{
+        .nav-link{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
         }
     }
     .css-q7rpbt{
         &:focus{
             box-shadow: none! important;
         }
-    }
-}
-
-@media screen and (min-width:768px){
-    .navbar{
     }
 }

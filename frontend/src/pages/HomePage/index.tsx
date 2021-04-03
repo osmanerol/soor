@@ -1,25 +1,26 @@
 import React from 'react';
 import './index.scss';
 import { Container } from 'react-bootstrap';
-import { TeacherCard, Button, Comment } from '../../components';
+import { Filter, TeacherCard, Button, Comment, Footer } from '../../components';
 import { Link } from 'react-router-dom';
-import TypeWriter from 'typewriter-effect';
-import homepage from '../../assets/images/homepage.svg';
+import student from '../../assets/images/student.svg';
+import teacher from '../../assets/images/teacher.svg';
+import lesson from '../../assets/images/lesson.svg';
 
 const Index = () => {
-    const teachers = [
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-1-1.jpg', name:'Justin Hammer', to:'/teacher/justin-hammer', job:'Matematik Öğretmeni', rate:4 },
-        { image:'https://images.unsplash.com/photo-1499358517822-d8578907a095?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTM0fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Barbara Hammer', to:'/teacher/barbara-hammer', job:'Kimya Öğretmeni', rate:3 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-2.jpg', name:'Jessica Jones', to:'/teacher/jessica-jones', job:'Fizik Öğretmeni', rate:4 },
-        { image:'https://images.unsplash.com/photo-1517677129300-07b130802f46?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTM1fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Ashley Jones', to:'/teacher/ashley-jones', job:'Türkçe Öğretmeni', rate:4 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-3.jpg', name:'Barbara Hammer', to:'/teacher/barbara-hammer', job:'Edebiyat Öğretmeni', rate:5 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-4.jpg', name:'Rebecca Hammer', to:'/teacher/rebecca-jones', job:'Matematik Öğretmeni', rate:4 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-5.jpg', name:'Jason Roy', to:'/teacher/jason-roy', job:'Kimya Öğretmeni', rate:4 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-6.jpg', name:'Katherine Roy', to:'/teacher/katherine-roy', job:'Tarih Öğretmeni', rate:5 },
-        { image:'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzV8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Itav Roy', to:'/teacher/itav-roy', job:'Fizik Öğretmeni', rate:4 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-7.jpg', name:'John Roy', to:'/teacher/john-roy', job:'Biyoloji Öğretmeni', rate:4 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-7.jpg', name:'Natasha John', to:'/teacher/natasha-john', job:'Coğrafya Öğretmeni', rate:5 },
-        { image:'https://images.unsplash.com/photo-1529957713629-c085c35d0ef5?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTk0fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Victoria John', to:'/teacher/victoria-john', job:'Tarih Öğretmeni', rate:5 }
+    const teachers = [ 
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-1-1.jpg', name:'Justin Hammer', to:'/teacher/justin-hammer', job:'Matematik Öğretmeni', rate:4, price: 80 },
+        { image:'https://images.unsplash.com/photo-1499358517822-d8578907a095?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTM0fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Barbara Hammer', to:'/teacher/barbara-hammer', job:'Kimya Öğretmeni', rate:3, price: 100 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-2.jpg', name:'Jessica Jones', to:'/teacher/jessica-jones', job:'Fizik Öğretmeni', rate:4, price: 80 },
+        { image:'https://images.unsplash.com/photo-1517677129300-07b130802f46?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTM1fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Ashley Jones', to:'/teacher/ashley-jones', job:'Türkçe Öğretmeni', rate:4, price: 80 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-3.jpg', name:'Barbara Hammer', to:'/teacher/barbara-hammer', job:'Edebiyat Öğretmeni', rate:5, price: 100 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-4.jpg', name:'Rebecca Hammer', to:'/teacher/rebecca-jones', job:'Matematik Öğretmeni', rate:4, price: 80 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-5.jpg', name:'Jason Roy', to:'/teacher/jason-roy', job:'Kimya Öğretmeni', rate:4, price: 80 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-6.jpg', name:'Katherine Roy', to:'/teacher/katherine-roy', job:'Tarih Öğretmeni', rate:5, price: 80 },
+        { image:'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzV8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Itav Roy', to:'/teacher/itav-roy', job:'Fizik Öğretmeni', rate:4, price: 100 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-7.jpg', name:'John Roy', to:'/teacher/john-roy', job:'Biyoloji Öğretmeni', rate:4, price: 80 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-7.jpg', name:'Natasha John', to:'/teacher/natasha-john', job:'Coğrafya Öğretmeni', rate:5, price: 80 },
+        { image:'https://images.unsplash.com/photo-1529957713629-c085c35d0ef5?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTk0fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Victoria John', to:'/teacher/victoria-john', job:'Tarih Öğretmeni', rate:5, price: 100 }
     ]
 
     const studentComments = [
@@ -29,87 +30,75 @@ const Index = () => {
     ]
 
     return (
-        <div className='homepage-container'>
-            <Container>
-                <div className="top-content-container row p-0 m-0">
-                    <div className="col-md-6 col-12">
-                        <h2 className='title'>
-                            <TypeWriter
-                                options={{
-                                    strings: ['Bire bir dersler ve soru çözümleri', '7/24 anlık soru çözümü imkanı', 'Görüntülü görüşme ile hızlı ve anlaşılır çözümler', 'Tüm eğitim düzeylerinde farklı ders kategorileri', 'Uzman eğitmenler ile uzaktan eğitim'],
-                                    autoStart: true,
-                                    loop: true,
-                                }}
-                                onInit={(typewiter)=>{
-                                    typewiter.pauseFor(100).deleteAll().start()
-                                }}
-                            />
-                        </h2>
-                    </div>
-                    <div className="col-md-6 col-12 top-image">
-                        <img src={homepage} alt="homepage"/>
-                    </div>
-                </div>
-            </Container>
-            <div className="numeric-info-container mb-4">
+        <>
+            <div className='homepage-container'>
                 <Container>
-                    <div className="row">
-                        <div className="col-md-6 title">
-                            <h2 className='title'>Şimdiye Kadar Toplam</h2>
+                    <Filter />
+                    <div className='instructors-container'>
+                        <div className='text-center pb-4'>
+                            <h2 className='title'>Eğitmenler</h2>
+                            <h2 className='sub-title my-3 text-muted'>Bu hafta ders veren eğitmenlerden bazıları :</h2>
                         </div>
-                        <div className="col-md-6 row text-center data p-0 m-0">
-                            <div className="col-4">
-                                <h3 className='number'>340</h3>
-                                <p className='text'>Öğrenci</p>
+                        <div className='teachers-container row'>
+                            {
+                                teachers.map(item=>(
+                                    <TeacherCard key={item.image} className='col-lg-3 col-md-4 col-6' image={item.image} name={item.name} to={item.to} job={item.job} rate={item.rate} price={item.price} />
+                                ))
+                            }
+                            <div className='col-lg-4 col-md-5 col-sm-10 col-12 button-container mx-auto mt-2'>
+                                <Button text='Tüm eğitmenleri gör' as={Link} to='/' size='sm' />
                             </div>
-                            <div className="col-4">
-                                <h3 className='number'>145</h3>
-                                <p className='text'>Eğitmen</p>
+                        </div>
+                    </div>
+                </Container>
+                <div className='student-comments-container'>
+                    <Container>
+                        <div className='text-center'>
+                            <h2 className='title'>Öğrenci Yorumları</h2>
+                            <div className='col-lg-5 col-md-7 col-12 mx-auto'>
+                                <h2 className='sub-title my-3 text-muted'>Soor'da soru soran ve ders alan öğrencilerin Soor hakkındaki düşünceleri : </h2>
                             </div>
-                            <div className="col-4">
-                                <h3 className='number'>80</h3>
-                                <p className='text'>Canlı Ders</p>
+                        </div>
+                        <div className='comments-container row'>
+                            {
+                                studentComments.map(item=>(
+                                    <Comment className='col-lg-4 col-md-9 col-11 mx-auto' key={item.image} image={item.image} name={item.name} content={item.content} rate={item.rate} />
+                                ))
+                            }
+                        </div>
+                    </Container>
+                </div>
+                <Container>
+                    <div className='numeric-info-container'>
+                        <div className='text-center pb-4'>
+                            <h2 className='title'>Sayılarla Soor</h2>
+                            <h2 className='sub-title my-3 text-muted'>Şimdiye kadar toplam :</h2>
+                        </div>
+                        <div className='row p-0 m-0'>
+                            <div className='col-lg-4 col-md-4 col-12 mx-auto'>
+                                <div className='item'>
+                                    <img src={student} alt='student mx-auto'/>
+                                    <h2 className='sub-title mt-2'>340 Öğrenci</h2>
+                                </div>
+                            </div>
+                            <div className='col-lg-4 col-md-4 col-12 mx-auto'>
+                                <div className='item'>
+                                    <img src={teacher} alt='teacher'/>
+                                    <h2 className='sub-title mt-2'>76 Eğitmen</h2>
+                                </div>
+                            </div>
+                            <div className='col-lg-4 col-md-4 col-12 mx-auto'>
+                                <div className='item'>
+                                    <img src={lesson} alt='lesson'/>
+                                    <h2 className='sub-title mt-2'>44 Online Ders</h2>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </Container>
             </div>
-            <Container>
-                <div className='instructors-container my-4'>
-                    <div className="text-center">
-                        <h2 className='title'>Eğitmenler</h2>
-                        <h2 className='sub-title my-3 text-muted'>Bu hafta ders veren eğitmenlerden bazıları :</h2>
-                    </div>
-                    <div className="teachers-container row">
-                        {
-                            teachers.map(item=>(
-                                <TeacherCard key={item.image} className="col-lg-3 col-md-4 col-6" image={item.image} name={item.name} to={item.to} job={item.job} rate={item.rate} />
-                            ))
-                        }
-                        <div className="col-lg-4 col-md-5 col-sm-10 col-12 button-container mx-auto my-2">
-                            <Button text='Tüm eğitmenleri gör' as={Link} to='/' size='sm' />
-                        </div>
-                    </div>
-                </div>
-            </Container>
-            <div className="student-comments-container">
-                <Container>
-                    <div className="text-center">
-                        <h2 className='title'>Öğrenci Yorumları</h2>
-                        <div className='col-lg-5 col-md-7 col-12 mx-auto'>
-                            <h2 className='sub-title my-3 text-muted'>Soor'da soru soran ve ders alan öğrencilerin Soor hakkındaki düşünceleri : </h2>
-                        </div>
-                    </div>
-                    <div className="comments-container row">
-                        {
-                            studentComments.map(item=>(
-                                <Comment className='col-lg-4 col-md-9 col-11 mx-auto' key={item.image} image={item.image} name={item.name} content={item.content} rate={item.rate} />
-                            ))
-                        }
-                    </div>
-                </Container>
-            </div>
-        </div>
+            <Footer />
+        </>
     );
 };
 
