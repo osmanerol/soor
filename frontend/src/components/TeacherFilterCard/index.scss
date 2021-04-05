@@ -32,13 +32,9 @@
             }
             .detail-button{
                 .chakra-button{
-                    width: 120px! important;
                     background-color: #457b9d;
                     color: #fff;
                     transition: all .5s ease;
-                    &:hover{
-                        width: 140px! important;
-                    }
                 }
             }
         }
@@ -80,7 +76,16 @@
                 padding: 16px 24px;
             }
             .numeric-container{
-                font-size: .9em;
+                font-size: .85em;
+            }
+            .detail-button{
+                .chakra-button{
+                    font-size: .85em;
+                    width: 100px! important;
+                    &:hover{
+                        width: 120px! important;
+                    }
+                }
             }
         }
     }
@@ -94,11 +99,21 @@
                 width: 140px;
             }
             .info-container{
+                font-size: .9em;
                 width: calc(100% - 140px);
                 padding: 10px;
             }
             .numeric-container{
-                font-size: .9em;
+                font-size: .85em;
+            }
+            .detail-button{
+                .chakra-button{
+                    font-size: .85em;
+                    width: 100px! important;
+                    &:hover{
+                        width: 120px! important;
+                    }
+                }
             }
         }
     }
@@ -114,6 +129,14 @@
             .info-container{
                 width: calc(100% - 200px);
                 padding: 24px;
+            }
+            .detail-button{
+                .chakra-button{
+                    width: 120px! important;
+                    &:hover{
+                        width: 140px! important;
+                    }
+                }
             }
         }
     }

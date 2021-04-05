@@ -1,3 +1,4 @@
+import Autocomplete from './Autocomplete';
 import Button from './Button';
 import Navbar from './Navbar';
 import Input from './Input';
@@ -6,7 +7,9 @@ import Select from './Select';
 import Footer from './Footer';
 import TeacherCard from './TeacherCard';
 import Comment from './Comment';
+import CommentDetail from './CommentDetail';
 import Filter from './Filter';
-import TeachersFilterCard from './TeachersFilterCard';
+import TeacherFilterCard from './TeacherFilterCard';
+import TextArea from './TextArea';
 
-export { Button , Navbar, Input, PasswordInput, Select, Footer, TeacherCard, Comment, Filter, TeachersFilterCard }
+export { Autocomplete, Button , Navbar, Input, PasswordInput, Select, Footer, TeacherCard, Comment, CommentDetail, Filter, TeacherFilterCard, TextArea }

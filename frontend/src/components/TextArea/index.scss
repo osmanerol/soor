@@ -1,0 +1,11 @@
+.chakra-textarea{
+    &:focus{
+        box-shadow: none! important;
+        border-color: inherit! important;
+        outline: none! important;
+    }
+}
+    
+.error{
+    color: red;
+}

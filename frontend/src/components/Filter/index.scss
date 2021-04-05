@@ -1,51 +1,60 @@
 .top-content-container{
-    .top-filter{
+    background-image: url('../../assets/images/filter.jpg');
+    background-size: 100% 100%;
+    .overlay{
+        width: 100%;
+        height: 100%;
         display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        .header{
-            font-size: 24px;
-        }
-        .chakra-button{
-            background-color: #0e49b5;
-            color: #fff;
-        }
-    }
-    .top-image{
-        display: flex;
-        justify-content: center;
         align-items: center;
-        img{
-            width: 90%;
-            height: 90%;
+        background: rgba(0, 0, 0, .6);
+        backdrop-filter: blur(5px);
+        .top-filter{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            .header{
+                font-size: 24px;
+                color: #fff;
+            }
+            .chakra-button{
+                background-color: #0e49b5;
+                color: #fff;
+            }
+        }
+        .top-image{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img{
+                width: 90%;
+                height: 90%;
+            }
         }
     }
 }
 
 @media screen and (max-width: 576px){
     .top-content-container{
-        .top-filter{
-            padding: 10px 0 10px 0;
-            .header{
-                font-size: 18px;
+        height: 320px;
+        .overlay{
+            .top-filter{
+                padding: 10px 0 10px 0;
+                .header{
+                    font-size: 18px;
+                }
             }
-        }
-        .top-image{
-            padding-top: 10px;
-            padding-bottom: 10px;
         }
     }
 }
 
 @media screen and (min-width: 576px) and (max-width: 768px){
     .top-content-container{
+        height: 350px;
         .top-filter{
             padding-top: 20px;
             padding-bottom: 10px;
-        }
-        .top-image{
-            padding-top: 10px;
-            padding-bottom: 20px;
         }
     }
 }
@@ -53,12 +62,12 @@
 
 @media screen and (min-width: 768px) and (max-width: 992px){
     .top-content-container{
-        padding: 20px 0! important;
+        height: 350px;
     }
 }
 
 @media screen and (min-width: 992px){
     .top-content-container{
-        padding: 20px 0! important;
+        height: 480px;
     }
 }

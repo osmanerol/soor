@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './index.scss';
 import { Container } from 'react-bootstrap';
 import { Filter, TeacherCard, Button, Comment, Footer } from '../../components';
@@ -9,18 +9,18 @@ import lesson from '../../assets/images/lesson.svg';
 
 const Index = () => {
     const teachers = [ 
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-1-1.jpg', name:'Justin Hammer', to:'/teacher/justin-hammer', job:'Matematik Öğretmeni', rate:4, price: 80 },
-        { image:'https://images.unsplash.com/photo-1499358517822-d8578907a095?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTM0fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Barbara Hammer', to:'/teacher/barbara-hammer', job:'Kimya Öğretmeni', rate:3, price: 100 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-2.jpg', name:'Jessica Jones', to:'/teacher/jessica-jones', job:'Fizik Öğretmeni', rate:4, price: 80 },
-        { image:'https://images.unsplash.com/photo-1517677129300-07b130802f46?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTM1fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Ashley Jones', to:'/teacher/ashley-jones', job:'Türkçe Öğretmeni', rate:4, price: 80 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-3.jpg', name:'Barbara Hammer', to:'/teacher/barbara-hammer', job:'Edebiyat Öğretmeni', rate:5, price: 100 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-4.jpg', name:'Rebecca Hammer', to:'/teacher/rebecca-jones', job:'Matematik Öğretmeni', rate:4, price: 80 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-5.jpg', name:'Jason Roy', to:'/teacher/jason-roy', job:'Kimya Öğretmeni', rate:4, price: 80 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-6.jpg', name:'Katherine Roy', to:'/teacher/katherine-roy', job:'Tarih Öğretmeni', rate:5, price: 80 },
-        { image:'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzV8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Itav Roy', to:'/teacher/itav-roy', job:'Fizik Öğretmeni', rate:4, price: 100 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-7.jpg', name:'John Roy', to:'/teacher/john-roy', job:'Biyoloji Öğretmeni', rate:4, price: 80 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-7.jpg', name:'Natasha John', to:'/teacher/natasha-john', job:'Coğrafya Öğretmeni', rate:5, price: 80 },
-        { image:'https://images.unsplash.com/photo-1529957713629-c085c35d0ef5?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTk0fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Victoria John', to:'/teacher/victoria-john', job:'Tarih Öğretmeni', rate:5, price: 100 }
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-1-1.jpg', name:'Justin Hammer', slug:'/teacher/justin-hammer', job:'Matematik Öğretmeni', rate:4, price: 80 },
+        { image:'https://images.unsplash.com/photo-1499358517822-d8578907a095?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTM0fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Barbara Hammer', slug:'/teacher/barbara-hammer', job:'Kimya Öğretmeni', rate:3, price: 100 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-2.jpg', name:'Jessica Jones', slug:'/teacher/jessica-jones', job:'Fizik Öğretmeni', rate:4, price: 80 },
+        { image:'https://images.unsplash.com/photo-1517677129300-07b130802f46?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTM1fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Ashley Jones', slug:'/teacher/ashley-jones', job:'Türkçe Öğretmeni', rate:4, price: 80 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-3.jpg', name:'Barbara Hammer', slug:'/teacher/barbara-hammer', job:'Edebiyat Öğretmeni', rate:5, price: 100 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-4.jpg', name:'Rebecca Hammer', slug:'/teacher/rebecca-jones', job:'Matematik Öğretmeni', rate:4, price: 80 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-5.jpg', name:'Jason Roy', slug:'/teacher/jason-roy', job:'Kimya Öğretmeni', rate:4, price: 80 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-6.jpg', name:'Katherine Roy', slug:'/teacher/katherine-roy', job:'Tarih Öğretmeni', rate:5, price: 80 },
+        { image:'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzV8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Itav Roy', slug:'/teacher/itav-roy', job:'Fizik Öğretmeni', rate:4, price: 100 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-7.jpg', name:'John Roy', slug:'/teacher/john-roy', job:'Biyoloji Öğretmeni', rate:4, price: 80 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-7.jpg', name:'Natasha John', slug:'/teacher/natasha-john', job:'Coğrafya Öğretmeni', rate:5, price: 80 },
+        { image:'https://images.unsplash.com/photo-1529957713629-c085c35d0ef5?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTk0fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Victoria John', slug:'/teacher/victoria-john', job:'Tarih Öğretmeni', rate:5, price: 100 }
     ]
 
     const studentComments = [
@@ -29,11 +29,15 @@ const Index = () => {
         { image : 'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-7.jpg' , name: 'Valary Specter', content: ' This is a truly spectacular theme! The custom page builder is definitely one of the most intuitive and user-friendly page builders.', rate: 4},
     ]
 
+    useEffect(()=>{
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    })
+
     return (
         <>
             <div className='homepage-container'>
+                <Filter />
                 <Container>
-                    <Filter />
                     <div className='instructors-container'>
                         <div className='text-center pb-4'>
                             <h2 className='title'>Eğitmenler</h2>
@@ -42,7 +46,7 @@ const Index = () => {
                         <div className='teachers-container row'>
                             {
                                 teachers.map(item=>(
-                                    <TeacherCard key={item.image} className='col-lg-3 col-md-4 col-6' image={item.image} name={item.name} to={item.to} job={item.job} rate={item.rate} price={item.price} />
+                                    <TeacherCard key={item.image} className='col-lg-3 col-md-4 col-6' image={item.image} name={item.name} slug={item.slug} job={item.job} rate={item.rate} price={item.price} />
                                 ))
                             }
                             <div className='col-lg-4 col-md-5 col-sm-10 col-12 button-container mx-auto mt-2'>

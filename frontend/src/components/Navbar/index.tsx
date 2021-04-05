@@ -8,6 +8,7 @@ import { Drawer,  DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, Drawer
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import { BiMessageSquareDetail, BiUser, BiLogOutCircle, BiLogInCircle } from 'react-icons/bi';
 import { AiOutlineUserAdd } from 'react-icons/ai';
+import { GrMail, GrTwitter, GrLinkedin, GrInstagram } from 'react-icons/gr';
 import logo from '../../assets/images/logo.png';
 
 const Index = () => {
@@ -20,7 +21,7 @@ const Index = () => {
 
     useEffect(()=>{
         window.addEventListener('scroll', setYOffset)
-        setIsLoggedIn(false);
+        setIsLoggedIn(true);
         setNotification(2);
         setMessage(3); 
     }, [])
@@ -50,7 +51,7 @@ const Index = () => {
                                     </div>} id='nav-dropdown' className='navbar-dropdown' aria-expanded='true' show={isHover} onMouseEnter={()=>setIsHover(true)} onMouseLeave={()=>setIsHover(false)}>
                                     <NavDropdown.Item as={Link} to='/'><IoMdNotificationsOutline className='mr-2' />Bildirimler { notification > 0 && <small className='notification'>{ notification }</small>}</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to='/'><BiMessageSquareDetail className='mr-2' />Mesajlar { message > 0 && <small className='notification'>{ message }</small> }</NavDropdown.Item>
-                                    <NavDropdown.Item as={Link} to='/'><BiUser className='mr-2' />Profil</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to='/teacher/jessica-jones'><BiUser className='mr-2' />Profil</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to='/'><BiLogOutCircle className='mr-2' />Çıkış Yap</NavDropdown.Item>
                                 </NavDropdown>
                             </>
@@ -71,22 +72,36 @@ const Index = () => {
                                 <Form inline className='ml-auto navbar-form mb-3'>
                                     <Input placeholder='Ara' background='#f2f6fc' className='w-100' rightIcon={<Search2Icon color='gray' />} />
                                 </Form>
-                                <Nav className='ml-auto'>
-                                {
-                                    isLoggedIn ? 
-                                    <>
-                                        <Nav.Link as={Link} to='/' className='mb-3'><IoMdNotificationsOutline className='mr-2' />Bildirimler</Nav.Link>
-                                        <Nav.Link as={Link} to='/' className='mb-3'><BiMessageSquareDetail className='mr-2' />Mesajlar</Nav.Link>
-                                        <Nav.Link as={Link} to='/teacher/alikurt' className='mb-3' onClick={onClose}><BiUser className='mr-2' />Profil</Nav.Link>
-                                        <Nav.Link as={Link} to='/' className='mb-3' onClick={onClose}><BiLogOutCircle className='mr-2' />Çıkış Yap</Nav.Link>
-                                    </>
-                                    :
-                                    <>
-                                        <Nav.Link as={Link} to='/login' className='mb-3' onClick={onClose}><BiLogInCircle className='mr-2' />Giriş Yap</Nav.Link>
-                                        <Nav.Link as={Link} to='/signup' className='mb-3' onClick={onClose}><AiOutlineUserAdd className='mr-2' />Kaydol</Nav.Link>
-                                    </>
-                                }
-                                </Nav>
+                                <nav className='ml-auto'>
+                                    {
+                                        isLoggedIn ? 
+                                        <>
+                                            <Nav.Link as={Link} to='/' className='mb-3'><IoMdNotificationsOutline className='mr-2' />Bildirimler</Nav.Link>
+                                            <Nav.Link as={Link} to='/' className='mb-3'><BiMessageSquareDetail className='mr-2' />Mesajlar</Nav.Link>
+                                            <Nav.Link as={Link} to='/teacher/jessica-jones' className='mb-3' onClick={onClose}><BiUser className='mr-2' />Profil</Nav.Link>
+                                            <Nav.Link as={Link} to='/' className='mb-3' onClick={onClose}><BiLogOutCircle className='mr-2' />Çıkış Yap</Nav.Link>
+                                        </>
+                                        :
+                                        <>
+                                            <Nav.Link as={Link} to='/login' className='mb-3' onClick={onClose}><BiLogInCircle className='mr-2' />Giriş Yap</Nav.Link>
+                                            <Nav.Link as={Link} to='/signup' className='mb-3' onClick={onClose}><AiOutlineUserAdd className='mr-2' />Kaydol</Nav.Link>
+                                        </>
+                                    }
+                                    <div className='icons-container'>
+                                        <div className="item">
+                                            <GrMail />
+                                        </div>
+                                        <div className="item">
+                                            <GrTwitter />
+                                        </div>
+                                        <div className="item">
+                                            <GrLinkedin />
+                                        </div>
+                                        <div className="item">
+                                            <GrInstagram />
+                                        </div>
+                                    </div>
+                                </nav>
                             </DrawerBody>
                         </DrawerContent>
                     </DrawerOverlay>

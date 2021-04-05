@@ -9,19 +9,18 @@ interface IDefaultProps{
     image: string,
     name: string,
     job: string,
-    to: string
+    slug: string
     rate: number,
     price: number
 }
 
 const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
-    //const { className, image, name, job, to, rate, price} = props;
-    const { className, image, name, job, to, rate } = props;
+    const { className, image, name, job, slug, rate } = props;
     const history = useHistory();
 
     return (
         <div className={`${className} teacher-card-container`}>
-            <div className='teacher-card' onClick={()=>history.push(to)}>
+            <div className='teacher-card' onClick={()=>history.push(slug)}>
                 <div className='image-container'>
                     <img src={image} alt='teacher'/>
                     <div className='rate text-center'>
@@ -39,7 +38,7 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
                 </div>
                 <div className='text-container'>
                     <div className='text'>
-                        <Link to={to}>{name}</Link> 
+                        <Link to={slug}>{name}</Link> 
                         <small className='text-muted'>{job}</small>   
                     </div>
                     {

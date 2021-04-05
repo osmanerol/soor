@@ -16,7 +16,7 @@ interface IDefaultProps{
 }
 
 const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
-    const { className, text, placeholder, size, variant='outline', control, onChange=()=>{}, disabled } = props;
+    const { className, text, placeholder, size='md', variant='outline', control, onChange=()=>{}, disabled } = props;
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
 

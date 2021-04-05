@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './index.scss';
-import { Heading, useToast } from '@chakra-ui/react';
+import { useToast } from '@chakra-ui/react';
 import { Input, Button, PasswordInput } from '../../components';
 import { useForm } from 'react-hook-form';
 import { Link, useHistory } from 'react-router-dom';
@@ -37,11 +37,9 @@ const Index = () => {
                         <div className='title'>
                             <Link className='header' to='/'>
                                 <img src={logo} alt='logo'/>
-                                <Heading textStyle='general' as='h2' size='md' isTruncated>
-                                    Soor
-                                </Heading>
+                                <span className='header-title'>Soor</span>
                             </Link>
-                            <h2 className='sub-title text-center'>Giriş Yap</h2>
+                            <h2 className='header-sub-title text-center'>Giriş Yap</h2>
                         </div>
                         <div className='user-type'>
                             <div onClick={()=>setUserType(1)} className={userType===1 ? 'item text-center bg-shadow' : 'item text-center'}>

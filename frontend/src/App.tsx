@@ -4,9 +4,10 @@ import { Switch, Route, useLocation} from 'react-router-dom';
 
 import { Navbar } from './components'; 
 import HomePage from './pages/HomePage';
-import LessonFilterPage from './pages/LessonFilterPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import LessonFilterPage from './pages/LessonFilterPage';
+import TeacherProfilePage from './pages/TeacherProfilePage';
 /*
 import LessonFilterPage from './pages/LessonFilterPage';
 import TeacherProfilePage from './pages/TeacherProfilePage';
@@ -27,6 +28,7 @@ const App = () => {
         <Route path='/login' exact strict component={LoginPage} />
         <Route path='/signup' exact strict component={SignupPage} />
         <Route path='/lesson-filter/:lesson' exact strict component={LessonFilterPage} />
+        <Route path='/teacher/:teacher' exact strict component={TeacherProfilePage} />
         {
           /*
         <Route path='/lesson-filter/:lesson' exact strict component={LessonFilterPage} />
