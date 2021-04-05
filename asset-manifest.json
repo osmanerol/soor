@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/soor/static/css/main.bbb91ecd.chunk.css",
+    "main.js": "/soor/static/js/main.9466980a.chunk.js",
+    "main.js.map": "/soor/static/js/main.9466980a.chunk.js.map",
+    "runtime-main.js": "/soor/static/js/runtime-main.287b65d7.js",
+    "runtime-main.js.map": "/soor/static/js/runtime-main.287b65d7.js.map",
+    "static/css/2.150d169a.chunk.css": "/soor/static/css/2.150d169a.chunk.css",
+    "static/js/2.99561013.chunk.js": "/soor/static/js/2.99561013.chunk.js",
+    "static/js/2.99561013.chunk.js.map": "/soor/static/js/2.99561013.chunk.js.map",
+    "static/js/3.22f6a8c0.chunk.js": "/soor/static/js/3.22f6a8c0.chunk.js",
+    "static/js/3.22f6a8c0.chunk.js.map": "/soor/static/js/3.22f6a8c0.chunk.js.map",
+    "index.html": "/soor/index.html",
+    "static/css/2.150d169a.chunk.css.map": "/soor/static/css/2.150d169a.chunk.css.map",
+    "static/css/main.bbb91ecd.chunk.css.map": "/soor/static/css/main.bbb91ecd.chunk.css.map",
+    "static/js/2.99561013.chunk.js.LICENSE.txt": "/soor/static/js/2.99561013.chunk.js.LICENSE.txt",
+    "static/media/index.scss": "/soor/static/media/signup.116c3d75.jpg",
+    "static/media/lesson.5791892b.svg": "/soor/static/media/lesson.5791892b.svg",
+    "static/media/student.f639ec8d.svg": "/soor/static/media/student.f639ec8d.svg",
+    "static/media/teacher.aa6e6f43.svg": "/soor/static/media/teacher.aa6e6f43.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.287b65d7.js",
+    "static/css/2.150d169a.chunk.css",
+    "static/js/2.99561013.chunk.js",
+    "static/css/main.bbb91ecd.chunk.css",
+    "static/js/main.9466980a.chunk.js"
+  ]
+}
