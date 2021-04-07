@@ -1,9 +1,169 @@
+.teacher-filter-card{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    .header{
+        font-weight: 600;
+    }
+    .image-container{
+        overflow: hidden;
+        img{
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            transition: all .5s ease;
+        }
+    }
+    .info-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        .numeric-container{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .item{
+                text-align: center;
+            }
+        }
+        .detail-button{
+            .chakra-button{
+                background-color: #457b9d;
+                color: #fff;
+                transition: all .5s ease;
+            }
+        }
+    }
+    &:hover{
+        img{
+            transform: scale(1.05);
+        }
+    }
+}
+
+@media screen and (max-width: 576px){
+    .teacher-filter-card{
+        height: 160px;
+        .image-container{
+            width: 120px;
+        }
+        .info-container{
+            width: calc(100% - 120px);
+            padding: 14px;
+            .filter-card-name, .item-number{
+                font-size: 15px;
+            }
+            .item-text{
+                font-size: 13px;
+            }
+        }
+        .numeric-container{
+            font-size: .8em;
+        }
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px){
+    .teacher-filter-card{
+        height: 180px;
+        .image-container{
+            width: 140px;
+        }
+        .info-container{
+            width: calc(100% - 140px);
+            padding: 16px 24px;
+            .filter-card-name, .item-number{
+                font-size: 16px;
+            }
+            .item-text{
+                font-size: 14px;
+            }
+        }
+        .numeric-container{
+            font-size: .85em;
+        }
+        .detail-button{
+            .chakra-button{
+                font-size: .85em;
+                width: 100px! important;
+                &:hover{
+                    width: 120px! important;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px){
+    .teacher-filter-card{
+        height: 180px;
+        .image-container{
+            width: 120px;
+        }
+        .info-container{
+            font-size: .9em;
+            width: calc(100% - 120px);
+            padding: 12px;
+            .filter-card-name, .item-number{
+                font-size: 15px;
+            }
+            .item-text{
+                font-size: 13px;
+            }
+        }
+        .numeric-container{
+            font-size: .85em;
+        }
+        .detail-button{
+            .chakra-button{
+                font-size: .85em;
+                height: 28px;
+                width: 90px! important;
+                &:hover{
+                    width: 120px! important;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 992px){
+    .teacher-filter-card{
+        height: 220px;
+        .image-container{
+            width: 200px;
+        }
+        .info-container{
+            width: calc(100% - 200px);
+            padding: 24px;
+            .filter-card-name, .item-number{
+                font-size: 16px;
+            }
+            .item-text{
+                font-size: 14px;
+            }
+        }
+        .detail-button{
+            .chakra-button{
+                width: 120px! important;
+                &:hover{
+                    width: 140px! important;
+                }
+            }
+        }
+    }
+}
+/*
 .teacher-filter-card-container{
-    .teacher-card{
+    .teacher-filter-card{
         box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
         margin-bottom: 20px;
         display: flex;
         flex-direction: row;
+        .header{
+            font-weight: 600;
+        }
         .image-container{
             overflow: hidden;
             img{
@@ -17,11 +177,6 @@
             display: flex;
             flex-direction: column;
             justify-content: space-around;
-            .text-container{
-                .name{
-                    font-weight: 500;
-                }
-            }
             .numeric-container{
                 display: flex;
                 flex-direction: row;
@@ -48,7 +203,7 @@
 
 @media screen and (max-width: 576px){
     .teacher-filter-card-container{
-        .teacher-card{
+        .teacher-filter-card{
             height: 160px;
             .image-container{
                 width: 120px;
@@ -66,7 +221,7 @@
 
 @media screen and (min-width: 576px) and (max-width: 768px){
     .teacher-filter-card-container{
-        .teacher-card{
+        .teacher-filter-card{
             height: 180px;
             .image-container{
                 width: 140px;
@@ -93,15 +248,15 @@
 
 @media screen and (min-width: 768px) and (max-width: 992px){
     .teacher-filter-card-container{
-        .teacher-card{
-            height: 200px;
+        .teacher-filter-card{
+            height: 180px;
             .image-container{
                 width: 140px;
             }
             .info-container{
                 font-size: .9em;
                 width: calc(100% - 140px);
-                padding: 10px;
+                padding: 12px;
             }
             .numeric-container{
                 font-size: .85em;
@@ -109,7 +264,8 @@
             .detail-button{
                 .chakra-button{
                     font-size: .85em;
-                    width: 100px! important;
+                    height: 28px;
+                    width: 90px! important;
                     &:hover{
                         width: 120px! important;
                     }
@@ -121,7 +277,7 @@
 
 @media screen and (min-width: 992px){
     .teacher-filter-card-container{
-        .teacher-card{
+        .teacher-filter-card{
             height: 220px;
             .image-container{
                 width: 200px;
@@ -141,3 +297,4 @@
         }
     }
 }
+*/

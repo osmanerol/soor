@@ -35,10 +35,10 @@ const Index = (props: any) => {
                 <div className='col-md-6 col-12 form-container'>
                     <div className='form'>
                         <div className='title'>
-                            <Link className='header' to='/'>
-                                <img src={logo} alt='logo'/>
-                                <span className='header-title'>Soor</span>
-                            </Link>
+                                    <Link className='header' to='/'>
+                                        <img src={logo} alt='logo'/>
+                                        <span className='header-title'>Soor</span>
+                                    </Link>
                             <h2 className='header-sub-title text-center'>Kaydol</h2>
                         </div>
                         <div className='user-type'>
@@ -57,6 +57,11 @@ const Index = (props: any) => {
                             <Input text='E-posta adresi' control={control} variant='flushed' className='my-2' />
                             <PasswordInput text='Parola' control={control} variant='flushed' className='my-2' />
                             <Button text={userType===0 ? 'Kaydol' : userType===1 ? 'Öğrenci - Kaydol' : 'Eğitmen - Kaydol'} className='col-lg-7 col-md-10 mx-auto p-0 my-3' onClick={clickButton} disabled={userType===0} />
+                            <div className='text-center'>
+                                <small className='text-muted'>
+                                    Kaydolduğunda <Link to='/'>Üyelik Sözleşmesini</Link> ve <Link to='/'>Gizlilik Sözleşmesini</Link> kabul etmiş olursunuz.
+                                </small>
+                            </div>
                         </form>
                         <div className='go-sign text-center'>
                             <small className='text-muted'>

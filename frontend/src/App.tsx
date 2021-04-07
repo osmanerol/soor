@@ -25,16 +25,14 @@ const App = () => {
       }
       <Switch>
         <Route path='/' exact strict component={HomePage} />
-        <Route path='/login' exact strict component={LoginPage} />
-        <Route path='/signup' exact strict component={SignupPage} />
         <Route path='/lesson-filter/:lesson' exact strict component={LessonFilterPage} />
-        <Route path='/teacher/:teacher' exact strict component={TeacherProfilePage} />
         {
           /*
-        <Route path='/lesson-filter/:lesson' exact strict component={LessonFilterPage} />
-        <Route path='/teacher/:teacher' exact strict component={TeacherProfilePage} />
-        <Route path='/student/:student' exact strict component={StudentProfilePage} />
-        <Route exact strict component={NotFoundPage} />
+            <Route path='/' exact strict component={HomePage} />
+            <Route path='/login' exact strict component={LoginPage} />
+            <Route path='/signup' exact strict component={SignupPage} />
+            <Route path='/lesson-filter/:lesson' exact strict component={LessonFilterPage} />
+            <Route path='/teacher/:teacher' exact strict component={TeacherProfilePage} />
           */
         }
       </Switch>

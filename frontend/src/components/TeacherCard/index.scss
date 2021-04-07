@@ -1,4 +1,106 @@
-.teacher-card-container{
+.teacher-card{
+    margin-bottom: 14px;
+    transition: all .5s;
+    .image-container{
+        position: relative;
+        transition: all .5s;
+        overflow: hidden;
+        img{
+            width: 100%;
+            object-fit: cover;
+            transition: all .5s;
+        }
+        .rate{
+            position: absolute;
+            bottom: 0;
+            top: auto;
+            width: 100%;
+            background: rgba(0, 0, 0, .5);
+            padding-bottom: 2px;
+        }
+    }
+    .text-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        a{
+            margin: 6px 0 2px 0;
+            font-weight: 500;
+            text-decoration: none;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        small{
+            font-weight: 500;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+    &:hover{
+        cursor: pointer;
+        .image-container{
+            overflow: hidden;
+            img{
+                transform: scale(1.1);
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 380px){
+    .teacher-card{
+        .image-container{
+            img{
+                width: 158px;
+                height: 180px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 380px) and (max-width: 576px){
+    .teacher-card{
+        .image-container{
+            img{
+                height: 200px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px){
+    .teacher-card{
+        .image-container{
+            img{
+                height: 200px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px){
+    .teacher-card{
+        .image-container{
+            img{
+                height: 200px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 992px){
+    .teacher-card{
+        .image-container{
+            img{
+                height: 270px;
+            }
+        }
+    }
+}
+
+/*.teacher-card-container{
     margin-bottom: 20px;
     transition: all .5s;
     .teacher-card{
@@ -68,19 +170,19 @@
                 }
             }
         }
-    }
-    &:hover{
-        cursor: pointer;
-        .image-container{
-            overflow: hidden;
-            img{
-                transform: scale(1.1);
+        &:hover{
+            cursor: pointer;
+            .image-container{
+                overflow: hidden;
+                img{
+                    transform: scale(1.1);
+                }
             }
         }
     }
 }
 
-@media screen and (max-width: 356px){
+@media screen and (max-width: 380px){
     .teacher-card-container{
         display: flex;
         flex-direction: column;
@@ -89,7 +191,7 @@
             .image-container{
                 img{
                     width: 158px;
-                    height: 158px;
+                    height: 180px;
                 }
             }
             .text-container{
@@ -112,7 +214,7 @@
     }
 }
 
-@media screen and (min-width: 356px) and (max-width: 576px){
+@media screen and (min-width: 380px) and (max-width: 576px){
     .teacher-card-container{
         display: flex;
         flex-direction: column;
@@ -120,7 +222,7 @@
         .teacher-card{
             .image-container{
                 img{
-                    height: 160px;
+                    height: 220px;
                 }
             }
             .text-container{
@@ -148,7 +250,7 @@
         .teacher-card{
             .image-container{
                 img{
-                    height: 240px;
+                    height: 260px;
                 }
             }
         }
@@ -160,7 +262,7 @@
         .teacher-card{
             .image-container{
                 img{
-                    height: 210px;
+                    height: 250px;
                 }
             }
         }
@@ -172,9 +274,10 @@
         .teacher-card{
             .image-container{
                 img{
-                    height: 250px;
+                    height: 270px;
                 }
             }
         }
     }
 }
+*/

@@ -18,8 +18,8 @@ const Index : FC<IDefaultProps>= (props : IDefaultProps) => {
                 <img src={image} alt="student"/>
             </div>
             <div className="content-container py-3 px-3">
-                <p className='name mb-1'>{name}</p>
-                <p className='content mb-1'>{content}</p>
+                <p className='name text mb-1'>{name}</p>
+                <p className='content text mb-1'>{content}</p>
                 <div className="text-right">
                     <small className='text-muted'>{date}</small>
                 </div>

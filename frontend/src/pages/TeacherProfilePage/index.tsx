@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './index.scss';
-import { Button, Footer, CommentDetail, Input, PasswordInput, TextArea, Autocomplete } from '../../components';
+import { Button, Footer, CommentDetail, Input, PasswordInput, TextArea, Autocomplete, TakeLessonModal } from '../../components';
 import { Container } from 'react-bootstrap';
 import { StarIcon } from '@chakra-ui/icons';
 import { useToast } from  '@chakra-ui/react';
 import { RiImageAddLine } from 'react-icons/ri';
+import { FiMessageSquare } from 'react-icons/fi';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -60,7 +61,7 @@ const Index = () => {
     })
     
     useEffect(()=>{
-        setIsOwner(true);
+        setIsOwner(false);
         window.scrollTo({top: 0, behavior: 'smooth'});
     }, [])
 
@@ -106,9 +107,19 @@ const Index = () => {
 
     return (
         <div className='teacher-profile-page-container'>
-           <div className="cover"></div>
+           <div className="cover">
+               <Container>
+                    {
+                        !isOwner &&
+                        <div className="button-container">
+                            <Button text='Mesaj at' size='sm' leftIcon={<FiMessageSquare />} className='message-button' />
+                            <TakeLessonModal lessons={user.lessons} lessonPrice={user.lessonPrice} />
+                        </div>
+                    }
+               </Container>
+           </div>
             {
-               (isOwner && !isEdit) ?
+               (!isOwner || !isEdit) ?
                <>
                     <div className="personel-container bg-light">
                         <Container>
@@ -139,15 +150,15 @@ const Index = () => {
                             <div className="numeric-container">
                                 <div className='content'>
                                     <div className="item">
-                                        <p className='text'>{user.totalLesson}</p>
+                                        <p className='item-header'>{user.totalLesson}</p>
                                         <p className='number'>Ders</p>
                                     </div>
                                     <div className="item">
-                                        <p className='text'>{user.totalComment}</p>
+                                        <p className='item-header'>{user.totalComment}</p>
                                         <p className='number'>Yorum</p>
                                     </div>
                                     <div className="item">
-                                        <p className='text'>{user.lessonPrice} TL</p>
+                                        <p className='item-header'>{user.lessonPrice} TL</p>
                                         <p className='number'>Ücret</p>
                                     </div>
                                 </div>
@@ -171,7 +182,7 @@ const Index = () => {
                                         <div className="lessons-info py-3 px-3">
                                                 <p className='header mb-2'>Verdiği Dersler</p>
                                                 <ul>
-                                                    { user.lessons.map(item=><li key={item.id}>{item.name}</li>)}
+                                                    { user.lessons.map(item=><li key={item.id} className='text'>{item.name}</li>)}
                                                 </ul>
                                         </div>
                                     </div>

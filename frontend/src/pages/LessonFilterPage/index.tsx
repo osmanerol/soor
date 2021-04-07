@@ -28,10 +28,10 @@ const Index = () => {
            <Container>
                 <div className='teachers-container pt-4'>
                     <Heading as='h4' size='md'>'Matematik' dersi için sonuçlar</Heading>
-                    <div className='row teachers mt-4'>
+                    <div className='teachers-list mt-4'>
                         {
                             teachers.map(item=>(
-                                <TeacherFilterCard key={item.image} className='col-md-6 col-12 mx-auto' image={item.image} name={item.name} slug={item.slug} job={item.job} rate={item.rate} price={item.price} totalLesson={item.totalLesson} />
+                                <TeacherFilterCard key={item.image} image={item.image} name={item.name} slug={item.slug} job={item.job} rate={item.rate} price={item.price} totalLesson={item.totalLesson} />
                             ))
                         }
                     </div>

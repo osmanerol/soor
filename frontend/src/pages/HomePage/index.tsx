@@ -2,13 +2,12 @@ import React, { useEffect } from 'react';
 import './index.scss';
 import { Container } from 'react-bootstrap';
 import { Filter, TeacherCard, Button, Comment, Footer } from '../../components';
-import { Link } from 'react-router-dom';
 import student from '../../assets/images/student.svg';
 import teacher from '../../assets/images/teacher.svg';
 import lesson from '../../assets/images/lesson.svg';
 
 const Index = () => {
-    const teachers = [ 
+    const instructors = [ 
         { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-1-1.jpg', name:'Justin Hammer', slug:'/teacher/justin-hammer', job:'Matematik Öğretmeni', rate:4, price: 80 },
         { image:'https://images.unsplash.com/photo-1499358517822-d8578907a095?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTM0fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Barbara Hammer', slug:'/teacher/barbara-hammer', job:'Kimya Öğretmeni', rate:3, price: 100 },
         { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-2.jpg', name:'Jessica Jones', slug:'/teacher/jessica-jones', job:'Fizik Öğretmeni', rate:4, price: 80 },
@@ -25,12 +24,12 @@ const Index = () => {
 
     const studentComments = [
         { image : 'https://images.unsplash.com/photo-1557555187-23d685287bc3?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTl8fGdpcmx8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' , name: 'Harvey Specter', content: 'This is a truly spectacular theme! The custom page builder is definitely one of the most intuitive and user-friendly page builders.', rate: 4},
-        { image : 'https://images.unsplash.com/photo-1614940873537-487b4741dbaa?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OTh8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' , name: 'Christian Wayne', content: '  Great theme and efficient support! So much choice for design layout and functionality backed up with very knowledgable support staff.', rate: 5},
+        { image : 'https://images.unsplash.com/photo-1614940873537-487b4741dbaa?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OTh8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' , name: 'Christian Wayne', content: '  This is a truly spectacular theme! The custom page builder is definitely one of the most intuitive and user-friendly page builders', rate: 5},
         { image : 'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-7.jpg' , name: 'Valary Specter', content: ' This is a truly spectacular theme! The custom page builder is definitely one of the most intuitive and user-friendly page builders.', rate: 4},
     ]
 
     useEffect(()=>{
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        //window.scrollTo({top: 0, behavior: 'smooth'});
     })
 
     return (
@@ -39,34 +38,30 @@ const Index = () => {
                 <Filter />
                 <Container>
                     <div className='instructors-container'>
-                        <div className='text-center pb-4'>
+                        <div className='text-center'>
                             <h2 className='title'>Eğitmenler</h2>
-                            <h2 className='sub-title my-3 text-muted'>Bu hafta ders veren eğitmenlerden bazıları :</h2>
+                            <h2 className='sub-title py-3 text-muted'>Bu hafta ders veren eğitmenlerden bazıları :</h2>
                         </div>
-                        <div className='teachers-container row'>
+                        <div className='instructors-list mt-2'>
                             {
-                                teachers.map(item=>(
-                                    <TeacherCard key={item.image} className='col-lg-3 col-md-4 col-6' image={item.image} name={item.name} slug={item.slug} job={item.job} rate={item.rate} price={item.price} />
+                                instructors.map(item=>(
+                                    <TeacherCard key={item.image} image={item.image} name={item.name} job={item.job} rate={item.rate} slug={item.slug} />
                                 ))
                             }
-                            <div className='col-lg-4 col-md-5 col-sm-10 col-12 button-container mx-auto mt-2'>
-                                <Button text='Tüm eğitmenleri gör' as={Link} to='/' size='sm' />
-                            </div>
                         </div>
+                        <Button text='Tüm eğitmenleri gör' className='col-md-5 col-sm-8 col-12 mx-auto p-0 mx-0 mt-2 load-more-instructor-button' size='sm' />
                     </div>
-                </Container>
-                <div className='student-comments-container'>
+                </Container>    
+                <div className='students-comments-container'>
                     <Container>
                         <div className='text-center'>
                             <h2 className='title'>Öğrenci Yorumları</h2>
-                            <div className='col-lg-5 col-md-7 col-12 mx-auto'>
-                                <h2 className='sub-title my-3 text-muted'>Soor'da soru soran ve ders alan öğrencilerin Soor hakkındaki düşünceleri : </h2>
-                            </div>
+                            <h2 className='sub-title py-3 text-muted'>Soor kullanan öğrenciler ne düsünüyor ?</h2>
                         </div>
-                        <div className='comments-container row'>
+                        <div className='comments-list'>
                             {
                                 studentComments.map(item=>(
-                                    <Comment className='col-lg-4 col-md-9 col-11 mx-auto' key={item.image} image={item.image} name={item.name} content={item.content} rate={item.rate} />
+                                    <Comment key={item.image} image={item.image} name={item.name} content={item.content} rate={item.rate} />
                                 ))
                             }
                         </div>
@@ -74,28 +69,22 @@ const Index = () => {
                 </div>
                 <Container>
                     <div className='numeric-info-container'>
-                        <div className='text-center pb-4'>
+                        <div className='text-center'>
                             <h2 className='title'>Sayılarla Soor</h2>
-                            <h2 className='sub-title my-3 text-muted'>Şimdiye kadar toplam :</h2>
+                            <h2 className='sub-title py-3 text-muted'>Şimdiye kadar toplam :</h2>
                         </div>
-                        <div className='row p-0 m-0'>
-                            <div className='col-lg-4 col-md-4 col-12 mx-auto'>
-                                <div className='item'>
-                                    <img src={student} alt='student mx-auto'/>
-                                    <h2 className='sub-title mt-2'>340 Öğrenci</h2>
-                                </div>
+                        <div className='numeric-list mt-2'>
+                            <div>
+                                <img src={student} alt='student'/>
+                                <p className='mt-3'>44 Öğrenci</p>
                             </div>
-                            <div className='col-lg-4 col-md-4 col-12 mx-auto'>
-                                <div className='item'>
-                                    <img src={teacher} alt='teacher'/>
-                                    <h2 className='sub-title mt-2'>76 Eğitmen</h2>
-                                </div>
+                            <div>
+                                <img src={teacher} alt='teacher'/>
+                                <p className='mt-3'>23 Eğitmen</p>
                             </div>
-                            <div className='col-lg-4 col-md-4 col-12 mx-auto'>
-                                <div className='item'>
-                                    <img src={lesson} alt='lesson'/>
-                                    <h2 className='sub-title mt-2'>44 Online Ders</h2>
-                                </div>
+                            <div>
+                                <img src={lesson} alt='lesson'/>
+                                <p className='mt-3'>12 Canlı Ders</p>
                             </div>
                         </div>
                     </div>

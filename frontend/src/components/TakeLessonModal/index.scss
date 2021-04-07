@@ -1,0 +1,23 @@
+.css-q7rpbt{
+    &:focus{
+        box-shadow: none! important;
+    }
+}
+
+.chakra-modal__content{
+    .text-bold{
+        font-weight: 600;
+    }
+    .chakra-modal__footer{
+        .confirm-button, .cancel-button{
+            width: 140px! important;
+        }
+        .confirm-button{
+            margin-left: 10px;
+            .chakra-button{
+                background-color: #0e49b5;
+                color: #fff;
+            }
+        }
+    }
+}

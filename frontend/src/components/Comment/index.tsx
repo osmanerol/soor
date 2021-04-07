@@ -3,7 +3,6 @@ import './index.scss';
 import { StarIcon } from '@chakra-ui/icons';
 
 interface IDefaultProps{
-    className: string,
     image: string,
     name: string,
     content: string,
@@ -11,10 +10,10 @@ interface IDefaultProps{
 }
 
 const Index : FC<IDefaultProps>= (props : IDefaultProps) => {
-    const { className, image, name, content, rate } = props;
+    const { image, name, content, rate } = props;
 
     return (
-        <div className={`${className} comment-container text-center`}>
+        <div className='comment-container text-center'>
                 <img src={image} alt='student'/>
             <div className='text-container'>
                 <p className='name mb-3'>{name}</p>

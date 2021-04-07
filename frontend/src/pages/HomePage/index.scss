@@ -1,40 +1,33 @@
 .homepage-container{
-    margin-top: 62px;
-    .sub-title{
-        line-height: 1.8em;
-    }
+    margin-top: 72px;
     .instructors-container{
-        .chakra-button{
-            background-color: #0e49b5;
-            color: #fff;
-            &:hover{
-                text-decoration: none;
+        .instructors-list{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .load-more-instructor-button{
+            .chakra-button{
+                background-color: #0e49b5;
+                color: #fff;
             }
         }
-    }
-    .student-comments-container{
-        padding-top: 60px;
-        padding-bottom: 60px;
+    }   
+    .students-comments-container{
         background: #C9D6FF;  
         background: -webkit-linear-gradient(to left, #E2E2E2, #C9D6FF); 
         background: linear-gradient(to left, #E2E2E2, #C9D6FF);
     }
     .numeric-info-container{
-        .item{
-            padding: 40px;
-            background-color: #f9f9ff;
-            transition: all .5s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            img{
-                max-height: 150px;
-            }
-            .sub-title{
-                font-size: 16px;
-            }
-            &:hover{
+        .numeric-list{
+            & > *{
+                background-color: #f9f9ff;
                 box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
             }
         }
     }
@@ -42,30 +35,38 @@
 
 @media screen and (max-width: 576px){
     .homepage-container{
-        .instructors{
-            .button-container{
+        .instructors-container, .students-comments-container, .numeric-info-container{
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+        .instructors-container{
+            .instructors-list > *{
+                width: 46%;
+            }
+        }
+        .students-comments-container{
+            .comments-list{
                 display: flex;
-                flex-direction: row;
-                justify-content: center;
-                div{
-                    width: 300px! important;
+                flex-direction: column;
+                justify-content: space-between;
+                & > *{
+                    width: 100%;
                 }
             }
         }
-        .student-comments-container{
-            padding-top: 40px;
-            padding-bottom: 40px;
-            background-color: #f2f6fc;
-        }
-        .instructors-container, .numeric-info-container{
-            padding-top: 40px;
-            padding-bottom: 40px;
-        }
         .numeric-info-container{
-            .item{
-                margin-bottom: 20px;
-                .sub-title{
-                    font-size: 16px;
+            .numeric-list{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                & > *{
+                    width: 80%;
+                    padding: 20px;
+                    margin-bottom: 20px;
+                    img{
+                        height: 140px;
+                    }
                 }
             }
         }
@@ -74,53 +75,115 @@
 
 @media screen and (min-width: 576px) and (max-width: 768px){
     .homepage-container{
-        .student-comments-container, .instructors-container, .numeric-info-container{
-            padding-top: 50px;
-            padding-bottom: 50px;
+        .instructors-container, .students-comments-container, .numeric-info-container{
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+        .instructors-container{
+            .instructors-list > *{
+                width: 31%;
+            }
+        }
+        .students-comments-container{
+            .comments-list{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                & > *{
+                    width: 100%;
+                }
+            }
         }
         .numeric-info-container{
-            .item{
-                margin-bottom: 20px;
+            .numeric-list{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                & > *{
+                    width: 80%;
+                    padding: 30px;
+                    margin-bottom: 20px;
+                    img{
+                        height: 180px;
+                    }
+                }
             }
         }
     }
 }
 
-
 @media screen and (min-width: 768px) and (max-width: 992px){
     .homepage-container{
-        .numeric-info-container{
-            .title-container{
-                display: flex;
-                align-items: center;
-            }
-            .number{
-                font-size: 26px;
-                color: #4f46e5;
+        .instructors-container, .students-comments-container, .numeric-info-container{
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+        .instructors-container{
+            .instructors-list > *{
+                width: 23%;
             }
         }
-        .student-comments-container, .instructors-container, .numeric-info-container{
-            padding-top: 50px;
-            padding-bottom: 50px;
+        .students-comments-container{
+            .comments-list{
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                column-gap: 20px;
+                & > *{
+                    width: 45%;
+                }
+            }
+        }
+        .numeric-info-container{
+            .numeric-list{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                & > *{
+                    width: 32%;
+                    padding: 40px;
+                }
+            }
         }
     }
 }
 
 @media screen and (min-width: 992px){
     .homepage-container{
-        .numeric-info-container{
-            .title-container{
-                display: flex;
-                align-items: center;
-            }
-            .number{
-                font-size: 26px;
-                color: #4f46e5;
+        .instructors-container, .students-comments-container, .numeric-info-container{
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+        .instructors-container{
+            .instructors-list > *{
+                width: 22%;
             }
         }
-        .student-comments-container, .instructors-container, .numeric-info-container{
-            padding-top: 50px;
-            padding-bottom: 50px;
+        .students-comments-container{
+            .comments-list{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                & > *{
+                    width: 32%;
+                }
+            }
+        }
+        .numeric-info-container{
+            .numeric-list{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                & > *{
+                    width: 32%;
+                    padding: 40px;
+                    img{
+                        height: 160px;
+                    }
+                }
+            }
         }
     }
 }

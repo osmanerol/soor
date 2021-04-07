@@ -1,5 +1,13 @@
 .lesson-filter-page-container{
-    margin-top: 62px;
+    margin-top: 72px;
+    .teachers-container{
+        .teachers-list{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+    }
     .pagination-container{
         display: flex;
         flex-direction: row;
@@ -15,7 +23,38 @@
 @media screen and (max-width: 576px){
     .lesson-filter-page-container{
         .chakra-heading{
-            font-size: 18px;
+            font-size: 17px;
+        }
+        .teachers-container{
+            .teachers-list{
+                & > *{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px){
+    .lesson-filter-page-container{
+        .teachers-container{
+            .teachers-list{
+                & > *{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .lesson-filter-page-container{
+        .teachers-container{
+            .teachers-list{
+                & > *{
+                    width: 48%;
+                }
+            }
         }
     }
 }

@@ -13,6 +13,12 @@
     .sub-title{
         font-size: 14px; 
     }
+    .text{
+        font-size: 14px;
+    }
+    .sub-text{
+        font-size: 12px;
+    }
 }
 
 @media screen and (min-width: 576px) and (max-width: 768px){
@@ -21,6 +27,12 @@
     }
     .sub-title{
         font-size: 16px; 
+    }
+    .text{
+        font-size: 15px;
+    }
+    .sub-text{
+        font-size: 13px;
     }
 }
 
@@ -31,6 +43,12 @@
     .sub-title{
         font-size: 18px; 
     }
+    .text{
+        font-size: 15px;
+    }
+    .sub-text{
+        font-size: 13px;
+    }
 }
 
 @media screen and (min-width: 992px){
@@ -39,5 +57,11 @@
     }
     .sub-title{
         font-size: 18px; 
+    }
+    .text{
+        font-size: 16px;
+    }
+    .sub-text{
+        font-size: 13px;
     }
 }

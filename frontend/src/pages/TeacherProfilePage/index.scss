@@ -1,7 +1,28 @@
 .teacher-profile-page-container{
-    margin-top: 62px;
     .cover{
         background-image: url('../../assets/images/profile.jpg');
+        .button-container{
+            padding-top: 16px;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            .message-button, .lesson-button{
+                width: 120px! important;
+            }
+            .message-button{
+                margin-right: 10px;
+                .chakra-button{
+                    background-color: #f05945;
+                    color: #fff;
+                }
+            }
+            .lesson-button{
+                .chakra-button{
+                    background-color: #0e49b5;
+                    color: #fff;
+                }
+            }
+        }
     }
     .personel-container{
         .text-container{
@@ -45,7 +66,7 @@
                 flex-direction: row;
                 .item{
                     text-align: center;
-                    .text{
+                    .item-header{
                         font-weight: 600;
                     }
                 }
@@ -106,8 +127,17 @@
 
 @media screen and (max-width: 576px){
     .teacher-profile-page-container{
+        margin-top: 62px;
         .cover{
             height: 160px;
+            .button-container{
+                .message-button, .lesson-button{
+                    width: 100px! important;
+                    .chakra-button{
+                        font-size: 12px;
+                    }
+                }
+            }
         }
         .personel-container{
             .text-container{
@@ -131,10 +161,7 @@
                 padding: 20px 0;
                 .content{
                     .item{
-                        margin-left: 14px;
-                        .text{
-                            font-size: 16px;
-                        }
+                        margin-left: 14px; 
                         .number{
                             font-size: 12px;
                         }
@@ -145,9 +172,6 @@
         .about-container{
             .lessons-info{
                 margin-top: 20px;
-            }
-            p, li{
-                font-size: 13px;
             }
         }
         .edit-container{
@@ -160,6 +184,7 @@
 
 @media screen and (min-width: 576px) and (max-width: 768px){
     .teacher-profile-page-container{
+        margin-top: 62px;
         .cover{
             height: 160px;
         }
@@ -186,7 +211,7 @@
                 .content{
                     .item{
                         margin-left: 14px;
-                        .text{
+                        .item-header{
                             font-size: 18px;
                         }
                         .number{
@@ -200,9 +225,6 @@
             .lessons-info{
                 margin-top: 20px;
             }
-            p, li{
-                font-size: 13px;
-            }
         }
         .edit-container{
             .personal-update{
@@ -214,6 +236,7 @@
 
 @media screen and (min-width: 768px) and (max-width: 992px){
     .teacher-profile-page-container{
+        margin-top: 75.2px;
         .cover{
             height: 220px;
         }
@@ -240,7 +263,7 @@
                 .content{
                     .item{
                         margin-left: 22px;
-                        .text{
+                        .item-header{
                             font-size: 20px;
                         }
                         .number{
@@ -254,15 +277,13 @@
             .lessons-info{
                 margin-top: 20px;
             }
-            p, li{
-                font-size: 15px;
-            }
         }
     }
 }
 
 @media screen and (min-width: 992px){
     .teacher-profile-page-container{
+        margin-top: 75.2px;
         .cover{
             height: 220px;
         }
@@ -289,7 +310,7 @@
                 .content{
                     .item{
                         margin-left: 22px;
-                        .text{
+                        .item-header{
                             font-size: 22px;
                         }
                         .number{
@@ -301,11 +322,6 @@
         }
         .header{
             font-size: 18px;
-        }
-        .about{
-            p, li{
-                font-size: 15px;
-            }
         }
     }
 }

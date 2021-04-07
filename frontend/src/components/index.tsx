@@ -11,5 +11,6 @@ import CommentDetail from './CommentDetail';
 import Filter from './Filter';
 import TeacherFilterCard from './TeacherFilterCard';
 import TextArea from './TextArea';
+import TakeLessonModal from './TakeLessonModal';
 
-export { Autocomplete, Button , Navbar, Input, PasswordInput, Select, Footer, TeacherCard, Comment, CommentDetail, Filter, TeacherFilterCard, TextArea }
+export { Autocomplete, Button , Navbar, Input, PasswordInput, Select, Footer, TeacherCard, Comment, CommentDetail, Filter, TeacherFilterCard, TextArea, TakeLessonModal }
