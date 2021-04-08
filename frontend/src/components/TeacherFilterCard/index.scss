@@ -8,11 +8,29 @@
     }
     .image-container{
         overflow: hidden;
+        position: relative;
         img{
             height: 100%;
             width: 100%;
             object-fit: cover;
             transition: all .5s ease;
+        }
+        .status{
+            width: 8px;
+            height: 8px;
+            border-radius: 100%;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .status-0{
+            background-color: #ccc;
+        }
+        .status-1{
+            background-color: #1e6f5c;
+        }
+        .status-2{
+            background-color: #e48900;
         }
     }
     .info-container{
@@ -154,147 +172,3 @@
         }
     }
 }
-/*
-.teacher-filter-card-container{
-    .teacher-filter-card{
-        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-        margin-bottom: 20px;
-        display: flex;
-        flex-direction: row;
-        .header{
-            font-weight: 600;
-        }
-        .image-container{
-            overflow: hidden;
-            img{
-                height: 100%;
-                width: 100%;
-                object-fit: cover;
-                transition: all .5s ease;
-            }
-        }
-        .info-container{
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            .numeric-container{
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                .items{
-                    text-align: center;
-                }
-            }
-            .detail-button{
-                .chakra-button{
-                    background-color: #457b9d;
-                    color: #fff;
-                    transition: all .5s ease;
-                }
-            }
-        }
-    }
-    &:hover{
-        img{
-            transform: scale(1.05);
-        }
-    }
-}
-
-@media screen and (max-width: 576px){
-    .teacher-filter-card-container{
-        .teacher-filter-card{
-            height: 160px;
-            .image-container{
-                width: 120px;
-            }
-            .info-container{
-                width: calc(100% - 120px);
-                padding: 14px;
-            }
-            .numeric-container{
-                font-size: .8em;
-            }
-        }
-    }
-}
-
-@media screen and (min-width: 576px) and (max-width: 768px){
-    .teacher-filter-card-container{
-        .teacher-filter-card{
-            height: 180px;
-            .image-container{
-                width: 140px;
-            }
-            .info-container{
-                width: calc(100% - 140px);
-                padding: 16px 24px;
-            }
-            .numeric-container{
-                font-size: .85em;
-            }
-            .detail-button{
-                .chakra-button{
-                    font-size: .85em;
-                    width: 100px! important;
-                    &:hover{
-                        width: 120px! important;
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media screen and (min-width: 768px) and (max-width: 992px){
-    .teacher-filter-card-container{
-        .teacher-filter-card{
-            height: 180px;
-            .image-container{
-                width: 140px;
-            }
-            .info-container{
-                font-size: .9em;
-                width: calc(100% - 140px);
-                padding: 12px;
-            }
-            .numeric-container{
-                font-size: .85em;
-            }
-            .detail-button{
-                .chakra-button{
-                    font-size: .85em;
-                    height: 28px;
-                    width: 90px! important;
-                    &:hover{
-                        width: 120px! important;
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media screen and (min-width: 992px){
-    .teacher-filter-card-container{
-        .teacher-filter-card{
-            height: 220px;
-            .image-container{
-                width: 200px;
-            }
-            .info-container{
-                width: calc(100% - 200px);
-                padding: 24px;
-            }
-            .detail-button{
-                .chakra-button{
-                    width: 120px! important;
-                    &:hover{
-                        width: 140px! important;
-                    }
-                }
-            }
-        }
-    }
-}
-*/

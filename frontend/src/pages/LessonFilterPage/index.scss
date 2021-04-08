@@ -1,5 +1,35 @@
 .lesson-filter-page-container{
     margin-top: 72px;
+    .status-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        .item{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-left: 6px;
+            .status{
+                width: 8px;
+                height: 8px;
+                border-radius: 100%;
+                display: block;
+                margin-right: 4px;
+            }
+            .status-0{
+                background-color: #ccc;
+            }
+            .status-1{
+                background-color: #1e6f5c;
+            }
+            .status-2{
+                background-color: #e48900;
+            }
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
     .teachers-container{
         .teachers-list{
             display: flex;
