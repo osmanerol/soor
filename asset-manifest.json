@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/soor/static/css/main.d1dc9653.chunk.css",
-    "main.js": "/soor/static/js/main.ab516bc1.chunk.js",
-    "main.js.map": "/soor/static/js/main.ab516bc1.chunk.js.map",
-    "runtime-main.js": "/soor/static/js/runtime-main.ca1ffb0c.js",
-    "runtime-main.js.map": "/soor/static/js/runtime-main.ca1ffb0c.js.map",
+    "main.css": "/soor/static/css/main.1956f3e7.chunk.css",
+    "main.js": "/soor/static/js/main.db5cef04.chunk.js",
+    "main.js.map": "/soor/static/js/main.db5cef04.chunk.js.map",
+    "runtime-main.js": "/soor/static/js/runtime-main.73018241.js",
+    "runtime-main.js.map": "/soor/static/js/runtime-main.73018241.js.map",
     "static/css/2.150d169a.chunk.css": "/soor/static/css/2.150d169a.chunk.css",
-    "static/js/2.c80173ee.chunk.js": "/soor/static/js/2.c80173ee.chunk.js",
-    "static/js/2.c80173ee.chunk.js.map": "/soor/static/js/2.c80173ee.chunk.js.map",
-    "static/js/3.07aa7497.chunk.js": "/soor/static/js/3.07aa7497.chunk.js",
-    "static/js/3.07aa7497.chunk.js.map": "/soor/static/js/3.07aa7497.chunk.js.map",
+    "static/js/2.692373a8.chunk.js": "/soor/static/js/2.692373a8.chunk.js",
+    "static/js/2.692373a8.chunk.js.map": "/soor/static/js/2.692373a8.chunk.js.map",
+    "static/js/3.b28f5601.chunk.js": "/soor/static/js/3.b28f5601.chunk.js",
+    "static/js/3.b28f5601.chunk.js.map": "/soor/static/js/3.b28f5601.chunk.js.map",
     "index.html": "/soor/index.html",
     "static/css/2.150d169a.chunk.css.map": "/soor/static/css/2.150d169a.chunk.css.map",
-    "static/css/main.d1dc9653.chunk.css.map": "/soor/static/css/main.d1dc9653.chunk.css.map",
-    "static/js/2.c80173ee.chunk.js.LICENSE.txt": "/soor/static/js/2.c80173ee.chunk.js.LICENSE.txt",
-    "static/media/index.scss": "/soor/static/media/filter.97565f70.jpg",
+    "static/css/main.1956f3e7.chunk.css.map": "/soor/static/css/main.1956f3e7.chunk.css.map",
+    "static/js/2.692373a8.chunk.js.LICENSE.txt": "/soor/static/js/2.692373a8.chunk.js.LICENSE.txt",
+    "static/media/index.scss": "/soor/static/media/signup.116c3d75.jpg",
     "static/media/lesson.5791892b.svg": "/soor/static/media/lesson.5791892b.svg",
     "static/media/student.f639ec8d.svg": "/soor/static/media/student.f639ec8d.svg",
     "static/media/teacher.aa6e6f43.svg": "/soor/static/media/teacher.aa6e6f43.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.ca1ffb0c.js",
+    "static/js/runtime-main.73018241.js",
     "static/css/2.150d169a.chunk.css",
-    "static/js/2.c80173ee.chunk.js",
-    "static/css/main.d1dc9653.chunk.css",
-    "static/js/main.ab516bc1.chunk.js"
+    "static/js/2.692373a8.chunk.js",
+    "static/css/main.1956f3e7.chunk.css",
+    "static/js/main.db5cef04.chunk.js"
   ]
 }
