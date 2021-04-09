@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import './index.scss';
 
 interface IDefaultProps{
-    className: string,
     image: string,
     name: string,
     content: string,
@@ -10,14 +9,14 @@ interface IDefaultProps{
 }
 
 const Index : FC<IDefaultProps>= (props : IDefaultProps) => {
-    const { className, image, name, content, date } = props;
+    const { image, name, content, date } = props;
 
     return (
-        <div className={`${className} comment-detail-container`}>
+        <div className='comment-detail-container p-3'>
             <div className="image-container">
                 <img src={image} alt="student"/>
             </div>
-            <div className="content-container py-3 px-3">
+            <div className="content-container">
                 <p className='name text mb-1'>{name}</p>
                 <p className='content text mb-1'>{content}</p>
                 <div className="text-right">

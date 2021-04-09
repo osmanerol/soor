@@ -3,6 +3,8 @@
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    background-color: #fff;
     .image-container{
         img{
             width: 100%;
@@ -13,8 +15,6 @@
         }
     }
     .content-container{ 
-        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-        background-color: #f8f9fa;
         .name{
             font-weight: 600;
         }
@@ -24,8 +24,8 @@
 @media screen and (max-width: 768px){
     .comment-detail-container{
         .image-container{
-            width: 46px;
-            height: 46px;
+            width: 40px;
+            height: 40px;
         }
         .content-container{
             width: calc(100% - 60px);
@@ -36,11 +36,11 @@
 @media screen and (min-width: 768px) and (max-width: 992px){
     .comment-detail-container{
         .image-container{
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
         }
         .content-container{
-            width: calc(100% - 80px);
+            width: calc(100% - 70px);
         }
     }
 }
@@ -48,11 +48,11 @@
 @media screen and (min-width: 992px){
     .comment-detail-container{
         .image-container{
-            width: 60px;
-            height: 60px;
+            width: 56px;
+            height: 56px;
         }
         .content-container{
-            width: calc(100% - 80px);
+            width: calc(100% - 76px);
         }
     }
 }

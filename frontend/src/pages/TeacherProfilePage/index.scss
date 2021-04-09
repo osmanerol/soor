@@ -1,18 +1,100 @@
 .teacher-profile-page-container{
+    margin-top: 72px;
     .cover{
+        width: 100%;
         background-image: url('../../assets/images/profile.jpg');
-        .button-container{
-            padding-top: 16px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100% 100%;
+        .container{
+            position: relative;
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             justify-content: flex-end;
-            .message-button, .lesson-button{
-                width: 120px! important;
-            }
-            .message-button{
-                margin-right: 10px;
+            .update-button{
+                width: 50px! important;
+                margin-left: auto;
+                margin-bottom: 10px;
                 .chakra-button{
-                    background-color: #f05945;
+                    background-color: #e8eae6;
+                    color: #fff;
+                    .chakra-button__icon{
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+    .personal-info-container{
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        background-color: #fff;
+        .container{
+            .image-container{
+                background-color: #fff;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 100%;
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+                position: absolute;
+                img{
+                    width: 96%;
+                    height: 96%;
+                    border-radius: 100%;
+                    object-fit: cover;
+                }
+            }
+            .text-info-container{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                .name{
+                    font-weight: 600;
+                }
+                .education-info-container{
+                    display: flex;
+                    flex-direction: column;
+                    flex-wrap: wrap;
+                }
+            }
+        }
+    }
+    .about-container{
+        .numeric-info-container{
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            background-color: #fff;
+            width: 100%;
+            padding: 20px;
+            .items{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                .item{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    .item-number{
+                        font-weight: 600;
+                    }
+                    .item-text{
+                        font-size: .8em;
+                    }
+                }
+            }
+            .rate{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                .rate-number{
+                    font-weight: 600;
+                    font-size: 1.2em;
+                    margin-right: 6px;
+                }
+            }
+            .send-message-button{
+                .chakra-button{
+                    background-color: #457b9d;
                     color: #fff;
                 }
             }
@@ -23,93 +105,54 @@
                 }
             }
         }
-    }
-    .personel-container{
-        .text-container{
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            .edit-container{
-                .image-container{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    background-color: #fff;
-                    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-                    border-radius: 6px;
-                    width: 100%;
-                    height: 100%;
-                    img{
-                        object-fit: cover;
-                        width: 94%;
-                        height: 94%;
-                    }
-                }
-                .chakra-button{
-                    margin-top: 6px;
-                    background-color: #fff;
-                }
-            }
-            .name-container{
-                color: #fff;
-                .name{
-                    font-weight: 600;
-                }
-            }
-        }
-        .numeric-container{
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-end;
-            .content{
-                display: flex;
-                flex-direction: row;
-                .item{
-                    text-align: center;
-                    .item-header{
-                        font-weight: 600;
-                    }
-                }
-            }
-        }
-    }
-    .header{
-        font-weight: 600;
-    }
-    .about-container{
-        .about-info, .lessons-info{
-            background-color: #f8f9fa;
+        .about-text-container{
+            padding: 20px;
+            background-color: #fff;
             box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            ul{
+                padding-left: 30px;
+            }
+            .about-title{
+                font-weight: 600;
+            }
         }
-        ul{
-            padding-left: 20px;
+        .student-comments-container{
+            .about-title{
+                font-weight: 600;
+            }
+            .load-more-button{
+                .chakra-button{
+                    background-color: #0e49b5;
+                    color: #fff;
+                }
+            }
         }
     }
-    .students-comments-container{
-        .chakra-button{
-            background-color: #457b9d;
-            color: #fff;
+    .update-form{
+        .update-form-title{
+            font-weight: 600;
         }
-    }
-    .edit-container{
-        .update-profile-picture-container{
+        .image-update-container{
             display: flex;
             flex-direction: row;
             align-items: center;
             .image-container{
-                width: 120px;
-                height: 120px;
+                margin-right: 20px;
                 img{
                     width: 100%;
                     height: 100%;
+                    border-radius: 100%;
                     object-fit: cover;
                 }
             }
             .image-upload{
-                width: 150px! important;
+                width: 60px! important;
                 .chakra-button{
-                    background-color: #007ea7;
+                    background-color: #e8eae6;
                     color: #fff;
+                    .chakra-button__icon{
+                        margin: 0;
+                    }
                 }
             }
             #upload-button{
@@ -127,56 +170,42 @@
 
 @media screen and (max-width: 576px){
     .teacher-profile-page-container{
-        margin-top: 62px;
         .cover{
-            height: 160px;
-            .button-container{
-                .message-button, .lesson-button{
-                    width: 100px! important;
-                    .chakra-button{
-                        font-size: 12px;
-                    }
-                }
-            }
+            height: 140px;
         }
-        .personel-container{
-            .text-container{
-                position: absolute;
-                margin-top: -100px;
-                .edit-container{
-                    width: 120px;
-                    height: 120px;
-                    margin-right: 10px;
+        .personal-info-container{
+            .container{
+                display: flex;
+                flex-direction: column;
+                .image-container{
+                    width: 90px;
+                    height: 90px;
+                    margin-top: -45px;
                 }
-                .name-container{
+                .text-info-container{
+                    margin-top: 46px;
+                    padding: 10px 10px 20px 10px;
                     .name{
-                        font-size: 16px;
-                    }
-                    .job{
-                        font-size: 12px;
-                    }
-                }
-            }
-            .numeric-container{
-                padding: 20px 0;
-                .content{
-                    .item{
-                        margin-left: 14px; 
-                        .number{
-                            font-size: 12px;
-                        }
-                    }
+                        font-size: 18px;
+                    }   
                 }
             }
         }
         .about-container{
-            .lessons-info{
-                margin-top: 20px;
+            .numeric-info-container{
+                .rate{
+                    .rate-number{
+                        font-size: 16px;
+                    }
+                }                
             }
         }
-        .edit-container{
-            .personal-update{
-                padding-bottom: 20px;
+        .update-form{
+            .image-update-container{
+                .image-container{
+                    width: 80px;
+                    height: 80px;
+                }
             }
         }
     }
@@ -184,51 +213,30 @@
 
 @media screen and (min-width: 576px) and (max-width: 768px){
     .teacher-profile-page-container{
-        margin-top: 62px;
         .cover{
-            height: 160px;
+            height: 120px;
         }
-        .personel-container{
-            .text-container{
-                position: absolute;
-                margin-top: -110px;
-                .edit-container{
-                    width: 140px;
-                    height: 140px;
-                    margin-right: 20px;
-                }
-                .name-container{
-                    .name{
-                        font-size: 20px;
-                    }
-                    .job{
-                        font-size: 14px;
-                    }
-                }
+        .personal-info-container{
+            .image-container{
+                width: 120px;
+                height: 120px;
+                margin-top: -60px;
             }
-            .numeric-container{
+            .text-info-container{
+                height: 120px;
+                margin-left: 140px;
                 padding: 20px 0;
-                .content{
-                    .item{
-                        margin-left: 14px;
-                        .item-header{
-                            font-size: 18px;
-                        }
-                        .number{
-                            font-size: 12px;
-                        }
-                    }
+                .name{
+                    font-size: 20px;
+                }   
+            }
+        }
+        .update-form{
+            .image-update-container{
+                .image-container{
+                    width: 120px;
+                    height: 120px;
                 }
-            }
-        }
-        .about-container{
-            .lessons-info{
-                margin-top: 20px;
-            }
-        }
-        .edit-container{
-            .personal-update{
-                padding-bottom: 30px;
             }
         }
     }
@@ -236,46 +244,30 @@
 
 @media screen and (min-width: 768px) and (max-width: 992px){
     .teacher-profile-page-container{
-        margin-top: 75.2px;
         .cover{
-            height: 220px;
+            height: 160px;
         }
-        .personel-container{
-            .text-container{
-                position: absolute;
-                margin-top: -136px;
-                .edit-container{
-                    width: 180px;
-                    height: 180px;
-                    margin-right: 20px;
-                }
-                .name-container{
-                    .name{
-                        font-size: 20px;
-                    }
-                    .job{
-                        font-size: 14px;
-                    }
-                }
+        .personal-info-container{
+            .image-container{
+                width: 140px;
+                height: 140px;
+                margin-top: -70px;
             }
-            .numeric-container{
-                padding: 30px 10px;
-                .content{
-                    .item{
-                        margin-left: 22px;
-                        .item-header{
-                            font-size: 20px;
-                        }
-                        .number{
-                            font-size: 14px;
-                        }
-                    }
+            .text-info-container{
+                height: 120px;
+                margin-left: 160px;
+                padding: 20px 0;
+                .name{
+                    font-size: 20px;
                 }
             }
         }
-        .about-container{
-            .lessons-info{
-                margin-top: 20px;
+        .update-form{
+            .image-update-container{
+                .image-container{
+                    width: 100px;
+                    height: 100px;
+                }
             }
         }
     }
@@ -283,45 +275,31 @@
 
 @media screen and (min-width: 992px){
     .teacher-profile-page-container{
-        margin-top: 75.2px;
         .cover{
-            height: 220px;
+            height: 200px;
         }
-        .personel-container{
-            .text-container{
-                position: absolute;
-                margin-top: -144px;
-                .edit-container{
-                    width: 200px;
-                    height: 200px;
-                    margin-right: 20px;
-                }
-                .name-container{
-                    .name{
-                        font-size: 20px;
-                    }
-                    .job{
-                        font-size: 14px;
-                    }
-                }
+        .personal-info-container{
+            .image-container{
+                width: 180px;
+                height: 180px;
+                margin-top: -90px;
             }
-            .numeric-container{
-                padding: 30px 10px;
-                .content{
-                    .item{
-                        margin-left: 22px;
-                        .item-header{
-                            font-size: 22px;
-                        }
-                        .number{
-                            font-size: 14px;
-                        }
-                    }
+            .text-info-container{
+                height: 140px;
+                margin-left: 220px;
+                padding: 20px 0;
+                .name{
+                    font-size: 24px;
                 }
             }
         }
-        .header{
-            font-size: 18px;
+        .update-form{
+            .image-update-container{
+                .image-container{
+                    width: 120px;
+                    height: 120px;
+                }
+            }
         }
     }
 }
