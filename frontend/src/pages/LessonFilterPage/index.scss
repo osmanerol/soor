@@ -1,5 +1,9 @@
 .lesson-filter-page-container{
-    margin-top: 72px;
+    padding-top: 70px;
+    min-height: 80%;
+    .chakra-heading{
+        font-weight: 500;
+    }
     .status-container{
         display: flex;
         flex-direction: row;
@@ -31,11 +35,17 @@
         }
     }
     .teachers-container{
-        .teachers-list{
+        .instructors-list{
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             flex-wrap: wrap;
+        }
+        .load-more-instructor-button{
+            .chakra-button{
+                background-color: #457b9d;
+                color: #fff;
+            }
         }
     }
     .pagination-container{
@@ -56,7 +66,7 @@
             font-size: 17px;
         }
         .teachers-container{
-            .teachers-list{
+            .instructors-list{
                 & > *{
                     width: 100%;
                 }
@@ -68,7 +78,7 @@
 @media screen and (min-width: 576px) and (max-width: 768px){
     .lesson-filter-page-container{
         .teachers-container{
-            .teachers-list{
+            .instructors-list{
                 & > *{
                     width: 100%;
                 }
@@ -80,7 +90,7 @@
 @media screen and (min-width: 768px) {
     .lesson-filter-page-container{
         .teachers-container{
-            .teachers-list{
+            .instructors-list{
                 & > *{
                     width: 48%;
                 }

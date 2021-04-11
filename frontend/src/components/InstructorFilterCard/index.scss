@@ -15,6 +15,14 @@
             object-fit: cover;
             transition: all .5s ease;
         }
+        .rate{
+            position: absolute;
+            bottom: 0;
+            top: auto;
+            width: 100%;
+            background: rgba(0, 0, 0, .5);
+            padding-bottom: 2px;
+        }
         .status{
             width: 8px;
             height: 8px;

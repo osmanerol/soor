@@ -27,7 +27,7 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
                             .map((_, i) => (
                             <StarIcon
                                 key={i}
-                                color={i < rate ? 'yellow.400' : 'gray.300'}
+                                color={i+1 <= rate ? 'yellow.400' : 'gray.300'}
                             />
                             ))}
                     </small>

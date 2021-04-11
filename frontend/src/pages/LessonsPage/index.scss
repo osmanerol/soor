@@ -1,0 +1,45 @@
+.lessons-page-container{
+    margin-top: 70px;
+    min-height: 80%;
+    font-size: .9em;
+    .table{
+        th{
+            font-weight: 600;
+        }
+        td, th{
+            vertical-align: inherit;
+            white-space: nowrap;
+        }
+    }
+    .pagination-container{
+        display: flex;
+        justify-content: flex-end;
+        .page-link{
+            color: #000;
+            &:focus{
+                box-shadow: none! important;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 576px){
+    .lessons-page-container{
+        .lessons{
+            overflow-x: scroll;
+        }
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px){
+    .lessons-page-container{
+        .lessons{
+            overflow-x: scroll;
+            .table{
+                th{
+                    width: 200px;
+                }
+            }
+        }
+    }
+}

@@ -21,7 +21,7 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
     return (
         <div>
             <Button text='Soru sor' size='sm' leftIcon={<FaQuestion />} className='lesson-button' onClick={onOpen}>Open Modal</Button>
-            <Modal onClose={onClose} size={"xl"} isOpen={isOpen}>
+            <Modal onClose={onClose} size={'xl'} isOpen={isOpen}>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>Soru sor</ModalHeader>
@@ -32,18 +32,18 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
                             <>
                                 <div className='mb-3'>
                                     <p>Hangi derste soru sormak istiyorsunuz ?<span className='text-danger ml-1'>*</span></p>
-                                    <Select datas={lessons} placeholder='Ders seç' onChange={(event: any)=>setSelectedLesson(parseInt(event.target.value))} id='id' value='name' control={control}/>
+                                    <Select datas={lessons} placeholder='Ders seç' size='sm' onChange={(event: any)=>setSelectedLesson(parseInt(event.target.value))} id='id' value='name' control={control}/>
                                 </div>
                                 <div className='mb-3'>
                                     <p>Soracağınız sorularınn fotoğraflarını yüklemek ister misiniz ?</p>
                                     <input type='file' className='mt-2' multiple />
                                 </div>
-                                <div className="mb-3 lesson-information">
-                                    <p className='text-success'>Ders ücreti <span className='text-bold'>{lessonPrice} TL</span> ders bitiminde hesabından çekilecektir. Eğitmen onayından sonra derslerim alanında bildirim olarak ders linkini görebilirsin. Link'e 5 dakika içinde tıklayarak derste olmanı bekliyoruz. İyi dersler...</p>
+                                <div className='mb-3 lesson-information'>
+                                    <p>Ders ücreti <span className='text-bold'>{lessonPrice} TL</span> ders bitiminde hesabından çekilecektir. Eğitmen onayından sonra derslerim alanında bildirim olarak ders linkini görebilirsin. Link'e 5 dakika içinde tıklayarak derste olmanı bekliyoruz. İyi dersler...</p>
                                 </div>
                             </> :
                             <>
-                                <div className="mb-3">
+                                <div className='mb-3'>
                                     <p className='text-danger'>Bakiyeniz soru sormak için yeterli değil. Bakiye yüklemek için <Link to='/'>tıklayınız.</Link> </p>
                                 </div>
                             </>
@@ -52,7 +52,7 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
                     <ModalFooter>
                         <Button text='Vazgeç' size='sm' className='cancel-button' onClick={onClose} />
                         {
-                            amount >= lessonPrice && <Button text='Onayla' size='sm' className='confirm-button' disabled={lesson === -1} />
+                            amount >= lessonPrice && <Button text='Onayla' size='sm' className='confirm-button' disabled={lesson === -1} onClick={onClose} />
                         }
                     </ModalFooter>
                 </ModalContent>

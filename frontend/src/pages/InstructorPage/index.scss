@@ -1,0 +1,295 @@
+.teacher-profile-page-container{
+    padding-top: 70px;
+    min-height: 80%;
+    .cover{
+        width: 100%;
+        background-color: #2b2e4a;
+    }
+    .profile-container{
+        width: 100%;
+        padding-bottom: 40px;
+        background-color: #fff;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        .personal-info-container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .image-container{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 100%;
+                background-color: #fff;
+                img{
+                    width: 96%;
+                    height: 96%;
+                    border-radius: 100%;
+                    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+                }
+            }
+            .name-container{
+                .name{
+                    font-weight: 500;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    .status{
+                        width: 8px;
+                        height: 8px;
+                        border-radius: 100%;
+                        display: block;
+                    }
+                    .status-0{
+                        background-color: #ccc;
+                    }
+                    .status-1{
+                        background-color: #1e6f5c;
+                    }
+                    .status-2{
+                        background-color: #e48900;
+                    }
+                }
+                .job{
+                    opacity: .9;
+                    display: flex;
+                    flex-direction: row;
+                }
+            }
+            .numeric-info-container{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                .item{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    .item-number{
+                        font-weight: 500;
+                    }
+                    .item-text{
+                        opacity: .9;
+                    }
+                }
+            }
+            .button-container{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                & > *{
+                    width: 48%! important;
+                }
+                .send-message-button{
+                    .chakra-button{
+                        background-color: #ddd;
+                    }
+                }
+                .lesson-button{
+                    .chakra-button{
+                        background-color: #0e49b5;
+                        color: #fff;
+                    }
+                }
+            }
+            .about-container{
+                .about-text{
+                    opacity: .9;
+                    line-height: 1.5rem;
+                }
+            }
+        }
+    }
+    .student-comments-container{
+        .comments-title{
+            font-weight: 500;
+        }
+        .load-more-button{
+            .chakra-button{
+                background-color: #457b9d;
+                color: #fff;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 576px){
+    .teacher-profile-page-container{
+        .cover{
+            height: 120px;
+        }
+        .profile-container{
+            margin-top: -40px;
+            .personal-info-container{
+                .image-container{
+                    height: 100px;
+                    width: 100px;
+                    margin-top: -50px;
+                }
+                .name-container{
+                    .name{
+                        font-size: 1.2rem;
+                    }
+                    .job{
+                        font-size: .9rem;
+                    }
+                }
+                .numeric-info-container{
+                    width: 260px;
+                    .item{
+                        .item-number{
+                            font-size: 1rem;
+                        }
+                        .item-text{
+                            font-size: .9rem;
+                        }
+                    }
+                }
+                .button-container{
+                    width: 260px;
+                }
+                .about-container{
+                    width: 90%;
+                    text-align: center;
+                    .about-text{
+                        font-size: .85rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px){
+    .teacher-profile-page-container{
+        .cover{
+            height: 140px;
+        }
+        .profile-container{
+            margin-top: -40px;
+            .personal-info-container{
+                .image-container{
+                    height: 120px;
+                    width: 120px;
+                    margin-top: -60px;
+                }
+                .name-container{
+                    .name{
+                        font-size: 1.2rem;
+                    }
+                    .job{
+                        font-size: .9rem;
+                    }
+                }
+                .numeric-info-container{
+                    width: 260px;
+                    .item{
+                        .item-number{
+                            font-size: 1rem;
+                        }
+                        .item-text{
+                            font-size: .9rem;
+                        }
+                    }
+                }
+                .button-container{
+                    width: 260px;
+                }
+                .about-container{
+                    width: 90%;
+                    text-align: center;
+                    .about-text{
+                        font-size: .85rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px){
+    .teacher-profile-page-container{
+        .cover{
+            height: 180px;
+        }
+        .profile-container{
+            margin-top: -60px;
+            .personal-info-container{
+                .image-container{
+                    height: 140px;
+                    width: 140px;
+                    margin-top: -70px;
+                }
+                .name-container{
+                    .name{
+                        font-size: 1.2rem;
+                    }
+                    .job{
+                        font-size: .9rem;
+                    }
+                }
+                .numeric-info-container{
+                    width: 300px;
+                    .item{
+                        .item-number{
+                            font-size: 1rem;
+                        }
+                        .item-text{
+                            font-size: .9rem;
+                        }
+                    }
+                }
+                .button-container{
+                    width: 300px;
+                }
+                .about-container{
+                    width: 90%;
+                    text-align: center;
+                    .about-text{
+                        font-size: .9rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 992px){
+    .teacher-profile-page-container{
+        .cover{
+            height: 200px;
+        }
+        .profile-container{
+            margin-top: -80px;
+            .personal-info-container{
+                .image-container{
+                    height: 160px;
+                    width: 160px;
+                    margin-top: -80px;
+                }
+                .name-container{
+                    .name{
+                        font-size: 1.3rem;
+                    }
+                }
+                .numeric-info-container{
+                    width: 300px;
+                }
+                .button-container{
+                    width: 300px;
+                }
+                .about-container{
+                    width: 85%;
+                    text-align: center;
+                    .about-text{
+                        font-size: .95rem;
+                    }
+                }
+            }
+        }
+        .student-comments-container{
+            .comments-title{
+                font-size: 1.1rem;
+            }
+        }
+    }
+}

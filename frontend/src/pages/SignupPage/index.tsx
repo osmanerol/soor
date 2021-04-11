@@ -3,6 +3,7 @@ import './index.scss';
 import { useToast } from '@chakra-ui/react';
 import { Input, Button, PasswordInput } from '../../components';
 import { Link, useHistory } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import logo from '../../assets/images/logo.png';
 import student from '../../assets/images/student.svg';    
 import teacher from '../../assets/images/teacher.svg';
@@ -17,12 +18,13 @@ const Index = () => {
     })
     const toast = useToast();
     const history= useHistory();
+    const { handleSubmit } = useForm();  
 
-    const clickButton=()=>{
+    const submitForm=()=>{
         if(userType>0){
             if(user.firstName !=='' && user.lastName !== '' &&user.email !== '' && user.password !== ''){
                 toast({
-                    title: 'Kayıt başarılı.',
+                    title: 'Kayıt başarılı',
                     description: 'Giriş ekranına yönlendiriliyorsunuz.',
                     status: 'success',
                     duration: 2000,
@@ -34,7 +36,7 @@ const Index = () => {
             }
             else{
                 toast({
-                    title: 'Hata.',
+                    title: 'Hata',
                     description: 'Tüm alanları doldurunuz.',
                     status: 'error',
                     duration: 2000,
@@ -46,50 +48,50 @@ const Index = () => {
 
     return (
         <div className='signup-page-container'>
-            <div className="signup-page-sub-container">
-                <div className="form-container">
-                    <div className="form-content">
-                        <Link className="brand" to='/' >
-                            <img src={logo} alt="logo"/>
+            <div className='signup-page-sub-container'>
+                <div className='form-container'>
+                    <div className='form-content'>
+                        <Link className='brand' to='/' >
+                            <img src={logo} alt='logo'/>
                             <h2 className='brand-text'>Soor</h2>
                         </Link>
-                        <div className="text-center">
+                        <div className='text-center'>
                             <h2 className='form-title'>Kaydol</h2>
                         </div>
-                        <div className="type-container">
+                        <div className='type-container'>
                             <div className={`${userType===1 ? 'type-item active text-center' : 'type-item text-center'}`} onClick={()=>setUserType(1)}>
-                                <img src={student} alt="student"/>
+                                <img src={student} alt='student'/>
                                 <p className='type-item-text mt-2'>Öğrenciyim</p>
                             </div>
                             <div className={`${userType===2 ? 'type-item active text-center' : 'type-item text-center'}`} onClick={()=>setUserType(2)}>
-                                <img src={teacher} alt="teacher"/>
+                                <img src={teacher} alt='teacher'/>
                                 <p className='type-item-text mt-2'>Eğitmenim</p>
                             </div>
                         </div>
-                        <form className="form">
-                            <div className="full-name-container">
+                        <form className='form' onSubmit={handleSubmit(submitForm)}>
+                            <div className='full-name-container'>
                                 <Input text='Ad' variant='flushed' className='w-100' onChange={(event : any)=>{
-                                setUser({...user, firstName: event.target.value});
-                            }} />
+                                    setUser({...user, firstName: event.target.value});
+                                }} />
                                 <Input text='Soyad' variant='flushed' className='w-100' onChange={(event : any)=>{
-                                setUser({...user, lastName: event.target.value});
-                            }} />
+                                    setUser({...user, lastName: event.target.value});
+                                }} />
                             </div>
-                            <Input text='E-posta' variant='flushed' className='w-100' onChange={(event : any)=>{
+                            <Input text='E-posta' type='email' variant='flushed' className='w-100' onChange={(event : any)=>{
                                 setUser({...user, email: event.target.value});
                             }} />
                             <PasswordInput text='Şifre' variant='flushed' className='mt-2 w-100' onChange={(event : any)=>{
                                 setUser({...user, password: event.target.value});
                             }} />
-                            <Button text={`Kaydol ${userType > 0 ? userType === 1 ? '( Öğrenci )' : '( Eğitmen )' : ''}`}  className='submit-button mt-2' size='sm' disabled={userType===0} onClick={clickButton} />
+                            <Button text={`Kaydol ${userType > 0 ? userType === 1 ? '( Öğrenci )' : '( Eğitmen )' : ''}`}  className='submit-button mt-2' size='sm' type='submit' disabled={userType===0} />
                         </form>
-                        <small className='text-center text-muted mt-2'>Kaydolduğunuzda <Link to='/'>üyelik sözleşmesini</Link> ve <Link to='/'>gizlilik sözleşmesini</Link> kabul etmiş olursunuz.</small>
-                        <div className="go-other-sign text-center">
+                        <small className='text-center text-muted mt-2'>Kaydolduğunuzda <Link to='/'>üyelik</Link> ve <Link to='/'>gizlilik</Link> sözleşmesini kabul etmiş olursunuz.</small>
+                        <div className='go-other-sign text-center'>
                             <small className='text-muted'>Zaten hesabınız var mı ? <Link to='/login'>Giriş Yap</Link></small>
                         </div>
                     </div>
                 </div>
-                <div className="image-container"></div>
+                <div className='image-container'></div>
             </div>
         </div>
     );

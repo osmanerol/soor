@@ -3,26 +3,40 @@ import './index.scss';
 import { useHistory, Link } from 'react-router-dom';
 import { Button } from '..';
 import { AiOutlineArrowRight } from 'react-icons/ai';
+import { StarIcon } from '@chakra-ui/icons';
 
 interface IDefaultProps{
     image: string,
+    rate: number,
     name: string,
     job: string,
-    slug: string
-    rate: number,
+    slug: string,
     price: number,
     totalLesson: number,
+    comment: number,
     status: number
 }
 
 const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
-    const { image, name, job, slug, rate, price, totalLesson, status } = props;
+    const { image, name, job, slug, rate, price, totalLesson, comment, status } = props;
     const history = useHistory();
 
     return (
         <div className='teacher-filter-card' onClick={()=>history.push(slug)}>
             <div className='image-container'>
                 <img src={image} alt='teacher'/>
+                <div className='rate text-center'>
+                    <small>
+                        {Array(5)
+                            .fill('')
+                            .map((_, i) => (
+                            <StarIcon
+                                key={i}
+                                color={i+1 <= rate ? 'yellow.400' : 'gray.300'}
+                            />
+                            ))}
+                    </small>
+                </div>
                 <span className={`status status-${status}`}></span>
             </div>
             <div className='info-container'>
@@ -36,8 +50,8 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
                         <p className='item-text'>Ders</p>
                     </div>
                     <div className='item'>
-                        <p className='item-number'>{rate}</p>
-                        <p className='item-text'>Puan</p>
+                        <p className='item-number'>{comment}</p>
+                        <p className='item-text'>Yorum</p>
                     </div>
                     <div className='item'>
                         <p className='item-number'>{price} TL</p>

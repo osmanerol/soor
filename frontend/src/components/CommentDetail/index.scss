@@ -16,7 +16,12 @@
     }
     .content-container{ 
         .name{
-            font-weight: 600;
+            font-weight: 500;
+            color: #000;
+        }
+        .content{
+            opacity: .9;
+            line-height: 1.5rem;
         }
     }
 }
@@ -29,6 +34,9 @@
         }
         .content-container{
             width: calc(100% - 60px);
+            .content{
+                font-size: .85rem;
+            }
         }
     }
 }
@@ -41,6 +49,9 @@
         }
         .content-container{
             width: calc(100% - 70px);
+            .content{
+                font-size: .9rem;
+            }
         }
     }
 }
@@ -53,6 +64,9 @@
         }
         .content-container{
             width: calc(100% - 76px);
+            .content{
+                font-size: .95rem;
+            }
         }
     }
 }

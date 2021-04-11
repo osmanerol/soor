@@ -1,5 +1,5 @@
 .homepage-container{
-    margin-top: 72px;
+    margin-top: 70px;
     .instructors-container{
         .instructors-list{
             display: flex;
@@ -9,7 +9,7 @@
         }
         .load-more-instructor-button{
             .chakra-button{
-                background-color: #0e49b5;
+                background-color: #457b9d;
                 color: #fff;
             }
         }
@@ -36,8 +36,10 @@
 @media screen and (max-width: 576px){
     .homepage-container{
         .instructors-container, .students-comments-container, .numeric-info-container{
-            padding-top: 30px;
-            padding-bottom: 30px;
+            padding-bottom: 40px;
+        }
+        .title-container{
+            padding: 40px 0 20px 0;
         }
         .instructors-container{
             .instructors-list > *{
@@ -76,8 +78,10 @@
 @media screen and (min-width: 576px) and (max-width: 768px){
     .homepage-container{
         .instructors-container, .students-comments-container, .numeric-info-container{
-            padding-top: 30px;
-            padding-bottom: 30px;
+            padding-bottom: 40px;
+        }
+        .title-container{
+            padding: 40px 0 20px 0;
         }
         .instructors-container{
             .instructors-list > *{
@@ -116,8 +120,10 @@
 @media screen and (min-width: 768px) and (max-width: 992px){
     .homepage-container{
         .instructors-container, .students-comments-container, .numeric-info-container{
-            padding-top: 40px;
-            padding-bottom: 40px;
+            padding-bottom: 60px;
+        }
+        .title-container{
+            padding: 60px 0 30px 0;
         }
         .instructors-container{
             .instructors-list > *{
@@ -152,9 +158,17 @@
 
 @media screen and (min-width: 992px){
     .homepage-container{
+        /*
         .instructors-container, .students-comments-container, .numeric-info-container{
-            padding-top: 40px;
-            padding-bottom: 40px;
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+        */
+        .instructors-container, .students-comments-container, .numeric-info-container{
+            padding-bottom: 80px;
+        }
+        .title-container{
+            padding: 80px 0 40px 0;
         }
         .instructors-container{
             .instructors-list > *{

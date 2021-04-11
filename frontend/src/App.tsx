@@ -7,13 +7,10 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import LessonFilterPage from './pages/LessonFilterPage';
-import TeacherProfilePage from './pages/TeacherProfilePage';
-/*
-import LessonFilterPage from './pages/LessonFilterPage';
-import TeacherProfilePage from './pages/TeacherProfilePage';
-import StudentProfilePage from './pages/StudentProfilePage';
+import InstructorPage from './pages/InstructorPage';
+import AllInstructorsPage from './pages/AllInstructorsPage';
+import LessonsPage from './pages/LessonsPage';
 import NotFoundPage from './pages/NotFoundPage';
-*/
 
 const App = () => {
   const location= useLocation();
@@ -28,16 +25,10 @@ const App = () => {
         <Route path='/login' exact strict component={LoginPage} />
         <Route path='/signup' exact strict component={SignupPage} />
         <Route path='/lesson-filter/:lesson' exact strict component={LessonFilterPage} />
-        <Route path='/teacher/:teacher' exact strict component={TeacherProfilePage} />
-        {
-          /*
-            <Route path='/' exact strict component={HomePage} />
-            <Route path='/login' exact strict component={LoginPage} />
-            <Route path='/signup' exact strict component={SignupPage} />
-            <Route path='/lesson-filter/:lesson' exact strict component={LessonFilterPage} />
-            <Route path='/teacher/:teacher' exact strict component={TeacherProfilePage} />
-          */
-        }
+        <Route path='/instructor/:instructor' exact strict component={InstructorPage} />
+        <Route path='/all-instructors' exact strict component={AllInstructorsPage} />
+        <Route path='/lessons' exact strict component={LessonsPage} />
+        <Route exact strict component={NotFoundPage} />
       </Switch>
     </>
   );

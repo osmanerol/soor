@@ -1,67 +1,73 @@
 .title{
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .sub-title{
     font-weight: 500;
+    opacity: .6;
+}
+
+.text{
+    line-height: 1.7;
+    opacity: .9;
 }
 
 @media screen and (max-width: 576px){
     .title{
-        font-size: 22px;       
+        font-size: 1.4rem;  
     }
     .sub-title{
-        font-size: 14px; 
+        font-size: .9rem; 
     }
     .text{
-        font-size: 14px;
+        font-size: .85rem;
     }
     .sub-text{
-        font-size: 12px;
-    }
+        font-size: .65rem;
+   }
 }
 
 @media screen and (min-width: 576px) and (max-width: 768px){
     .title{
-        font-size: 26px;       
+        font-size: 1.8rem;  
     }
     .sub-title{
-        font-size: 16px; 
+        font-size: 1.1rem; 
     }
     .text{
-        font-size: 15px;
+        font-size: .9rem;
     }
     .sub-text{
-        font-size: 13px;
-    }
+        font-size: .7rem;
+   }
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px){
     .title{
-        font-size: 26px;       
+        font-size: 1.8rem;  
     }
     .sub-title{
-        font-size: 18px; 
+        font-size: 1.1rem; 
     }
     .text{
-        font-size: 15px;
+        font-size: .9rem;
     }
     .sub-text{
-        font-size: 13px;
-    }
+        font-size: .7rem;
+   }
 }
 
 @media screen and (min-width: 992px){
     .title{
-        font-size: 30px;       
+        font-size: 2rem;
     }
     .sub-title{
-        font-size: 18px; 
+        font-size: 1.1rem; 
     }
     .text{
-        font-size: 16px;
+        font-size: 1rem;
     }
     .sub-text{
-        font-size: 13px;
-    }
+        font-size: .8rem;
+   }
 }
