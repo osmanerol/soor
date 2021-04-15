@@ -35,7 +35,7 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
             </div>
             <div className='text-container'>
                 <Link to={slug} className='text'>{name}</Link> 
-                <p className='text-muted sub-text'>{job}</p>   
+                <p className='text-muted small-text'>{job}</p>   
             </div>
         </div>
     );

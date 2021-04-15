@@ -1,5 +1,5 @@
 .title{
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .sub-title{
@@ -7,67 +7,78 @@
     opacity: .6;
 }
 
-.text{
+.text, .sub-text{
     line-height: 1.7;
-    opacity: .9;
 }
 
 @media screen and (max-width: 576px){
     .title{
-        font-size: 1.4rem;  
+        font-size: 1.4rem! important;  
     }
     .sub-title{
-        font-size: .9rem; 
+        font-size: .9rem! important; 
     }
     .text{
-        font-size: .85rem;
+        font-size: .85rem! important;
     }
     .sub-text{
-        font-size: .65rem;
+        font-size: .8rem! important;
+    }
+    .small-text{
+        font-size: .65rem! important;
    }
 }
 
 @media screen and (min-width: 576px) and (max-width: 768px){
     .title{
-        font-size: 1.8rem;  
+        font-size: 1.6rem! important;  
     }
     .sub-title{
-        font-size: 1.1rem; 
+        font-size: 1rem! important; 
     }
     .text{
-        font-size: .9rem;
+        font-size: .9rem! important;
     }
     .sub-text{
-        font-size: .7rem;
+        font-size: .8rem! important;
+    }
+    .small-text{
+        font-size: .7rem! important;
    }
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px){
     .title{
-        font-size: 1.8rem;  
+        font-size: 1.6rem! important;  
     }
     .sub-title{
-        font-size: 1.1rem; 
+        font-size: 1rem! important; 
     }
     .text{
-        font-size: .9rem;
+        font-size: .9rem! important;
     }
     .sub-text{
-        font-size: .7rem;
+        font-size: .85rem! important;
+    }
+    .small-text{
+        font-size: .7rem! important;
    }
 }
 
 @media screen and (min-width: 992px){
     .title{
-        font-size: 2rem;
+        font-size: 1.8rem! important;
     }
     .sub-title{
-        font-size: 1.1rem; 
+        font-size: 1rem! important; 
     }
     .text{
-        font-size: 1rem;
+        font-size: 1rem! important;
     }
     .sub-text{
-        font-size: .8rem;
+        font-size: .9rem! important;
+    }
+    .small-text{
+        font-size: .8rem! important;
    }
 }

@@ -77,15 +77,15 @@ const Index = () => {
                         <div className='numeric-list mt-2'>
                             <div>
                                 <img src={student} alt='student'/>
-                                <p className='mt-3'>44 Öğrenci</p>
+                                <p className='mt-3 text'>44 Öğrenci</p>
                             </div>
                             <div>
                                 <img src={teacher} alt='teacher'/>
-                                <p className='mt-3'>23 Eğitmen</p>
+                                <p className='mt-3 text'>23 Eğitmen</p>
                             </div>
                             <div>
                                 <img src={lesson} alt='lesson'/>
-                                <p className='mt-3'>12 Canlı Ders</p>
+                                <p className='mt-3 text'>12 Canlı Ders</p>
                             </div>
                         </div>
                     </div>

@@ -41,21 +41,21 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
             </div>
             <div className='info-container'>
                 <div className='text-container'>
-                    <p className='filter-card-name'>{name}</p>
+                    <p className='filter-card-name text'>{name}</p>
                     <small className='filter-card-job text-muted'>{job}</small>
                 </div>
                 <div className='numeric-container'>
                     <div className='item'>
-                        <p className='item-number'>{totalLesson}</p>
-                        <p className='item-text'>Ders</p>
+                        <p className='item-number text'>{totalLesson}</p>
+                        <p className='item-text sub-text'>Ders</p>
                     </div>
                     <div className='item'>
-                        <p className='item-number'>{comment}</p>
-                        <p className='item-text'>Yorum</p>
+                        <p className='item-number text'>{comment}</p>
+                        <p className='item-text sub-text'>Yorum</p>
                     </div>
                     <div className='item'>
-                        <p className='item-number'>{price} TL</p>
-                        <p className='item-text'>Ücret</p>
+                        <p className='item-number text'>{price} TL</p>
+                        <p className='item-text sub-text'>Ücret</p>
                     </div>
                 </div>
                 <Button as={Link} to={`/teacher/${name}`} text='Profil' size='sm' rightIcon={<AiOutlineArrowRight />} className='detail-button d-lg-block d-none text-right' />

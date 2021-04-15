@@ -18,7 +18,7 @@ const Index : FC<IDefaultProps>= (props : IDefaultProps) => {
             </div>
             <div className='content-container'>
                 <p className='name text mb-1'>{name}</p>
-                <p className='content text mb-1'>{content}</p>
+                <p className='content sub-text mb-1'>{content}</p>
                 <div className='text-right'>
                     <small className='text-muted'>{date}</small>
                 </div>

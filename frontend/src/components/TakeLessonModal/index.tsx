@@ -31,20 +31,20 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
                             amount >= lessonPrice ?
                             <>
                                 <div className='mb-3'>
-                                    <p>Hangi derste soru sormak istiyorsunuz ?<span className='text-danger ml-1'>*</span></p>
+                                    <p className='sub-text'>Hangi derste soru sormak istiyorsunuz ?<span className='text-danger ml-1'>*</span></p>
                                     <Select datas={lessons} placeholder='Ders seç' size='sm' onChange={(event: any)=>setSelectedLesson(parseInt(event.target.value))} id='id' value='name' control={control}/>
                                 </div>
                                 <div className='mb-3'>
-                                    <p>Soracağınız sorularınn fotoğraflarını yüklemek ister misiniz ?</p>
-                                    <input type='file' className='mt-2' multiple />
+                                    <p className='sub-text'>Soracağınız sorularınn fotoğraflarını yüklemek ister misiniz ?</p>
+                                    <input type='file' className='mt-2 sub-text' multiple />
                                 </div>
                                 <div className='mb-3 lesson-information'>
-                                    <p>Ders ücreti <span className='text-bold'>{lessonPrice} TL</span> ders bitiminde hesabından çekilecektir. Eğitmen onayından sonra derslerim alanında bildirim olarak ders linkini görebilirsin. Link'e 5 dakika içinde tıklayarak derste olmanı bekliyoruz. İyi dersler...</p>
+                                    <p className='sub-text'>Ders ücreti <span className='text-bold'>{lessonPrice} TL</span> ders bitiminde hesabından çekilecektir. Eğitmen onayından sonra derslerim alanında bildirim olarak ders linkini görebilirsin. Link'e 5 dakika içinde tıklayarak derste olmanı bekliyoruz. İyi dersler...</p>
                                 </div>
                             </> :
                             <>
                                 <div className='mb-3'>
-                                    <p className='text-danger'>Bakiyeniz soru sormak için yeterli değil. Bakiye yüklemek için <Link to='/'>tıklayınız.</Link> </p>
+                                    <p className='text-danger text'>Bakiyeniz soru sormak için yeterli değil. Bakiye yüklemek için <Link to='/'>tıklayınız.</Link> </p>
                                 </div>
                             </>
                         }

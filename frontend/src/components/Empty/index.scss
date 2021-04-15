@@ -1,25 +1,23 @@
-.not-found-page-container{
+.empty-page-container{
     height: 100vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    .error-detail{
+    .detail{
         display: flex;
         flex-direction: column;
         align-items: center;
-        .error-button{
-            .chakra-button{
-                background-color: #5c6ac4;
-                color: #fff;
-            }
+        .chakra-button{
+            background-color: #5c6ac4;
+            color: #fff;
         }
     }
 }
 
 @media screen and (max-width: 576px){
-    .not-found-page-container{
-        .error-detail{
+    .empty-page-container{
+        .detail{
             img{
                 width: 220px;
             }
@@ -28,8 +26,8 @@
 }
 
 @media screen and (min-width: 576px) and (max-width: 768px){
-    .not-found-page-container{
-        .error-detail{
+    .empty-page-container{
+        .detail{
             img{
                 width: 300px;
             }
@@ -38,8 +36,8 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px){
-    .not-found-page-container{
-        .error-detail{
+    .empty-page-container{
+        .detail{
             img{
                 width: 300px;
             }
@@ -48,8 +46,8 @@
 }
 
 @media screen and (min-width: 992px){
-    .not-found-page-container{
-        .error-detail{
+    .empty-page-container{
+        .detail{
             img{
                 width: 300px;
             }

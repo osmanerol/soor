@@ -17,7 +17,7 @@ const Index : FC<IDefaultProps>= (props : IDefaultProps) => {
                 <img src={image} alt='student'/>
             <div className='text-container'>
                 <p className='name mb-3'>{name}</p>
-                <p className='text-muted content'>'{content}'</p>
+                <p className='text-muted content text'>'{content}'</p>
                 <div className='rate mt-3'>
                     <small>
                         {Array(5)

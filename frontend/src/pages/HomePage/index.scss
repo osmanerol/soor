@@ -123,7 +123,7 @@
             padding-bottom: 60px;
         }
         .title-container{
-            padding: 60px 0 30px 0;
+            padding: 60px 0 50px 0;
         }
         .instructors-container{
             .instructors-list > *{
@@ -158,17 +158,11 @@
 
 @media screen and (min-width: 992px){
     .homepage-container{
-        /*
         .instructors-container, .students-comments-container, .numeric-info-container{
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        */
-        .instructors-container, .students-comments-container, .numeric-info-container{
-            padding-bottom: 80px;
+            padding-bottom: 60px;
         }
         .title-container{
-            padding: 80px 0 40px 0;
+            padding: 60px 0 50px 0;
         }
         .instructors-container{
             .instructors-list > *{

@@ -77,15 +77,6 @@
         .info-container{
             width: calc(100% - 120px);
             padding: 14px;
-            .filter-card-name, .item-number{
-                font-size: 15px;
-            }
-            .item-text{
-                font-size: 13px;
-            }
-        }
-        .numeric-container{
-            font-size: .8em;
         }
     }
 }
@@ -99,15 +90,6 @@
         .info-container{
             width: calc(100% - 140px);
             padding: 16px 24px;
-            .filter-card-name, .item-number{
-                font-size: 16px;
-            }
-            .item-text{
-                font-size: 14px;
-            }
-        }
-        .numeric-container{
-            font-size: .85em;
         }
         .detail-button{
             .chakra-button{
@@ -128,18 +110,8 @@
             width: 120px;
         }
         .info-container{
-            font-size: .9em;
             width: calc(100% - 120px);
             padding: 12px;
-            .filter-card-name, .item-number{
-                font-size: 15px;
-            }
-            .item-text{
-                font-size: 13px;
-            }
-        }
-        .numeric-container{
-            font-size: .85em;
         }
         .detail-button{
             .chakra-button{
@@ -163,12 +135,6 @@
         .info-container{
             width: calc(100% - 200px);
             padding: 24px;
-            .filter-card-name, .item-number{
-                font-size: 16px;
-            }
-            .item-text{
-                font-size: 14px;
-            }
         }
         .detail-button{
             .chakra-button{

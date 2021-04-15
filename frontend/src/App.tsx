@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.scss';
 import { Switch, Route, useLocation} from 'react-router-dom';
-
 import { Navbar } from './components'; 
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -10,10 +9,32 @@ import LessonFilterPage from './pages/LessonFilterPage';
 import InstructorPage from './pages/InstructorPage';
 import AllInstructorsPage from './pages/AllInstructorsPage';
 import LessonsPage from './pages/LessonsPage';
+import MessagePage from './pages/MessagePage';
+import MessageDetailPage from './pages/MessageDetailPage';
+import SettingsPage from './pages/SettingsPage';
 import NotFoundPage from './pages/NotFoundPage';
+import { Container } from 'react-bootstrap';
 
 const App = () => {
+  const [isSmallScreen, setSmallScreen] = useState(false);
   const location= useLocation();
+
+  const setScreen=()=>{
+    if(window.innerWidth<=768){
+      setSmallScreen(true);
+    }
+    else{
+      setSmallScreen(false);
+    }
+  }
+
+  useEffect(()=>{
+    setScreen();
+  }, [])
+ 
+  useEffect(()=>{
+    window.addEventListener('resize', setScreen);
+  })
 
   return (
     <>
@@ -28,6 +49,16 @@ const App = () => {
         <Route path='/instructor/:instructor' exact strict component={InstructorPage} />
         <Route path='/all-instructors' exact strict component={AllInstructorsPage} />
         <Route path='/lessons' exact strict component={LessonsPage} />
+        <Route path='/settings' exact strict component={SettingsPage} />
+        <Route path='/messages' exact={isSmallScreen} strict component={MessagePage} /> 
+        {
+          isSmallScreen &&
+          <Route path='/messages/:slug' exact strict children={()=>(
+            <Container>
+              <MessageDetailPage />
+            </Container>
+          )} /> 
+        }
         <Route exact strict component={NotFoundPage} />
       </Switch>
     </>
