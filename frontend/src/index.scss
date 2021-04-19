@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap');
 
 body {
   margin: 0;
@@ -11,7 +11,7 @@ body {
 }
 
 #root{
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Lexend', sans-serif;
   height: 100%;
   scroll-behavior: smooth;
   font-weight: 400;
@@ -35,5 +35,9 @@ body {
 }
 
 .chakra-heading, .chakra-slide, .chakra-modal__body, .chakra-table, .chakra-alert{
-  font-family: 'Poppins', sans-serif! important;
+  font-family: 'Lexend', sans-serif! important;
+}
+
+.chakra-button, .chakra-input{
+  border-radius: 4px! important;
 }

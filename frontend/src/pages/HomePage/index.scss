@@ -1,155 +1,393 @@
 .homepage-container{
     margin-top: 70px;
+    .cover{
+        background-image: url('../../assets/images/homepage.jpg');
+        height: calc(100vh - 70px);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        color: #fff;
+        &::before{
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: calc(100% - 70px);
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, .4);
+        }
+        .cover-title{
+            font-weight: 500;
+        }
+        .cover-text{
+            line-height: 1.7em;
+        }
+        .button-container{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .filter-button{
+                width: 48%;
+                .chakra-button{
+                    background-color: #fff;
+                    color: #000;
+                }
+            }
+            .login-button{
+                width: 48%;
+                .chakra-button{
+                    background-color: #488bf8;
+                    color: #fff;
+                }
+            }
+        }
+    }
+    .expected-container{
+        .items-container{
+            .item{
+                transition: all .5s;
+                box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+                .image-container{
+                    overflow: hidden;
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        transition: all .5s;
+                    }
+                }
+                .sub-text{
+                    opacity: .9;
+                }
+                &:hover{
+                    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+                    transform: translateY(-8px);
+                    .image-container{
+                        img{
+                            transform: scale(1.05);
+                            border-top-left-radius: 10px;
+                            border-top-right-radius: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
     .instructors-container{
-        .instructors-list{
+        .instructor-list{
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             flex-wrap: wrap;
         }
-        .load-more-instructor-button{
+        .load-more-button{
             .chakra-button{
-                background-color: #457b9d;
+                background-color: #0e49b5;
                 color: #fff;
             }
         }
-    }   
-    .students-comments-container{
-        background: #C9D6FF;  
-        background: -webkit-linear-gradient(to left, #E2E2E2, #C9D6FF); 
-        background: linear-gradient(to left, #E2E2E2, #C9D6FF);
     }
-    .numeric-info-container{
-        .numeric-list{
-            & > *{
-                background-color: #f9f9ff;
-                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: center;
+    .total-datas-container{
+        width: 100%;
+        background-image: url('../../assets/images/homepage-total-datas.jpg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        &::before{
+            content: '';
+            width: 100%;
+            position: absolute;
+            background-color: #0c0c0c;
+            opacity: .85;
+            mix-blend-mode: multiply;
+            transition: background 0.3s,border-radius 0.3s,opacity 0.3s;
+        }
+        .total-datas-content{
+            height: 100%;
+            display: flex;
+            align-items: center;
+            color: #fff;
+            .title, .sub-title{
+                color: #fff;
             }
+            .items{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                margin: auto;
+                .item{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    .title{
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+    .students-comments-container{
+        .comment-list{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            flex-wrap: wrap;
         }
     }
 }
 
 @media screen and (max-width: 576px){
     .homepage-container{
-        .instructors-container, .students-comments-container, .numeric-info-container{
-            padding-bottom: 40px;
-        }
-        .title-container{
-            padding: 40px 0 20px 0;
-        }
-        .instructors-container{
-            .instructors-list > *{
-                width: 46%;
-            }
-        }
-        .students-comments-container{
-            .comments-list{
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
+        .cover{
+            .content{
                 & > *{
-                    width: 100%;
+                    margin-bottom: 20px;
+                }
+                .cover-title{
+                    font-size: 2.1em;
+                }
+                .cover-text{
+                    font-size: .9em;
+                }
+                .button-container{
+                    max-width: 360px;
+                    .chakra-button{
+                        height: 42px;
+                    }
                 }
             }
         }
-        .numeric-info-container{
-            .numeric-list{
+        .expected-container{
+            padding: 60px 0 30px 0;
+            .title{
+                margin-bottom: 40px;
+            }
+            .items-container{
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
-                align-items: center;
-                & > *{
-                    width: 80%;
-                    padding: 20px;
-                    margin-bottom: 20px;
-                    img{
-                        height: 140px;
+                & > * {
+                    width: 100%;
+                    margin-bottom: 30px;
+                    .image-container{
+                        height: 240px;
                     }
+                    .text-container{
+                        padding: 30px;
+                    }
+                }
+            }
+        }
+        .instructors-container{
+            padding: 30px 0 60px 0;
+            .title{
+                margin-bottom: 40px;
+            }
+            .instructor-list{
+                & > *{
+                    width: 47%;
+                }
+            }
+        }
+        .total-datas-container{
+            height: 300px;
+            &::before{
+                height: 300px;
+            }
+            .total-datas-title{
+                font-size: 1.4em;
+                margin-bottom: 30px;
+            }
+            .items{
+                max-width: 300px;
+                .item{
+                    .item-text{
+                        font-size: 1.1em;
+                    }
+                }
+            }
+        }
+        .students-comments-container{
+            padding: 60px 0;
+            .title{
+                margin-bottom: 20px;
+            }
+            .comment-list{
+                & > *{
+                    width: 100%;
                 }
             }
         }
     }
 }
 
-@media screen and (min-width: 576px) and (max-width: 768px){
+@media screen and (min-width: 576px) and (max-width: 767px){
     .homepage-container{
-        .instructors-container, .students-comments-container, .numeric-info-container{
-            padding-bottom: 40px;
-        }
-        .title-container{
-            padding: 40px 0 20px 0;
-        }
-        .instructors-container{
-            .instructors-list > *{
-                width: 31%;
-            }
-        }
-        .students-comments-container{
-            .comments-list{
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
+        .cover{
+            .content{
                 & > *{
-                    width: 100%;
+                    margin-bottom: 20px;
+                }
+                .cover-title{
+                    font-size: 2.3em;
+                }
+                .cover-text{
+                    font-size: 1em;
+                }
+                .button-container{
+                    width: 360px;
+                    .chakra-button{
+                        height: 42px;
+                    }
                 }
             }
         }
-        .numeric-info-container{
-            .numeric-list{
+        .expected-container{
+            padding: 80px 0 40px 0;
+            .title{
+                margin-bottom: 40px;
+            }
+            .items-container{
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
-                align-items: center;
-                & > *{
-                    width: 80%;
-                    padding: 30px;
-                    margin-bottom: 20px;
-                    img{
-                        height: 180px;
+                & > * {
+                    width: 100%;
+                    margin-bottom: 30px;
+                    .image-container{
+                        height: 240px;
                     }
+                    .text-container{
+                        padding: 30px;
+                    }
+                }
+            }
+        }
+        .instructors-container{
+            padding: 40px 0 80px 0;
+            .title{
+                margin-bottom: 40px;
+            }
+            .instructor-list{
+                & > *{
+                    width: 31%;
+                }
+            }
+        }
+        .total-datas-container{
+            height: 300px;
+            &::before{
+                height: 300px;
+            }
+            .total-datas-title{
+                font-size: 1.8em;
+                margin-bottom: 30px;
+            }
+            .items{
+                max-width: 400px;
+                .item{
+                    .item-text{
+                        font-size: 1.1em;
+                    }
+                }
+            }
+        }
+        .students-comments-container{
+            padding: 80px 0;
+            .title{
+                margin-bottom: 40px;
+            }
+            .comment-list{
+                & > *{
+                    width: 46%;
+                }
+                .comment-container:last-child{
+                    width: 46%;
+                    margin-left: auto;
+                    margin-right: auto;
                 }
             }
         }
     }
 }
 
-@media screen and (min-width: 768px) and (max-width: 992px){
+@media screen and (min-width: 767px) and (max-width: 992px){
     .homepage-container{
-        .instructors-container, .students-comments-container, .numeric-info-container{
-            padding-bottom: 60px;
-        }
-        .title-container{
-            padding: 60px 0 50px 0;
-        }
-        .instructors-container{
-            .instructors-list > *{
-                width: 23%;
-            }
-        }
-        .students-comments-container{
-            .comments-list{
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-                column-gap: 20px;
+        .cover{
+            .content{
                 & > *{
-                    width: 45%;
+                    margin-bottom: 24px;
+                }
+                .cover-title{
+                    font-size: 2.5em;
+                }
+                .cover-text{
+                    font-size: 1em;
+                }
+                .button-container{
+                    width: 360px;
+                    .chakra-button{
+                        height: 42px;
+                    }
                 }
             }
         }
-        .numeric-info-container{
-            .numeric-list{
+        .expected-container{
+            padding: 100px 0 50px 0;
+            .title{
+                margin-bottom: 40px;
+            }
+            .items-container{
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
+                & > * {
+                    width: 32%;
+                    .image-container{
+                        height: 147px;
+                    }
+                    .text-container{
+                        padding: 30px;
+                    }
+                }
+            }
+        }
+        .instructors-container{
+            padding: 50px 0 100px 0;
+            .title{
+                margin-bottom: 40px;
+            }
+            .instructor-list{
+                & > *{
+                    width: 23%;
+                }
+            }
+        }
+        .total-datas-container{
+            height: 400px;
+            &::before{
+                height: 400px;
+            }
+            .total-datas-title{
+                font-size: 1.8em;
+            }
+            .items{
+                max-width: 300px;
+                .item{
+                    .item-text{
+                        font-size: 1.1em;
+                    }
+                }
+            }
+        }
+        .students-comments-container{
+            padding: 100px 0;
+            .title{
+                margin-bottom: 40px;
+            }
+            .comment-list{
                 & > *{
                     width: 32%;
-                    padding: 40px;
                 }
             }
         }
@@ -158,38 +396,82 @@
 
 @media screen and (min-width: 992px){
     .homepage-container{
-        .instructors-container, .students-comments-container, .numeric-info-container{
-            padding-bottom: 60px;
-        }
-        .title-container{
-            padding: 60px 0 50px 0;
-        }
-        .instructors-container{
-            .instructors-list > *{
-                width: 22%;
-            }
-        }
-        .students-comments-container{
-            .comments-list{
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
+        .cover{
+            .content{
                 & > *{
-                    width: 32%;
+                    margin-bottom: 28px;
+                }
+                .cover-title{
+                    font-size: 3em;
+                }
+                .cover-text{
+                    font-size: 1.1em;
+                }
+                .button-container{
+                    width: 400px;
+                    .chakra-button{
+                        height: 44px;
+                    }
                 }
             }
         }
-        .numeric-info-container{
-            .numeric-list{
+        .expected-container{
+            padding: 128px 0 62px 0;
+            .title{
+                margin-bottom: 50px;
+            }
+            .items-container{
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
+                & > * {
+                    width: 31%;
+                    border-radius: 6px;
+                    .image-container{
+                        height: 240px;
+                    }
+                    .text-container{
+                        padding: 40px;
+                    }
+                }
+            }
+        }
+        .instructors-container{
+            padding: 62px 0 128px 0;
+            .title{
+                margin-bottom: 50px;
+            }
+            .instructor-list{
+                & > *{
+                    width: 23%;
+                }
+            }
+        }
+        .total-datas-container{
+            height: 500px;
+            &::before{
+                height: 500px;
+            }
+            .total-datas-title{
+                font-size: 2.2em;
+            }
+            .items{
+                max-width: 400px;
+                .item{
+                    .item-text{
+                        font-size: 1.1em;
+                    }
+                }
+            }
+        }
+        .students-comments-container{
+            padding: 128px 0;
+            .title{
+                margin-bottom: 50px;
+            }
+            .comment-list{
                 & > *{
                     width: 32%;
-                    padding: 40px;
-                    img{
-                        height: 160px;
-                    }
                 }
             }
         }

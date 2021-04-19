@@ -19,8 +19,8 @@ interface IDefaultProps{
 const Index : FC<IDefaultProps> = (props: IDefaultProps) => {
     const { className, text, size, variant, leftIcon, rightIcon, onClick=()=>{}, disabled=false, as, to, type='button' } = props;
     return (
-        <div className={`${className} w-100`}>
-            <Button type={type} leftIcon={leftIcon} rightIcon={rightIcon} variant={variant} size={size} className='w-100 button' onClick={onClick} disabled={disabled} as={as} to={to}>
+        <div className={`${className}`}>
+            <Button type={type} leftIcon={leftIcon} rightIcon={rightIcon} variant={variant} size={size} className='w-100' onClick={onClick} disabled={disabled} as={as} to={to}>
                 {text}
             </Button>
         </div>

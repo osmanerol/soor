@@ -21,51 +21,7 @@ const Index: FC<IDefaultProps> = (props: IDefaultProps) => {
     return (
         <div className={className}>
             { text && <small>{text}</small>}
-            {
-                /*
-            <Select 
-                id={id}
-                name={id}
-                isMulti 
-                defaultValue={defaultValue}
-                options={options}  
-                getOptionLabel={(option: any) => option[label]}
-                getOptionValue={(option: any) => option[value]} 
-                placeholder=''
-                control={control}
-                onChange={onChange}
-            />
-            <Controller
-                as={
-                    <Select
-                        isMulti
-                        id={id}
-                        name={id!}
-                        styles={{
-                            control: (base, state) => ({
-                                ...base,
-                                '&:hover': { borderColor: '#E2E8F0' },
-                                border: '1.5px solid #E2E8F0',
-                                boxShadow: 'none', 
-                            }),
-                        }}
-                        closeMenuOnSelect={false}
-                        options={options}
-                        placeholder='' 
-                        defaultValue={defaultValue}
-                        getOptionLabel={(option: any) => option[label]}
-                        getOptionValue={(option: any) => option[value]}
-                        onChange={onChange}
-                    />
-                }
-                id={id}
-                name={id!}
-                ref={selectRef}
-                control={control}
-            />
-                */
-            }
-            <Controller
+                <Controller
                 render={()=>
                     <Select
                         isMulti

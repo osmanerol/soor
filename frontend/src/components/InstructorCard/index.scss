@@ -1,5 +1,5 @@
-.teacher-card{
-    margin-bottom: 14px;
+.instructor-card{
+    margin-bottom: 20px;
     transition: all .5s;
     .image-container{
         position: relative;
@@ -24,8 +24,9 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        padding: 14px;
         a{
-            margin: 6px 0 2px 0;
+            margin-bottom: 2px;
             font-weight: 500;
             text-decoration: none;
             overflow: hidden;
@@ -51,7 +52,7 @@
 }
 
 @media screen and (max-width: 380px){
-    .teacher-card{
+    .instructor-card{
         .image-container{
             img{
                 width: 158px;
@@ -62,7 +63,7 @@
 }
 
 @media screen and (min-width: 380px) and (max-width: 576px){
-    .teacher-card{
+    .instructor-card{
         .image-container{
             img{
                 height: 200px;
@@ -72,7 +73,7 @@
 }
 
 @media screen and (min-width: 576px) and (max-width: 768px){
-    .teacher-card{
+    .instructor-card{
         .image-container{
             img{
                 height: 180px;
@@ -82,7 +83,7 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px){
-    .teacher-card{
+    .instructor-card{
         .image-container{
             img{
                 height: 180px;
@@ -92,10 +93,10 @@
 }
 
 @media screen and (min-width: 992px){
-    .teacher-card{
+    .instructor-card{
         .image-container{
             img{
-                height: 250px;
+                height: 270px;
             }
         }
     }

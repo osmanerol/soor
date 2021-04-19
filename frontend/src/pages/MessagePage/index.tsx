@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { Container } from 'react-bootstrap';
-import { MessageBox, Input, Empty } from '../../components';
-import { BsSearch } from 'react-icons/bs';
+import { MessageBox, Empty } from '../../components';
 import MessageDetailPage from '../MessageDetailPage';
 import { Switch, Route } from 'react-router-dom';
 
@@ -28,17 +27,31 @@ const Index = () => {
         window.scrollTo({top: 0, behavior: 'smooth'});
     }, [])
 
-    const searchClick=()=>{
-        alert('search clicked');
+    const clickDelete=(event : any, index : number)=>{
+        setMessages(messages.filter((filteredItem, filteredIndex)=>filteredIndex!==index));
+        event.stopPropagation();
     }
 
     return (
         <>
             {
-                messages.length > 100 ?
+                messages.length > 0 ?
                 <div className='message-page-container'>
                     <Container>
-                        
+                        <div className="row">
+                            <div className="col-lg-4 col-md-5 messages-list">
+                                {
+                                    messages.map((item, index)=>(
+                                        <MessageBox key={index} image={item.image} name={item.name} slug={item.slug} lastMessage={item.lastMessage} status={item.status} clickDelete={(event : any)=>clickDelete(event, index)} />
+                                    ))
+                                }
+                            </div>
+                            <div className="col-lg-8 col-md-7 messages-detail-list">
+                                <Switch>
+                                    <Route path='/messages/:slug' strict component={MessageDetailPage} />
+                                </Switch>
+                            </div>
+                        </div>
                     </Container> 
                 </div>:
                 <div className='empty-message'>

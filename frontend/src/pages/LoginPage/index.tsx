@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.scss';
 import { useToast } from '@chakra-ui/react';
-import { Input, Button, PasswordInput } from '../../components';
+import { Input, Button, PasswordInput, Footer } from '../../components';
 import { Link, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import logo from '../../assets/images/logo.png';
 import student from '../../assets/images/student.svg';    
 import teacher from '../../assets/images/teacher.svg';
 
@@ -44,46 +43,44 @@ const Index = () => {
         }
     }
 
+    useEffect(()=>{
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }, [])
+
     return (
-        <div className='login-page-container'>
-            <div className='login-page-sub-container'>
-                <div className='form-container'>
-                    <div className='form-content'>
-                        <Link className='brand' to='/' >
-                            <img src={logo} alt='logo'/>
-                            <h2 className='brand-text'>Soor</h2>
-                        </Link>
-                        <div className='text-center'>
-                            <h2 className='form-title'>Giriş Yap</h2>
+        <>
+            <div className='login-page-container'>
+                <div className='form-content'>
+                    <div className='text-center'>
+                        <h2 className='title'>Giriş Yap</h2>
+                    </div>
+                    <div className='type-container my-3'>
+                        <div className={`${userType === 1 ? 'type-item active text-center' : 'type-item text-center'}`} onClick={()=>setUserType(1)}>
+                            <img src={student} alt='student'/>
+                            <p className='sub-text mt-2'>Öğrenci</p>
                         </div>
-                        <div className='type-container'>
-                            <div className={`${userType === 1 ? 'type-item active text-center' : 'type-item text-center'}`} onClick={()=>setUserType(1)}>
-                                <img src={student} alt='student'/>
-                                <p className='type-item-text mt-2'>Öğrenciyim</p>
-                            </div>
-                            <div className={`${userType === 2 ? 'type-item active text-center' : 'type-item text-center'}`} onClick={()=>setUserType(2)}>
-                                <img src={teacher} alt='teacher'/>
-                                <p className='type-item-text mt-2'>Eğitmenim</p>
-                            </div>
-                        </div>
-                        <form className='form' onSubmit={handleSubmit(submitForm)}>
-                            <Input text='E-posta' type='email' variant='flushed' className='w-100' onChange={(event : any)=>{
-                                setUser({...user, email: event.target.value});
-                            }} />
-                            <PasswordInput text='Şifre' variant='flushed' className='mt-2 w-100' onChange={(event : any)=>{
-                                setUser({...user, password: event.target.value});
-                            }} />
-                            <small className='forget-password text-right my-2'><Link to='/'>Şifremi unuttum</Link></small>
-                            <Button text={`Giriş Yap ${userType > 0 ? userType === 1 ? '( Öğrenci )' : '( Eğitmen )' : ''}`}  className='submit-button' type='submit' size='sm' disabled={userType===0} />
-                        </form>
-                        <div className='go-other-sign text-center'>
-                            <small className='text-muted'>Hesabınız yok mu ? <Link to='/signup'>Kaydol</Link></small>
+                        <div className={`${userType === 2 ? 'type-item active text-center' : 'type-item text-center'}`} onClick={()=>setUserType(2)}>
+                            <img src={teacher} alt='teacher'/>
+                            <p className='sub-text mt-2'>Eğitmen</p>
                         </div>
                     </div>
+                    <form className='form' onSubmit={handleSubmit(submitForm)}>
+                        <Input type='email' variant='outline' placeholder='E-posta' className='w-100' onChange={(event : any)=>{
+                            setUser({...user, email: event.target.value});
+                        }} />
+                        <PasswordInput variant='outline' placeholder='Şifre' className='mt-2 w-100' onChange={(event : any)=>{
+                            setUser({...user, password: event.target.value});
+                        }} />
+                        <small className='forget-password text-right my-2'><Link to='/'>Şifremi unuttum</Link></small>
+                        <Button text={`Giriş Yap ${userType > 0 ? userType === 1 ? '( Öğrenci )' : '( Eğitmen )' : ''}`}  className='submit-button' type='submit' size='sm' disabled={userType===0} />
+                    </form>
+                    <div className='go-other-sign text-center mt-4'>
+                        <small className='text-muted'>Hesabınız yok mu ? <Link to='/signup'>Kaydol</Link></small>
+                    </div>
                 </div>
-                <div className='image-container'></div>
             </div>
-        </div>
+            <Footer />
+        </>
     );
 };
 

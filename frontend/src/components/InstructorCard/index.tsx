@@ -17,9 +17,9 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
     const history = useHistory();
 
     return (
-        <div className='teacher-card' onClick={()=>history.push(slug)}>
+        <div className='instructor-card' onClick={()=>history.push(slug)}>
             <div className='image-container'>
-                <img src={image} alt='teacher'/>
+                <img src={image} alt='instructor'/>
                 <div className='rate text-center'>
                     <small>
                         {Array(5)
@@ -34,8 +34,8 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
                 </div>
             </div>
             <div className='text-container'>
-                <Link to={slug} className='text'>{name}</Link> 
-                <p className='text-muted small-text'>{job}</p>   
+                <Link to={slug} className='text text-center'>{name}</Link> 
+                <p className='small-text text-center'>{job}</p>   
             </div>
         </div>
     );

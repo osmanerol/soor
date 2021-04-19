@@ -1,10 +1,6 @@
-.title{
-    font-weight: 600;
-}
-
-.sub-title{
+.title, .sub-title{
     font-weight: 500;
-    opacity: .6;
+    color: #000;
 }
 
 .text, .sub-text{
@@ -13,7 +9,7 @@
 
 @media screen and (max-width: 576px){
     .title{
-        font-size: 1.4rem! important;  
+        font-size: 1.2rem! important;  
     }
     .sub-title{
         font-size: .9rem! important; 
@@ -31,7 +27,7 @@
 
 @media screen and (min-width: 576px) and (max-width: 768px){
     .title{
-        font-size: 1.6rem! important;  
+        font-size: 1.4rem! important;  
     }
     .sub-title{
         font-size: 1rem! important; 
@@ -49,7 +45,7 @@
 
 @media screen and (min-width: 768px) and (max-width: 992px){
     .title{
-        font-size: 1.6rem! important;  
+        font-size: 1.4rem! important; 
     }
     .sub-title{
         font-size: 1rem! important; 
@@ -67,10 +63,10 @@
 
 @media screen and (min-width: 992px){
     .title{
-        font-size: 1.8rem! important;
+        font-size: 1.7rem! important;
     }
     .sub-title{
-        font-size: 1rem! important; 
+        font-size: 1.1rem! important; 
     }
     .text{
         font-size: 1rem! important;

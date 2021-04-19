@@ -1,14 +1,10 @@
 .settings-page-container{
     margin-top: 70px;
-    min-height: 80vh;
-    .cover{
-        width: 100%;
-        background-color: #2b2e4a;
-    }
+    min-height: 60vh;
     .settings-container{
         width: 100%;
         background-color: #fff;
-        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
         margin-bottom: 20px;
         .css-ri73u3{
             &:focus{
@@ -17,7 +13,7 @@
         }
         .css-ri73u3[aria-selected=true]{
             color: #fff;
-            background: #2b2e4a;
+            background: #5c6ac4;
         }
         .sub-title{
             opacity: 1;
@@ -68,11 +64,8 @@
 
 @media screen and (max-width: 576px){
     .settings-page-container{
-        .cover{
-            height: 120px;
-        }
         .settings-container{
-            margin-top: -40px;
+            margin-top: 80px;
             padding: 16px;
         }
     }
@@ -80,11 +73,8 @@
 
 @media screen and (min-width: 576px) and (max-width: 768px){
     .settings-page-container{
-        .cover{
-            height: 140px;
-        }
         .settings-container{
-            margin-top: -40px;
+            margin-top: 80px;
             padding: 30px;
         }
     }
@@ -92,11 +82,8 @@
 
 @media screen and (min-width: 768px) and (max-width: 992px){
     .settings-page-container{
-        .cover{
-            height: 180px;
-        }
         .settings-container{
-            margin-top: -60px;
+            margin-top: 100px;
             padding: 40px;
         }
     }
@@ -104,11 +91,8 @@
 
 @media screen and (min-width: 992px){
     .settings-page-container{
-        .cover{
-            height: 200px;
-        }
         .settings-container{
-            margin-top: -80px;
+            margin-top: 100px;
             padding: 40px;
             .image-update-container{
                 .image-upload{

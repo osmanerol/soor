@@ -39,7 +39,7 @@ const App = () => {
   return (
     <>
       { 
-        (!location.pathname.includes('login') && !location.pathname.includes('signup')) && <Navbar />
+        !(isSmallScreen && location.pathname.includes('/messages/')) && <Navbar />
       }
       <Switch>
         <Route path='/' exact strict component={HomePage} />

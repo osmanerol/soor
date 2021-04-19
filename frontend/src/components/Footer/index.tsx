@@ -13,28 +13,28 @@ const Index = () => {
                     <div className='about'>
                         <Heading as='h6' size='sm'>Kurumsal</Heading>
                         <ul>
-                            <li><Link to='/'>Hakkımızda</Link></li>
-                            <li><Link to='/'>Üyelik Sözleşmesi</Link></li>
-                            <li><Link to='/'>Gizlilik Sözleşmesi</Link></li>
-                            <li><Link to='/'>Kullanıcı Yorumları</Link></li>
+                            <li><Link to='/' className='sub-text'>Hakkımızda</Link></li>
+                            <li><Link to='/' className='sub-text'>Üyelik Sözleşmesi</Link></li>
+                            <li><Link to='/' className='sub-text'>Gizlilik Sözleşmesi</Link></li>
+                            <li><Link to='/' className='sub-text'>Kullanıcı Yorumları</Link></li>
                         </ul>
                     </div>
                     <div className='personel'>
                         <div>
                             <Heading as='h6' size='sm'>Bireysel</Heading>
                             <ul>
-                                <li><Link to='/login'>Giriş Yap</Link></li>
-                                <li><Link to='/signup'>Kaydol</Link></li>
+                                <li><Link to='/login' className='sub-text'>Giriş Yap</Link></li>
+                                <li><Link to='/signup' className='sub-text'>Kaydol</Link></li>
                             </ul>
                         </div>
                     </div>
                     <div className='contact'>
                         <Heading as='h6' size='sm'>İletişim</Heading>
                         <ul>
-                            <li><a href='mailto:info@soor.com'><GrMail className='icon' /> Mail</a></li>
-                            <li><Link to='/'><GrTwitter className='icon' />Twitter</Link></li>
-                            <li><Link to='/'><GrLinkedin className='icon' />LinkedIn</Link></li>
-                            <li><Link to='/'><GrInstagram className='icon' />Instagram</Link></li>
+                            <li><a href='mailto:info@soor.com' className='sub-text'><GrMail className='icon' /> Mail</a></li>
+                            <li><Link to='/' className='sub-text'><GrTwitter className='icon' />Twitter</Link></li>
+                            <li><Link to='/' className='sub-text'><GrLinkedin className='icon' />LinkedIn</Link></li>
+                            <li><Link to='/' className='sub-text'><GrInstagram className='icon' />Instagram</Link></li>
                         </ul>
                     </div>
                 </div>

@@ -23,7 +23,7 @@ const Index = () => {
     }, [])
 
     const resizeListener=()=>{
-        if(window.innerWidth<=768){
+        if(window.innerWidth<768){
             setIsSmallScreen(true);
         }
         else{
@@ -46,19 +46,20 @@ const Index = () => {
                     {
                         isLoggedIn ? 
                         <>
-                            <Nav.Link as={Link} to='/add-balance'>Bakiye Yükle</Nav.Link>
                             <Nav.Link as={Link} to='/lessons' className={`${lessonNotification > 0 && 'notification'}`}>Derslerim</Nav.Link>
                             <Nav.Link as={Link} to='/messages' className={`${messageNotification > 0 && 'notification'}`}>Mesajlar</Nav.Link>
                             {
                                 isSmallScreen ?
                                 <>
-                                    <Nav.Link as={Link} to='/settings'>Ayarlar</Nav.Link>
+                                    <Nav.Link as={Link} to='/add-balance'>Bakiye Yükle</Nav.Link>
                                     <Nav.Link as={Link} to='/instructor/jessica-jones'>Profil</Nav.Link>
+                                    <Nav.Link as={Link} to='/settings'>Ayarlar</Nav.Link>
                                     <Nav.Link as={Link} to='/'>Çıkış Yap</Nav.Link>
                                 </> : 
-                                <NavDropdown title={<span className='image-container'><img src='https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-4.jpg' alt='profile' className='profile-image' /></span>} id='nav-dropdown'>
-                                    <NavDropdown.Item as={Link} to='/settings'>Ayarlar</NavDropdown.Item>
+                                <NavDropdown title={<div className='navbar-dropdown-name'><span className='image-container'><img src='https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-4.jpg' alt='profile' className='profile-image' /></span><span className='navbar-name'>Jessica Jones</span></div>} id='nav-dropdown'>
+                                    <NavDropdown.Item as={Link} to='/add-balance'>Bakiye Yükle</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to='/instructor/jessica-jones'>Profil</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to='/settings'>Ayarlar</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to='/'>Çıkış Yap</NavDropdown.Item>
                                 </NavDropdown>
                             }

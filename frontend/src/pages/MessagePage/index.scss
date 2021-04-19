@@ -1,6 +1,11 @@
 .message-page-container{
     padding-top: 70px;
-    min-height: 80%;
+    .container{
+        height: 100%;
+        .row{
+            height: 100%;
+        }
+    }
 }
 
 @media screen and (max-width: 576px){
@@ -15,13 +20,33 @@
 
 @media screen and (min-width: 768px) and (max-width: 992px){
     .message-page-container{
-        height: 100%;
+        height: calc(100vh - 30px);
+        .row{
+            margin-top: 10px;
+            .messages-list{
+                height: 100%;
+                overflow-y: scroll;
+            }
+            .messages-detail-list{
+                height: 100%;
+            }
+        }
     }
 }
 
 @media screen and (min-width: 992px){
     .message-page-container{
-        height: 100%;
+        height: calc(100vh - 40px);
+        .row{
+            margin-top: 10px;
+            .messages-list{
+                height: 100%;
+                overflow-y: scroll;
+            }
+            .messages-detail-list{
+                height: 100%;
+            }
+        }
     }
 }
 /*

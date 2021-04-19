@@ -38,7 +38,6 @@ const Index = () => {
     return (
         <>
             <div className='teacher-profile-page-container'>
-                <div className="cover"></div>
                 <Container>
                     <div className="profile-container">
                         <div className="personal-info-container">
@@ -91,8 +90,8 @@ const Index = () => {
                                 comments.length > 0 ? 
                                 <div>
                                     {
-                                        comments.map((item : any)=>(
-                                            <CommentDetail image={item.image} name={item.name} content={item.content} date={item.date} key={item.image} />
+                                        comments.map((item : any, index : number)=>(
+                                            <CommentDetail image={item.image} name={item.name} content={item.content} date={item.date} key={index} />
                                         ))
                                     }
                                     <Button text='Daha fazla yükle' className='col-lg-5 col-md-8 col-12 mx-auto px-0 my-2 load-more-button' size='sm' />

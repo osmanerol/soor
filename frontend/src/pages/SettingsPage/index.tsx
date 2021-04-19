@@ -125,13 +125,12 @@ const Index = () => {
     return (
         <>
             <div className='settings-page-container'>
-                <div className="cover"></div>
                 <Container>
                     <div className="settings-container">
                         <Tabs variant="soft-rounded" colorScheme="blue" size='sm'>
                             <TabList>
                                 <Tab onClick={()=>setSelectMenu(0)}>Kişisel Bilgiler</Tab>
-                                <Tab onClick={()=>setSelectMenu(1)}>Email</Tab>
+                                <Tab onClick={()=>setSelectMenu(1)}>E-posta</Tab>
                                 <Tab onClick={()=>setSelectMenu(2)}>Şifre</Tab>
                             </TabList>
                         </Tabs>
@@ -143,7 +142,6 @@ const Index = () => {
                                         <Input text='Ad' id='firstName' size='sm' variant='flushed' className='col-md-6 col-12 mb-2' defaultValue={user.firstName} selectRef={register} errors={errors} onChange={(event: any)=>{setUser({...user, firstName: event.target.value})}} />
                                         <Input text='Soyad' id='lastName' size='sm' variant='flushed' className='col-md-6 col-12 mb-2' defaultValue={user.lastName} selectRef={register} errors={errors} onChange={(event: any)=>{setUser({...user, lastName: event.target.value})}} />
                                     </div>
-                                <Input text='E-posta' id='email' size='sm' variant='flushed' className='mb-2' defaultValue={user.email} selectRef={register} errors={errors} onChange={(event: any)=>{setUser({...user, email: event.target.value})}} />
                                 <Input text='Üniversite' id='university' size='sm' variant='flushed' className='mb-2' defaultValue={user.university} selectRef={register} errors={errors} onChange={(event: any)=>{setUser({...user, university: event.target.value})}} />
                                 <Input text='Bölüm' id='department' size='sm' variant='flushed' className='mb-2' defaultValue={user.department} selectRef={register} errors={errors} onChange={(event: any)=>{setUser({...user, department: event.target.value})}} />
                                 <Input text='Meslek' id='job' size='sm' variant='flushed' className='mb-2' defaultValue={user.job} selectRef={register} errors={errors} onChange={(event: any)=>{setUser({...user, job: event.target.value})}} />
@@ -169,7 +167,7 @@ const Index = () => {
                                 <Input text='Güncel e-posta' type='email' size='sm' variant='flushed' className='mb-2' onChange={(event: any)=>{setChangeEmailUser({ ...changeEmailUser, old_email: event.target.value })}} />
                                 <Input text='Yeni e-posta' type='email' size='sm' variant='flushed' className='mb-2' onChange={(event: any)=>{setChangeEmailUser({ ...changeEmailUser, new_email: event.target.value })}} />
                                 <Input text='Yeni e-posta tekrar' type='email' size='sm' variant='flushed' className='mb-2' onChange={(event: any)=>{setChangeEmailUser({ ...changeEmailUser, new_email_confirm: event.target.value })}} />
-                                <Button text='Şifreyi güncelle' type='submit' size='sm' className='save-button col-md-6 col-8 p-0 mx-auto mt-3' />
+                                <Button text='E-posta güncelle' type='submit' size='sm' className='save-button col-md-6 col-8 p-0 mx-auto mt-3' />
                             </form>
                         }
                         {
