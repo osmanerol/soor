@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import './index.scss';
-import { InputGroup, Input, InputRightElement, Button } from '@chakra-ui/react';
+import { InputGroup, Input, InputRightElement } from '@chakra-ui/react';
 import { BiShowAlt, BiHide } from 'react-icons/bi';
 
 interface IDefaultProps{
@@ -26,11 +26,7 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
             { text && <small>{text}</small> }
             <InputGroup>
                 <Input type={show ? 'text' : 'password'} placeholder={placeholder} size={size} variant={variant} control={control} onChange={onChange} disabled={disabled} />
-                <InputRightElement width='4.5rem'>
-                    <Button h='1.75rem' size='sm' onClick={handleClick}>
-                        { show ? <BiHide /> : <BiShowAlt /> }
-                    </Button>
-                </InputRightElement>
+                <InputRightElement children={ show ? <BiHide /> : <BiShowAlt /> }  onClick={handleClick} />
             </InputGroup>
         </div>
     );

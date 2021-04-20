@@ -13,7 +13,7 @@
             content: '';
             position: absolute;
             width: 100%;
-            height: calc(100% - 70px);
+            height: calc(100vh - 70px);
             top: 0;
             left: 0;
             background-color: rgba(0, 0, 0, .4);
@@ -47,6 +47,7 @@
     .expected-container{
         .items-container{
             .item{
+                background-color: #fff;
                 transition: all .5s;
                 box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
                 .image-container{
@@ -81,12 +82,6 @@
             flex-direction: row;
             justify-content: space-between;
             flex-wrap: wrap;
-        }
-        .load-more-button{
-            .chakra-button{
-                background-color: #0e49b5;
-                color: #fff;
-            }
         }
     }
     .total-datas-container{
@@ -299,12 +294,7 @@
             }
             .comment-list{
                 & > *{
-                    width: 46%;
-                }
-                .comment-container:last-child{
-                    width: 46%;
-                    margin-left: auto;
-                    margin-right: auto;
+                    width: 100%;
                 }
             }
         }
@@ -387,7 +377,7 @@
             }
             .comment-list{
                 & > *{
-                    width: 32%;
+                    width: 100%;
                 }
             }
         }

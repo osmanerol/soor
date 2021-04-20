@@ -24,14 +24,19 @@ const Index: FC<IDefaultProps> = (props: IDefaultProps) => {
                 <Controller
                 render={()=>
                     <Select
+                        className='sub-text'
                         isMulti
                         styles={{
-                            control: (base: any, state: any) => ({
+                            control: (base: any) => ({
                                 ...base,
                                 '&:hover': { borderColor: '#E2E8F0' },
                                 border: '1.5px solid #E2E8F0',
                                 boxShadow: 'none', 
                             }),
+                            menu:  (base: any) => ({
+                                ...base,
+                                fontSize: '.9em'
+                            })
                         }}
                         closeMenuOnSelect={false}
                         options={options}

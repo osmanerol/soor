@@ -20,7 +20,7 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
 
     return (
         <div>
-            <Button text='Soru sor' size='sm' leftIcon={<FaQuestion />} className='lesson-button' onClick={onOpen}>Open Modal</Button>
+            <Button text='Soru sor' size='sm' leftIcon={<FaQuestion />} className='lesson-button' onClick={onOpen} />
             <Modal onClose={onClose} size={'xl'} isOpen={isOpen}>
                 <ModalOverlay />
                 <ModalContent>
@@ -35,7 +35,7 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
                                     <Select datas={lessons} placeholder='Ders seç' size='sm' onChange={(event: any)=>setSelectedLesson(parseInt(event.target.value))} id='id' value='name' control={control}/>
                                 </div>
                                 <div className='mb-3'>
-                                    <p className='sub-text'>Soracağınız sorularınn fotoğraflarını yüklemek ister misiniz ?</p>
+                                    <p className='sub-text'>Soracağınız soruların fotoğraflarını yüklemek ister misiniz ?</p>
                                     <input type='file' className='mt-2 sub-text' multiple />
                                 </div>
                                 <div className='mb-3 lesson-information'>

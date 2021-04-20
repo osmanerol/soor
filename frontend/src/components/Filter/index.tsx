@@ -26,7 +26,7 @@ const Index = () => {
             <div className='overlay'>
                 <Container>
                     <div className='col-lg-6 col-md-8 col-12 top-filter'>
-                        <p className='header'>Aradığın dersi seç , yüzlerce çevrimiçi öğretmenlerden seçtiğine canlı olarak sorunu sor.</p>
+                        <p className='header'>Eğitim durumu ve derse göre filtrele</p>
                         <form>
                             <Select datas={categoriesArray} placeholder='Eğitim Durumu' onChange={(event: any)=>setSelectedCategory(parseInt(event.target.value))} id='id' value='value' control={control}/>
                             <Select datas={lessonsArray.filter(item=> item.categoryId === selectedCategory)} placeholder='Ders' onChange={(event: any)=>setSelectedLesson(parseInt(event.target.value))} id='id' value='value' control={control} />

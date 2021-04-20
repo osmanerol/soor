@@ -1,7 +1,7 @@
 .login-page-container{
     padding-top: 70px;
     width: 100%;
-    min-height: 80vh;
+    min-height: 92vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,7 +22,7 @@
             .type-item{
                 display: flex;
                 flex-direction: column;
-                border: 2px solid #fff;
+                border: 1px solid transparent;
                 width: 44%;
                 padding: 20px;
                 p{
@@ -33,7 +33,9 @@
                 }
             }
             .active{
-                border-color: #ddd;
+                border-color: #488bf8;
+                border-width: 2px;
+                background-color: #fff;
             }
         }
         .form{

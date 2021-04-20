@@ -1,67 +1,65 @@
-.teacher-filter-card{
+.instructor-filter-card{
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    margin-bottom: 20px;
+    background-color: #fff;
+    position: relative;
     display: flex;
-    flex-direction: row;
-    .header{
-        font-weight: 600;
+    flex-direction: column;
+    align-items: center;
+    .status{
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+    .status-0{
+        background-color: #ccc;
+    }
+    .status-1{
+        background-color: #1e6f5c;
+    }
+    .status-2{
+        background-color: #e48900;
     }
     .image-container{
-        overflow: hidden;
-        position: relative;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 100%;
+        margin-bottom: 10px;
         img{
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-            transition: all .5s ease;
-        }
-        .rate{
-            position: absolute;
-            bottom: 0;
-            top: auto;
-            width: 100%;
-            background: rgba(0, 0, 0, .5);
-            padding-bottom: 2px;
-        }
-        .status{
-            width: 8px;
-            height: 8px;
+            transition: all .5s;
+            width: 96%;
+            height: 96%;
             border-radius: 100%;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-        .status-0{
-            background-color: #ccc;
-        }
-        .status-1{
-            background-color: #1e6f5c;
-        }
-        .status-2{
-            background-color: #e48900;
+            object-fit: cover;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
         }
     }
-    .info-container{
+    .name-container{
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
-        .numeric-container{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            .item{
-                text-align: center;
-            }
+        align-items: center;
+        & > *{
+            margin-bottom: 4px;
         }
-        .detail-button{
-            .chakra-button{
-                background-color: #5c6ac4;
-                color: #fff;
-                transition: all .5s ease;
-            }
+    }
+    .numeric-info-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 12px;
+        width: 100%;
+        & > *{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
     }
     &:hover{
+        cursor: pointer;
         img{
             transform: scale(1.05);
         }
@@ -69,80 +67,48 @@
 }
 
 @media screen and (max-width: 576px){
-    .teacher-filter-card{
-        height: 160px;
+    .instructor-filter-card{
+        margin-bottom: 14px;
+        padding: 30px;
         .image-container{
-            width: 120px;
+            width: 140px;
+            height: 140px;
         }
-        .info-container{
-            width: calc(100% - 120px);
-            padding: 14px;
+        .numeric-info-container{
+            max-width: 220px;
         }
     }
 }
 
 @media screen and (min-width: 576px) and (max-width: 768px){
-    .teacher-filter-card{
-        height: 180px;
+    .instructor-filter-card{
+        margin-bottom: 14px;
+        padding: 20px;
         .image-container{
             width: 140px;
-        }
-        .info-container{
-            width: calc(100% - 140px);
-            padding: 16px 24px;
-        }
-        .detail-button{
-            .chakra-button{
-                font-size: .85em;
-                width: 100px! important;
-                &:hover{
-                    width: 120px! important;
-                }
-            }
+            height: 140px;
         }
     }
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px){
-    .teacher-filter-card{
-        height: 180px;
+    .instructor-filter-card{
+        margin-bottom: 14px;
+        padding: 20px;
         .image-container{
             width: 120px;
-        }
-        .info-container{
-            width: calc(100% - 120px);
-            padding: 12px;
-        }
-        .detail-button{
-            .chakra-button{
-                font-size: .85em;
-                height: 28px;
-                width: 90px! important;
-                &:hover{
-                    width: 120px! important;
-                }
-            }
+            height: 120px;
         }
     }
 }
 
 @media screen and (min-width: 992px){
-    .teacher-filter-card{
-        height: 220px;
+    .instructor-filter-card{
+        margin-bottom: 18px;
+        padding: 30px;
         .image-container{
-            width: 200px;
-        }
-        .info-container{
-            width: calc(100% - 200px);
-            padding: 24px;
-        }
-        .detail-button{
-            .chakra-button{
-                width: 120px! important;
-                &:hover{
-                    width: 140px! important;
-                }
-            }
+            width: 140px;
+            height: 140px;
         }
     }
 }

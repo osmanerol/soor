@@ -26,7 +26,7 @@ const Index: FC<IDefaultProps> = (props: IDefaultProps) => {
                 render={() => (
                     <>
                         { text && <small>{text}</small>}
-                        <Select bg='white' textStyle='general' size={size} placeholder={placeholder} className='my-2' onChange={onChange} defaultValue={defaultValue} multiple={multiple}>
+                        <Select bg='white' textStyle='general' size={size} placeholder={placeholder} onChange={onChange} defaultValue={defaultValue} multiple={multiple}>
                             {
                                 datas.map((item: any)=><option key={item[id]} value={item[id]}>{item[value]}</option>)
                             }

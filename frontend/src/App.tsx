@@ -7,7 +7,6 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import LessonFilterPage from './pages/LessonFilterPage';
 import InstructorPage from './pages/InstructorPage';
-import AllInstructorsPage from './pages/AllInstructorsPage';
 import LessonsPage from './pages/LessonsPage';
 import MessagePage from './pages/MessagePage';
 import MessageDetailPage from './pages/MessageDetailPage';
@@ -45,9 +44,9 @@ const App = () => {
         <Route path='/' exact strict component={HomePage} />
         <Route path='/login' exact strict component={LoginPage} />
         <Route path='/signup' exact strict component={SignupPage} />
+        <Route path='/lesson-filter' exact strict component={LessonFilterPage} />
         <Route path='/lesson-filter/:lesson' exact strict component={LessonFilterPage} />
         <Route path='/instructor/:instructor' exact strict component={InstructorPage} />
-        <Route path='/all-instructors' exact strict component={AllInstructorsPage} />
         <Route path='/lessons' exact strict component={LessonsPage} />
         <Route path='/settings' exact strict component={SettingsPage} />
         <Route path='/messages' exact={isSmallScreen} strict component={MessagePage} /> 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/images/logo.png';
+import logo from '../../assets/images/logo-black.png';
 
 const Index = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,7 +23,7 @@ const Index = () => {
     }, [])
 
     const resizeListener=()=>{
-        if(window.innerWidth<768){
+        if(window.innerWidth<992){
             setIsSmallScreen(true);
         }
         else{
@@ -36,13 +36,13 @@ const Index = () => {
     }
 
     return (
-        <Navbar expand='md' fixed='top' expanded={isExpanded}>
+        <Navbar expand='lg' fixed='top' expanded={isExpanded}>
             <Container>
             <Navbar.Brand as={Link} to='/'><img src={logo} alt='logo' /><span className='navbar-brand-text'>Soor</span></Navbar.Brand>
             <Navbar.Toggle aria-controls='basic-navbar-nav' onClick={toggleExpanded} className={`${(lessonNotification > 0 || messageNotification > 0) && 'notification'}`}></Navbar.Toggle>
             <Navbar.Collapse id='basic-navbar-nav'>
                 <Nav className='ml-auto' onClick={isSmallScreen ? toggleExpanded : ()=>{}}>
-                    <Nav.Link as={Link} to='/all-instructors'>Eğitmenler</Nav.Link>
+                    <Nav.Link as={Link} to='/lesson-filter'>Ders Seç</Nav.Link>
                     {
                         isLoggedIn ? 
                         <>

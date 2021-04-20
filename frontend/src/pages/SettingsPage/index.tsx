@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import './index.scss';
 import { Input, Autocomplete, TextArea, PasswordInput, Button, Footer } from '../../components';
 import { Container } from 'react-bootstrap';
-import { Tabs, TabList, Tab, useToast } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import { useForm } from 'react-hook-form';
+import { BiUser } from 'react-icons/bi';
+import { FiMail, FiLock } from 'react-icons/fi';
+import { RiDeleteBin7Line } from 'react-icons/ri';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'; 
 
 const Index = () => {
-    const [selectMenu, setSelectMenu] = useState(0);
+    const [selectMenu, setSelectMenu] = useState(1);
     const [user, setUser] = useState({
         image: 'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-4.jpg',
         firstName: 'Jessica',
@@ -60,7 +63,7 @@ const Index = () => {
     const { handleSubmit : handleSubmitPassword } = useForm({ })
     
     useEffect(()=>{
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        window.scrollTo(0,0);
     }, [])
 
     const handleSubmitPersonalChange=()=>{
@@ -127,58 +130,65 @@ const Index = () => {
             <div className='settings-page-container'>
                 <Container>
                     <div className="settings-container">
-                        <Tabs variant="soft-rounded" colorScheme="blue" size='sm'>
-                            <TabList>
-                                <Tab onClick={()=>setSelectMenu(0)}>Kişisel Bilgiler</Tab>
-                                <Tab onClick={()=>setSelectMenu(1)}>E-posta</Tab>
-                                <Tab onClick={()=>setSelectMenu(2)}>Şifre</Tab>
-                            </TabList>
-                        </Tabs>
-                        {
-                            selectMenu === 0 &&
-                            <form className='row mt-4 p-0 m-0' onSubmit={handleSubmit(handleSubmitPersonalChange)}>
-                                <div className="col-md-8 order-md-1 order-2">
+                        <ul className="menu">
+                            <li className={`${selectMenu === 1 ? 'menu-item text active' : 'menu-item text'}`} onClick={()=>setSelectMenu(1)}><BiUser className='list-icon' /> <span>Profil</span></li>
+                            <li className={`${selectMenu === 2 ? 'menu-item text active' : 'menu-item text'}`} onClick={()=>setSelectMenu(2)}><FiMail className='list-icon' /><span>E-posta</span></li>
+                            <li className={`${selectMenu === 3 ? 'menu-item text active' : 'menu-item text'}`} onClick={()=>setSelectMenu(3)}><FiLock className='list-icon' /><span>Şifre</span></li>
+                            <li className={`${selectMenu === 4 ? 'menu-item text active' : 'menu-item text'}`} onClick={()=>setSelectMenu(4)}><RiDeleteBin7Line className='list-icon' /><span>Hesabı Kapat</span></li>
+                        </ul>
+                        <div className="form-container">
+                            {
+                                selectMenu === 1 && 
+                                <form onSubmit={handleSubmit(handleSubmitPersonalChange)}>
+                                    <h2 className='sub-title text-center mb-4'>Profil Bilgilerini Güncelle</h2>
+                                    <div className="image-update-container">
+                                        <div className="image-container mb-3">
+                                            <img src={user.image} alt="user"/>
+                                        </div>
+                                        <input type="file" className='mb-3 sub-text image-input' onChange={(event : any)=>handleChange(event)} />
+                                    </div>
                                     <div className='row p-0'>
                                         <Input text='Ad' id='firstName' size='sm' variant='flushed' className='col-md-6 col-12 mb-2' defaultValue={user.firstName} selectRef={register} errors={errors} onChange={(event: any)=>{setUser({...user, firstName: event.target.value})}} />
                                         <Input text='Soyad' id='lastName' size='sm' variant='flushed' className='col-md-6 col-12 mb-2' defaultValue={user.lastName} selectRef={register} errors={errors} onChange={(event: any)=>{setUser({...user, lastName: event.target.value})}} />
                                     </div>
-                                <Input text='Üniversite' id='university' size='sm' variant='flushed' className='mb-2' defaultValue={user.university} selectRef={register} errors={errors} onChange={(event: any)=>{setUser({...user, university: event.target.value})}} />
-                                <Input text='Bölüm' id='department' size='sm' variant='flushed' className='mb-2' defaultValue={user.department} selectRef={register} errors={errors} onChange={(event: any)=>{setUser({...user, department: event.target.value})}} />
-                                <Input text='Meslek' id='job' size='sm' variant='flushed' className='mb-2' defaultValue={user.job} selectRef={register} errors={errors} onChange={(event: any)=>{setUser({...user, job: event.target.value})}} />
-                                <Input text='Ders ücreti' id='lessonPrice' size='sm' variant='flushed' className='mb-2' type='number' defaultValue={user.lessonPrice.toString()} selectRef={register} errors={errors} onChange={(event: any)=>{setUser({...user, lessonPrice: parseInt(event.target.value)})}} />
-                                <Autocomplete text='Verdiğin dersler' id='lessons' className='mb-2' options={lessonsArray} defaultValue={lessonsArray.filter(item=> selectedLessons.find(data=> data.id===item.id))} errors={errors} control={control} onChange={(event: any)=>{ setSelectedLessons(event); setValue('lessons', event);}} label='name' value='id' />
-                                <TextArea text='Hakkında' id='about' size='sm' variant='flushed' className='mb-2' defaultValue={user.about} selectRef={register} errors={errors} onChange={(event: any)=>{setUser({...user, about: event.target.value})}} />
-                                <Button text='Kişisel bilgileri güncelle' size='sm' className='save-button col-md-6 col-8 p-0 mx-auto mt-1' type='submit' />
+                                    <Input text='Üniversite' id='university' size='sm' variant='flushed' className='mb-2' defaultValue={user.university} selectRef={register} errors={errors} onChange={(event: any)=>{setUser({...user, university: event.target.value})}} />
+                                    <Input text='Bölüm' id='department' size='sm' variant='flushed' className='mb-2' defaultValue={user.department} selectRef={register} errors={errors} onChange={(event: any)=>{setUser({...user, department: event.target.value})}} />
+                                    <Input text='Meslek' id='job' size='sm' variant='flushed' className='mb-2' defaultValue={user.job} selectRef={register} errors={errors} onChange={(event: any)=>{setUser({...user, job: event.target.value})}} />
+                                    <Input text='Ders ücreti' id='lessonPrice' size='sm' variant='flushed' className='mb-2' type='number' defaultValue={user.lessonPrice.toString()} selectRef={register} errors={errors} onChange={(event: any)=>{setUser({...user, lessonPrice: parseInt(event.target.value)})}} />
+                                    <Autocomplete text='Verdiğin dersler' id='lessons' className='mb-2' options={lessonsArray} defaultValue={lessonsArray.filter(item=> selectedLessons.find(data=> data.id===item.id))} errors={errors} control={control} onChange={(event: any)=>{ setSelectedLessons(event); setValue('lessons', event);}} label='name' value='id' />
+                                    <TextArea text='Hakkında' id='about' size='sm' variant='flushed' className='mb-2' defaultValue={user.about} selectRef={register} errors={errors} onChange={(event: any)=>{setUser({...user, about: event.target.value})}} />
+                                    <Button text='Profil bilgilerini güncelle' className='save-button mx-auto mt-1' type='submit' />
+                                </form>
+                            }
+                            {
+                                selectMenu === 2 && 
+                                <form onSubmit={handleSubmitEmail(submitEmail)}>
+                                    <h2 className='sub-title text-center mb-4'>E-posta Güncelle</h2>
+                                    <Input text='Güncel e-posta' type='email' size='sm' variant='flushed' className='mb-2' onChange={(event: any)=>{setChangeEmailUser({ ...changeEmailUser, old_email: event.target.value })}} />
+                                    <Input text='Yeni e-posta' type='email' size='sm' variant='flushed' className='mb-2' onChange={(event: any)=>{setChangeEmailUser({ ...changeEmailUser, new_email: event.target.value })}} />
+                                    <Input text='Yeni e-posta tekrar' type='email' size='sm' variant='flushed' className='mb-2' onChange={(event: any)=>{setChangeEmailUser({ ...changeEmailUser, new_email_confirm: event.target.value })}} />
+                                    <Button text='E-posta güncelle' type='submit' className='save-button mx-auto mt-3' />
+                                </form>
+                            }
+                            {
+                                selectMenu === 3 && 
+                                <form onSubmit={handleSubmitPassword(submitPassword)}>
+                                    <h2 className='sub-title text-center mb-4'>Şifre Güncelle</h2>
+                                    <PasswordInput text='Güncel şifre' size='sm' variant='flushed' className='mb-2' onChange={(event: any)=>{setChangePasswordUser({ ...changePasswordUser, old_password: event.target.value })}} />
+                                    <PasswordInput text='Yeni şifre' size='sm' variant='flushed' className='mb-2' onChange={(event: any)=>{setChangePasswordUser({ ...changePasswordUser, new_password: event.target.value })}} />
+                                    <PasswordInput text='Yeni şifre tekrar' size='sm' variant='flushed' className='mb-2' onChange={(event: any)=>{setChangePasswordUser({ ...changePasswordUser, new_password_confirm: event.target.value })}} />
+                                    <Button text='Şifreyi güncelle' type='submit' className='save-button mx-auto mt-3' />
+                                </form>
+                            }
+                            {
+                                selectMenu === 4 && 
+                                <div className='remove-account-container'>
+                                    <h2 className='sub-title text-center mb-3'>Hesabı Kapat</h2>
+                                    <p className='sub-text text-center mb-3'>Verileriniz silinecektir. Hesabı kapatmak istediğinizden emin misiniz?</p>
+                                    <Button text='Hesabı Kapat' className='delete-button' />
                                 </div>
-                                <div className="col-md-4 order-md-2 order-1">
-                                    <div className='image-update-container mb-3'>
-                                        <div className='image-container'>
-                                            <img src={user.image} alt='teacher'/>
-                                        </div>
-                                        <Button text='Güncelle' className='image-upload mt-2' size='sm' onClick={()=>{document.getElementById('upload-button')!.click()}} />
-                                        <input type='file' id='upload-button' onChange={handleChange} />
-                                    </div>
-                                </div>
-                            </form>
-                        }
-                        {
-                            selectMenu === 1 &&
-                            <form className='col-md-8 mt-4' onSubmit={handleSubmitEmail(submitEmail)}>
-                                <Input text='Güncel e-posta' type='email' size='sm' variant='flushed' className='mb-2' onChange={(event: any)=>{setChangeEmailUser({ ...changeEmailUser, old_email: event.target.value })}} />
-                                <Input text='Yeni e-posta' type='email' size='sm' variant='flushed' className='mb-2' onChange={(event: any)=>{setChangeEmailUser({ ...changeEmailUser, new_email: event.target.value })}} />
-                                <Input text='Yeni e-posta tekrar' type='email' size='sm' variant='flushed' className='mb-2' onChange={(event: any)=>{setChangeEmailUser({ ...changeEmailUser, new_email_confirm: event.target.value })}} />
-                                <Button text='E-posta güncelle' type='submit' size='sm' className='save-button col-md-6 col-8 p-0 mx-auto mt-3' />
-                            </form>
-                        }
-                        {
-                            selectMenu === 2 &&
-                            <form className='col-md-8 mt-4' onSubmit={handleSubmitPassword(submitPassword)}>
-                                <PasswordInput text='Güncel şifre' size='sm' variant='flushed' className='mb-2' onChange={(event: any)=>{setChangePasswordUser({ ...changePasswordUser, old_password: event.target.value })}} />
-                                <PasswordInput text='Yeni şifre' size='sm' variant='flushed' className='mb-2' onChange={(event: any)=>{setChangePasswordUser({ ...changePasswordUser, new_password: event.target.value })}} />
-                                <PasswordInput text='Yeni şifre tekrar' size='sm' variant='flushed' className='mb-2' onChange={(event: any)=>{setChangePasswordUser({ ...changePasswordUser, new_password_confirm: event.target.value })}} />
-                                <Button text='Şifreyi güncelle' type='submit' size='sm' className='save-button col-md-6 col-8 p-0 mx-auto mt-3' />
-                            </form>
-                        }
+                            }
+                        </div>
                     </div>
                 </Container>
             </div>

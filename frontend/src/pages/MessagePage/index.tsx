@@ -23,8 +23,8 @@ const Index = () => {
         { image: 'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-5.jpg', name: 'Jason Roy', slug: 'jason-roy', lastMessage: 'Lorem ipsum dolar ', status: 1},
     ])
 
-    useEffect(()=>{
-        window.scrollTo({top: 0, behavior: 'smooth'});
+    useEffect(()=>{        
+        window.scrollTo(0,0);
     }, [])
 
     const clickDelete=(event : any, index : number)=>{

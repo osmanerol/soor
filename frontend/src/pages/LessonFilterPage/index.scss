@@ -1,5 +1,179 @@
 .lesson-filter-page-container{
     padding-top: 70px;
+    .lesson-filter{
+        height: 100%;
+        .chakra-button{
+            background-color: #488bf8;
+            color: #fff;
+        }
+        .filter-container{
+            & > *{
+                margin-bottom: 8px;
+            }
+        }
+    }
+    .content-container{
+        .instructors{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .status-container{
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            .item{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                margin-left: 6px;
+                .status{
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 100%;
+                    display: block;
+                    margin-right: 4px;
+                }
+                .status-0{
+                    background-color: #ccc;
+                }
+                .status-1{
+                    background-color: #1e6f5c;
+                }
+                .status-2{
+                    background-color: #e48900;
+                }
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+        .pagination-container{
+            display: flex;
+            justify-content: flex-end;
+            .page-link{
+                color: #000;
+                &:focus{
+                    box-shadow: none! important;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 576px){
+    .lesson-filter-page-container{
+        .lesson-filter{
+            display: flex;
+            flex-direction: column;
+            .content-container{
+                .instructors{
+                    & > *{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px){
+    .lesson-filter-page-container{
+        .lesson-filter{
+            display: flex;
+            flex-direction: column;
+            .content-container{
+                .instructors{
+                    justify-content: space-between;
+                    & > *{
+                        width: 245px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+    .lesson-filter-page-container{
+        .lesson-filter{
+            display: flex;
+            flex-direction: row;
+            .filter-container{
+                width: 240px;
+                position: fixed;
+            }
+            .content-container{
+                margin-left: 240px;
+                width: calc(100% - 240px);
+                padding-left: 20px;
+                .instructors{
+                    justify-content: space-between;
+                    & > *{
+                        width: 207px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+    .lesson-filter-page-container{
+        .lesson-filter{
+            display: flex;
+            flex-direction: row;
+            .filter-container{
+                width: 250px;
+                position: fixed;
+            }
+            .content-container{
+                margin-left: 250px;
+                width: calc(100% - 250px);
+                padding-left: 30px;
+                .instructors{
+                    & > *{
+                        width: 208px;
+                    }
+                    & > *:nth-child(3n-1){
+                        margin-right: 13px;
+                        margin-left: 13px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .lesson-filter-page-container{
+        .lesson-filter{
+            display: flex;
+            flex-direction: row;
+            .filter-container{
+                width: 250px;
+                position: fixed;
+            }
+            .content-container{
+                margin-left: 250px;
+                width: calc(100% - 250px);
+                padding-left: 30px;
+                .instructors{
+                    & > *{
+                        width: 265px;
+                    }
+                    & > *:nth-child(3n-1){
+                        margin-right: 17.5px;
+                        margin-left: 17.5px;
+                    }
+                }
+            }
+        }
+    }
+}
+/*
+.lesson-filter-page-container{
+    padding-top: 70px;
     min-height: 80%;
     .chakra-heading{
         font-weight: 500;
@@ -98,3 +272,4 @@
         }
     }
 }
+*/

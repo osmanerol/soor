@@ -31,7 +31,7 @@ const Index = () => {
     ]
 
     useEffect(()=>{
-        // window.scrollTo({top: 0, behavior: 'smooth'});
+        window.scrollTo(0,0);
         setIsLoggedIn(true);
     }, [])
 
@@ -47,11 +47,10 @@ const Index = () => {
                                 {
                                     isLoggedIn ? 
                                     <>
-                                        <Button text='Soru Sor' className='filter-button' as={Link} to='/ask-question' />
-                                        <Button text='Eğitmenler' className='login-button' as={Link} to='/all-instructors' />
+                                        <Button text='Ders Seç' className='filter-button' as={Link} to='/lesson-filter' />
                                     </> :  
                                     <>
-                                        <Button text='Giriş Yap' className='filter-button' as={Link} to='/filter-lesson' />
+                                        <Button text='Giriş Yap' className='filter-button' as={Link} to='/login' />
                                         <Button text='Kaydol' className='login-button' as={Link} to='/signup' />
                                     </>
                                 }
@@ -101,7 +100,6 @@ const Index = () => {
                                 ))
                             }
                         </div>
-                        <Button text='Tüm eğitmenleri gör' className='col-md-5 col-sm-8 col-12 mx-auto p-0 mx-0 mt-3 load-more-button' size='sm' as={Link} to='/all-instructors' />
                     </div>
                 </Container>
                 <div className="total-datas-container">
