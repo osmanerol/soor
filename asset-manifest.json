@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/soor/static/css/main.109c930c.chunk.css",
-    "main.js": "/soor/static/js/main.45de3a51.chunk.js",
-    "main.js.map": "/soor/static/js/main.45de3a51.chunk.js.map",
-    "runtime-main.js": "/soor/static/js/runtime-main.16d35046.js",
-    "runtime-main.js.map": "/soor/static/js/runtime-main.16d35046.js.map",
-    "static/css/2.150d169a.chunk.css": "/soor/static/css/2.150d169a.chunk.css",
-    "static/js/2.9e672ed9.chunk.js": "/soor/static/js/2.9e672ed9.chunk.js",
-    "static/js/2.9e672ed9.chunk.js.map": "/soor/static/js/2.9e672ed9.chunk.js.map",
-    "static/js/3.95e6b6c0.chunk.js": "/soor/static/js/3.95e6b6c0.chunk.js",
-    "static/js/3.95e6b6c0.chunk.js.map": "/soor/static/js/3.95e6b6c0.chunk.js.map",
+    "main.css": "/soor/static/css/main.ec34c237.chunk.css",
+    "main.js": "/soor/static/js/main.5cfec4a5.chunk.js",
+    "main.js.map": "/soor/static/js/main.5cfec4a5.chunk.js.map",
+    "runtime-main.js": "/soor/static/js/runtime-main.9d30e115.js",
+    "runtime-main.js.map": "/soor/static/js/runtime-main.9d30e115.js.map",
+    "static/css/2.8d6f2667.chunk.css": "/soor/static/css/2.8d6f2667.chunk.css",
+    "static/js/2.584afb22.chunk.js": "/soor/static/js/2.584afb22.chunk.js",
+    "static/js/2.584afb22.chunk.js.map": "/soor/static/js/2.584afb22.chunk.js.map",
+    "static/js/3.b15f0ae4.chunk.js": "/soor/static/js/3.b15f0ae4.chunk.js",
+    "static/js/3.b15f0ae4.chunk.js.map": "/soor/static/js/3.b15f0ae4.chunk.js.map",
     "index.html": "/soor/index.html",
-    "static/css/2.150d169a.chunk.css.map": "/soor/static/css/2.150d169a.chunk.css.map",
-    "static/css/main.109c930c.chunk.css.map": "/soor/static/css/main.109c930c.chunk.css.map",
-    "static/js/2.9e672ed9.chunk.js.LICENSE.txt": "/soor/static/js/2.9e672ed9.chunk.js.LICENSE.txt",
+    "static/css/2.8d6f2667.chunk.css.map": "/soor/static/css/2.8d6f2667.chunk.css.map",
+    "static/css/main.ec34c237.chunk.css.map": "/soor/static/css/main.ec34c237.chunk.css.map",
+    "static/js/2.584afb22.chunk.js.LICENSE.txt": "/soor/static/js/2.584afb22.chunk.js.LICENSE.txt",
     "static/media/empty.13468768.svg": "/soor/static/media/empty.13468768.svg",
     "static/media/expected-1.a7a947e6.jpg": "/soor/static/media/expected-1.a7a947e6.jpg",
     "static/media/expected-2.e2e5937c.jpg": "/soor/static/media/expected-2.e2e5937c.jpg",
@@ -24,10 +24,10 @@
     "static/media/teacher.aa6e6f43.svg": "/soor/static/media/teacher.aa6e6f43.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.16d35046.js",
-    "static/css/2.150d169a.chunk.css",
-    "static/js/2.9e672ed9.chunk.js",
-    "static/css/main.109c930c.chunk.css",
-    "static/js/main.45de3a51.chunk.js"
+    "static/js/runtime-main.9d30e115.js",
+    "static/css/2.8d6f2667.chunk.css",
+    "static/js/2.584afb22.chunk.js",
+    "static/css/main.ec34c237.chunk.css",
+    "static/js/main.5cfec4a5.chunk.js"
   ]
 }
