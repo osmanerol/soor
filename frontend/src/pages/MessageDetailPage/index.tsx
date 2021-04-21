@@ -23,39 +23,43 @@ const Index = () => {
     ]
 
     useEffect(()=>{
+        window.scrollTo(0, 0);
         scrollBottom();
     },[])
 
     const scrollBottom=()=>{
         animateScroll.scrollToBottom({
             containerId: "messages-list",
+            duration: 1
         });
     }
 
     return (
         <div className='message-detail-page-container'>
             <div className="name-container">
-                <div className="image-container">
+                <div className="image-container" onClick={scrollBottom}>
                     <img src="https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-1-1.jpg" alt="message-profile"/>
                 </div>
                 <p className='text'>Justin Hammer</p>
                 <Button size='sm' text='' leftIcon={<MdCancel />} className='back-button d-md-none d-block' as={Link} to='/messages' />
             </div>
-            <div className="messages-content-container" id='messages-list'>
-                {
-                    message.map((item, index)=>
-                        <div key={index} className={`${item.isOwner ? 'message-item-isowner mr-1 mb-2' : 'message-item ml-1 mb-2'}`}>
-                            <p className='sub-text'>{item.message}</p>
-                            <div className="text-right">
-                                <small>{item.date}</small>
+            <div className='message-detail'>
+                <div className="messages-content-container" id='messages-list'>
+                    {
+                        message.map((item, index)=>
+                            <div key={index} className={`${item.isOwner ? 'message-item-isowner mr-1 mb-2' : 'message-item ml-1 mb-2'}`}>
+                                <p className='sub-text'>{item.message}</p>
+                                <div className="text-right">
+                                    <small>{item.date}</small>
+                                </div>
                             </div>
-                        </div>
-                    )
-                }
-            </div>
-            <div className="input-container">
-                <Input className='input' size='sm' placeholder='mesaj yaz' />
-                <Button className='button' size='sm' leftIcon={<IoSendSharp />} />
+                        )
+                    }
+                </div>
+                <div className="input-container">
+                    <Input className='input' size='sm' placeholder='mesaj yaz' onFocus={scrollBottom} />
+                    <Button className='button' size='sm' leftIcon={<IoSendSharp />} />
+                </div>
             </div>
         </div>
     );

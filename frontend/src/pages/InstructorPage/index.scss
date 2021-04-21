@@ -86,14 +86,51 @@
             }
         }
     }
-    .student-comments-container{
-        .comments-title{
-            font-weight: 500;
+    .profile-other-container{
+        .student-comments-container{
+            .comments-title{
+                font-weight: 500;
+            }
+            .load-more-button{
+                .chakra-button{
+                    background-color: #488bf8;
+                    color: #fff;
+                }
+            }
         }
-        .load-more-button{
-            .chakra-button{
-                background-color: #488bf8;
-                color: #fff;
+        .similar-instructors{
+            .similar-title{
+                font-weight: 500;
+            }
+            .instructors-container{
+                background-color: #fff;
+                box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+                padding: 0 6px;
+                .instructor{
+                    display: flex;
+                    flex-direction: row;
+                    padding: 10px 2px;
+                    border-bottom: 1px solid #eee;
+                    .image-container{
+                        margin-right: 8px;
+                        width: 56px;
+                        height: 56px;
+                        img{
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            border-radius: 100%;
+                            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+                        }
+                    }
+                    .text-container{
+                        display: flex;
+                        flex-direction: column;
+                        p{
+                            font-weight: 500;
+                        }
+                    }
+                }
             }
         }
     }
@@ -129,6 +166,13 @@
                 }
             }
         }
+        .profile-other-container{
+            display: flex;
+            flex-direction: column;
+            .comments-title, .similar-title{
+                font-size: 1rem;
+            }
+        }
     }
 }
 
@@ -160,6 +204,19 @@
                     width: 90%;
                     text-align: center;
                 }
+            }
+        }
+        .profile-other-container{
+            display: flex;
+            flex-direction: column;
+            .student-comments-container{
+                width: 100%;
+            }
+            .comments-title, .similar-title{
+                font-size: 1rem;
+            }
+            .similar-instructors{
+                width: 100%;
             }
         }
     }
@@ -195,6 +252,21 @@
                 }
             }
         }
+        .profile-other-container{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .student-comments-container{
+                width: calc(100% - 290px);
+                margin-bottom: 20px;
+            }
+            .comments-title, .similar-title{
+                    font-size: 1rem;
+            }
+            .similar-instructors{
+                width: 260px;
+            }
+        }
     }
 }
 
@@ -225,9 +297,19 @@
                 }
             }
         }
-        .student-comments-container{
-            .comments-title{
-                font-size: 1.1rem;
+        .profile-other-container{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .student-comments-container{
+                width: calc(100% - 290px);
+                margin-bottom: 20px;
+            }
+            .comments-title, .similar-title{
+                    font-size: 1.1rem;
+            }
+            .similar-instructors{
+                width: 260px;
             }
         }
     }

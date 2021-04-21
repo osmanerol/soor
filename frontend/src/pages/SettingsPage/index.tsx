@@ -185,7 +185,7 @@ const Index = () => {
                                 <div className='remove-account-container'>
                                     <h2 className='sub-title text-center mb-3'>Hesabı Kapat</h2>
                                     <p className='sub-text text-center mb-3'>Verileriniz silinecektir. Hesabı kapatmak istediğinizden emin misiniz?</p>
-                                    <Button text='Hesabı Kapat' className='delete-button' />
+                                    <Button text='Hesabı Kapat' showConfirm={true} className='delete-button' />
                                 </div>
                             }
                         </div>

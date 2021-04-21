@@ -66,8 +66,8 @@
         .settings-container{
             display: flex;
             flex-direction: column;
+            margin: 20px 0;
             .menu{
-                padding: 20px 0;
                 border-bottom: 1px solid #ccc;
                 .image-container{
                     padding-bottom: 20px;
@@ -105,7 +105,6 @@
             flex-direction: row;
             .menu{
                 width: 154px;
-                padding: 20px 0;
                 border-right: 1px solid #ccc;
                 .image-container{
                     padding-bottom: 20px;
@@ -144,7 +143,6 @@
             flex-direction: row;
             .menu{
                 width: 180px;
-                padding: 20px 0;
                 border-right: 1px solid #ccc;
                 .image-container{
                     padding-bottom: 20px;

@@ -2,7 +2,6 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     .name-container{
         width: 100%;
         display: flex;
@@ -35,211 +34,72 @@
             }
         }
     }
-    .messages-content-container{
-        height: 80%;
-        overflow-y: scroll;
-        .message-item-isowner{
-            background-color: #5c6ac4;
-            color: #fff;
-            margin-left: auto;
-        }
-        .message-item{
-            background-color: #f5f5f5;
-        }
-    }
-    .input-container{
+    .message-detail{
+        height: calc(100% - 61px);
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
-        .input{
-            width: 92%;
-            .chakra-input{
-                background-color: #f5f5f5;
-            }
-        }
-        .button{
-            width: 6%! important;
-            .chakra-button{
-                background-color: #5c6ac4;
-                color: #fff;
-                width: 100%;
-                .chakra-button__icon{
-                    margin: 0;
-                }
-            }
-        }
-    }
-}
-
-
-@media screen and (max-width: 576px){
-    .message-detail-page-container{
-        height: calc(100vh - 10px);
         .messages-content-container{
-            .message-item, .message-item-isowner{
-                width: 80%;
-                padding: 12px;
-            }
-        }
-        .input-container{
-            .input{
-                width: 90%;
-            }
-            .button{
-                width: 8%! important;
-            }
-        }
-    }
-}
-
-@media screen and (min-width: 576px) and (max-width: 768px){
-    .message-detail-page-container{
-        height: calc(100vh - 10px);
-        .messages-content-container{
-            .message-item, .message-item-isowner{
-                width: 60%;
-                padding: 12px;
-            }
-        }
-        .input-container{
-            .input{
-                width: 92%;
-            }
-            .button{
-                width: 6%! important;
-            }
-        }
-    }
-}
-
-@media screen and (min-width: 768px) and (max-width: 992px){
-    .message-detail-page-container{
-        .messages-content-container{
-            .message-item, .message-item-isowner{
-                width: 80%;
-                padding: 12px;
-            }
-        }
-    }
-}
-
-@media screen and (min-width: 992px){
-    .message-detail-page-container{
-        .messages-content-container{
-            .message-item, .message-item-isowner{
-                width: 60%;
-                padding: 12px;
-            }
-        }
-    }
-}
-
-/*
-.message-detail-page-container{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: space-between;
-    .name-container{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 6px;
-        .name{
-            opacity: 1;
-            font-weight: 500;
-        }
-        .back-button{
-            width: 30px! important;
-            .chakra-button{
-                background-color: #bbb;
-                color: #fff;
-            }
-        }
-    }
-    .message-container{
-        overflow-y: scroll;
-        .message-item, .message-item-isowner{
-            display: flex;
-            flex-direction: row;
-            margin-bottom: 16px;
-            .image-container{
-                width: 40px;
-                height: 40px;
-                border-radius: 100%;
-                margin-top: auto;
-                img{
-                    width: 96%;
-                    height: 96%;
-                    border-radius: 100%;
-                    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-                }
-            }
-        }
-        .text-container{
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        }
-        .message-item{
-            .text-container{
-                background-color: #f5f5f5;
-            }
-        }
-        .message-item-isowner{
-            margin-left: auto;
-            .text-container{
-                padding: 10px;
+            height: calc(100% - 40px);
+            padding-top: 10px;
+            overflow-y: scroll;
+            position: relative;
+            .message-item-isowner{
                 background-color: #5c6ac4;
                 color: #fff;
                 margin-left: auto;
             }
-        }
-    }
-    .send-message-input{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        .input{
-            width: 94%! important;
-            .chakra-input{
-                background-color: #eee;
+            .message-item{
+                background-color: #f5f5f5;
             }
         }
-        .button{
-            width: 4%! important;
-            .chakra-button{
-                background-color: #5c6ac4;
-                color: #fff;
-                width: 100%! important;
-                .chakra-button__icon{
-                    margin: 0;
+        .input-container{
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .input{
+                width: 92%;
+                .chakra-input{
+                    background-color: #f5f5f5;
+                }
+            }
+            .button{
+                width: 6%! important;
+                .chakra-button{
+                    background-color: #5c6ac4;
+                    color: #fff;
+                    width: 100%;
+                    .chakra-button__icon{
+                        margin: 0;
+                    }
                 }
             }
         }
     }
 }
 
-
 @media screen and (max-width: 576px){
     .message-detail-page-container{
-        padding-top: 70px;
-        .message-container{
-            height: calc(100vh - 180px);
-            .message-item, .message-item-isowner{
-                .text-container{
-                    width: 60%;
+        .message-detail{
+            .messages-content-container{
+                height: calc(100vh - 113px);  
+                margin-bottom: 10px;
+                display: block;
+                .message-item, .message-item-isowner{
+                    width: 80%;
+                    padding: 12px;
                 }
             }
-        }
-        .send-message-input{
-            .input{
-                width: 88%! important;
-            }
-            .button{
-                width: 8%! important;
+            .input-container{
+                margin-bottom: 10px;
+                .input{
+                    max-width: 80%;
+                    margin-right: 6px;
+                }
+                .button{
+                    width: 50px! important;
+                }
             }
         }
     }
@@ -247,21 +107,21 @@
 
 @media screen and (min-width: 576px) and (max-width: 768px){
     .message-detail-page-container{
-        padding-top: 70px;
-        .message-container{
-            height: calc(100vh - 180px);
-            .message-item, .message-item-isowner{
-                .text-container{
+        height: calc(100vh - 10px);
+        .message-detail{
+            .messages-content-container{
+                .message-item, .message-item-isowner{
                     width: 60%;
+                    padding: 12px;
                 }
             }
-        }
-        .send-message-input{
-            .input{
-                width: 88%! important;
-            }
-            .button{
-                width: 8%! important;
+            .input-container{
+                .input{
+                    width: 92%;
+                }
+                .button{
+                    width: 6%! important;
+                }
             }
         }
     }
@@ -269,12 +129,10 @@
 
 @media screen and (min-width: 768px) and (max-width: 992px){
     .message-detail-page-container{
-        .message-container{
-            height: calc(100vh - 200px);
+        .messages-content-container{
             .message-item, .message-item-isowner{
-                .text-container{
-                    width: 70%;
-                }
+                width: 80%;
+                padding: 12px;
             }
         }
     }
@@ -282,14 +140,11 @@
 
 @media screen and (min-width: 992px){
     .message-detail-page-container{
-        .message-container{
-            height: calc(100vh - 200px);
+        .messages-content-container{
             .message-item, .message-item-isowner{
-                .text-container{
-                    width: 60%;
-                }
+                width: 60%;
+                padding: 12px;
             }
         }
     }
 }
-*/

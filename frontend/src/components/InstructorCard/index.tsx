@@ -17,7 +17,7 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
     const history = useHistory();
 
     return (
-        <div className='instructor-card' onClick={()=>history.push(slug)}>
+        <div className='instructor-card' onClick={()=>history.push(`/instructor/${slug}`)}>
             <div className='image-container'>
                 <img src={image} alt='instructor'/>
                 <div className='rate text-center'>

@@ -56,7 +56,7 @@ const Index = () => {
                     <div className='text-center'>
                         <h2 className='title'>Kaydol</h2>
                     </div>
-                    <div className='type-container my-3'>
+                    <div className='type-container'>
                         <div className={`${userType===1 ? 'type-item active text-center' : 'type-item text-center'}`} onClick={()=>setUserType(1)}>
                             <img src={student} alt='student'/>
                             <p className='type-item-text mt-2'>Öğrenci</p>
@@ -83,8 +83,8 @@ const Index = () => {
                         }} />
                         <Button text={`Kaydol ${userType > 0 ? userType === 1 ? '( Öğrenci )' : '( Eğitmen )' : ''}`}  className='submit-button mt-2' size='sm' type='submit' disabled={userType===0} />
                     </form>
-                    <small className='text-center aggrements text-muted mt-2 mt-4'>Kaydolduğunuzda <Link to='/'>üyelik</Link> ve <Link to='/'>gizlilik</Link> sözleşmesini kabul etmiş olursunuz.</small>
-                    <div className='go-other-sign text-center mt-4'>
+                    <small className='text-center aggrements text-muted'>Kaydolduğunuzda <Link to='/'>üyelik</Link> ve <Link to='/'>gizlilik</Link> sözleşmesini kabul etmiş olursunuz.</small>
+                    <div className='go-other-sign text-center'>
                         <small className='text-muted'>Zaten hesabınız var mı ? <Link to='/login'>Giriş Yap</Link></small>
                     </div>
                 </div>

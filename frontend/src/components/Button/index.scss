@@ -11,3 +11,19 @@
         text-decoration: none;
     }
 }
+
+.react-confirm-alert-overlay{
+    background-color: rgba(0, 0, 0, .6)! important;
+    .react-confirm-alert-body{
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+}
+  
+@media screen and (max-width: 440px) {
+    .react-confirm-alert-overlay{
+        .react-confirm-alert-body{
+            width: 95%;
+            margin: auto;
+        }
+    }
+}

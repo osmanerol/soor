@@ -1,5 +1,5 @@
 .message-page-container{
-    padding-top: 70px;
+    margin-top: 70px;
     .container{
         height: 100%;
         .row{
@@ -8,19 +8,10 @@
     }
 }
 
-@media screen and (max-width: 576px){
-    .message-page-container{
-    }
-}
-
-@media screen and (min-width: 576px) and (max-width: 768px){
-    .message-page-container{
-    }
-}
-
 @media screen and (min-width: 768px) and (max-width: 992px){
     .message-page-container{
         height: calc(100vh - 30px);
+        max-height: 700px;
         .row{
             margin-top: 10px;
             .messages-list{
@@ -36,9 +27,10 @@
 
 @media screen and (min-width: 992px){
     .message-page-container{
-        height: calc(100vh - 40px);
+        height: calc(100vh - 20px);
+        max-height: 700px;
         .row{
-            margin-top: 10px;
+            padding-top: 10px;
             .messages-list{
                 height: 100%;
                 overflow-y: scroll;
