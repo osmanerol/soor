@@ -27,7 +27,7 @@ const Index = () => {
     const { control } = useForm();
     
     useEffect(()=>{
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        window.scrollTo(0,0);
         setSelectedCategory(-1);
     },[])
 
@@ -59,10 +59,6 @@ const Index = () => {
                                 <div className='item' onClick={()=>filterInstructors(1)}>
                                     <span className='status status-1'></span>
                                     <small>Çevrimiçi</small>
-                                </div>
-                                <div className='item' onClick={()=>filterInstructors(2)}>
-                                    <span className='status status-2'></span>
-                                    <small>Derste</small>
                                 </div>
                                 <div className='item' onClick={()=>filterInstructors(0)}>
                                     <span className='status status-0'></span>

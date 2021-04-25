@@ -4,6 +4,7 @@ import { InputGroup, Input, InputRightElement } from '@chakra-ui/react';
 import { BiShowAlt, BiHide } from 'react-icons/bi';
 
 interface IDefaultProps{
+    id?: string,
     className?: string,
     text?: string,
     placeholder?: string,
@@ -13,11 +14,13 @@ interface IDefaultProps{
     rightIcon?: any,
     control?: any,
     onChange?: any,
-    disabled?: boolean
+    selectRef?: any,
+    disabled?: boolean,
+    errors?: any,
 }
 
 const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
-    const { className, text, placeholder, size='md', variant='outline', control, onChange=()=>{}, disabled } = props;
+    const { id, className, text, placeholder, size='md', variant='outline', control, onChange=()=>{}, selectRef, disabled, errors} = props;
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
 
@@ -25,9 +28,12 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
         <div className={className}>
             { text && <small>{text}</small> }
             <InputGroup>
-                <Input type={show ? 'text' : 'password'} placeholder={placeholder} size={size} variant={variant} control={control} onChange={onChange} disabled={disabled} />
+                <Input id={id} name={id} type={show ? 'text' : 'password'} placeholder={placeholder} size={size} variant={variant} control={control} onChange={onChange} disabled={disabled} ref={selectRef} />
                 <InputRightElement children={ show ? <BiHide /> : <BiShowAlt /> }  onClick={handleClick} />
             </InputGroup>
+            {
+                errors  && <small className='error'>{errors[id!]?.message}</small>
+            }
         </div>
     );
 };

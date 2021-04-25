@@ -1,7 +1,6 @@
 .signup-page-container{
     margin-top: 70px;
     width: 100%;
-    min-height: calc(100vh - 70px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,7 +9,7 @@
         height: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: space-around;
         .type-container{
             display: flex;
             flex-direction: row;
@@ -32,7 +31,7 @@
                 }
             }
             .active{
-                border-color: #488bf8;
+                border-color: #3b405d;
                 border-width: 2px;
             }
         }
@@ -60,27 +59,34 @@
 
 @media screen and (max-width: 576px){
     .signup-page-container{
+        padding: 30px 0;
         .form-content{
             width: 90%;
-            min-height: 80vh;
+            .title, .type-container, .form, .aggrements{
+                margin-bottom: 16px;
+            }
         }
     }
 }
 
 @media screen and (min-width: 576px) and (max-width: 768px){
     .signup-page-container{
+        padding: 30px 0;
         .form-content{
             width: 400px;
-            min-height: 500px;
+            .title, .type-container, .form, .aggrements{
+                margin-bottom: 20px;
+            }
         }
     }
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px){
     .signup-page-container{
+        height: 80vh;
+        padding: 30px 0;
         .form-content{
             width: 400px;
-            height: 90%;
             height: 520px;
         }
     }
@@ -88,9 +94,10 @@
 
 @media screen and (min-width: 992px){
     .signup-page-container{
+        height: 80vh;
+        padding: 30px 0;
         .form-content{
             width: 440px;
-            height: 80%;
             height: 560px;
         }
     }

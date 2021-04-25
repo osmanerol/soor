@@ -47,7 +47,7 @@ const Index = () => {
                 <div className="messages-content-container" id='messages-list'>
                     {
                         message.map((item, index)=>
-                            <div key={index} className={`${item.isOwner ? 'message-item-isowner mr-1 mb-2' : 'message-item ml-1 mb-2'}`}>
+                            <div key={index} className={`${item.isOwner ? 'message-item-isowner mr-1 mb-3' : 'message-item ml-1 mb-3'}`}>
                                 <p className='sub-text'>{item.message}</p>
                                 <div className="text-right">
                                     <small>{item.date}</small>

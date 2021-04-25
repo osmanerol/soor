@@ -54,7 +54,7 @@ const App = () => {
           isSmallScreen &&
           <Route path='/messages/:slug' exact strict children={()=>(
             <Container>
-              <MessageDetailPage />
+              <MessageDetailPage /> 
             </Container>
           )} /> 
         }

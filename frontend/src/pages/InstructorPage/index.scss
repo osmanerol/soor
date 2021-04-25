@@ -105,11 +105,11 @@
             .instructors-container{
                 background-color: #fff;
                 box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
-                padding: 0 6px;
+                padding: 0 10px;
                 .instructor{
                     display: flex;
                     flex-direction: row;
-                    padding: 10px 2px;
+                    padding: 12px 2px;
                     border-bottom: 1px solid #eee;
                     .image-container{
                         margin-right: 8px;
@@ -126,7 +126,7 @@
                     .text-container{
                         display: flex;
                         flex-direction: column;
-                        p{
+                        .sub-text{
                             font-weight: 500;
                         }
                     }

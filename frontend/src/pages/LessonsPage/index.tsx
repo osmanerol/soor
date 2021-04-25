@@ -3,6 +3,7 @@ import './index.scss';
 import { Empty, Footer } from '../../components';
 import { Container, Pagination, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import cx from 'classnames';
 
 const Index = () => {
     const lessonsSummary = [
@@ -46,10 +47,10 @@ const Index = () => {
                                         <tbody>
                                             {
                                                 lessonsSummary.map((item, index)=>(
-                                                    <tr key={index} className={`${item.status === 0 ? 'bg-light' : ''}`}>
+                                                    <tr key={index} className={cx({'bg-light' : item.status === 0})}>
                                                         <td className='sub-text'>{item.date}</td>
                                                         <td className='sub-text'>{item.lesson}</td>
-                                                        <td className='sub-text'><Link to={`/instructor/${item.instructor}`}>{item.instructor}</Link></td>
+                                                        <td className='sub-text'><Link to={`/instructor/${item.slug}`}>{item.instructor}</Link></td>
                                                         <td className='sub-text'>
                                                             {
                                                                 item.status === 1 ?

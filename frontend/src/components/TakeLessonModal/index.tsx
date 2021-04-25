@@ -21,7 +21,7 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
     return (
         <div>
             <Button text='Soru sor' size='sm' leftIcon={<FaQuestion />} className='lesson-button' onClick={onOpen} />
-            <Modal onClose={onClose} size={'xl'} isOpen={isOpen}>
+            <Modal size={'xl'} onClose={onClose} isOpen={isOpen}>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>Soru sor</ModalHeader>
@@ -52,7 +52,7 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
                     <ModalFooter>
                         <Button text='Vazgeç' size='sm' className='cancel-button' onClick={onClose} />
                         {
-                            amount >= lessonPrice && <Button text='Onayla' size='sm' className='confirm-button' disabled={lesson === -1} onClick={onClose} />
+                            amount >= lessonPrice && <Button text='Onayla' size='sm' className='confirm-button' disabled={lesson === -1} onClick={onclick} />
                         }
                     </ModalFooter>
                 </ModalContent>

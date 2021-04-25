@@ -24,7 +24,7 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
     return (
         <div className={className}>
             { text && <small>{text}</small> }
-            <Textarea id={id} name={id} placeholder={placeholder} bg={background} rows={5} size={size} variant={variant} control={control} onChange={onChange} disabled={disabled} defaultValue={defaultValue} ref={selectRef} />
+            <Textarea id={id} name={id} className='sub-text' placeholder={placeholder} bg={background} rows={5} size={size} variant={variant} control={control} onChange={onChange} disabled={disabled} defaultValue={defaultValue} ref={selectRef} />
             {
                 errors  && <small className='error'>{errors[id!]?.message}</small>
             }

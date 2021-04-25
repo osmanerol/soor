@@ -1,0 +1,14 @@
+.chakra-modal__content{
+    .chakra-modal__footer{
+        .confirm-button, .cancel-button{
+            width: 120px! important;
+        }
+        .confirm-button{
+            margin-left: 10px;
+            .chakra-button{
+                background-color: #0e49b5;
+                color: #fff;
+            }
+        }
+    }
+}

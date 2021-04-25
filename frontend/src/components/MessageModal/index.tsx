@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { FC, useState } from 'react';
 import './index.scss';
 import { Button } from '../index';
 import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from '@chakra-ui/react';
 import { TextArea } from '../index';
 import { FiMessageSquare } from 'react-icons/fi';
 
-const Index = () => {
+interface IDefaultProps{
+    instructorId: any
+}
+
+const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
+    //const { instructorId } = props;
+    const [message, setMessage] = useState('');
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const messageSubmit=()=>{
+        alert('asd')
+    }
 
     return (
         <div>
@@ -17,11 +27,11 @@ const Index = () => {
                     <ModalHeader>Mesaj At</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <TextArea className='sub-text' />
+                        <TextArea onChange={(event : any)=>{ if(event?.target.value!=='') setMessage(event?.target.value)}} />
                     </ModalBody>    
                     <ModalFooter>
                         <Button text='Vazgeç' size='sm' className='cancel-button' onClick={onClose} />
-                        <Button text='Gönder' size='sm' className='send-button' onClick={onClose} />
+                        <Button text='Gönder' size='sm' className='send-button' disabled={message === ''} onClick={messageSubmit}  />
                     </ModalFooter>
                 </ModalContent>
             </Modal>

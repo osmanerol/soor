@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'eya02orbc*@rf@=&fgr8&m4oc90uxz9++u&#&97-qb381d%^vh'
+SECRET_KEY = 'm#5ct_k)lf8s(3@f5#bovy(l=104hbx5esjl$jw1a&%d5gs3ue'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,24 +37,56 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
     'rest_framework',
-    'rest_framework_swagger',
+    'rest_framework_jwt',
+    'rest_auth',
+    'rest_framework.authtoken',
+    'django.contrib.sites',
     'allauth',
-    'category',
-    'lecture',
+    'allauth.account',
+    'rest_auth.registration',
+    'allauth.socialaccount',
+    'user',
+    'instructor',
     'student',
-    'teacher',
-    'core'
+    'category',
+    'lecture'
 ]
 
-SITE_ID = 1 
-
-AUTH_USER_MODEL = 'core.USER'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
+SITE_ID = 1
+REST_USE_JWT = True
+AUTH_USER_MODEL = 'user.User'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_USERNAME = False
+ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+OLD_PASSWORD_FIELD_ENABLED = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}
+
+REST_AUTH_SERIALIZERS = {
+    'JWT_SERIALIZER': 'user.serializers.JWTSerializer',
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=10),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=20)
+}
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -68,18 +100,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'backend.urls'
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.SessionAuthentication'
-    ],
-    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
-}
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes= 15)
-}
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -92,9 +112,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'libraries': {
-                'staticfiles' : 'django.templatetags.static',
-            },
         },
     },
 ]
@@ -152,3 +169,25 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+"""
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
+}
+
+SIMPLE_JWT = {
+    'USER_ID_FIELD': 'id'
+}
+
+REST_AUTH_SERIALIZERS = {
+    'JWT_SERIALIZER': 'user.serializers.JWTSerializer',
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=10),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=20)
+}
+
+"""

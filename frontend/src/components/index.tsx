@@ -15,5 +15,6 @@ import MessageBox from './MessageBox';
 import Empty from './Empty';
 import TakeLessonModal from './TakeLessonModal';
 import MessageModal from './MessageModal';
+import ConfirmModal from './ConfirmModal';
 
-export { Autocomplete, Button , Navbar, Input, PasswordInput, Select, Footer, InstructorCard, Comment, CommentDetail, Filter, InstructorFilterCard, TextArea, MessageBox, TakeLessonModal, Empty, MessageModal }
+export { Autocomplete, Button , Navbar, Input, PasswordInput, Select, Footer, InstructorCard, Comment, CommentDetail, Filter, InstructorFilterCard, TextArea, MessageBox, TakeLessonModal, Empty, MessageModal, ConfirmModal }

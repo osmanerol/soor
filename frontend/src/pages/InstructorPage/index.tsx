@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 const Index = () => {
     const user = {
+        id: 1,
         image: 'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-4.jpg',
         firstName: 'Jessica',
         lastName: 'Jones',
@@ -88,7 +89,7 @@ const Index = () => {
                                 </div>
                             </div>
                             <div className="button-container mt-3">
-                                <MessageModal />
+                                <MessageModal instructorId={user.id} />
                                 <TakeLessonModal lessons={user.lessons} lessonPrice={user.lessonPrice} />
                             </div>
                             <div className="about-container mt-3">
@@ -116,7 +117,7 @@ const Index = () => {
                         </div>
                         <div className="similar-instructors mb-4">
                             <p className='similar-title text-center my-4'>Benzer Eğitmenler</p>
-                            <div className="instructors-container p-2">
+                            <div className="instructors-container">
                                 {
                                     instructors.map((item, index)=>
                                     <div className='instructor' key={index}>

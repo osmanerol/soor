@@ -1,7 +1,6 @@
 .login-page-container{
     margin-top: 70px;
     width: 100%;
-    min-height: calc(100vh - 70px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,7 +9,7 @@
         height: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: space-around;
         .type-container{
             display: flex;
             flex-direction: row;
@@ -32,7 +31,7 @@
                 }
             }
             .active{
-                border-color: #488bf8;
+                border-color: #3b405d;
                 border-width: 2px;
                 background-color: #fff;
             }
@@ -61,33 +60,38 @@
 
 @media screen and (max-width: 576px){
     .login-page-container{
+        padding: 20px 0;
         .form-content{
             width: 90%;
-            min-height: 65vh;
+            min-height: 480px;
         }
     }
 }
 
 @media screen and (min-width: 576px) and (max-width: 768px){
     .login-page-container{
+        padding: 30px 0;
         .form-content{
             width: 400px;
-            height: 500px;
+            height: 480px;
         }
     }
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px){
     .login-page-container{
+        height: 80vh;
+        padding: 30px 0;
         .form-content{
             width: 400px;
-            height: 490px;
         }
     }
 }
 
 @media screen and (min-width: 992px){
     .login-page-container{
+        height: 80vh;
+        padding: 30px 0;
         .form-content{
             width: 440px;
             height: 500px;

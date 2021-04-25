@@ -1,8 +1,11 @@
 import React, { FC } from 'react';
 import './index.scss';
-import { Button } from '@chakra-ui/react';
+import { Button, useDisclosure } from '@chakra-ui/react';
+import { ConfirmModal } from '../index';
+/*
 import { confirmAlert } from 'react-confirm-alert'
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
+*/
 
 interface IDefaultProps{
     className?: string,
@@ -22,34 +25,19 @@ interface IDefaultProps{
 
 const Index : FC<IDefaultProps> = (props: IDefaultProps) => {
     const { className, text, size, variant, leftIcon, rightIcon, onClick=()=>{}, disabled=false, as, to, type='button', showConfirm, confirmText='İşlemi yapmak istediğinize emin misiniz?' } = props;
-
-    const _onClick = () =>{
-        if(showConfirm){
-            confirmAlert({
-                message: confirmText,
-                buttons: [
-                  {
-                    label: 'Evet',
-                    onClick: onClick()
-                  },
-                  {
-                    label: 'Hayır',
-                    onClick: () => {}
-                  }
-                ]
-            });
-        }
-        else{
-            onClick();
-        }
-    }
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
-        <div className={`${className}`}>
-            <Button type={type} leftIcon={leftIcon} rightIcon={rightIcon} variant={variant} size={size} className='w-100' onClick={_onClick} disabled={disabled} as={as} to={to}>
-                {text}
-            </Button>
-        </div>
+        <>
+            <div className={`${className}`}>
+                <Button type={type} leftIcon={leftIcon} rightIcon={rightIcon} variant={variant} size={size} className='w-100' onClick={showConfirm ? onOpen : onClick} disabled={disabled} as={as} to={to}>
+                    {text}
+                </Button>
+            </div>
+            {
+                showConfirm && <ConfirmModal confirmText={confirmText} isOpen={isOpen} onClose={onClose} onClick={onClick} />
+            }
+        </>
     );
 };
 

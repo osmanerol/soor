@@ -27,9 +27,8 @@ const Index = () => {
         window.scrollTo(0,0);
     }, [])
 
-    const clickDelete=(event : any, index : number)=>{
+    const clickDelete=(index : number)=>{
         setMessages(messages.filter((filteredItem, filteredIndex)=>filteredIndex!==index));
-        event.stopPropagation();
     }
 
     return (
@@ -42,7 +41,7 @@ const Index = () => {
                             <div className="col-lg-4 col-md-5 messages-list">
                                 {
                                     messages.map((item, index)=>(
-                                        <MessageBox key={index} image={item.image} name={item.name} slug={item.slug} lastMessage={item.lastMessage} status={item.status} clickDelete={(event : any)=>clickDelete(event, index)} />
+                                        <MessageBox key={index} image={item.image} name={item.name} slug={item.slug} lastMessage={item.lastMessage} status={item.status} clickDelete={(event : any)=>clickDelete(index)} />
                                     ))
                                 }
                             </div>

@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import './index.scss';
 import { useHistory } from 'react-router-dom';
 import { MdDelete } from 'react-icons/md';
+import { Button } from '../index';
 
 interface IDefaultProps{
     image: string,
@@ -25,9 +26,14 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
                 <p className='name text'>{name}</p>
                 <p className={`last-message sub-text status-${status}`}>{lastMessage}</p>
             </div>
+            <Button leftIcon={<MdDelete />} className='delete-container' showConfirm={true} confirmText='Konuşmayı silmek istediğinizden emin misiniz ?' onClick={clickDelete} />
+            {
+                /*
             <div className="delete-container" onClick={clickDelete}>
                 <span className='icon'><MdDelete color='#bbb' /></span>
             </div>
+                */
+            }
         </div>
     );
 };

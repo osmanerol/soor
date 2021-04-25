@@ -1,9 +1,28 @@
 .message-page-container{
-    margin-top: 70px;
+    padding-top: 70px;
     .container{
         height: 100%;
         .row{
             height: 100%;
+            padding-top: 10px;
+            .messages-list{
+                height: 100%;
+                overflow-y: scroll;
+                &::-webkit-scrollbar-track {
+                    padding: 2px 0;
+                    background-color: #ddd;
+                }
+                &::-webkit-scrollbar {
+                    width: 3px;
+                }
+                &::-webkit-scrollbar-thumb {
+                    border-radius: 10px;
+                    background-color: #aaa;
+                }
+            }
+            .messages-detail-list{
+                height: 100%;
+            }
         }
     }
 }
@@ -11,86 +30,13 @@
 @media screen and (min-width: 768px) and (max-width: 992px){
     .message-page-container{
         height: calc(100vh - 30px);
-        max-height: 700px;
-        .row{
-            margin-top: 10px;
-            .messages-list{
-                height: 100%;
-                overflow-y: scroll;
-            }
-            .messages-detail-list{
-                height: 100%;
-            }
-        }
+        max-height: 800px;
     }
 }
 
 @media screen and (min-width: 992px){
     .message-page-container{
+        max-height: 900px;
         height: calc(100vh - 20px);
-        max-height: 700px;
-        .row{
-            padding-top: 10px;
-            .messages-list{
-                height: 100%;
-                overflow-y: scroll;
-            }
-            .messages-detail-list{
-                height: 100%;
-            }
-        }
     }
 }
-/*
-.message-page-container{
-    padding-top: 70px;
-    min-height: 80%;
-    .messages-users{
-        .chakra-input__group{
-            .chakra-input__right-element{
-                height: 32px;
-            }
-        }
-    }
-    .empty-message{
-        height: 80vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-}
-
-@media screen and (max-width: 576px){
-    .message-page-container{
-    }
-}
-
-@media screen and (min-width: 576px) and (max-width: 768px){
-    .message-page-container{
-    }
-}
-
-@media screen and (min-width: 768px) and (max-width: 992px){
-    .message-page-container{
-        height: 100%;
-        .row{
-            .messages-users{
-                overflow-y: scroll;
-                height: calc(100vh - 80px);
-            }
-        }
-    }
-}
-
-@media screen and (min-width: 992px){
-    .message-page-container{
-        height: 100%;
-        .row{
-            .messages-users{
-                overflow-y: scroll;
-                height: calc(100vh - 90px);
-            }
-        }
-    }
-}
-*/
