@@ -10,4 +10,4 @@ class User(AbstractUser):
     is_student = models.BooleanField(default = False)
 
     def __str__(self):
-        return self.email
+        return '{} {}'.format(self.first_name, self.last_name)

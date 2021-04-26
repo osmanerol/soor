@@ -47,8 +47,8 @@ const Index = () => {
                 <Container>
                     <div className="lesson-filter">
                         <form className="filter-container mt-3">
-                            <p className='sub-title'>Dersleri Filtrele</p>
-                            <Input placeholder='İsme göre ara' size='sm' />
+                            <p className='sub-title'>Eğitmen Filtrele</p>
+                            <Input placeholder='Ad Soyad' size='sm' />
                             <Select datas={categoriesArray} size='sm' placeholder='Eğitim Durumu' onChange={(event: any)=>setSelectedCategory(parseInt(event.target.value))} id='id' value='value' control={control}/>
                             <Select datas={lessonsArray.filter(item=> item.categoryId === selectedCategory)} size='sm'  placeholder='Ders' onChange={(event: any)=>setSelectedLesson(parseInt(event.target.value))} id='id' value='value' control={control} />
                             <Button text='Ara' size='sm' className='my-2' as={Link} to='/lesson-filter/matematik' onClick={clickFilter} />

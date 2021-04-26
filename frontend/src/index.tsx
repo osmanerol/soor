@@ -6,12 +6,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
+import { Provider } from 'mobx-react';
+import store from './application/store';
 
 ReactDOM.render(
   <BrowserRouter>
-    <ChakraProvider>
-      <App />
-    </ChakraProvider>
+    <Provider {...store}>
+      <ChakraProvider>
+        <App />
+      </ChakraProvider>
+    </Provider>
   </BrowserRouter>,
   document.getElementById('root')
 );

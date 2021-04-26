@@ -17,7 +17,7 @@ const Index = () => {
 
     useEffect(()=>{
         window.addEventListener('resize', resizeListener);
-        setIsLoggedIn(true);
+        setIsLoggedIn(false);
         setLessonNotification(2);
         setMessageNotification(3); 
     }, [])
