@@ -89,9 +89,7 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
                         </div>
                     </div>
                     <form className='form' onSubmit={handleSubmit(submitForm)}>
-                        <Input type='email' variant='outline' placeholder='E-posta' className='w-100' onChange={(event : any)=>{
-                            store!.loginUser.email = event.target.value;
-                        }} />
+                        <Input type='email' variant='outline' placeholder='E-posta' value={store!.loginUser.email} className='w-100' onChange={(event : any)=>{ store!.loginUser.email = event.target.value.replace(' ', ''); }} />
                         <PasswordInput variant='outline' placeholder='Şifre' className='mt-2 w-100' onChange={(event : any)=>{
                             store!.loginUser.password = event.target.value;
                         }} />

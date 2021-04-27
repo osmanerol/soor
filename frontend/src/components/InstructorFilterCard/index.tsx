@@ -6,27 +6,28 @@ import { StarIcon } from '@chakra-ui/icons';
 interface IDefaultProps{
     image: string,
     rate: number,
-    name: string,
+    first_name: string,
+    last_name: string,
     job: string,
     slug: string,
     price: number,
     totalLesson: number,
     comment: number,
-    status: number
+    status: boolean
 }
 
 const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
-    const { image, name, job, slug, rate, price, totalLesson, comment, status } = props;
+    const { image, first_name, last_name, job, slug, rate, price, totalLesson, comment, status } = props;
     const history = useHistory();
-
+    const statusCode = status ? 1 : 0
     return (
-        <div className='instructor-filter-card' onClick={()=>history.push(slug)}>
-            <span className={`status status-${status}`}></span>
+        <div className='instructor-filter-card' onClick={()=>history.push(`/instructor/${slug}`)}>
+            <span className={`status status-${statusCode}`}></span>
             <div className="image-container">
                 <img src={image} alt="profile"/>
             </div>
             <div className="name-container">
-                <p className='name text'>{name}</p>
+                <p className='name text'>{first_name} {last_name}</p>
                 <small className='job'>{job}</small>
                 <small className='rate'>
                     {Array(5)

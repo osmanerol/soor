@@ -10,6 +10,7 @@ const defaultBaseUser : UserDto = {
     last_name : '',
     email : '',
     image : '' ,
+    slug : ''
 }
 
 const defaultLoginUser : LoginDto = {
@@ -43,9 +44,11 @@ class UserStore{
         this.isLoading = false;
     }
 
-    @action async getUser(){
-        const result = await axios.get('/api/user/me');
-        this.baseUser = result.data;
+    @action.bound async getUser(){
+        if(localStorage.getItem('token')){
+            const result = await axios.get('/api/user/me');
+            this.baseUser = result.data;
+        }
     }
 
     @action async login(){
@@ -55,7 +58,9 @@ class UserStore{
             const result = await axios.post('/api/token',this.loginUser);
             localStorage.setItem('token', result.data.access);
             localStorage.setItem('userType', result.data.user_type);
-            this.getUser();
+            setTimeout(()=>{
+                this.getUser();
+            },2000)
         }
         catch(error){
             this.error = error.response.data;

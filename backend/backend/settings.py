@@ -55,6 +55,7 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
+SITE_URL = 'http://localhost:8000'
 REST_USE_JWT = True
 AUTH_USER_MODEL = 'user.User'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
@@ -67,13 +68,6 @@ OLD_PASSWORD_FIELD_ENABLED = True
 
 CORS_ORIGIN_ALLOW_ALL = True 
 
-"""
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'http://192.168.1.40:3000'
-]
-"""
-
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend'
@@ -82,13 +76,6 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }
-
-"""
-'DEFAULT_AUTHENTICATION_CLASSES': [
-    'rest_framework_simplejwt.authentication.JWTAuthentication',
-    'rest_framework.authentication.SessionAuthentication',
-],
-"""
 
 REST_AUTH_SERIALIZERS = {
     'JWT_SERIALIZER': 'user.serializers.JWTSerializer',

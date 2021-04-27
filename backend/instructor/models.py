@@ -8,14 +8,14 @@ from django.dispatch import receiver
 from category.models import Category
 
 class Instructor(models.Model):
-    instructor = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
     image = models.ImageField(upload_to = 'post', null = True, blank = True)
     slug = models.SlugField(unique = True, max_length = 100, editable = False)
     status = models.BooleanField(default = False, editable = False)
     university = models.CharField(max_length = 100)
     department = models.CharField(max_length = 100)
     job = models.CharField(max_length = 100)
-    rate = models.FloatField(default = 0, editable = False)
+    rate = models.FloatField(default = 0)
     totalLesson = models.IntegerField(default = 0, editable = False)
     totalComment = models.IntegerField(default = 0, editable = False)
     lessonPrice = models.IntegerField(default = 0)
@@ -24,7 +24,7 @@ class Instructor(models.Model):
     balance = models.FloatField(default = 0, editable = False)
 
     def __str__(self):
-        full_name = '{} {}'.format(self.instructor.first_name, self.instructor.last_name)
+        full_name = '{} {}'.format(self.user.first_name, self.user.last_name)
         return full_name
 
     def remove_nonenglish_character(self, temp_slug):

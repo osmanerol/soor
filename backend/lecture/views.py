@@ -1,7 +1,9 @@
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, RetrieveUpdateAPIView, DestroyAPIView
+from rest_framework.views import APIView 
 from .serializers import LectureSerializer
 from .models import Lecture
 from .permissions import IsSuperUser
+from rest_framework.response import Response
 
 class LectureCreateAPIView(CreateAPIView):
     queryset = Lecture.objects.all()
@@ -9,8 +11,12 @@ class LectureCreateAPIView(CreateAPIView):
     permission_classes = [IsSuperUser]
     
 class LectureListAPIView(ListAPIView):
-    queryset = Lecture.objects.all()
-    serializer_class = LectureSerializer
+    
+    def get(self, request):
+        count = Lecture.objects.count();
+        results = Lecture.objects.all()
+        results_serializer = LectureSerializer(results, many = True)
+        return Response({'count' : count, 'results' : results_serializer.data})
     
 class LectureDetailAPIView(RetrieveAPIView):
     queryset = Lecture.objects.all()

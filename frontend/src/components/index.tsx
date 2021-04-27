@@ -17,5 +17,7 @@ import TakeLessonModal from './TakeLessonModal';
 import MessageModal from './MessageModal';
 import ConfirmModal from './ConfirmModal';
 import PrivateRoute from './PrivateRoute';
+import Loading from './Loading';
+import Spinner from './Spinner';
 
-export { Autocomplete, Button , Navbar, Input, PasswordInput, Select, Footer, InstructorCard, Comment, CommentDetail, Filter, InstructorFilterCard, TextArea, MessageBox, TakeLessonModal, Empty, MessageModal, ConfirmModal, PrivateRoute }
+export { Autocomplete, Button , Navbar, Input, PasswordInput, Select, Footer, InstructorCard, Comment, CommentDetail, Filter, InstructorFilterCard, TextArea, MessageBox, TakeLessonModal, Empty, MessageModal, ConfirmModal, PrivateRoute, Loading, Spinner }

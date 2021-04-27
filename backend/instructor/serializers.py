@@ -2,12 +2,13 @@ from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 from user.models import User
 from .models import Instructor
+from student.models import Student
 from lecture.models import Lecture
 
 class InstructorSerializer(ModelSerializer):
     class Meta:
         model = Instructor
-        exclude = ['instructor']
+        exclude = ['user']
         depth = 1
 
 class UserSerializer(ModelSerializer):
@@ -23,14 +24,14 @@ class InstructorUpdateSerializer(ModelSerializer):
         fields = ['university', 'department', 'job', 'lessonPrice', 'about', 'lectures']
         
 class UserUpdateSerializer(ModelSerializer):
-    instructor = InstructorUpdateSerializer()
+    user = InstructorUpdateSerializer()
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'instructor']
+        fields = ['first_name', 'last_name', 'user']
 
     def update(self, instance, validated_data):
-        instructor = validated_data.pop('instructor')
+        instructor = validated_data.pop('user')
         instructor_data = Instructor.objects.get(id = instance.instructor.id)
         instructor_data.university = instructor['university']
         instructor_data.department = instructor['department']

@@ -13,6 +13,7 @@
         }
     }
     .content-container{
+        min-height: 80vh;
         .instructors{
             display: flex;
             flex-direction: row;
@@ -168,105 +169,3 @@
         }
     }
 }
-/*
-.lesson-filter-page-container{
-    padding-top: 70px;
-    min-height: 80%;
-    .chakra-heading{
-        font-weight: 500;
-    }
-    .status-container{
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        .item{
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            margin-left: 6px;
-            .status{
-                width: 8px;
-                height: 8px;
-                border-radius: 100%;
-                display: block;
-                margin-right: 4px;
-            }
-            .status-0{
-                background-color: #ccc;
-            }
-            .status-1{
-                background-color: #1e6f5c;
-            }
-            .status-2{
-                background-color: #e48900;
-            }
-            &:hover{
-                cursor: pointer;
-            }
-        }
-    }
-    .teachers-container{
-        .instructors-list{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-        .load-more-instructor-button{
-            .chakra-button{
-                background-color: #5c6ac4;
-                color: #fff;
-            }
-        }
-    }
-    .pagination-container{
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        .page-link{
-            &:focus{
-                box-shadow: none! important;
-            }
-        }
-    }
-}
-
-@media screen and (max-width: 576px){
-    .lesson-filter-page-container{
-        .chakra-heading{
-            font-size: 17px;
-        }
-        .teachers-container{
-            .instructors-list{
-                & > *{
-                    width: 100%;
-                }
-            }
-        }
-    }
-}
-
-@media screen and (min-width: 576px) and (max-width: 768px){
-    .lesson-filter-page-container{
-        .teachers-container{
-            .instructors-list{
-                & > *{
-                    width: 100%;
-                }
-            }
-        }
-    }
-}
-
-@media screen and (min-width: 768px) {
-    .lesson-filter-page-container{
-        .teachers-container{
-            .instructors-list{
-                & > *{
-                    width: 48%;
-                }
-            }
-        }
-    }
-}
-*/

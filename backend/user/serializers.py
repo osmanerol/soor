@@ -1,7 +1,9 @@
+from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer 
 from .models import User
 from rest_auth.serializers import JWTSerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.conf import settings
 from instructor.models import Instructor
 from student.models import Student
 
@@ -23,9 +25,28 @@ class UserSerializer(ModelSerializer):
         return user
 
 class UserDetailSerializer(ModelSerializer):
+    image = serializers.SerializerMethodField()
+    slug = serializers.SerializerMethodField()
+
+    def get_image(self, instance):
+        request = self.context.get('request')
+        if(instance.is_student):
+            user = Student.objects.get(user = instance)
+        elif(instance.is_instructor):
+            user = Instructor.objects.get(user = instance)
+        image_url = '{}/media/{}'.format(settings.SITE_URL,user.image)
+        return image_url
+    
+    def get_slug(self, instance):
+        if(instance.is_student):
+            user = Student.objects.get(user = instance)
+        elif(instance.is_instructor):
+            user = Instructor.objects.get(user = instance)
+        return user.slug
+        
     class Meta:
         model = User
-        fields = ['id', 'first_name', 'last_name', 'email']
+        fields = ['id', 'first_name', 'last_name', 'email', 'image', 'slug']
 
 class CustomTokenObtainSerializer(TokenObtainPairSerializer):
 

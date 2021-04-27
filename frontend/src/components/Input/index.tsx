@@ -19,18 +19,19 @@ interface IDefaultProps{
     defaultValue?: string,
     selectRef?: any,
     errors?: any,
-    onFocus?: any
+    onFocus?: any,
+    value?: string
 }
 
 const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
-    const { className, id, text, placeholder, size, variant='outline', leftIcon, rightIcon, control, onChange=()=>{}, disabled, background, type='text', defaultValue, selectRef, errors, onFocus } = props;
+    const { className, id, text, placeholder, size, variant='outline', leftIcon, rightIcon, control, onChange=()=>{}, disabled, background, type='text', defaultValue, selectRef, errors, onFocus, value } = props;
 
     return (
         <div className={className}>
             { text && <small>{text}</small> }
             <InputGroup>
                 { leftIcon && <InputLeftElement pointerEvents='none' children={leftIcon} /> }
-                <Input id={id} name={id} type={type} placeholder={placeholder} bg={background} size={size} variant={variant} control={control} onChange={onChange} disabled={disabled} defaultValue={defaultValue} ref={selectRef} onClick={onFocus} />
+                <Input id={id} name={id} type={type} placeholder={placeholder} bg={background} size={size} variant={variant} control={control} onChange={onChange} disabled={disabled} defaultValue={defaultValue} ref={selectRef} onClick={onFocus} value={value} />
                 { rightIcon && <InputRightElement children={rightIcon} /> }
             </InputGroup>
             {

@@ -6,14 +6,15 @@ import { useHistory } from 'react-router-dom';
 
 interface IDefaultProps{
     image: string,
-    name: string,
+    first_name: string,
+    last_name: string,
     job: string,
     slug: string
     rate: number,
 }
 
 const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
-    const { image, name, job, slug, rate } = props;
+    const { image, first_name, last_name, job, slug, rate } = props;
     const history = useHistory();
 
     return (
@@ -34,7 +35,7 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
                 </div>
             </div>
             <div className='text-container'>
-                <Link to={slug} className='text text-center'>{name}</Link> 
+                <Link to={slug} className='text text-center'>{first_name} {last_name}</Link> 
                 <p className='small-text text-center'>{job}</p>   
             </div>
         </div>
