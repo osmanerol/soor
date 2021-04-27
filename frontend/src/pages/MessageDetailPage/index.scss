@@ -100,7 +100,8 @@
 @media screen and (max-width: 576px){
     .message-detail-page-container{
         height: 100vh;
-        padding: 10px 0;
+        padding: 10px 15px;
+        margin: auto;
         .name-container{
             padding: 10px 8px;
         }
@@ -120,6 +121,8 @@
 @media screen and (min-width: 576px) and (max-width: 768px){
     .message-detail-page-container{
         height: 100vh;
+        max-width: 540px;
+        margin: auto;
         padding: 10px 0;
         .message-detail{
             .messages-content-container{

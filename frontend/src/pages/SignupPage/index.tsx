@@ -8,20 +8,26 @@ import { useForm } from 'react-hook-form';
 import cx from 'classnames';
 import student from '../../assets/images/student.svg';    
 import teacher from '../../assets/images/teacher.svg';
-import LoginStore from '../../application/login/store/loginStore';
+import UserStore from '../../application/user/store/userStore';
 
 interface IDefaultProps {
-    LoginStore? : typeof LoginStore
+    UserStore? : typeof UserStore
 }
 
-const Index : FC<IDefaultProps> = inject('LoginStore')(observer((props : IDefaultProps) => {
-    const { LoginStore : store } = props;
+const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefaultProps) => {
+    const { UserStore : store } = props;
     const toast = useToast();
     const history= useHistory();
     const { handleSubmit } = useForm();  
 
     useEffect(()=>{
-        store!.createSignupUser()
+        if(localStorage.getItem('token') !== null){
+            history.push('/');
+        }
+    }, [history])
+    
+    useEffect(()=>{
+        store!.createSignupUser();
         window.scrollTo(0,0);
     }, [store])
 
@@ -32,12 +38,12 @@ const Index : FC<IDefaultProps> = inject('LoginStore')(observer((props : IDefaul
                 if(store!.error){
                     toast({
                         title: 'Hata',
-                        description: 'Kayıt oluşturulurken hata oluştu.',
+                        description: store?.error.email ? 'E-posta hesabı daha önce kullanılmış.' : 'Beklenmedik hata oluştu. Tekrar deneyiniz.',
                         status: 'error',
                         duration: 2000,
                         isClosable: true,
                     });
-                    store!.error = false;
+                    store!.error = {};
                 }
                 else{
                     toast({
@@ -96,7 +102,7 @@ const Index : FC<IDefaultProps> = inject('LoginStore')(observer((props : IDefaul
                         <PasswordInput variant='outline' placeholder='Şifre'  className='mt-2 w-100' onChange={(event : any)=>{
                             store!.signupUser.password = event.target.value;
                         }} />
-                        <Button text={`Kaydol ${(store!.signupUser.is_student || store!.signupUser.is_instructor) ? store!.signupUser.is_student ? '( Öğrenci )' : '( Eğitmen )' : ''}`}  className='submit-button mt-2' size='sm' type='submit' disabled={(!store!.signupUser.is_student && !store!.signupUser.is_instructor)} />
+                        <Button text={`Kaydol ${(store!.signupUser.is_student || store!.signupUser.is_instructor) ? store!.signupUser.is_student ? '( Öğrenci )' : '( Eğitmen )' : ''}`}  className='submit-button mt-2' size='sm' type='submit' disabled={(!store!.signupUser.is_student && !store!.signupUser.is_instructor) || store?.isLoading} isLoading={store?.isLoading} />
                     </form>
                     <small className='text-center aggrements text-muted'>Kaydolduğunuzda <Link to='/'>üyelik</Link> ve <Link to='/'>gizlilik</Link> sözleşmesini kabul etmiş olursunuz.</small>
                     <div className='go-other-sign text-center'>

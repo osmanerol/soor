@@ -12,7 +12,7 @@ import MessagePage from './pages/MessagePage';
 import MessageDetailPage from './pages/MessageDetailPage';
 import SettingsPage from './pages/SettingsPage';
 import NotFoundPage from './pages/NotFoundPage';
-import { Container } from 'react-bootstrap';
+import { PrivateRoute } from './components';
 
 const App = () => {
   const [isSmallScreen, setSmallScreen] = useState(false);
@@ -47,6 +47,28 @@ const App = () => {
         <Route path='/lesson-filter' exact strict component={LessonFilterPage} />
         <Route path='/lesson-filter/:lesson' exact strict component={LessonFilterPage} />
         <Route path='/instructor/:instructor' exact strict component={InstructorPage} />
+        <PrivateRoute path='/lessons' exact strict component={LessonsPage} />
+        <PrivateRoute path='/settings' exact strict component={SettingsPage} />
+        <PrivateRoute path='/messages' exact={isSmallScreen} strict component={MessagePage} /> 
+        <PrivateRoute path='/messages/:slug' exact strict component={MessageDetailPage} />
+        { /*
+          isSmallScreen &&
+          <PrivateRoute path='/messages/:slug' exact strict children={()=>(
+            <Container>
+              <MessageDetailPage /> 
+            </Container>
+          )} />
+          */ 
+        }
+        <Route exact strict component={NotFoundPage} />
+      </Switch>
+    </>
+  );
+};
+
+export default App;
+  /*
+
         <Route path='/lessons' exact strict component={LessonsPage} />
         <Route path='/settings' exact strict component={SettingsPage} />
         <Route path='/messages' exact={isSmallScreen} strict component={MessagePage} /> 
@@ -58,10 +80,4 @@ const App = () => {
             </Container>
           )} /> 
         }
-        <Route exact strict component={NotFoundPage} />
-      </Switch>
-    </>
-  );
-};
-
-export default App;
+  */

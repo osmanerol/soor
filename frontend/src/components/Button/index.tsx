@@ -21,16 +21,17 @@ interface IDefaultProps{
     type?: any,
     showConfirm?: boolean
     confirmText?: string
+    isLoading? : boolean
 }
 
 const Index : FC<IDefaultProps> = (props: IDefaultProps) => {
-    const { className, text, size, variant, leftIcon, rightIcon, onClick=()=>{}, disabled=false, as, to, type='button', showConfirm, confirmText='İşlemi yapmak istediğinize emin misiniz?' } = props;
+    const { className, text, size, variant, leftIcon, rightIcon, onClick=()=>{}, disabled=false, as, to, type='button', showConfirm, confirmText='İşlemi yapmak istediğinize emin misiniz?', isLoading = false } = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
         <>
             <div className={`${className}`}>
-                <Button type={type} leftIcon={leftIcon} rightIcon={rightIcon} variant={variant} size={size} className='w-100' onClick={showConfirm ? onOpen : onClick} disabled={disabled} as={as} to={to}>
+                <Button type={type} leftIcon={leftIcon} rightIcon={rightIcon} variant={variant} size={size} className='w-100' onClick={showConfirm ? onOpen : onClick} disabled={disabled} as={as} to={to} isLoading={isLoading}>
                     {text}
                 </Button>
             </div>

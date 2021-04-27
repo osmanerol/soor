@@ -8,21 +8,26 @@ import { useForm } from 'react-hook-form';
 import cx from 'classnames';
 import student from '../../assets/images/student.svg';    
 import teacher from '../../assets/images/teacher.svg';
-import LoginStore from '../../application/login/store/loginStore';
+import UserStore from '../../application/user/store/userStore';
 
-interface ILoginDefaults {
-    LoginStore? : typeof LoginStore
+interface IDefaultProps {
+    UserStore? : typeof UserStore
 }
 
-const Index : FC<ILoginDefaults> = inject('LoginStore')(observer((props : ILoginDefaults) => {
-    const { LoginStore : store } = props;
+const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefaultProps) => {
+    const { UserStore : store } = props;
     const [userType, setUserType]=useState(0);
     const toast = useToast();
     const history= useHistory();
     const { handleSubmit } = useForm();
 
     useEffect(()=>{
-        localStorage.clear();
+        if(localStorage.getItem('token') !== null){
+            history.push('/');
+        }
+    }, [history])
+
+    useEffect(()=>{
         store!.createLoginUser();
         window.scrollTo(0,0);
     }, [store])
@@ -34,7 +39,7 @@ const Index : FC<ILoginDefaults> = inject('LoginStore')(observer((props : ILogin
                 if(store?.error){
                     toast({
                         title: 'Hata',
-                        description: 'Eksik veya yanlış bilgi girdiniz.',
+                        description: 'Böyle bir kullanıcı bulunamadı.',
                         status: 'error',
                         duration: 2000,
                         isClosable: true,
@@ -91,7 +96,7 @@ const Index : FC<ILoginDefaults> = inject('LoginStore')(observer((props : ILogin
                             store!.loginUser.password = event.target.value;
                         }} />
                         <small className='forget-password text-right my-2'><Link to='/'>Şifremi unuttum</Link></small>
-                        <Button text={`Giriş Yap ${userType > 0 ? userType === 1 ? '( Öğrenci )' : '( Eğitmen )' : ''}`}  className='submit-button' type='submit' size='sm' disabled={userType===0} />
+                        <Button text={`Giriş Yap ${userType > 0 ? userType === 1 ? '( Öğrenci )' : '( Eğitmen )' : ''}`}  className='submit-button' type='submit' size='sm' disabled={userType===0 || store?.isLoading} isLoading={store?.isLoading} />
                     </form>
                     <div className='go-other-sign text-center mt-4'>
                         <small className='text-muted'>Hesabınız yok mu ? <Link to='/signup'>Kaydol</Link></small>

@@ -16,5 +16,6 @@ import Empty from './Empty';
 import TakeLessonModal from './TakeLessonModal';
 import MessageModal from './MessageModal';
 import ConfirmModal from './ConfirmModal';
+import PrivateRoute from './PrivateRoute';
 
-export { Autocomplete, Button , Navbar, Input, PasswordInput, Select, Footer, InstructorCard, Comment, CommentDetail, Filter, InstructorFilterCard, TextArea, MessageBox, TakeLessonModal, Empty, MessageModal, ConfirmModal }
+export { Autocomplete, Button , Navbar, Input, PasswordInput, Select, Footer, InstructorCard, Comment, CommentDetail, Filter, InstructorFilterCard, TextArea, MessageBox, TakeLessonModal, Empty, MessageModal, ConfirmModal, PrivateRoute }

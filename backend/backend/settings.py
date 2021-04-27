@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
     'rest_framework_jwt',
     'rest_auth',
@@ -64,10 +65,14 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 OLD_PASSWORD_FIELD_ENABLED = True
 
+CORS_ORIGIN_ALLOW_ALL = True 
+
+"""
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
-    'https://localhost:3000',
+    'http://192.168.1.40:3000'
 ]
+"""
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
@@ -75,9 +80,15 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
     ],
 }
+
+"""
+'DEFAULT_AUTHENTICATION_CLASSES': [
+    'rest_framework_simplejwt.authentication.JWTAuthentication',
+    'rest_framework.authentication.SessionAuthentication',
+],
+"""
 
 REST_AUTH_SERIALIZERS = {
     'JWT_SERIALIZER': 'user.serializers.JWTSerializer',

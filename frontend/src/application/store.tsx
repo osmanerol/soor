@@ -1,6 +1,6 @@
 import InstructorStore from './instructor/store/instructorsStore';
-import LoginStore from './login/store/loginStore';
+import UserStore from './user/store/userStore';
 
-const store = { InstructorStore, LoginStore}
+const store = { InstructorStore, UserStore }
 
 export default store;

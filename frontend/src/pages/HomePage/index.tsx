@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import './index.scss';
 import { Container } from 'react-bootstrap';
+import { observer, inject } from 'mobx-react';
 import { InstructorCard, Button, Comment, Footer } from '../../components';
 import { Link } from 'react-router-dom';
 import expected1 from '../../assets/images/expected-1.jpg';
 import expected2 from '../../assets/images/expected-2.jpg';
 import expected3 from '../../assets/images/expected-3.jpg';
+import UserStore from '../../application/user/store/userStore';
 
-const Index = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+interface IDefaultProps {
+    UserStore? : typeof UserStore
+}
+
+const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefaultProps) => {
+    // const { UserStore : store } = props;
     const instructors = [ 
         { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-1-1.jpg', name:'Justin Hammer', slug:'justin-hammer', job:'Matematik Öğretmeni', rate:4, price: 80 },
         { image:'https://images.unsplash.com/photo-1499358517822-d8578907a095?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTM0fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Barbara Hammer', slug:'barbara-hammer', job:'Kimya Öğretmeni', rate:3, price: 100 },
@@ -32,8 +38,7 @@ const Index = () => {
 
     useEffect(()=>{
         window.scrollTo(0,0);
-        setIsLoggedIn(true);
-    }, [])
+    })
 
     return (
         <>
@@ -45,7 +50,7 @@ const Index = () => {
                             <p className='cover-text'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, quam? Ea quasi autem deleniti alias? Aperiam blanditiis exercitationem ea eligendi</p>
                             <div className="button-container">
                                 {
-                                    isLoggedIn ? 
+                                    localStorage.getItem('token') ? 
                                     <>
                                         <Button text='Ders Seç' className='filter-button' as={Link} to='/lesson-filter' />
                                     </> :  
@@ -144,6 +149,6 @@ const Index = () => {
             <Footer />
         </>
     );
-};
+})) ;
 
 export default Index;

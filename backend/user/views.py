@@ -1,8 +1,8 @@
 from .models import User
-from .serializers import UserSerializer
-from rest_framework.generics import CreateAPIView, DestroyAPIView, get_object_or_404
-from .serializers import CustomTokenObtainSerializer
+from .serializers import UserSerializer, UserDetailSerializer, CustomTokenObtainSerializer
+from rest_framework.generics import CreateAPIView, DestroyAPIView, RetrieveAPIView, get_object_or_404
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.permissions import IsAuthenticated
 from .permissions import NotAuthenticated
 
 class UserRegisterAPIView(CreateAPIView):
@@ -16,7 +16,16 @@ class UserDeleteAPIView(DestroyAPIView):
 
     def get_object(self):
         queryset = self.get_queryset()
-        print(self.request.user.id)
+        object = get_object_or_404(queryset, id = self.request.user.id)
+        return object
+    
+class UserDetailAPIView(RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserDetailSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        queryset = self.get_queryset()
         object = get_object_or_404(queryset, id = self.request.user.id)
         return object
 
