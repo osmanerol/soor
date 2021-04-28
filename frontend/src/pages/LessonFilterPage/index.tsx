@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import './index.scss';
 import { Container, Pagination } from 'react-bootstrap';
 import { observer, inject } from 'mobx-react';
-import { InstructorFilterCard, Empty, Button, Select, Spinner, Footer, Loading, Input } from '../../components';
+import { InstructorFilterCard, Empty, Button, Select, Spinner, Footer, Input } from '../../components';
 import { useForm } from 'react-hook-form';
 import { categoriesArray } from '../../assets/datas';
 import LectureStore from '../../application/lecture/store/lectureStore';
@@ -36,9 +36,6 @@ const Index : FC<IDefaultProps> = inject('LectureStore')(observer((props : IDefa
     const clickFilter=(page : any = null)=>{
         setSearchPage(page);
         window.scrollTo(0,0);
-        setSelectedCategory(null);
-        setSearchText('');
-        setSelectedLecture(null);
         if(selectedLecture){
             setSelectedLectureName(store!.lectureList.results.find(item=> item.id === selectedLecture)!.name)
         }
@@ -47,83 +44,77 @@ const Index : FC<IDefaultProps> = inject('LectureStore')(observer((props : IDefa
 
     return (
         <>
-            {
-                (store?.lectureList.isLoading) ?
-                <Loading />:
-                <>
-                    <div className='lesson-filter-page-container'>
-                        <Container>
-                            <div className="lesson-filter">
-                                <form className="filter-container mt-3">
-                                    <p className='sub-title'>Eğitmen Filtrele</p>
+            <div className='lesson-filter-page-container'>
+                <Container>
+                    <div className="lesson-filter">
+                        <form className="filter-container mt-3">
+                            <p className='sub-title'>Eğitmen Filtrele</p>
+                            {
+                                store!.lectureList.isLoading ?
+                                <Spinner />:
+                                <>
                                     <Input placeholder='Ad Soyad' size='sm' value={searchText} onChange={(event: any)=>setSearchText(event.target.value)} />
                                     <Select datas={categoriesArray} size='sm' placeholder='Eğitim Durumu' onChange={(event: any)=>setSelectedCategory(parseInt(event.target.value))} id='id' value='name' control={control}/>
                                     <Select datas={store!.lectureList.results.filter(item=> item.category === selectedCategory)} size='sm' placeholder='Ders' onChange={(event: any)=>setSelectedLecture(parseInt(event.target.value))} id='id' value='name' control={control} />
                                     <Button text='Ara' size='sm' className='my-2' onClick={()=>clickFilter(1)} disabled={(selectedLecture === null) && searchText === ''} />
-                                </form>
-                                <div className="content-container mt-3">
+                                </>
+                            }
+                        </form>
+                        <div className="content-container mt-3">
+                            {
+                                store!.instructorList!.isLoading ?
+                                <div className="spinner-container">
+                                    <Spinner />
+                                </div>  :
+                                store!.instructorList!.results?.length === 0 ?
+                                <Empty text='Eğitmen bulunamadı.' showButton={false} /> :
+                                <>
+                                    <p className='sub-title'>
+                                        {
+                                            selectedLectureName === '' ? 'Sonuçlar' : `'${selectedLectureName}' dersi için sonuçlar` 
+                                        }
+                                    </p>
                                     {
-                                        store!.instructorList!.is_loading ?
-                                        <div className="spinner-container">
-                                            <Spinner />
-                                        </div>  :
-                                        store!.instructorList!.results?.length === 0 ?
-                                        <Empty text='Eğitmen bulunamadı.' showButton={false} /> :
-                                        <>
-                                            <p className='sub-title'>
-                                                {
-                                                    selectedLectureName === '' ? 'Sonuçlar' : `'${selectedLectureName}' dersi için sonuçlar` 
-                                                }
-                                            </p>
-                                            {
-                                                store!.instructorList.results!.length > 0 &&
-                                                <div className='status-container my-2'>
-                                                    <div className='item' onClick={()=>filterStatus(true)}>
-                                                        <span className='status status-1'></span>
-                                                        <small>Çevrimiçi</small>
-                                                    </div>
-                                                    <div className='item' onClick={()=>filterStatus(false)}>
-                                                        <span className='status status-0'></span>
-                                                        <small>Çevrimdışı</small>
-                                                    </div>
-                                                </div>
-                                            }
-                                            <div className="instructors">
-                                                {
-                                                    store!.instructorList.results!.map((item : any, index : number)=>(
-                                                        <InstructorFilterCard key={index} image={item.instructor.image} first_name={item.first_name} last_name={item.last_name} slug={item.instructor.slug} job={item.instructor.job} rate={item.instructor.rate} price={item.instructor.lessonPrice} comment={item.instructor.totalComment} totalLesson={item.instructor.totalLesson} status={item.instructor.status} />
-                                                    ))
-                                                }
+                                        store!.instructorList.results!.length > 0 &&
+                                        <div className='status-container my-2'>
+                                            <div className='item' onClick={()=>filterStatus(true)}>
+                                                <span className='status status-1'></span>
+                                                <small>Çevrimiçi</small>
                                             </div>
-                                            {
-                                                (store!.instructorList.next || store!.instructorList.previous) &&
-                                                <small className='pagination-container mb-3'>
-                                                    <Pagination>
-                                                        <Pagination.First onClick={()=>clickFilter(1)} />
-                                                        <Pagination.Prev onClick={()=>clickFilter(searchPage > 1 ? searchPage-1 : 1)} />
-                                                        <Pagination.Ellipsis disabled />
-                                                        { /*
-                                                            [...Array(parseInt((store!.instructorList.count/12).toString())+1)].map((item, index)=>
-                                                                <Pagination.Item key={index} onClick={()=>clickFilter(index+1)}>{index+1}</Pagination.Item>
-                                                            )
-                                                            */
-                                                        }
-                                                        <Pagination.Item onClick={()=>clickFilter(searchPage)}>{searchPage}</Pagination.Item>
-                                                        <Pagination.Ellipsis disabled />
-                                                        <Pagination.Next onClick={()=>clickFilter(searchPage > 0 ? searchPage+1 : 1)}  />
-                                                        <Pagination.Last onClick={()=>clickFilter(parseInt((store!.instructorList.count/12).toString())+1)}  />
-                                                    </Pagination>
-                                                </small>
-                                            }
-                                        </>
+                                            <div className='item' onClick={()=>filterStatus(false)}>
+                                                <span className='status status-0'></span>
+                                                <small>Çevrimdışı</small>
+                                            </div>
+                                        </div>
                                     }
-                                </div>
-                            </div>
-                        </Container>
+                                    <div className="instructors">
+                                        {
+                                            store!.instructorList.isLoading ? 
+                                            <Spinner /> :
+                                            store!.instructorList.results!.map((item : any, index : number)=>(
+                                                <InstructorFilterCard key={index} image={item.instructor.image} first_name={item.first_name} last_name={item.last_name} slug={item.instructor.slug} job={item.instructor.job} rate={item.instructor.rate} price={item.instructor.lessonPrice} comment={item.instructor.totalComment} totalLesson={item.instructor.totalLesson} status={item.instructor.status} />
+                                            ))
+                                        }
+                                    </div>
+                                    {
+                                        (!store!.instructorList.isLoading && (store!.instructorList.next || store!.instructorList.previous)) &&
+                                        <small className='pagination-container mb-3'>
+                                            <Pagination>
+                                                <Pagination.First onClick={()=>clickFilter(1)} />
+                                                <Pagination.Prev onClick={()=>clickFilter(searchPage > 1 ? searchPage-1 : 1)} />
+                                                <Pagination.Item onClick={()=>clickFilter(searchPage)}>{searchPage}</Pagination.Item>
+                                                <Pagination.Next onClick={()=>clickFilter(searchPage > 0 ? searchPage+1 : 1)}  />
+                                                <Pagination.Last onClick={()=>clickFilter(parseInt((store!.instructorList.count/12).toString())+1)}  />
+                                            </Pagination>
+                                        </small>
+                                    }
+                                </>
+                            }
+                        </div>
                     </div>
-                    <Footer />
-                </>
-            }
+                </Container>
+            </div>
+            <Footer />
         </>
     );
 }));

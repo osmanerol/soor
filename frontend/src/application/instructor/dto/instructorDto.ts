@@ -1,11 +1,11 @@
-export interface InstructorDto{
+export interface InstructorProfileDto{
     id : number,
     first_name: string,
     last_name: string,
     email: string,
     instructor: {
         id: number,
-        image: string,
+        image: any,
         slug: string,
         status: boolean,
         university: string,
@@ -14,12 +14,12 @@ export interface InstructorDto{
         rate: number,
         totalLesson: number,
         totalComment: number,
-        lessonPrice: number,
+        lessonPrice: any,
         about: string,
         balance: number,
-        lectures: any[]
+        lectures: any
     }
 }
 
-export interface InstructorListDto extends InstructorDto { }
-export interface InstructorCreateDto extends InstructorDto { }
+export interface InstructorListDto extends InstructorProfileDto { }
+export interface InstructorCreateDto extends InstructorProfileDto { }

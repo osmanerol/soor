@@ -36,7 +36,7 @@ class Instructor(models.Model):
         return temp_slug
 
     def get_slug(self):
-        slug = '{}-{}'.format(self.instructor.first_name.lower(), self.instructor.last_name.lower())
+        slug = '{}-{}'.format(self.user.first_name.lower(), self.user.last_name.lower())
         slug = self.remove_nonenglish_character(slug)
         unique = slug
         number = 1
@@ -55,4 +55,4 @@ def create_instructor_profile(sender, instance, created, **kwargs):
     if not created:
         return
     if(instance.is_instructor):
-        Instructor.objects.create(instructor = instance)
+        Instructor.objects.create(user = instance)

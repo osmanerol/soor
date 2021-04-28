@@ -3,7 +3,7 @@ interface IPagedResult<T>{
     next? : string;
     previous? : string;
     results? : T[];
-    is_loading: boolean
+    isLoading: boolean
 }
 
 export default IPagedResult;

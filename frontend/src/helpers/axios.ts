@@ -13,6 +13,7 @@ axiosInstance.interceptors.request.use(
             token = localStorage.getItem('token');
             config.headers['Authorization'] = `Bearer ${token}`;
         }
+        //config.headers['content-type'] = 'multipart/form-data';
         return config;
     }
 )

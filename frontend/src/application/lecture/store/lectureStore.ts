@@ -1,4 +1,4 @@
-import { makeAutoObservable, action, configure } from 'mobx';
+import { makeAutoObservable, action, configure, toJS } from 'mobx';
 import axios from '../../../helpers/axios';
 import { LectureDto } from '../dto/lectureDto';
 import IPagedResult from '../../../models/dto/fetch/IPagedResult';
@@ -23,17 +23,17 @@ class LectureStore{
     constructor(){
         makeAutoObservable(this);
         this.lectureList = { count : 0, results : [], isLoading : false};
-        this.instructorList = { count : 0, next : '', previous : '', results : [], is_loading : false };
+        this.instructorList = { count : 0, next : '', previous : '', results : [], isLoading : false };
     }
 
     @action async getAllLectures(){
         this.lectureList.isLoading = true;
         const result = await axios.get('/api/lecture/list');
-        this.lectureList = { ...result.data, isLoading : false}
+        this.lectureList = toJS({ ...result.data, isLoading : false})
     }
 
     @action async getInstructor(params:{ name : any, lecture_id : any, page : any }){
-        this.instructorList.is_loading = true;
+        this.instructorList.isLoading = true;
         let name = Object.keys(params);
         let values = Object.values(params);
         let query = values.map((item, index)=>{
@@ -48,7 +48,7 @@ class LectureStore{
         query = query.replace('&&', '&');
         query = query.replace('?&', '?');
         const result = await axios.get('/api/instructor/list' + (query.length > 1 ? `${query}` : ''));
-        this.instructorList = { ...result.data , is_loading : false};
+        this.instructorList = { ...result.data , isLoading : false};
     }
 
 }

@@ -1,29 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import './index.scss';
-import { Button, TakeLessonModal, MessageModal, CommentDetail, Footer } from '../../components';
+import { inject, observer } from 'mobx-react';
+import { Button, TakeLessonModal, MessageModal, Empty, Spinner, CommentDetail, Footer } from '../../components';
+import { useParams } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { StarIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
+import DefaultProfile from '../../assets/images/defaultProfile.png';
+import InstructorStore from '../../application/instructor/store/instructorStore';
 
-const Index = () => {
-    const user = {
-        id: 1,
-        image: 'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-4.jpg',
-        firstName: 'Jessica',
-        lastName: 'Jones',
-        status: 1,
-        job: 'Fizik Öğretmeni',
-        email: 'jessicajones@gmail.com',
-        university: 'İstanbul Üniversitesi Cerrahpaşa',
-        department: 'Fizik Öğretmenliği',
-        rate: 4.1,
-        totalLesson: 22, 
-        lessonPrice: 80,
-        totalComment: 30,
-        lessons: [{id: 0, name: 'Fizik'}, {id: 1, name: 'Matematik'}, {id: 2, name: 'Geometri'}],
-        about: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis doloremque reprehenderit excepturi voluptatem in odit quas mollitia! Recusandae doloremque sed necessitatibus doloribus voluptas corrupti iste rerum, nemo repellat incidunt expedita.Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis iste, dolorum, quaerat suscipit sed provident quisquam dignissimos, minus velit sit quae nihil asperiores officia fugiat accusamus non cum! Ullam, soluta!'
-    };
+interface IDefaultProps{
+    InstructorStore : typeof InstructorStore
+}
 
+const Index : FC<IDefaultProps> = inject('InstructorStore')(observer((props : IDefaultProps) => {
+    const { InstructorStore : store } = props;
+    let { slug } = useParams<{ slug : string }>();
     const comments = [
         { image: 'https://images.unsplash.com/photo-1600603405959-6d623e92445c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mzh8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name: 'Vickly Hladynets', content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores molestiae dignissimos doloribus quisquam quidem iusto totam porro quod vel, ad sapiente sunt nobis nulla cumque veniam, ipsum possimus, ut accusamus!', date: '15.03.2020'},
         { image: 'https://images.unsplash.com/photo-1468011749792-10026eb12caf?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nzd8fGdpcmx8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name: 'Allef Moyr', content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores molestiae dignissimos doloribus.', date: '13.04.2020'},
@@ -46,98 +38,129 @@ const Index = () => {
     ]
 
     useEffect(()=>{
+        if(store?.instructorProfile.result.id === 0){
+            store!.getInstructor(slug);
+        }
         window.scrollTo(0,0);
-    }, [])
+    }, [slug, store])
 
     return (
         <>
-            <div className='teacher-profile-page-container'>
-                <Container>
-                    <div className="profile-container">
-                        <div className="personal-info-container">
-                            <div className="image-container">
-                                <img src={user.image} alt="teacher"/>
-                            </div>
-                            <div className="name-container mt-3">
-                                <p className='name'>{user.firstName} {user.lastName} <span className={`ml-2 status status-${user.status}`}></span></p>
-                                <p className='job mt-2'>
-                                    <span className='mr-2 sub-text'>{user.job}</span>
-                                    <small>
-                                        {Array(5)
-                                            .fill('')
-                                            .map((_, i) => (
-                                            <StarIcon
-                                                key={i}
-                                                color={i+1 <= user.rate ? 'yellow.400' : 'gray.300'}
-                                            />
-                                        ))}
-                                    </small>    
-                                </p>
-                            </div>
-                            <div className="numeric-info-container mt-3">
-                                <div className='item'>
-                                    <p className='item-number text'>{user.totalLesson}</p>
-                                    <p className='item-text sub-text'>DERS</p>
+            {
+                store!.instructorProfile.isLoading ? 
+                <Spinner /> : 
+                store!.error ?
+                <Empty text='Kullanıcı bulunamadı' showButton={false} /> :
+                <div className='teacher-profile-page-container'>
+                    <Container>
+                        <div className="profile-container">
+                            <div className="personal-info-container">
+                                <div className="image-container">
+                                    <img src={store!.instructorProfile.result.instructor.image ? store!.instructorProfile.result.instructor.image : DefaultProfile} alt="teacher"/>
                                 </div>
-                                <div className='item'>
-                                    <p className='item-number text'>{user.totalComment}</p>
-                                    <p className='item-text sub-text'>YORUM</p>
+                                <div className="name-container mt-3">
+                                    <p className='name'>{store!.instructorProfile.result.first_name} {store!.instructorProfile.result.last_name} <span className={`ml-2 status status-${store!.instructorProfile.result.instructor.status}`}></span></p>
+                                    <p className='job mt-2'>
+                                        <span className='mr-2 sub-text'>{store!.instructorProfile.result.instructor.job}</span>
+                                        <small>
+                                            {Array(5)
+                                                .fill('')
+                                                .map((_, i) => (
+                                                <StarIcon
+                                                    key={i}
+                                                    color={i+1 <= store!.instructorProfile.result.instructor.rate ? 'yellow.400' : 'gray.300'}
+                                                />
+                                            ))}
+                                        </small>    
+                                    </p>
                                 </div>
-                                <div className='item'>
-                                    <p className='item-number text'>{user.lessonPrice} TL</p>
-                                    <p className='item-text sub-text'>ÜCRET</p>
+                                <div className="numeric-info-container mt-3">
+                                    <div className='item'>
+                                        <p className='item-number text'>{store!.instructorProfile.result.instructor.totalLesson}</p>
+                                        <p className='item-text sub-text'>DERS</p>
+                                    </div>
+                                    <div className='item'>
+                                        <p className='item-number text'>{store!.instructorProfile.result.instructor.totalComment}</p>
+                                        <p className='item-text sub-text'>YORUM</p>
+                                    </div>
+                                    <div className='item'>
+                                        <p className='item-number text'>{store!.instructorProfile.result.instructor.lessonPrice} TL</p>
+                                        <p className='item-text sub-text'>ÜCRET</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="button-container mt-3">
-                                <MessageModal instructorId={user.id} />
-                                <TakeLessonModal lessons={user.lessons} lessonPrice={user.lessonPrice} />
-                            </div>
-                            <div className="about-container mt-3">
-                                <p className='sub-text'>{user.about}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='profile-other-container row m-0'>
-                        <div className="student-comments-container">
-                            <p className='comments-title text-center my-4'>Öğrenci Yorumları</p>
-                            <div className="student-comments">
                                 {
-                                    comments.length > 0 ? 
-                                    <div>
-                                        {
-                                            comments.map((item : any, index : number)=>(
-                                                <CommentDetail image={item.image} name={item.name} content={item.content} date={item.date} key={index} />
-                                            ))
-                                        }
-                                        <Button text='Daha fazla yükle' className='col-lg-5 col-md-8 col-12 mx-auto px-0 load-more-button' size='sm' />
-                                    </div> :
-                                    <p className='text text-center'>Henüz yorum yapılmamış.</p>
+                                    localStorage.getItem('userType') === '1' &&
+                                    <div className="button-container mt-3">
+                                        <MessageModal instructorId={10} />
+                                        <TakeLessonModal lessons={store!.instructorProfile.result.instructor.lectures} lessonPrice={store!.instructorProfile.result.instructor.lessonPrice} />
+                                    </div>
                                 }
+                                <div className="about-container mt-3">
+                                    <p className='sub-text'>{store!.instructorProfile.result.instructor.about}</p>
+                                </div>
                             </div>
                         </div>
-                        <div className="similar-instructors mb-4">
-                            <p className='similar-title text-center my-4'>Benzer Eğitmenler</p>
-                            <div className="instructors-container">
-                                {
-                                    instructors.map((item, index)=>
-                                    <div className='instructor' key={index}>
-                                        <div className="image-container">
-                                            <img src={item.image} alt="instructor"/>
-                                        </div>
-                                        <div className="text-container">
-                                            <Link className='sub-text' to={`/instructor/${item.slug}`}>{item.name}</Link>
-                                            <small>{item.job}</small>
-                                        </div>
-                                    </div>)
-                                }
+                        <div className='profile-other-container row m-0'>
+                            <div className="student-comments-container">
+                                <p className='comments-title text-center my-4'>Öğrenci Yorumları</p>
+                                <div className="student-comments">
+                                    {
+                                        comments.length > 0 ? 
+                                        <div>
+                                            {
+                                                comments.map((item : any, index : number)=>(
+                                                    <CommentDetail image={item.image} name={item.name} content={item.content} date={item.date} key={index} />
+                                                ))
+                                            }
+                                            <Button text='Daha fazla yükle' className='col-lg-5 col-md-8 col-12 mx-auto px-0 load-more-button' size='sm' />
+                                        </div> :
+                                        <p className='text text-center'>Henüz yorum yapılmamış.</p>
+                                    }
+                                </div>
+                            </div>
+                            <div className="similar-instructors mb-4">
+                                <p className='similar-title text-center my-4'>Benzer Eğitmenler</p>
+                                <div className="instructors-container">
+                                    {
+                                        instructors.map((item, index)=>
+                                        <div className='instructor' key={index}>
+                                            <div className="image-container">
+                                                <img src={item.image} alt="instructor"/>
+                                            </div>
+                                            <div className="text-container">
+                                                <Link className='sub-text' to={`/instructor/${item.slug}`}>{item.name}</Link>
+                                                <small>{item.job}</small>
+                                            </div>
+                                        </div>)
+                                    }
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </Container>
-            </div>
+                    </Container>
+                </div>
+            }
             <Footer />
         </>
     );
-};
+}));
 
 export default Index;
+/*
+    const user = {
+        id: 1,
+        image: 'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-4.jpg',
+        firstName: 'Jessica',
+        lastName: 'Jones',
+        status: 1,
+        job: 'Fizik Öğretmeni',
+        email: 'jessicajones@gmail.com',
+        university: 'İstanbul Üniversitesi Cerrahpaşa',
+        department: 'Fizik Öğretmenliği',
+        rate: 4.1,
+        totalLesson: 22, 
+        lessonPrice: 80,
+        totalComment: 30,
+        lessons: [{id: 0, name: 'Fizik'}, {id: 1, name: 'Matematik'}, {id: 2, name: 'Geometri'}],
+        about: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis doloremque reprehenderit excepturi voluptatem in odit quas mollitia! Recusandae doloremque sed necessitatibus doloribus voluptas corrupti iste rerum, nemo repellat incidunt expedita.Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis iste, dolorum, quaerat suscipit sed provident quisquam dignissimos, minus velit sit quae nihil asperiores officia fugiat accusamus non cum! Ullam, soluta!'
+};
+*/

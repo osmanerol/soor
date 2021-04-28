@@ -5,6 +5,7 @@ import { useToast } from '@chakra-ui/react';
 import { Link, useHistory } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import logo from '../../assets/images/logo.png';
+import DefaultProfile from '../../assets/images/defaultProfile.png';
 import UserStore from '../../application/user/store/userStore';
 
 interface IDefaultProps {
@@ -84,7 +85,7 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
                                         <Nav.Link as={Link} to='/settings'>Ayarlar</Nav.Link>
                                         <Nav.Link as={Link} to='/'>Çıkış Yap</Nav.Link>
                                     </> : 
-                                    <NavDropdown title={<div className='navbar-dropdown-name'><span className='image-container'><img src={store?.baseUser.image} alt='profile' className='profile-image' /></span><span className='navbar-name'>{store!.baseUser.first_name} {store!.baseUser.last_name}</span></div>} id='nav-dropdown'>
+                                    <NavDropdown title={<div className='navbar-dropdown-name'><span className='image-container'><img src={store?.baseUser.image === 'http://localhost:8000/media/' ? DefaultProfile : store?.baseUser.image} alt='profile' className='profile-image' /></span><span className='navbar-name'>{store!.baseUser.first_name} {store!.baseUser.last_name}</span></div>} id='nav-dropdown'>
                                         <NavDropdown.Item as={Link} to='/add-balance'>Bakiye Yükle</NavDropdown.Item>
                                         <NavDropdown.Item as={Link} to={`/instructor/${store?.baseUser.slug}`}>Profil</NavDropdown.Item>
                                         <NavDropdown.Item as={Link} to='/settings'>Ayarlar</NavDropdown.Item>

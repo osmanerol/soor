@@ -16,22 +16,22 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'instructor']
+        fields = ['id', 'first_name', 'last_name', 'email', 'instructor']
     
 class InstructorUpdateSerializer(ModelSerializer):
     class Meta:
         model = Instructor
-        fields = ['university', 'department', 'job', 'lessonPrice', 'about', 'lectures']
+        fields = ['image', 'university', 'department', 'job', 'lessonPrice', 'about', 'lectures']
         
 class UserUpdateSerializer(ModelSerializer):
-    user = InstructorUpdateSerializer()
+    instructor = InstructorUpdateSerializer()
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'user']
+        fields = ['first_name', 'last_name', 'email', 'instructor']
 
     def update(self, instance, validated_data):
-        instructor = validated_data.pop('user')
+        instructor = validated_data.pop('instructor')
         instructor_data = Instructor.objects.get(id = instance.instructor.id)
         instructor_data.university = instructor['university']
         instructor_data.department = instructor['department']
@@ -41,6 +41,6 @@ class UserUpdateSerializer(ModelSerializer):
         instructor_data.lectures.clear()
         for lecture in instructor['lectures']:
             instructor_data.lectures.add(lecture)
-        instructor_data.save()
+        instructor_data.save()      
         instance.instructor = instructor_data
         return super(UserUpdateSerializer, self).update(instance, validated_data)

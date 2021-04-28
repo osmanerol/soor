@@ -18,6 +18,7 @@ interface IDefaultProps{
 }
 const Index: FC<IDefaultProps> = (props: IDefaultProps) => {
     const { className, text, id, options, defaultValue, onChange, label, value, selectRef, errors, control } = props;
+
     return (
         <div className={className}>
             { text && <small>{text}</small>}

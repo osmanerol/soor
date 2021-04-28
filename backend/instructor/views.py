@@ -7,6 +7,7 @@ from .models import Instructor
 from student.models import Student
 from user.models import User
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .paginations import InstructorPagination
 from django.db.models import Value
@@ -41,6 +42,16 @@ class InstructorDetailAPIView(RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'instructor__slug'
+
+class InstructorProfileAPIView(RetrieveAPIView):
+    queryset = User.objects.filter(is_instructor = True)
+    serializer_class = UserUpdateSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        object = get_object_or_404(queryset, id = self.request.user.id)
+        return object
 
 class InstructorSoonAPIView(ListAPIView):
     queryset = User.objects.filter(is_instructor = True)[:12]

@@ -46,7 +46,7 @@ const App = () => {
         <Route path='/signup' exact strict component={SignupPage} />
         <Route path='/lesson-filter' exact strict component={LessonFilterPage} />
         <Route path='/lesson-filter/:lesson' exact strict component={LessonFilterPage} />
-        <Route path='/instructor/:instructor' exact strict component={InstructorPage} />
+        <Route path='/instructor/:slug' exact strict component={InstructorPage} />
         <PrivateRoute path='/lessons' exact strict component={LessonsPage} />
         <PrivateRoute path='/settings' exact strict component={SettingsPage} />
         <PrivateRoute path='/messages' exact={isSmallScreen} strict component={MessagePage} /> 

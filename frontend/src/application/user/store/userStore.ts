@@ -28,7 +28,7 @@ const defaultSignupUser : SignupDto = {
 }
 
 class UserStore{
-    static readonly id: string = 'LoginStore'
+    static readonly id: string = 'UserStore'
     baseUser! : UserDto;
     loginUser! : LoginDto;
     signupUser! : SignupDto;
@@ -48,6 +48,9 @@ class UserStore{
         if(localStorage.getItem('token')){
             const result = await axios.get('/api/user/me');
             this.baseUser = result.data;
+        }
+        else{
+            this.baseUser = defaultBaseUser;
         }
     }
 

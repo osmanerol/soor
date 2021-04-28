@@ -2,19 +2,19 @@ import React, { FC, useEffect } from 'react';
 import './index.scss';
 import { Container } from 'react-bootstrap';
 import { observer, inject } from 'mobx-react';
-import { InstructorCard, Button, Comment, Loading, Footer } from '../../components';
+import { InstructorCard, Button, Comment, Spinner, Footer } from '../../components';
 import { Link } from 'react-router-dom';
 import expected1 from '../../assets/images/expected-1.jpg';
 import expected2 from '../../assets/images/expected-2.jpg';
 import expected3 from '../../assets/images/expected-3.jpg';
-import InstructorStore from '../../application/instructor/store/instructorStore';
+import GeneralStore from '../../application/general/store/generalStore';
 
 interface IDefaultProps {
-    InstructorStore? : typeof InstructorStore
+    GeneralStore? : typeof GeneralStore
 }
 
-const Index : FC<IDefaultProps> = inject('InstructorStore')(observer((props : IDefaultProps) => {
-    const { InstructorStore : store } = props;
+const Index : FC<IDefaultProps> = inject('GeneralStore')(observer((props : IDefaultProps) => {
+    const { GeneralStore : store } = props;
     /*
     const instructors = [ 
         { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-1-1.jpg', name:'Justin Hammer', slug:'justin-hammer', job:'Matematik Öğretmeni', rate:4, price: 80 },
@@ -41,124 +41,131 @@ const Index : FC<IDefaultProps> = inject('InstructorStore')(observer((props : ID
     useEffect(()=>{
         if(store!.instructorList.results!.length === 0){
             store!.getSoonInstructor();
+        }
+        if(store!.totalData.total_instructor === 0){
             store!.getTotalData();
         }
+    }, [store])
+
+    useEffect(()=>{
         window.scrollTo(0,0);
     })
 
     return (
         <>
-            {
-                (store?.instructorList.is_loading || store?.totalData.is_loading) ? 
-                <Loading /> :
-                <>
-                    <div className='homepage-container'>
-                        <div className="cover">
-                            <Container>
-                                <div className="col-lg-7 col-md-9 col-sm-10 col-12 content">
-                                    <p className='cover-title'>Yüzlerce Çevrimiçi Eğitmene Sorularını SOOR</p>
-                                    <p className='cover-text'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, quam? Ea quasi autem deleniti alias? Aperiam blanditiis exercitationem ea eligendi</p>
-                                    <div className="button-container">
-                                        {
-                                            localStorage.getItem('token') ? 
-                                            <>
-                                                <Button text='Ders Seç' className='filter-button' as={Link} to='/lesson-filter' />
-                                            </> :  
-                                            <>
-                                                <Button text='Giriş Yap' className='filter-button' as={Link} to='/login' />
-                                                <Button text='Kaydol' className='login-button' as={Link} to='/signup' />
-                                            </>
-                                        }
-                                    </div>
-                                </div>
-                            </Container>
+            <div className='homepage-container'>
+                <div className="cover">
+                    <Container>
+                        <div className="col-lg-7 col-md-9 col-sm-10 col-12 content">
+                            <p className='cover-title'>Yüzlerce Çevrimiçi Eğitmene Sorularını SOOR</p>
+                            <p className='cover-text'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, quam? Ea quasi autem deleniti alias? Aperiam blanditiis exercitationem ea eligendi</p>
+                            <div className="button-container">
+                                {
+                                    localStorage.getItem('token') ? 
+                                    <>
+                                        <Button text='Ders Seç' className='filter-button' as={Link} to='/lesson-filter' />
+                                    </> :  
+                                    <>
+                                        <Button text='Giriş Yap' className='filter-button' as={Link} to='/login' />
+                                        <Button text='Kaydol' className='login-button' as={Link} to='/signup' />
+                                    </>
+                                }
+                            </div>
                         </div>
-                        <Container>
-                            <div className="expected-container">
-                                <h2 className='title text-center'>SOOR'da seni neler bekliyor ?</h2>
-                                <div className="items-container">
-                                    <div className="item">
-                                        <div className="image-container">
-                                            <img src={expected1} alt="item"/>
-                                        </div>
-                                        <div className="text-container text-center">
-                                            <h2 className='sub-title text-center mb-3'>Soru çözümü</h2>
-                                            <p className='sub-text'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo recusandae consequuntur quaerat reiciendis .</p>
-                                        </div>
-                                    </div>
-                                    <div className="item">
-                                        <div className="image-container">
-                                            <img src={expected2} alt="item"/>
-                                        </div>
-                                        <div className="text-container text-center">
-                                            <h2 className='sub-title text-center mb-3'>Canlı Ders</h2>
-                                            <p className='sub-text'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo recusandae consequuntur quaerat reiciendis .</p>
-                                        </div>
-                                    </div>
-                                    <div className="item text-center">
-                                        <div className="image-container">
-                                            <img src={expected3} alt="item"/>
-                                        </div>
-                                        <div className="text-container text-center">
-                                            <h2 className='sub-title text-center mb-3'>Danışmanlık</h2>
-                                            <p className='sub-text'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo recusandae consequuntur quaerat reiciendis .</p>
-                                        </div>
-                                    </div>
+                    </Container>
+                </div>
+                <Container>
+                    <div className="expected-container">
+                        <h2 className='title text-center'>SOOR'da seni neler bekliyor ?</h2>
+                        <div className="items-container">
+                            <div className="item">
+                                <div className="image-container">
+                                    <img src={expected1} alt="item"/>
+                                </div>
+                                <div className="text-container text-center">
+                                    <h2 className='sub-title text-center mb-3'>Soru çözümü</h2>
+                                    <p className='sub-text'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo recusandae consequuntur quaerat reiciendis .</p>
                                 </div>
                             </div>
-                            <div className="instructors-container">
-                                <h2 className='title text-center'>SOOR'da ders veren eğitmenlerden bazıları :</h2>
-                                <div className="instructor-list">
-                                    {
-                                        store!.instructorList.results!.map((item : any, index : number)=>(
-                                            <InstructorCard key={index} image={item.instructor.image} first_name={item.first_name} last_name={item.last_name} job={item.instructor.job} rate={item.instructor.rate} slug={item.instructor.slug} />
-                                        ))
-                                    }
+                            <div className="item">
+                                <div className="image-container">
+                                    <img src={expected2} alt="item"/>
+                                </div>
+                                <div className="text-container text-center">
+                                    <h2 className='sub-title text-center mb-3'>Canlı Ders</h2>
+                                    <p className='sub-text'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo recusandae consequuntur quaerat reiciendis .</p>
                                 </div>
                             </div>
-                        </Container>
-                        <div className="total-datas-container">
-                            <Container className='total-datas-content'>
-                                <div className="row">
-                                    <div className="col-md-6 col-12 text-center">
-                                        <h2 className="total-datas-title">SOOR olarak her geçen gün büyümeye devam ediyoruz.</h2>
-                                    </div>
-                                    <div className="col-md-6 col-12">
-                                        <p className='total-datas-text title text-center mb-4'>Şimdiye kadar toplam : </p>
-                                        <div className="items">
-                                            <div className="item">
-                                                <span className='title'>{store!.totalData.total_student}</span>
-                                                <span className='sub-title'>Öğrenci</span>
-                                            </div>
-                                            <div className="item">
-                                                <span className='title'>{store!.totalData.total_instructor}</span>
-                                                <span className='sub-title'>Eğitmen</span>
-                                            </div>
-                                            <div className="item">
-                                                <span className='title'>{store!.totalData.total_lesson}</span>
-                                                <span className='sub-title'>Canlı Ders</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div className="item text-center">
+                                <div className="image-container">
+                                    <img src={expected3} alt="item"/>
                                 </div>
-                            </Container>
-                        </div>
-                        <div className='students-comments-container'>
-                            <Container>
-                                <h2 className='title text-center'>Öğrenci Yorumları</h2>
-                                <div className='comment-list'>
-                                    {
-                                        studentComments.map((item, index)=>(
-                                            <Comment key={index} image={item.image} name={item.name} content={item.content} rate={item.rate} />
-                                        ))
-                                    }
+                                <div className="text-container text-center">
+                                    <h2 className='sub-title text-center mb-3'>Danışmanlık</h2>
+                                    <p className='sub-text'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo recusandae consequuntur quaerat reiciendis .</p>
                                 </div>
-                            </Container>
+                            </div>
                         </div>
                     </div>
-                    <Footer />
-                </>
-            }
+                    <div className="instructors-container">
+                        <h2 className='title text-center'>SOOR'da ders veren eğitmenlerden bazıları :</h2>
+                        <div className="instructor-list">
+                            {
+                                store!.instructorList.isLoading ?
+                                <>
+                                <Spinner /> 
+                                </>:
+                                store!.instructorList.results!.map((item : any, index : number)=>(
+                                    <InstructorCard key={index} image={item.instructor.image} first_name={item.first_name} last_name={item.last_name} job={item.instructor.job} rate={item.instructor.rate} slug={item.instructor.slug} />
+                                ))
+                            }
+                        </div>
+                    </div>
+                </Container>
+                <div className="total-datas-container">
+                    <Container className='total-datas-content'>
+                        <div className="row">
+                            <div className="col-md-6 col-12 text-center">
+                                <h2 className="total-datas-title">SOOR olarak her geçen gün büyümeye devam ediyoruz.</h2>
+                            </div>
+                            <div className="col-md-6 col-12">
+                                <p className='total-datas-text title text-center mb-4'>Şimdiye kadar toplam : </p>
+                                {
+                                    store!.totalData.isLoading ?
+                                    <Spinner /> :
+                                    <div className="items">
+                                        <div className="item">
+                                            <span className='title'>{store!.totalData.total_student}</span>
+                                            <span className='sub-title'>Öğrenci</span>
+                                        </div>
+                                        <div className="item">
+                                            <span className='title'>{store!.totalData.total_instructor}</span>
+                                            <span className='sub-title'>Eğitmen</span>
+                                        </div>
+                                        <div className="item">
+                                            <span className='title'>{store!.totalData.total_lesson}</span>
+                                            <span className='sub-title'>Canlı Ders</span>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </Container>
+                </div>
+                <div className='students-comments-container'>
+                    <Container>
+                        <h2 className='title text-center'>Öğrenci Yorumları</h2>
+                        <div className='comment-list'>
+                            {
+                                studentComments.map((item, index)=>(
+                                    <Comment key={index} image={item.image} name={item.name} content={item.content} rate={item.rate} />
+                                ))
+                            }
+                        </div>
+                    </Container>
+                </div>
+            </div>
+            <Footer />
         </>
     );
 })) ;

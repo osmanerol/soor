@@ -36,9 +36,10 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
             if(store!.signupUser.first_name !=='' && store!.signupUser.last_name !== '' &&store!.signupUser.email !== '' && store!.signupUser.password !== ''){
                 await store!.signup();
                 if(store!.error){
+                    let error = Object.values(store?.error);
                     toast({
                         title: 'Hata',
-                        description: store?.error.email ? 'E-posta hesabı daha önce kullanılmış.' : 'Beklenmedik hata oluştu. Tekrar deneyiniz.',
+                        description: error,
                         status: 'error',
                         duration: 2000,
                         isClosable: true,
