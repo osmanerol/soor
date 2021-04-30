@@ -13,6 +13,7 @@ urlpatterns = [
     path('api/student/', include('student.urls')),
     path('api/category/', include('category.urls')),
     path('api/lecture/', include('lecture.urls')),
+    path('api/comment/', include('comment.urls')),
     path('api/token', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
 ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

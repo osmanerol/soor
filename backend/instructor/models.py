@@ -11,7 +11,7 @@ class Instructor(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
     image = models.ImageField(upload_to = 'post', null = True, blank = True)
     slug = models.SlugField(unique = True, max_length = 100, editable = False)
-    status = models.BooleanField(default = False, editable = False)
+    status = models.IntegerField(default = 0, editable = False)
     university = models.CharField(max_length = 100)
     department = models.CharField(max_length = 100)
     job = models.CharField(max_length = 100)

@@ -53,10 +53,9 @@ class InstructorProfileAPIView(RetrieveAPIView):
         object = get_object_or_404(queryset, id = self.request.user.id)
         return object
 
-class InstructorSoonAPIView(ListAPIView):
-    queryset = User.objects.filter(is_instructor = True)[:12]
+class InstructorLastAPIView(ListAPIView):
+    queryset = User.objects.filter(is_instructor = True).order_by('id')[:12]
     serializer_class = UserSerializer
-    pagination_class = InstructorPagination
 
 class TotalDataListAPIView(APIView):
 

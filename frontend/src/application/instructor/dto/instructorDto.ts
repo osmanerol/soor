@@ -7,7 +7,7 @@ export interface InstructorProfileDto{
         id: number,
         image: any,
         slug: string,
-        status: boolean,
+        status: number,
         university: string,
         department: string,
         job: string,

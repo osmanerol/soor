@@ -76,19 +76,29 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
                             store!.baseUser.id !== 0 ? 
                             <>
                                 <Nav.Link as={Link} to='/lessons' className={`${lessonNotification > 0 && 'notification'}`}>Derslerim</Nav.Link>
-                                <Nav.Link as={Link} to='/messages' className={`${messageNotification > 0 && 'notification'}`}>Mesajlar</Nav.Link>
+                                {
+                                    /*
+                                        <Nav.Link as={Link} to='/messages' className={`${messageNotification > 0 && 'notification'}`}>Mesajlar</Nav.Link>
+                                    */
+                                }
                                 {
                                     isSmallScreen ?
                                     <>
                                         <Nav.Link as={Link} to='/add-balance'>Bakiye Yükle</Nav.Link>
-                                        <Nav.Link as={Link} to='/instructor/jessica-jones'>Profil</Nav.Link>
-                                        <Nav.Link as={Link} to='/settings'>Ayarlar</Nav.Link>
+                                        {
+                                            store!.baseUser.userType === 2 &&
+                                            <Nav.Link as={Link} to='/instructor/jessica-jones'>Profil</Nav.Link>
+                                        }
+                                        <Nav.Link as={Link} to={localStorage.getItem('userType') === '1' ? '/settings/student' : '/settings/instructor'}>Ayarlar</Nav.Link>
                                         <Nav.Link as={Link} to='/'>Çıkış Yap</Nav.Link>
                                     </> : 
-                                    <NavDropdown title={<div className='navbar-dropdown-name'><span className='image-container'><img src={store?.baseUser.image === 'http://localhost:8000/media/' ? DefaultProfile : store?.baseUser.image} alt='profile' className='profile-image' /></span><span className='navbar-name'>{store!.baseUser.first_name} {store!.baseUser.last_name}</span></div>} id='nav-dropdown'>
+                                    <NavDropdown title={<div className='navbar-dropdown-name'><span className='image-container'><img src={store?.baseUser.image === '' || store?.baseUser.image === null ? DefaultProfile : store?.baseUser.image} alt='profile' className='profile-image' /></span><span className='navbar-name'>{store!.baseUser.first_name} {store!.baseUser.last_name}</span></div>} id='nav-dropdown'>
                                         <NavDropdown.Item as={Link} to='/add-balance'>Bakiye Yükle</NavDropdown.Item>
-                                        <NavDropdown.Item as={Link} to={`/instructor/${store?.baseUser.slug}`}>Profil</NavDropdown.Item>
-                                        <NavDropdown.Item as={Link} to='/settings'>Ayarlar</NavDropdown.Item>
+                                        {
+                                            store!.baseUser.userType === 2 &&
+                                            <NavDropdown.Item as={Link} to={`/instructor/${store?.baseUser.slug}`}>Profil</NavDropdown.Item>
+                                        }
+                                        <NavDropdown.Item as={Link} to={localStorage.getItem('userType') === '1' ? '/settings/student' : '/settings/instructor'}>Ayarlar</NavDropdown.Item>
                                         <NavDropdown.Item onClick={onLogOut}>Çıkış Yap</NavDropdown.Item>
                                     </NavDropdown>
                                 }

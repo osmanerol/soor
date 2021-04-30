@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from .permissions import NotAuthenticated
 from instructor.models import Instructor
 from student.models import Student
@@ -37,7 +38,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainSerializer
 
 class TotalDataListAPIView(APIView):
-
+    
     def get(self, request):
         data = {
             'total_instructor' : Instructor.objects.count(),
@@ -45,3 +46,14 @@ class TotalDataListAPIView(APIView):
             'total_lesson' : 10
         }
         return Response(data)
+
+class UserLogoutAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = self
+        if(self.request.user.is_instructor):
+            instructor = Instructor.objects.get(user__id = self.request.user.id)
+            instructor.status = 0
+            instructor.save()
+        return Response({'response' : 'logged out'})

@@ -8,11 +8,13 @@ import SignupPage from './pages/SignupPage';
 import LessonFilterPage from './pages/LessonFilterPage';
 import InstructorPage from './pages/InstructorPage';
 import LessonsPage from './pages/LessonsPage';
-import MessagePage from './pages/MessagePage';
+// import MessagePage from './pages/MessagePage';
 import MessageDetailPage from './pages/MessageDetailPage';
-import SettingsPage from './pages/SettingsPage';
+import InstructorSettingsPage from './pages/InstructorSettingsPage';
+import StudentSettingsPage from './pages/StudentSettingsPage';
 import NotFoundPage from './pages/NotFoundPage';
 import { PrivateRoute } from './components';
+
 
 const App = () => {
   const [isSmallScreen, setSmallScreen] = useState(false);
@@ -46,20 +48,11 @@ const App = () => {
         <Route path='/signup' exact strict component={SignupPage} />
         <Route path='/lesson-filter' exact strict component={LessonFilterPage} />
         <Route path='/lesson-filter/:lesson' exact strict component={LessonFilterPage} />
+        <PrivateRoute path='/settings/instructor' exact strict component={InstructorSettingsPage} />
+        <PrivateRoute path='/settings/student' exact strict component={StudentSettingsPage} />
         <Route path='/instructor/:slug' exact strict component={InstructorPage} />
         <PrivateRoute path='/lessons' exact strict component={LessonsPage} />
-        <PrivateRoute path='/settings' exact strict component={SettingsPage} />
-        <PrivateRoute path='/messages' exact={isSmallScreen} strict component={MessagePage} /> 
         <PrivateRoute path='/messages/:slug' exact strict component={MessageDetailPage} />
-        { /*
-          isSmallScreen &&
-          <PrivateRoute path='/messages/:slug' exact strict children={()=>(
-            <Container>
-              <MessageDetailPage /> 
-            </Container>
-          )} />
-          */ 
-        }
         <Route exact strict component={NotFoundPage} />
       </Switch>
     </>
@@ -67,17 +60,6 @@ const App = () => {
 };
 
 export default App;
-  /*
-
-        <Route path='/lessons' exact strict component={LessonsPage} />
-        <Route path='/settings' exact strict component={SettingsPage} />
-        <Route path='/messages' exact={isSmallScreen} strict component={MessagePage} /> 
-        {
-          isSmallScreen &&
-          <Route path='/messages/:slug' exact strict children={()=>(
-            <Container>
-              <MessageDetailPage /> 
-            </Container>
-          )} /> 
-        }
-  */
+/*
+  <PrivateRoute path='/messages' exact={isSmallScreen} strict component={MessagePage} /> 
+*/

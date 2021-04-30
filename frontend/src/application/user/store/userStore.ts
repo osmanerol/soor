@@ -1,5 +1,5 @@
 import { makeAutoObservable, action } from 'mobx';
-import axios from '../../../helpers/axios';
+import http from '../../../services';
 import { LoginDto } from '../dto/loginDto';
 import { SignupDto } from '../dto/signupDto';
 import { UserDto } from '../dto/userDto';
@@ -9,6 +9,7 @@ const defaultBaseUser : UserDto = {
     first_name : '',
     last_name : '',
     email : '',
+    userType: 0,
     image : '' ,
     slug : ''
 }
@@ -32,8 +33,8 @@ class UserStore{
     baseUser! : UserDto;
     loginUser! : LoginDto;
     signupUser! : SignupDto;
-    error! : any
-    isLoading! : boolean
+    error! : any;
+    isLoading! : boolean;
 
     constructor() {
         makeAutoObservable(this);
@@ -44,9 +45,9 @@ class UserStore{
         this.isLoading = false;
     }
 
-    @action.bound async getUser(){
+    @action.bound  async getUser(){
         if(localStorage.getItem('token')){
-            const result = await axios.get('/api/user/me');
+            const result = await http.get('/api/user/me');
             this.baseUser = result.data;
         }
         else{
@@ -58,8 +59,9 @@ class UserStore{
         this.error = null;
         this.isLoading = true;
         try{
-            const result = await axios.post('/api/token',this.loginUser);
+            const result = await http.post('/api/token',this.loginUser);
             localStorage.setItem('token', result.data.access);
+            localStorage.setItem('refresh', result.data.refresh);
             localStorage.setItem('userType', result.data.user_type);
             setTimeout(()=>{
                 this.getUser();
@@ -71,16 +73,25 @@ class UserStore{
         this.isLoading = false;
     }
 
-    @action logout(){
-        localStorage.clear();
+    @action async logout(){
         this.baseUser = defaultBaseUser;
+        this.error = null;
+        this.isLoading = true;
+        try{
+            await http.post('/api/user/logout');
+            localStorage.clear();
+        }
+        catch(error){
+            this.error = error.response.data;
+        }
+        this.isLoading = false;
     }
 
     @action async signup(){
         this.error = null;
         this.isLoading = true;
         try{
-            await axios.post('/api/user/register',this.signupUser);
+            await http.post('/api/user/register',this.signupUser);
         }
         catch(error){
             this.error = error.response.data;

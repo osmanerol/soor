@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import './index.scss';
 import { useHistory } from 'react-router-dom';
 import { StarIcon } from '@chakra-ui/icons';
+import DefaultProfile from '../../assets/images/defaultProfile.png';
 
 interface IDefaultProps{
     image: string,
@@ -19,12 +20,13 @@ interface IDefaultProps{
 const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
     const { image, first_name, last_name, job, slug, rate, price, totalLesson, comment, status } = props;
     const history = useHistory();
-    const statusCode = status ? 1 : 0
+    const statusCode = status ? 1 : 0;
+
     return (
         <div className='instructor-filter-card' onClick={()=>history.push(`/instructor/${slug}`)}>
             <span className={`status status-${statusCode}`}></span>
             <div className="image-container">
-                <img src={image} alt="profile"/>
+                <img src={(image === '' || image === null) ? DefaultProfile : image} alt="profile"/>
             </div>
             <div className="name-container">
                 <p className='name text'>{first_name} {last_name}</p>

@@ -1,5 +1,5 @@
 import { makeAutoObservable, action, configure, toJS } from 'mobx';
-import axios from '../../../helpers/axios';
+import http from '../../../services';
 import { LectureDto } from '../dto/lectureDto';
 import IPagedResult from '../../../models/dto/fetch/IPagedResult';
 import { InstructorListDto } from '../../instructor/dto/instructorDto';
@@ -28,7 +28,7 @@ class LectureStore{
 
     @action async getAllLectures(){
         this.lectureList.isLoading = true;
-        const result = await axios.get('/api/lecture/list');
+        const result = await http.get('/api/lecture/list');
         this.lectureList = toJS({ ...result.data, isLoading : false})
     }
 
@@ -41,13 +41,13 @@ class LectureStore{
                 return `${name[index]}=${item}`
             }
             else{
-                return '';
+                return null;
             }
-        }).join('&');
+        }).filter(item => item !== null).join('&');
         query = `?${query}`;
         query = query.replace('&&', '&');
         query = query.replace('?&', '?');
-        const result = await axios.get('/api/instructor/list' + (query.length > 1 ? `${query}` : ''));
+        const result = await http.get('/api/instructor/list' + (query.length > 1 ? `${query}` : ''));
         this.instructorList = { ...result.data , isLoading : false};
     }
 

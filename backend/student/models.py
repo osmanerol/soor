@@ -9,7 +9,7 @@ class Student(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
     image = models.ImageField(upload_to = 'post', null = True, blank = True)
     slug = models.SlugField(unique = True, max_length = 100, editable = False)  
-    credit = models.FloatField(default = 0, editable = False)
+    credit = models.FloatField(default = 0)
 
     def __str__(self):
         full_name = '{} {}'.format(self.user.first_name, self.user.last_name)

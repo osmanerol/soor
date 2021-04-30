@@ -1,5 +1,5 @@
 import { makeAutoObservable, action, toJS } from 'mobx';
-import axios from '../../../helpers/axios';
+import http from '../../../services';
 import { InstructorListDto, InstructorCreateDto } from '../dto/instructorDto';
 import IPagedResult from '../../../models/dto/fetch/IPagedResult';
 
@@ -14,7 +14,7 @@ const DefaultInstructor = {
             id: 0,
             image: '',
             slug: '',
-            status: false,
+            status: 0,
             university: '',
             department: '',
             job: '',
@@ -53,7 +53,7 @@ class InstructorStore{
         this.instructorProfile.isLoading = true;
         this.error = '';
         try{
-            const result = await axios.get(`/api/instructor/profile/${slug}`);
+            const result = await http.get(`/api/instructor/profile/${slug}`);
             this.instructorProfile = { result : result.data, isLoading : false};
         }catch(error){
             this.error = error;
@@ -65,7 +65,7 @@ class InstructorStore{
         this.instructor.isLoading = true;
         this.error = '';
         try{
-            const result = await axios.get(`/api/instructor/me`);
+            const result = await http.get(`/api/instructor/me`);
             this.instructor = { result : result.data, isLoading : false};
         }catch(error){
             this.error = error;
@@ -77,21 +77,35 @@ class InstructorStore{
         this.instructor.isLoading = true;
         this.error = '';
         let lectureArray = toJS(this.instructor.result.instructor.lectures);
-        const userProfile = {
-            first_name: this.instructor.result.first_name,
-            last_name: this.instructor.result.last_name,
-            email: this.instructor.result.email,
-            instructor: {
-                university:  this.instructor.result.instructor.university,
-                department: this.instructor.result.instructor.department,
-                job: this.instructor.result.instructor.job,
-                lessonPrice: this.instructor.result.instructor.lessonPrice,
-                about: this.instructor.result.instructor.about,
-                lectures: lectureArray
+        if(typeof lectureArray[0] !== 'number'){
+            lectureArray = lectureArray.map((item : any)=> item.id);
+        }
+        const formData = new FormData();
+        formData.append('first_name', this.instructor.result.first_name);
+        formData.append('last_name', this.instructor.result.last_name);
+        formData.append('email', this.instructor.result.email);
+        if(typeof this.instructor.result.instructor.image === 'object'){
+            if(this.instructor.result.instructor.image.name !== '' && this.instructor.result.instructor.image.name !== null){
+                formData.append('instructor.image', this.instructor.result.instructor.image, this.instructor.result.instructor.image.name);
             }
         }
+        formData.append('instructor.university', this.instructor.result.instructor.university);
+        formData.append('instructor.department', this.instructor.result.instructor.department);
+        formData.append('instructor.job', this.instructor.result.instructor.job);
+        formData.append('instructor.lessonPrice', this.instructor.result.instructor.lessonPrice);
+        formData.append('instructor.about', this.instructor.result.instructor.about);
+        if(lectureArray.length > 0){
+            lectureArray.map((item : any)=>{
+                formData.append(`instructor.lectures`, item);
+                return item;
+            })
+        }
        try{
-            const result = await axios.put(`/api/instructor/update`, userProfile);
+            const result = await http.put(`/api/instructor/update`, formData, {
+                headers : {
+                    'content-type' : 'multipart/form-data'
+                }
+            });
             this.instructor = { result : result.data, isLoading : false};
         }catch(error){
             this.error = error;
@@ -102,7 +116,7 @@ class InstructorStore{
     @action async updatePassword(params : { old_password : string, new_password1 : string, new_password2 : string}){
         this.error = '';
         try{
-            await axios.post(`/rest-auth/password/change/`, params );
+            await http.post(`/rest-auth/password/change/`, params );
         }catch(error){
             this.error = error;
         }
@@ -111,7 +125,7 @@ class InstructorStore{
     @action async deleteUser(){
         this.error = '';
         try{
-            await axios.delete(`/api/user/delete` );
+            await http.delete(`/api/user/delete` );
         }catch(error){
             this.error = error;
         }

@@ -1,30 +1,48 @@
 import { makeAutoObservable, action } from 'mobx';
-import axios from '../../../helpers/axios';
+import axios from '../../../services';
 import { InstructorListDto } from '../../instructor/dto/instructorDto';
 import { TotalDataDto } from '../dto/totalDataDto';
-import IPagedResult from '../../../models/dto/fetch/IPagedResult';
+
+interface InstructorList {
+    isLoading: boolean;
+    results : Array<InstructorListDto>
+}
 
 class GeneralStore{
     static readonly id: string = 'InstructorStore';
-    instructorList! : IPagedResult<InstructorListDto>;
+    instructorList! : InstructorList;
     totalData! : TotalDataDto;
-
+    error! : any;
+    
     constructor(){
         makeAutoObservable(this);
-        this.instructorList = { count : 0, next : '', previous : '', results : [], isLoading : false };
+        this.instructorList = { results : [], isLoading : false };
         this.totalData= { total_instructor : 0, total_student : 0, total_lesson : 0, isLoading : false }
+        this.error = {};
     }
 
-    @action async getSoonInstructor(){
+    @action async getLastInstructor(){
         this.instructorList.isLoading = true;
-        const result = await axios.get('/api/instructor/soon');
-        this.instructorList = { ...result.data, isLoading : false};
+        try{
+            const result = await axios.get('/api/instructor/last');
+            this.instructorList = { results: [...result.data], isLoading : false};
+        }
+        catch(error){
+            this.error = error;
+        }
+        this.instructorList.isLoading = false;
     }
     
     @action async getTotalData(){
         this.totalData.isLoading = true;
-        const result = await axios.get('/api/user/total-data');
-        this.totalData = { ...result.data, isLoading : false};
+        try{
+            const result = await axios.get('/api/user/total-data');
+            this.totalData = { ...result.data, isLoading : false};
+        }
+        catch(error){
+            this.error = error;
+        }
+        this.totalData.isLoading = false;
     }
 
 }

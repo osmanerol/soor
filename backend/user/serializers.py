@@ -27,9 +27,9 @@ class UserSerializer(ModelSerializer):
 class UserDetailSerializer(ModelSerializer):
     image = serializers.SerializerMethodField()
     slug = serializers.SerializerMethodField()
+    userType = serializers.SerializerMethodField()
 
     def get_image(self, instance):
-        request = self.context.get('request')
         if(instance.is_student):
             user = Student.objects.get(user = instance)
         elif(instance.is_instructor):
@@ -43,17 +43,28 @@ class UserDetailSerializer(ModelSerializer):
         elif(instance.is_instructor):
             user = Instructor.objects.get(user = instance)
         return user.slug
-        
+    
+    def get_userType(self, instance):
+        if(instance.is_student):
+            return 1
+        elif(instance.is_instructor):
+            return 2
+
     class Meta:
         model = User
-        fields = ['id', 'first_name', 'last_name', 'email', 'image', 'slug']
+        fields = ['id', 'first_name', 'last_name', 'email', 'userType',  'image', 'slug']
 
 class CustomTokenObtainSerializer(TokenObtainPairSerializer):
 
     def validate(self, attrs):
+        # when instructor login , status update to 1
         data = super().validate(attrs)
         refresh = self.get_token(self.user)
         data['refresh'] = str(refresh)
         data['access'] = str(refresh.access_token)
         data['user_type'] = 1 if self.user.is_student else 2
+        if(self.user.is_instructor):
+            instructor = Instructor.objects.get(user__id = self.user.id)
+            instructor.status = 1
+            instructor.save()
         return data

@@ -15,22 +15,6 @@ interface IDefaultProps {
 
 const Index : FC<IDefaultProps> = inject('GeneralStore')(observer((props : IDefaultProps) => {
     const { GeneralStore : store } = props;
-    /*
-    const instructors = [ 
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-1-1.jpg', name:'Justin Hammer', slug:'justin-hammer', job:'Matematik Öğretmeni', rate:4, price: 80 },
-        { image:'https://images.unsplash.com/photo-1499358517822-d8578907a095?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTM0fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Barbara Hammer', slug:'barbara-hammer', job:'Kimya Öğretmeni', rate:3, price: 100 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-2.jpg', name:'Jessica Jones', slug:'jessica-jones', job:'Fizik Öğretmeni', rate:4, price: 80 },
-        { image:'https://images.unsplash.com/photo-1517677129300-07b130802f46?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTM1fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Ashley Jones', slug:'ashley-jones', job:'Türkçe Öğretmeni', rate:4, price: 80 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-3.jpg', name:'Barbara Hammer', slug:'barbara-hammer', job:'Edebiyat Öğretmeni', rate:5, price: 100 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-4.jpg', name:'Rebecca Hammer', slug:'rebecca-jones', job:'Matematik Öğretmeni', rate:4, price: 80 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-5.jpg', name:'Jason Roy', slug:'jason-roy', job:'Kimya Öğretmeni', rate:4, price: 80 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-6.jpg', name:'Katherine Roy', slug:'katherine-roy', job:'Tarih Öğretmeni', rate:5, price: 80 },
-        { image:'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzV8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Itav Roy', slug:'itav-roy', job:'Fizik Öğretmeni', rate:4, price: 100 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-7.jpg', name:'John Roy', slug:'john-roy', job:'Biyoloji Öğretmeni', rate:4, price: 80 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-7.jpg', name:'Natasha John', slug:'natasha-john', job:'Coğrafya Öğretmeni', rate:5, price: 80 },
-        { image:'https://images.unsplash.com/photo-1529957713629-c085c35d0ef5?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTk0fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Victoria John', slug:'victoria-john', job:'Tarih Öğretmeni', rate:5, price: 100 },
-    ]
-    */
 
     const studentComments = [
         { image : 'https://images.unsplash.com/photo-1557555187-23d685287bc3?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTl8fGdpcmx8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' , name: 'Harvey Specter', content: 'This is a truly spectacular theme! The custom page builder is definitely one of the most intuitive and user-friendly page builders.', rate: 4},
@@ -40,7 +24,7 @@ const Index : FC<IDefaultProps> = inject('GeneralStore')(observer((props : IDefa
 
     useEffect(()=>{
         if(store!.instructorList.results!.length === 0){
-            store!.getSoonInstructor();
+            store!.getLastInstructor();
         }
         if(store!.totalData.total_instructor === 0){
             store!.getTotalData();
@@ -49,7 +33,7 @@ const Index : FC<IDefaultProps> = inject('GeneralStore')(observer((props : IDefa
 
     useEffect(()=>{
         window.scrollTo(0,0);
-    })
+    }, [])
 
     return (
         <>
@@ -171,3 +155,20 @@ const Index : FC<IDefaultProps> = inject('GeneralStore')(observer((props : IDefa
 })) ;
 
 export default Index;
+
+/*
+    const instructors = [ 
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-1-1.jpg', name:'Justin Hammer', slug:'justin-hammer', job:'Matematik Öğretmeni', rate:4, price: 80 },
+        { image:'https://images.unsplash.com/photo-1499358517822-d8578907a095?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTM0fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Barbara Hammer', slug:'barbara-hammer', job:'Kimya Öğretmeni', rate:3, price: 100 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-2.jpg', name:'Jessica Jones', slug:'jessica-jones', job:'Fizik Öğretmeni', rate:4, price: 80 },
+        { image:'https://images.unsplash.com/photo-1517677129300-07b130802f46?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTM1fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Ashley Jones', slug:'ashley-jones', job:'Türkçe Öğretmeni', rate:4, price: 80 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-3.jpg', name:'Barbara Hammer', slug:'barbara-hammer', job:'Edebiyat Öğretmeni', rate:5, price: 100 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-4.jpg', name:'Rebecca Hammer', slug:'rebecca-jones', job:'Matematik Öğretmeni', rate:4, price: 80 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-5.jpg', name:'Jason Roy', slug:'jason-roy', job:'Kimya Öğretmeni', rate:4, price: 80 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-6.jpg', name:'Katherine Roy', slug:'katherine-roy', job:'Tarih Öğretmeni', rate:5, price: 80 },
+        { image:'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzV8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Itav Roy', slug:'itav-roy', job:'Fizik Öğretmeni', rate:4, price: 100 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-7.jpg', name:'John Roy', slug:'john-roy', job:'Biyoloji Öğretmeni', rate:4, price: 80 },
+        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-7.jpg', name:'Natasha John', slug:'natasha-john', job:'Coğrafya Öğretmeni', rate:5, price: 80 },
+        { image:'https://images.unsplash.com/photo-1529957713629-c085c35d0ef5?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTk0fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Victoria John', slug:'victoria-john', job:'Tarih Öğretmeni', rate:5, price: 100 },
+    ]
+*/

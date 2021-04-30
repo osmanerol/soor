@@ -1,56 +1,59 @@
 import React, { FC, useEffect } from 'react';
 import './index.scss';
 import { inject, observer } from 'mobx-react';
-import { Button, TakeLessonModal, MessageModal, Empty, Spinner, CommentDetail, Footer } from '../../components';
+import { Button, TakeLessonModal, Empty, Spinner, CommentDetail, Footer } from '../../components';
 import { useParams } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { StarIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
 import DefaultProfile from '../../assets/images/defaultProfile.png';
 import InstructorStore from '../../application/instructor/store/instructorStore';
+import CommentStore from '../../application/comment/store/commentStore';
+import StudentStore from '../../application/student/store/studentStore';
+import GeneralStore from '../../application/general/store/generalStore';
 
 interface IDefaultProps{
-    InstructorStore : typeof InstructorStore
+    InstructorStore : typeof InstructorStore;
+    CommentStore : typeof CommentStore;
+    StudentStore : typeof StudentStore;
+    GeneralStore : typeof GeneralStore;
 }
 
-const Index : FC<IDefaultProps> = inject('InstructorStore')(observer((props : IDefaultProps) => {
-    const { InstructorStore : store } = props;
+const Index : FC<IDefaultProps> = inject('InstructorStore', 'CommentStore', 'StudentStore', 'GeneralStore')(observer((props : IDefaultProps) => {
+    const { InstructorStore : store, CommentStore : commentStore, StudentStore : studentStore, GeneralStore : generalStore } = props;
     let { slug } = useParams<{ slug : string }>();
-    const comments = [
-        { image: 'https://images.unsplash.com/photo-1600603405959-6d623e92445c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mzh8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name: 'Vickly Hladynets', content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores molestiae dignissimos doloribus quisquam quidem iusto totam porro quod vel, ad sapiente sunt nobis nulla cumque veniam, ipsum possimus, ut accusamus!', date: '15.03.2020'},
-        { image: 'https://images.unsplash.com/photo-1468011749792-10026eb12caf?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nzd8fGdpcmx8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name: 'Allef Moyr', content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores molestiae dignissimos doloribus.', date: '13.04.2020'},
-        { image: 'https://images.unsplash.com/photo-1543965170-4c01a586684e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDR8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name: 'Elizeus Diaz', content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores molestiae dignissimos doloribus.', date: '13.04.2020'},
-        { image: 'https://images.unsplash.com/photo-1605038593290-475661bfbba3?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDZ8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name: 'Amir Babei', content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores molestiae dignissimos doloribus.Dolores molestiae dignissimos doloribus quisquam quidem iusto totam porro quod vel, ad sapiente sunt nobis nulla cumque veniam,', date: '20.06.2020'},
-        { image: 'https://images.unsplash.com/photo-1600207438283-a5de6d9df13e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8ODl8fGdpcmx8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name: 'Ashley Roy', content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores molestiae dignissimos doloribus.Dolores molestiae dignissimos.', date: '08.01.2020'},
-    ]
-    
-    const instructors = [ 
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-1-1.jpg', name:'Justin Hammer', slug:'justin-hammer', job:'Matematik Öğretmeni'},
-        { image:'https://images.unsplash.com/photo-1499358517822-d8578907a095?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTM0fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Barbara Hammer', slug:'barbara-hammer', job:'Kimya Öğretmeni', rate:3, price: 100 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-2.jpg', name:'Jessica Jones', slug:'jessica-jones', job:'Fizik Öğretmeni'},
-        { image:'https://images.unsplash.com/photo-1517677129300-07b130802f46?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTM1fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Ashley Jones', slug:'ashley-jones', job:'Türkçe Öğretmeni'},
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-3.jpg', name:'Barbara Hammer', slug:'barbara-hammer', job:'Edebiyat Öğretmeni' },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-4.jpg', name:'Rebecca Hammer', slug:'rebecca-jones', job:'Matematik Öğretmeni' },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-5.jpg', name:'Jason Roy', slug:'jason-roy', job:'Kimya Öğretmeni' },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-6.jpg', name:'Katherine Roy', slug:'katherine-roy', job:'Tarih Öğretmeni' },
-        { image:'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzV8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Itav Roy', slug:'itav-roy', job:'Fizik Öğretmeni' },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-7.jpg', name:'John Roy', slug:'john-roy', job:'Biyoloji Öğretmeni' },
-    ]
 
     useEffect(()=>{
-        if(store?.instructorProfile.result.id === 0){
-            store!.getInstructor(slug);
-        }
         window.scrollTo(0,0);
-    }, [slug, store])
+    }, [])
+
+    useEffect(()=>{
+        commentStore.pageNumber = 1;
+        store!.getInstructor(slug);
+        commentStore!.getComments(slug);
+        if(localStorage.getItem('userType') === '1'){
+            studentStore.getProfile();
+        }
+        if(generalStore!.instructorList.results?.length === 0){
+            generalStore!.getLastInstructor();
+        }
+    }, [store, commentStore, generalStore, studentStore, slug])
+
+    const loadMoreComment = async () =>{
+        commentStore.getComments(slug);
+    }
 
     return (
         <>
             {
                 store!.instructorProfile.isLoading ? 
-                <Spinner /> : 
+                <div className='teacher-profile-page-container'>
+                    <Spinner />
+                </div> : 
                 store!.error ?
-                <Empty text='Kullanıcı bulunamadı' showButton={false} /> :
+                <div className='teacher-profile-page-container'>
+                    <Empty text='Eğitmen bulunamadı' showButton={false} /> 
+                </div>:
                 <div className='teacher-profile-page-container'>
                     <Container>
                         <div className="profile-container">
@@ -91,8 +94,7 @@ const Index : FC<IDefaultProps> = inject('InstructorStore')(observer((props : ID
                                 {
                                     localStorage.getItem('userType') === '1' &&
                                     <div className="button-container mt-3">
-                                        <MessageModal instructorId={10} />
-                                        <TakeLessonModal lessons={store!.instructorProfile.result.instructor.lectures} lessonPrice={store!.instructorProfile.result.instructor.lessonPrice} />
+                                        <TakeLessonModal lessons={store!.instructorProfile.result.instructor.lectures} lessonPrice={store!.instructorProfile.result.instructor.lessonPrice} credit={studentStore.student.student.credit} disabled={store.instructorProfile.result.instructor.status === 1} />
                                     </div>
                                 }
                                 <div className="about-container mt-3">
@@ -105,33 +107,44 @@ const Index : FC<IDefaultProps> = inject('InstructorStore')(observer((props : ID
                                 <p className='comments-title text-center my-4'>Öğrenci Yorumları</p>
                                 <div className="student-comments">
                                     {
-                                        comments.length > 0 ? 
+                                        commentStore!.commentList.results!.length > 0 ? 
                                         <div>
                                             {
-                                                comments.map((item : any, index : number)=>(
-                                                    <CommentDetail image={item.image} name={item.name} content={item.content} date={item.date} key={index} />
+                                                commentStore!.commentList.results!.map((item : any, index : number)=>(
+                                                    <CommentDetail image={item.student.image} name={`${item.student.first_name} ${item.student.last_name}`} content={item.content} date={item.created} key={index} />
                                                 ))
                                             }
-                                            <Button text='Daha fazla yükle' className='col-lg-5 col-md-8 col-12 mx-auto px-0 load-more-button' size='sm' />
+                                            {
+                                                commentStore.commentList.next &&
+                                                <Button text='Daha fazla yükle' className='col-lg-5 col-md-8 col-12 mx-auto px-0 load-more-button' isLoading={commentStore.commentList.isLoading} size='sm' onClick={loadMoreComment} />
+                                            }
                                         </div> :
-                                        <p className='text text-center'>Henüz yorum yapılmamış.</p>
+                                        <Empty text='Henüz yorum yapılmamış.' showButton={false} />
                                     }
                                 </div>
                             </div>
                             <div className="similar-instructors mb-4">
-                                <p className='similar-title text-center my-4'>Benzer Eğitmenler</p>
+                                <p className='similar-title text-center my-4'>Eğitmenler</p>
                                 <div className="instructors-container">
                                     {
-                                        instructors.map((item, index)=>
-                                        <div className='instructor' key={index}>
-                                            <div className="image-container">
-                                                <img src={item.image} alt="instructor"/>
-                                            </div>
-                                            <div className="text-container">
-                                                <Link className='sub-text' to={`/instructor/${item.slug}`}>{item.name}</Link>
-                                                <small>{item.job}</small>
-                                            </div>
-                                        </div>)
+                                        generalStore!.instructorList.isLoading ? 
+                                        <Spinner /> :
+                                        generalStore!.instructorList.results!.length > 0 &&
+                                        <div>
+                                            {
+                                                generalStore!.instructorList.results!.slice(0, 5).map((item : any, index : number)=>(
+                                                    <div className='instructor' key={index}>
+                                                        <div className="image-container">
+                                                            <img src={item.instructor.image} alt="instructor"/>
+                                                        </div>
+                                                        <div className="text-container">
+                                                            <Link className='sub-text' to={`/instructor/${item.instructor.slug}`}>{item.first_name} {item.last_name}</Link>
+                                                            <small>{item.instructor.job}</small>
+                                                        </div>
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
                                     }
                                 </div>
                             </div>
@@ -145,22 +158,3 @@ const Index : FC<IDefaultProps> = inject('InstructorStore')(observer((props : ID
 }));
 
 export default Index;
-/*
-    const user = {
-        id: 1,
-        image: 'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-4.jpg',
-        firstName: 'Jessica',
-        lastName: 'Jones',
-        status: 1,
-        job: 'Fizik Öğretmeni',
-        email: 'jessicajones@gmail.com',
-        university: 'İstanbul Üniversitesi Cerrahpaşa',
-        department: 'Fizik Öğretmenliği',
-        rate: 4.1,
-        totalLesson: 22, 
-        lessonPrice: 80,
-        totalComment: 30,
-        lessons: [{id: 0, name: 'Fizik'}, {id: 1, name: 'Matematik'}, {id: 2, name: 'Geometri'}],
-        about: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis doloremque reprehenderit excepturi voluptatem in odit quas mollitia! Recusandae doloremque sed necessitatibus doloribus voluptas corrupti iste rerum, nemo repellat incidunt expedita.Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis iste, dolorum, quaerat suscipit sed provident quisquam dignissimos, minus velit sit quae nihil asperiores officia fugiat accusamus non cum! Ullam, soluta!'
-};
-*/

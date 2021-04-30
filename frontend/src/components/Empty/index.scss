@@ -1,7 +1,6 @@
 .empty-page-container{
     height: 100%;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
     .detail{
@@ -9,7 +8,7 @@
         flex-direction: column;
         align-items: center;
         .chakra-button{
-            background-color: #5c6ac4;
+            background-color: #488bf8;
             width: 180px! important;
             color: #fff;
         }
@@ -20,7 +19,7 @@
     .empty-page-container{
         .detail{
             img{
-                width: 220px;
+                width: 200px;
             }
         }
     }
@@ -30,7 +29,7 @@
     .empty-page-container{
         .detail{
             img{
-                width: 300px;
+                width: 200px;
             }
         }
     }
@@ -40,7 +39,7 @@
     .empty-page-container{
         .detail{
             img{
-                width: 300px;
+                width: 220px;
             }
         }
     }
@@ -50,7 +49,7 @@
     .empty-page-container{
         .detail{
             img{
-                width: 300px;
+                width: 240px;
             }
         }
     }

@@ -33,6 +33,8 @@ class UserUpdateSerializer(ModelSerializer):
     def update(self, instance, validated_data):
         instructor = validated_data.pop('instructor')
         instructor_data = Instructor.objects.get(id = instance.instructor.id)
+        if 'image' in instructor:
+            instructor_data.image = instructor['image']
         instructor_data.university = instructor['university']
         instructor_data.department = instructor['department']
         instructor_data.job = instructor['job']

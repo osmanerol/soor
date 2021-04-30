@@ -1,6 +1,12 @@
 .teacher-profile-page-container{
     padding-top: 70px;
     min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .spinner-container{
+        padding-top: 100px;
+    }
     .profile-container{
         width: 100%;
         padding-bottom: 40px;
@@ -70,13 +76,7 @@
                 flex-direction: row;
                 justify-content: space-between;
                 & > *{
-                    width: 48%! important;
-                }
-                .send-message-button{
-                    .chakra-button{
-                        background-color: #488bf8;
-                        color: #fff;
-                    }
+                    width: 100%! important;
                 }
                 .lesson-button{
                     .chakra-button{
@@ -92,10 +92,13 @@
             .comments-title{
                 font-weight: 500;
             }
-            .load-more-button{
-                .chakra-button{
-                    background-color: #488bf8;
-                    color: #fff;
+            .student-comments{
+                height: 100%;
+                .load-more-button{
+                    .chakra-button{
+                        background-color: #488bf8;
+                        color: #fff;
+                    }
                 }
             }
         }

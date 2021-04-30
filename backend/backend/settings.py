@@ -26,7 +26,7 @@ SECRET_KEY = 'm#5ct_k)lf8s(3@f5#bovy(l=104hbx5esjl$jw1a&%d5gs3ue'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '192.168.1.40']
 
 # Application definition
 
@@ -51,11 +51,12 @@ INSTALLED_APPS = [
     'instructor',
     'student',
     'category',
-    'lecture'
+    'lecture',
+    'comment'
 ]
 
 SITE_ID = 1
-SITE_URL = 'http://localhost:8000'
+SITE_URL = 'http://192.168.1.40:8000'
 REST_USE_JWT = True
 AUTH_USER_MODEL = 'user.User'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
@@ -67,6 +68,13 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 OLD_PASSWORD_FIELD_ENABLED = True
 
 CORS_ORIGIN_ALLOW_ALL = True 
+
+"""
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+    'http://192.168.1.40:3000',
+]
+"""
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
@@ -82,9 +90,15 @@ REST_AUTH_SERIALIZERS = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=10),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=20)
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds = 30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days = 1)
 }
+"""
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days = 1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days = 1)
+}
+"""
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
@@ -92,6 +106,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -99,9 +115,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # for cors error
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'

@@ -3,24 +3,26 @@ import './index.scss';
 import { Button, Select } from '../index';
 import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { FaQuestion } from 'react-icons/fa';
+//import { FaQuestion } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
+import { BsCameraVideoFill } from 'react-icons/bs';
 
 interface IDefaultProps{
     lessons: any,
-    lessonPrice: number
+    lessonPrice: number,
+    credit: number,
+    disabled: boolean
 }
 
 const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
-    const { lessons, lessonPrice } = props;
+    const { lessons, lessonPrice, credit, disabled } = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [lesson, setSelectedLesson] = useState(-1);
-    const amount = 100;    
     const { control } = useForm();
 
     return (
         <div>
-            <Button text='Soru sor' size='sm' leftIcon={<FaQuestion />} className='lesson-button' onClick={onOpen} />
+            <Button text='Soru sor' size='sm' leftIcon={<BsCameraVideoFill />} className='lesson-button' disabled={disabled} onClick={onOpen} />
             <Modal size={'xl'} onClose={onClose} isOpen={isOpen}>
                 <ModalOverlay />
                 <ModalContent>
@@ -28,7 +30,7 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
                     <ModalCloseButton />
                     <ModalBody>
                         {
-                            amount >= lessonPrice ?
+                            credit >= lessonPrice ?
                             <>
                                 <div className='mb-3'>
                                     <p className='sub-text'>Hangi derste soru sormak istiyorsunuz ?<span className='text-danger ml-1'>*</span></p>
@@ -52,7 +54,7 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
                     <ModalFooter>
                         <Button text='Vazgeç' size='sm' className='cancel-button' onClick={onClose} />
                         {
-                            amount >= lessonPrice && <Button text='Onayla' size='sm' className='confirm-button' disabled={lesson === -1} onClick={onclick} />
+                            credit >= lessonPrice && <Button text='Onayla' size='sm' className='confirm-button' disabled={lesson === -1} onClick={onclick} />
                         }
                     </ModalFooter>
                 </ModalContent>
