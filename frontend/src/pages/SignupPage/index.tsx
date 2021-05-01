@@ -21,6 +21,11 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
     const { handleSubmit } = useForm();  
 
     useEffect(()=>{
+        document.title = 'Soor - Kaydol';
+        window.scrollTo(0,0);
+    }, [])
+
+    useEffect(()=>{
         if(localStorage.getItem('token') !== null){
             history.push('/');
         }
@@ -28,7 +33,6 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
     
     useEffect(()=>{
         store!.createSignupUser();
-        window.scrollTo(0,0);
     }, [store])
 
     const submitForm=async ()=>{

@@ -90,15 +90,9 @@ REST_AUTH_SERIALIZERS = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(seconds = 30),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days = 1)
-}
-"""
-SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days = 1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days = 1)
 }
-"""
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",

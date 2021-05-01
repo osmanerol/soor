@@ -16,6 +16,7 @@ from django.db.models.functions import Concat
 class InstructorListAPIView(ListAPIView):
     serializer_class = UserSerializer
     pagination_class = InstructorPagination
+    authentication_classes = []
 
     def get_queryset(self):
         queryset = User.objects.filter(is_instructor = True).order_by('id')
@@ -42,11 +43,13 @@ class InstructorDetailAPIView(RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'instructor__slug'
+    authentication_classes = []
 
 class InstructorProfileAPIView(RetrieveAPIView):
     queryset = User.objects.filter(is_instructor = True)
     serializer_class = UserUpdateSerializer
     permission_classes = [IsAuthenticated]
+    
 
     def get_object(self):
         queryset = self.get_queryset()
@@ -56,6 +59,7 @@ class InstructorProfileAPIView(RetrieveAPIView):
 class InstructorLastAPIView(ListAPIView):
     queryset = User.objects.filter(is_instructor = True).order_by('id')[:12]
     serializer_class = UserSerializer
+    authentication_classes = []
 
 class TotalDataListAPIView(APIView):
 

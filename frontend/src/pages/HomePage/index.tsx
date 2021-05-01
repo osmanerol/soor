@@ -23,15 +23,22 @@ const Index : FC<IDefaultProps> = inject('GeneralStore')(observer((props : IDefa
     ]
 
     useEffect(()=>{
-        if(store!.instructorList.results!.length === 0){
-            store!.getLastInstructor();
+        const getLastInstructor = async () => {
+            if(store!.instructorList.results!.length === 0){
+                store!.getLastInstructor();
+            }
         }
-        if(store!.totalData.total_instructor === 0){
-            store!.getTotalData();
+        const getTotalData = async () => {
+            if(store!.totalData.total_instructor === 0){
+                store!.getTotalData();
+            }
         }
+        getLastInstructor();
+        getTotalData();
     }, [store])
 
     useEffect(()=>{
+        document.title = 'Soor - Anasayfa';
         window.scrollTo(0,0);
     }, [])
 

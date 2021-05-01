@@ -21,11 +21,15 @@ const Index : FC<IDefaultProps> = inject('LectureStore')(observer((props : IDefa
     const { control } = useForm();
     
     useEffect(()=>{
+        document.title = 'Soor - Ders Seç'
+        window.scrollTo(0,0);
+    })
+
+    useEffect(()=>{
         if(store!.lectureList.count === 0){
             store?.getAllLectures();
         }
         store!.getInstructor({ name: null, lecture_id: null, page: null});
-        window.scrollTo(0,0);
         setSelectedCategory(-1);
     },[store])
 
@@ -85,17 +89,19 @@ const Index : FC<IDefaultProps> = inject('LectureStore')(observer((props : IDefa
                                 <small>Çevrimdışı</small>
                             </div>
                         </div>
-                        <div className="instructors">
-                            {
-                                store!.instructorList!.isLoading ?
-                                <Spinner /> :
-                                store!.instructorList!.results!.length === 0 ?
-                                <Empty text='Eğitmen bulunamadı.' showButton={false} /> :
-                                store!.instructorList.results!.map((item : any, index : number)=>(
-                                    <InstructorFilterCard key={index} image={item.instructor.image} first_name={item.first_name} last_name={item.last_name} slug={item.instructor.slug} job={item.instructor.job} rate={item.instructor.rate} price={item.instructor.lessonPrice} comment={item.instructor.totalComment} totalLesson={item.instructor.totalLesson} status={item.instructor.status} />
-                                ))
-                            }
-                        </div>
+                        {
+                            store!.instructorList!.isLoading ?
+                            <Spinner /> :
+                            store!.instructorList!.results!.length === 0 ?
+                            <Empty text='Eğitmen bulunamadı.' showButton={false} /> :
+                            <div className="instructors">
+                                {
+                                    store!.instructorList.results!.map((item : any, index : number)=>(
+                                        <InstructorFilterCard key={index} image={item.instructor.image} first_name={item.first_name} last_name={item.last_name} slug={item.instructor.slug} job={item.instructor.job} rate={item.instructor.rate} price={item.instructor.lessonPrice} comment={item.instructor.totalComment} totalLesson={item.instructor.totalLesson} status={item.instructor.status} />
+                                    ))
+                                }
+                            </div>
+                        }
                         {
                             (!store!.instructorList.isLoading && (store!.instructorList.next || store!.instructorList.previous) && store!.instructorList.results!.length > 0) &&
                             <small className='pagination-container mt-3'>

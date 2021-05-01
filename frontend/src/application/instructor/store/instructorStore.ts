@@ -4,42 +4,35 @@ import { InstructorListDto, InstructorCreateDto } from '../dto/instructorDto';
 import IPagedResult from '../../../models/dto/fetch/IPagedResult';
 
 const DefaultInstructor = {
-    isLoading : false,
-    result : {
-        id : 0,
-        first_name: '',
-        last_name: '',
-        email: '',
-        instructor: {
-            id: 0,
-            image: '',
-            slug: '',
-            status: 0,
-            university: '',
-            department: '',
-            job: '',
-            rate: 0,
-            totalLesson: 0,
-            totalComment: 0,
-            lessonPrice: 0,
-            about: '',
-            balance: 0,
-            lectures: []
-        }
+    id : 0,
+    first_name: '',
+    last_name: '',
+    email: '',
+    instructor: {
+        id: 0,
+        image: '',
+        slug: '',
+        status: 0,
+        university: '',
+        department: '',
+        job: '',
+        rate: 0,
+        totalLesson: 0,
+        totalComment: 0,
+        lessonPrice: 0,
+        about: '',
+        balance: 0,
+        lectures: []
     }
-}
-
-interface baseInstructor {
-    result : InstructorCreateDto,
-    isLoading: boolean
 }
 
 class InstructorStore{
     static readonly id: string = 'InstructorStore';
     instructorList! : IPagedResult<InstructorListDto>;
-    instructorProfile! : baseInstructor;
-    instructor! : baseInstructor;
+    instructorProfile! : InstructorCreateDto;
+    instructor! : InstructorCreateDto;
     error! : any;
+    isLoading!: boolean;
 
     constructor(){
         makeAutoObservable(this);
@@ -47,53 +40,54 @@ class InstructorStore{
         this.instructorProfile = DefaultInstructor;
         this.instructor = DefaultInstructor;
         this.error = '';
+        this.isLoading = false;
     }
 
     @action async getInstructor(slug : string){
-        this.instructorProfile.isLoading = true;
+        this.isLoading = true;
         this.error = '';
         try{
             const result = await http.get(`/api/instructor/profile/${slug}`);
-            this.instructorProfile = { result : result.data, isLoading : false};
+            this.instructorProfile = result.data;
         }catch(error){
             this.error = error;
         }
-        this.instructorProfile.isLoading = false;
+        this.isLoading = false;
     }
     
     @action async getProfile(){
-        this.instructor.isLoading = true;
+        this.isLoading = true;
         this.error = '';
         try{
             const result = await http.get(`/api/instructor/me`);
-            this.instructor = { result : result.data, isLoading : false};
+            this.instructor = result.data;
         }catch(error){
             this.error = error;
         }
-        this.instructor.isLoading = false;
+        this.isLoading = false;
     }
 
     @action async update(){
-        this.instructor.isLoading = true;
+        this.isLoading = true;
         this.error = '';
-        let lectureArray = toJS(this.instructor.result.instructor.lectures);
+        let lectureArray = toJS(this.instructor.instructor.lectures);
         if(typeof lectureArray[0] !== 'number'){
             lectureArray = lectureArray.map((item : any)=> item.id);
         }
         const formData = new FormData();
-        formData.append('first_name', this.instructor.result.first_name);
-        formData.append('last_name', this.instructor.result.last_name);
-        formData.append('email', this.instructor.result.email);
-        if(typeof this.instructor.result.instructor.image === 'object'){
-            if(this.instructor.result.instructor.image.name !== '' && this.instructor.result.instructor.image.name !== null){
-                formData.append('instructor.image', this.instructor.result.instructor.image, this.instructor.result.instructor.image.name);
+        formData.append('first_name', this.instructor.first_name);
+        formData.append('last_name', this.instructor.last_name);
+        formData.append('email', this.instructor.email);
+        if(typeof this.instructor.instructor.image === 'object'){
+            if(this.instructor.instructor.image.name !== '' && this.instructor.instructor.image.name !== null){
+                formData.append('instructor.image', this.instructor.instructor.image, this.instructor.instructor.image.name);
             }
         }
-        formData.append('instructor.university', this.instructor.result.instructor.university);
-        formData.append('instructor.department', this.instructor.result.instructor.department);
-        formData.append('instructor.job', this.instructor.result.instructor.job);
-        formData.append('instructor.lessonPrice', this.instructor.result.instructor.lessonPrice);
-        formData.append('instructor.about', this.instructor.result.instructor.about);
+        formData.append('instructor.university', this.instructor.instructor.university);
+        formData.append('instructor.department', this.instructor.instructor.department);
+        formData.append('instructor.job', this.instructor.instructor.job);
+        formData.append('instructor.lessonPrice', this.instructor.instructor.lessonPrice);
+        formData.append('instructor.about', this.instructor.instructor.about);
         if(lectureArray.length > 0){
             lectureArray.map((item : any)=>{
                 formData.append(`instructor.lectures`, item);
@@ -106,11 +100,11 @@ class InstructorStore{
                     'content-type' : 'multipart/form-data'
                 }
             });
-            this.instructor = { result : result.data, isLoading : false};
+            this.instructor = result.data;
         }catch(error){
             this.error = error;
-            this.instructor.isLoading = false;
         }
+        this.isLoading = false;
     }
 
     @action async updatePassword(params : { old_password : string, new_password1 : string, new_password2 : string}){

@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './index.scss';
 import { Link } from 'react-router-dom';
 import { Button } from '../../components';
 import notfound from '../../assets/images/not-found.svg';
 
 const Index = () => {
+
+    useEffect(() => {
+        document.title = 'Soor - Sayfa bulunamadı'
+    }, [])
+
     return (
         <div className='not-found-page-container'>
             <div className="error-detail text-center">

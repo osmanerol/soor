@@ -38,6 +38,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainSerializer
 
 class TotalDataListAPIView(APIView):
+    authentication_classes = []
     
     def get(self, request):
         data = {

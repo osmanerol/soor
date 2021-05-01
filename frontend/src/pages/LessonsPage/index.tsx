@@ -21,6 +21,7 @@ const Index = () => {
     ]
     
     useEffect(()=>{
+        document.title = 'Soor - Derslerim';
         window.scrollTo(0,0);
     }, [])
 

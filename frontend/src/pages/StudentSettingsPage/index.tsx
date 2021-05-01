@@ -66,6 +66,7 @@ const Index : FC<IDefaultProps> = inject('StudentStore', 'UserStore')(observer((
     }, [store, history])
     
     useEffect(()=>{
+        document.title = 'Soor - Ayarlar';
         window.scrollTo(0,0);
     }, [])
 

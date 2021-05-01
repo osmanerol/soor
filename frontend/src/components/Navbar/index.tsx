@@ -9,14 +9,13 @@ import DefaultProfile from '../../assets/images/defaultProfile.png';
 import UserStore from '../../application/user/store/userStore';
 
 interface IDefaultProps {
-    UserStore? : typeof UserStore
+    UserStore? : typeof UserStore;
 }
 
 const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefaultProps) => {
     const { UserStore : store } = props;
     const history = useHistory();
     const [lessonNotification, setLessonNotification] = useState(0);
-    const [messageNotification, setMessageNotification] = useState(0);
     const [isSmallScreen, setIsSmallScreen] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
     const toast = useToast();
@@ -26,15 +25,8 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
     })
 
     useEffect(()=>{
-        if(localStorage.getItem('token')){
-            store?.getUser();
-        }
-    }, [store])
-
-    useEffect(()=>{
         window.addEventListener('resize', resizeListener);
         setLessonNotification(2);
-        setMessageNotification(3); 
     }, [])
 
     const resizeListener=()=>{
@@ -68,7 +60,7 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
         <Navbar expand='lg' fixed='top' expanded={isExpanded}>
             <Container>
                 <Navbar.Brand as={Link} to='/'><img src={logo} alt='logo' /><span className='navbar-brand-text'>Soor</span></Navbar.Brand>
-                <Navbar.Toggle aria-controls='basic-navbar-nav' onClick={toggleExpanded} className={`${(lessonNotification > 0 || messageNotification > 0) && 'notification'}`}></Navbar.Toggle>
+                <Navbar.Toggle aria-controls='basic-navbar-nav' onClick={toggleExpanded} className={`${(lessonNotification > 0) && 'notification'}`}></Navbar.Toggle>
                 <Navbar.Collapse id='basic-navbar-nav'>
                     <Nav className='ml-auto' onClick={isSmallScreen ? toggleExpanded : ()=>{}}>
                         <Nav.Link as={Link} to='/lesson-filter'>Ders Seç</Nav.Link>
@@ -116,3 +108,7 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
 }));
 
 export default Index;
+/*
+
+    <Navbar.Toggle aria-controls='basic-navbar-nav' onClick={toggleExpanded} className={`${(lessonNotification > 0 || messageNotification > 0) && 'notification'}`}></Navbar.Toggle>
+*/

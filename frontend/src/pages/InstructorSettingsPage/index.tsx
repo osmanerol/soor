@@ -60,6 +60,11 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'UserStore', 'Lectur
         resolver: yupResolver(passwordSchema)
     })
 
+    useEffect(() => {
+        document.title = 'Soor - Ayarlar';
+        window.scrollTo(0,0);
+    }, [])
+
     useEffect(()=>{
         if(localStorage.getItem('userType') !== '2'){
             history.push('/');
@@ -70,7 +75,7 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'UserStore', 'Lectur
         const getLecture = async () => {
             await lectureStore!.getAllLectures();
         }
-        if(store!.instructor.result.id === 0){
+        if(store!.instructor.id === 0){
             getInstructor();
         }
         if(lectureStore!.lectureList.results.length === 0){
@@ -78,9 +83,6 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'UserStore', 'Lectur
         }
     }, [store, lectureStore, history])
     
-    useEffect(()=>{
-        window.scrollTo(0,0);
-    }, [])
 
     const handleSubmitPersonalChange= async ()=>{
         await store?.update();
@@ -101,9 +103,9 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'UserStore', 'Lectur
                 duration: 2000,
                 isClosable: true,
             })
-            userStore!.baseUser.first_name = store!.instructor.result.first_name;
-            userStore!.baseUser.last_name = store!.instructor.result.last_name;
-            userStore!.baseUser.image = store!.instructor.result.instructor.image;
+            userStore!.baseUser.first_name = store!.instructor.first_name;
+            userStore!.baseUser.last_name = store!.instructor.last_name;
+            userStore!.baseUser.image = store!.instructor.instructor.image;
         }
     }
 
@@ -162,14 +164,14 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'UserStore', 'Lectur
         if(event.target.files[0]){
             let file = event.target.files[0];
             setTempImage(URL.createObjectURL(file));
-            store!.instructor.result.instructor.image = file;
+            store!.instructor.instructor.image = file;
         }
     }
 
     return (
         <>
             {
-                (store?.instructor.isLoading  || lectureStore?.lectureList.isLoading) ?
+                (store?.isLoading  || lectureStore?.lectureList.isLoading) ?
                 <div className='settings-page-container'> 
                     <Spinner />
                 </div> :
@@ -189,21 +191,21 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'UserStore', 'Lectur
                                             <h2 className='sub-title text-center mb-4'>Profil Bilgilerini Güncelle</h2>
                                             <div className="image-update-container">
                                                 <div className="image-container mb-3">
-                                                    <img src={(store!.instructor.result.instructor.image === '' || store!.instructor.result.instructor.image === null) ? DefaultProfile : tempImage === '' ? store!.instructor.result.instructor.image : tempImage} alt="user"/>
+                                                    <img src={(store!.instructor.instructor.image === '' || store!.instructor.instructor.image === null) ? DefaultProfile : tempImage === '' ? store!.instructor.instructor.image : tempImage} alt="user"/>
                                                 </div>
                                                 <input type="file" className='mb-3 sub-text image-input' onChange={(event : any)=>handleChange(event)} />
                                             </div>
                                             <div className='row p-0'>
-                                                <Input text='Ad' id='first_name' size='sm' variant='flushed' className='col-md-6 col-12 mb-3' defaultValue={store!.instructor.result.first_name} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.result.first_name = event.target.value} />
-                                                <Input text='Soyad' id='last_name' size='sm' variant='flushed' className='col-md-6 col-12 mb-3' defaultValue={store!.instructor.result.last_name} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.result.first_name = event.target.value} />
+                                                <Input text='Ad' id='first_name' size='sm' variant='flushed' className='col-md-6 col-12 mb-3' defaultValue={store!.instructor.first_name} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.first_name = event.target.value} />
+                                                <Input text='Soyad' id='last_name' size='sm' variant='flushed' className='col-md-6 col-12 mb-3' defaultValue={store!.instructor.last_name} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.first_name = event.target.value} />
                                             </div>
-                                            <Input text='E-posta' id='email' type='email' size='sm' variant='flushed' className='mb-3' defaultValue={store!.instructor.result.email} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.result.email = event.target.value } />
-                                            <Input text='Üniversite' id='university' size='sm' variant='flushed' className='mb-3' defaultValue={store!.instructor.result.instructor.university} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.result.instructor.university = event.target.value } />
-                                            <Input text='Bölüm' id='department' size='sm' variant='flushed' className='mb-3' defaultValue={store!.instructor.result.instructor.department} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.result.instructor.department = event.target.value } />
-                                            <Input text='Meslek' id='job' size='sm' variant='flushed' className='mb-3' defaultValue={store!.instructor.result.instructor.job} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.result.instructor.job = event.target.value} />
-                                            <Input text='Ders ücreti' id='lessonPrice' size='sm' variant='flushed' className='mb-3' type='number' defaultValue={store!.instructor.result.instructor.lessonPrice.toString()} selectRef={register} errors={errors} onChange={(event : any)=>store!.instructor.result.instructor.lessonPrice = parseInt(event.target.value)} />
-                                            <Autocomplete text='Verdiğin dersler' id='lessons' className='mb-3' options={lectureStore!.lectureList.results} defaultValue={lectureStore!.lectureList.results.filter((item : any)=> store!.instructor.result.instructor.lectures.find((data : any)=> data === item.id))} errors={errors} control={control} onChange={(event: any)=>{ store!.instructor.result.instructor.lectures = event ; setValue('lessons', event);}} label='name' value='id' />
-                                            <TextArea text='Hakkında' id='about' size='sm' variant='flushed' className='mb-3' defaultValue={store!.instructor.result.instructor.about} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.result.instructor.about = event.target.value} />
+                                            <Input text='E-posta' id='email' type='email' size='sm' variant='flushed' className='mb-3' defaultValue={store!.instructor.email} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.email = event.target.value } />
+                                            <Input text='Üniversite' id='university' size='sm' variant='flushed' className='mb-3' defaultValue={store!.instructor.instructor.university} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.instructor.university = event.target.value } />
+                                            <Input text='Bölüm' id='department' size='sm' variant='flushed' className='mb-3' defaultValue={store!.instructor.instructor.department} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.instructor.department = event.target.value } />
+                                            <Input text='Meslek' id='job' size='sm' variant='flushed' className='mb-3' defaultValue={store!.instructor.instructor.job} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.instructor.job = event.target.value} />
+                                            <Input text='Ders ücreti' id='lessonPrice' size='sm' variant='flushed' className='mb-3' type='number' defaultValue={store!.instructor.instructor.lessonPrice.toString()} selectRef={register} errors={errors} onChange={(event : any)=>store!.instructor.instructor.lessonPrice = parseInt(event.target.value)} />
+                                            <Autocomplete text='Verdiğin dersler' id='lessons' className='mb-3' options={lectureStore!.lectureList.results} defaultValue={lectureStore!.lectureList.results.filter((item : any)=> store!.instructor.instructor.lectures.find((data : any)=> data === item.id))} errors={errors} control={control} onChange={(event: any)=>{ store!.instructor.instructor.lectures = event ; setValue('lessons', event);}} label='name' value='id' />
+                                            <TextArea text='Hakkında' id='about' size='sm' variant='flushed' className='mb-3' defaultValue={store!.instructor.instructor.about} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.instructor.about = event.target.value} />
                                             <Button text='Profil bilgilerini güncelle' size='sm' className='button save-button mx-auto mt-1' type='submit' />
                                         </form>
                                     }

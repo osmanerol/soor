@@ -11,6 +11,7 @@ class LectureCreateAPIView(CreateAPIView):
     permission_classes = [IsSuperUser]
     
 class LectureListAPIView(ListAPIView):
+    authentication_classes = []
     
     def get(self, request):
         count = Lecture.objects.count();

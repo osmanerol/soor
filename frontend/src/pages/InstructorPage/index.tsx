@@ -24,6 +24,7 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'CommentStore', 'Stu
     let { slug } = useParams<{ slug : string }>();
 
     useEffect(()=>{
+        document.title = 'Soor - Eğitmen';
         window.scrollTo(0,0);
     }, [])
 
@@ -31,9 +32,6 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'CommentStore', 'Stu
         commentStore.pageNumber = 1;
         store!.getInstructor(slug);
         commentStore!.getComments(slug);
-        if(localStorage.getItem('userType') === '1'){
-            studentStore.getProfile();
-        }
         if(generalStore!.instructorList.results?.length === 0){
             generalStore!.getLastInstructor();
         }
@@ -46,7 +44,7 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'CommentStore', 'Stu
     return (
         <>
             {
-                store!.instructorProfile.isLoading ? 
+                store!.isLoading ? 
                 <div className='teacher-profile-page-container'>
                     <Spinner />
                 </div> : 
@@ -59,19 +57,19 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'CommentStore', 'Stu
                         <div className="profile-container">
                             <div className="personal-info-container">
                                 <div className="image-container">
-                                    <img src={store!.instructorProfile.result.instructor.image ? store!.instructorProfile.result.instructor.image : DefaultProfile} alt="teacher"/>
+                                    <img src={store!.instructorProfile.instructor.image ? store!.instructorProfile.instructor.image : DefaultProfile} alt="teacher"/>
                                 </div>
                                 <div className="name-container mt-3">
-                                    <p className='name'>{store!.instructorProfile.result.first_name} {store!.instructorProfile.result.last_name} <span className={`ml-2 status status-${store!.instructorProfile.result.instructor.status}`}></span></p>
+                                    <p className='name'>{store!.instructorProfile.first_name} {store!.instructorProfile.last_name} <span className={`ml-2 status status-${store!.instructorProfile.instructor.status}`}></span></p>
                                     <p className='job mt-2'>
-                                        <span className='mr-2 sub-text'>{store!.instructorProfile.result.instructor.job}</span>
+                                        <span className='mr-2 sub-text'>{store!.instructorProfile.instructor.job}</span>
                                         <small>
                                             {Array(5)
                                                 .fill('')
                                                 .map((_, i) => (
                                                 <StarIcon
                                                     key={i}
-                                                    color={i+1 <= store!.instructorProfile.result.instructor.rate ? 'yellow.400' : 'gray.300'}
+                                                    color={i+1 <= store!.instructorProfile.instructor.rate ? 'yellow.400' : 'gray.300'}
                                                 />
                                             ))}
                                         </small>    
@@ -79,26 +77,26 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'CommentStore', 'Stu
                                 </div>
                                 <div className="numeric-info-container mt-3">
                                     <div className='item'>
-                                        <p className='item-number text'>{store!.instructorProfile.result.instructor.totalLesson}</p>
+                                        <p className='item-number text'>{store!.instructorProfile.instructor.totalLesson}</p>
                                         <p className='item-text sub-text'>DERS</p>
                                     </div>
                                     <div className='item'>
-                                        <p className='item-number text'>{store!.instructorProfile.result.instructor.totalComment}</p>
+                                        <p className='item-number text'>{store!.instructorProfile.instructor.totalComment}</p>
                                         <p className='item-text sub-text'>YORUM</p>
                                     </div>
                                     <div className='item'>
-                                        <p className='item-number text'>{store!.instructorProfile.result.instructor.lessonPrice} TL</p>
+                                        <p className='item-number text'>{store!.instructorProfile.instructor.lessonPrice} TL</p>
                                         <p className='item-text sub-text'>ÜCRET</p>
                                     </div>
                                 </div>
                                 {
                                     localStorage.getItem('userType') === '1' &&
                                     <div className="button-container mt-3">
-                                        <TakeLessonModal lessons={store!.instructorProfile.result.instructor.lectures} lessonPrice={store!.instructorProfile.result.instructor.lessonPrice} credit={studentStore.student.student.credit} disabled={store.instructorProfile.result.instructor.status === 1} />
+                                        <TakeLessonModal lessons={store!.instructorProfile.instructor.lectures} lessonPrice={store!.instructorProfile.instructor.lessonPrice} credit={studentStore.student.student.credit} disabled={store.instructorProfile.instructor.status !== 1} />
                                     </div>
                                 }
                                 <div className="about-container mt-3">
-                                    <p className='sub-text'>{store!.instructorProfile.result.instructor.about}</p>
+                                    <p className='sub-text'>{store!.instructorProfile.instructor.about}</p>
                                 </div>
                             </div>
                         </div>
