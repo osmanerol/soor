@@ -20,6 +20,10 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
     const [lesson, setSelectedLesson] = useState(-1);
     const { control } = useForm();
 
+    const onClick = () => {
+        console.log('take lesson modal')
+    }
+
     return (
         <div>
             <Button text='Soru sor' size='sm' leftIcon={<BsCameraVideoFill />} className='lesson-button' disabled={disabled} onClick={onOpen} />
@@ -54,7 +58,7 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
                     <ModalFooter>
                         <Button text='Vazgeç' size='sm' className='cancel-button' onClick={onClose} />
                         {
-                            credit >= lessonPrice && <Button text='Onayla' size='sm' className='confirm-button' disabled={lesson === -1} onClick={onclick} />
+                            credit >= lessonPrice && <Button text='Onayla' size='sm' className='confirm-button' disabled={lesson === -1} onClick={onClick} as={Link} to='/call/1234' />
                         }
                     </ModalFooter>
                 </ModalContent>
