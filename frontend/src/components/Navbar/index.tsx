@@ -70,11 +70,6 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
                             <>
                                 <Nav.Link as={Link} to='/lessons' className={`${lessonNotification > 0 && 'notification'}`}>Derslerim</Nav.Link>
                                 {
-                                    /*
-                                        <Nav.Link as={Link} to='/messages' className={`${messageNotification > 0 && 'notification'}`}>Mesajlar</Nav.Link>
-                                    */
-                                }
-                                {
                                     isSmallScreen ?
                                     <>
                                         <Nav.Link as={Link} to='/add-balance'>Bakiye Yükle</Nav.Link>
