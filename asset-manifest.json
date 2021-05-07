@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/soor/static/css/main.191ef194.chunk.css",
-    "main.js": "/soor/static/js/main.07bbcacb.chunk.js",
-    "main.js.map": "/soor/static/js/main.07bbcacb.chunk.js.map",
-    "runtime-main.js": "/soor/static/js/runtime-main.63567afc.js",
-    "runtime-main.js.map": "/soor/static/js/runtime-main.63567afc.js.map",
+    "main.js": "/soor/static/js/main.b83a6116.chunk.js",
+    "main.js.map": "/soor/static/js/main.b83a6116.chunk.js.map",
+    "runtime-main.js": "/soor/static/js/runtime-main.2a0e7f4c.js",
+    "runtime-main.js.map": "/soor/static/js/runtime-main.2a0e7f4c.js.map",
     "static/css/2.150d169a.chunk.css": "/soor/static/css/2.150d169a.chunk.css",
-    "static/js/2.3e93c2dc.chunk.js": "/soor/static/js/2.3e93c2dc.chunk.js",
-    "static/js/2.3e93c2dc.chunk.js.map": "/soor/static/js/2.3e93c2dc.chunk.js.map",
-    "static/js/3.48a262ef.chunk.js": "/soor/static/js/3.48a262ef.chunk.js",
-    "static/js/3.48a262ef.chunk.js.map": "/soor/static/js/3.48a262ef.chunk.js.map",
+    "static/js/2.a11f3810.chunk.js": "/soor/static/js/2.a11f3810.chunk.js",
+    "static/js/2.a11f3810.chunk.js.map": "/soor/static/js/2.a11f3810.chunk.js.map",
+    "static/js/3.f3826148.chunk.js": "/soor/static/js/3.f3826148.chunk.js",
+    "static/js/3.f3826148.chunk.js.map": "/soor/static/js/3.f3826148.chunk.js.map",
     "index.html": "/soor/index.html",
     "static/css/2.150d169a.chunk.css.map": "/soor/static/css/2.150d169a.chunk.css.map",
     "static/css/main.191ef194.chunk.css.map": "/soor/static/css/main.191ef194.chunk.css.map",
-    "static/js/2.3e93c2dc.chunk.js.LICENSE.txt": "/soor/static/js/2.3e93c2dc.chunk.js.LICENSE.txt",
+    "static/js/2.a11f3810.chunk.js.LICENSE.txt": "/soor/static/js/2.a11f3810.chunk.js.LICENSE.txt",
     "static/media/empty.c66a389e.svg": "/soor/static/media/empty.c66a389e.svg",
     "static/media/expected-1.a7a947e6.jpg": "/soor/static/media/expected-1.a7a947e6.jpg",
     "static/media/expected-2.e2e5937c.jpg": "/soor/static/media/expected-2.e2e5937c.jpg",
@@ -25,10 +25,10 @@
     "static/media/teacher.aa6e6f43.svg": "/soor/static/media/teacher.aa6e6f43.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.63567afc.js",
+    "static/js/runtime-main.2a0e7f4c.js",
     "static/css/2.150d169a.chunk.css",
-    "static/js/2.3e93c2dc.chunk.js",
+    "static/js/2.a11f3810.chunk.js",
     "static/css/main.191ef194.chunk.css",
-    "static/js/main.07bbcacb.chunk.js"
+    "static/js/main.b83a6116.chunk.js"
   ]
 }
