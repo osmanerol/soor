@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useRef } from 'react';
 import './index.scss';
 import { Container, Pagination } from 'react-bootstrap';
 import { observer, inject } from 'mobx-react';
@@ -18,6 +18,7 @@ const Index : FC<IDefaultProps> = inject('LectureStore')(observer((props : IDefa
     const [selectedCategory, setSelectedCategory] = useState<any>(null);
     const [selectedLecture, setSelectedLecture] = useState<any>(null);
     const [selectedLectureName, setSelectedLectureName] = useState<string>('');
+    const searchStatus = useRef<any>(null);
     const { control } = useForm();
     
     useEffect(()=>{
@@ -29,15 +30,9 @@ const Index : FC<IDefaultProps> = inject('LectureStore')(observer((props : IDefa
         if(store!.lectureList.count === 0){
             store?.getAllLectures();
         }
-        store!.getInstructor({ name: null, lecture_id: null, page: null});
+        store!.getInstructor({ name : null, lecture_id : null, page : null, status : null});
         setSelectedCategory(-1);
     },[store])
-
-    const filterStatus=(statusCode : number)=>{
-        store!.instructorList.results! = store!.instructorList.results!.filter((item : any) => {
-            return item.instructor.status === statusCode;
-        })
-    }
 
     const clickFilter=(page : any = null)=>{
         setSearchPage(page);
@@ -45,7 +40,7 @@ const Index : FC<IDefaultProps> = inject('LectureStore')(observer((props : IDefa
         if(selectedLecture){
             setSelectedLectureName(store!.lectureList.results.find(item=> item.id === selectedLecture)!.name)
         }
-        store?.getInstructor({ name : searchText, lecture_id : selectedLecture, page : page});
+        store?.getInstructor({ name : searchText, lecture_id : selectedLecture, page : page, status : searchStatus.current});
     }
 
     return (
@@ -76,15 +71,15 @@ const Index : FC<IDefaultProps> = inject('LectureStore')(observer((props : IDefa
                             }
                         </p>
                         <div className='status-container mt-2 mb-3'>
-                            <div className='item' onClick={()=>filterStatus(1)}>
+                            <div className='item' onClick={()=>{ searchStatus.current = 1; clickFilter(); }}>
                                 <span className='status status-1'></span>
                                 <small>Çevrimiçi</small>
                             </div>
-                            <div className='item' onClick={()=>filterStatus(2)}>
+                            <div className='item' onClick={()=>{ searchStatus.current = 2; clickFilter(); }}>
                                 <span className='status status-2'></span>
                                 <small>Derste</small>
                             </div>
-                            <div className='item' onClick={()=>filterStatus(0)}>
+                            <div className='item' onClick={()=>{ searchStatus.current = 0; clickFilter(); }}>
                                 <span className='status status-0'></span>
                                 <small>Çevrimdışı</small>
                             </div>

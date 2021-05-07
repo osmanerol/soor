@@ -1,5 +1,6 @@
 .video-call-page-container{
-    height: 100vh;
+    margin-top: 70px;
+    height: calc(100vh - 70px);
     background-color: #fcfcfc;
     display: flex;
     justify-content: center;
@@ -10,42 +11,76 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        .name-container{
-            height: 80px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            .text{
-                font-weight: 500;
-            }
-        }
-        .media-views-container{
+         .media-views-container{
             height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             .media-items{
-                box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-                border-radius: 10px;
-                position: relative;
-                .owner-container{
-                    position: absolute;
-                    right: 0;              
-                    border-radius: 10px;   
-                    img{
-                        width: 100%;
-                        height: 100%;
-                        border-radius: 10px;  
-                        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-                    }
-                }
-                .caller-container{
+                .peer-container{
                     width: 100%;
                     height: 100%;
-                    border-radius: 10px;
-                    img{
-                        width: 100%;
+                    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+                    border-radius: 10px;  
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #ddd;
+                    img, video{
+                        width: 100%! important;
                         height: 100%;
+                        border-radius: 10px; 
+                        object-fit: cover;
+                    }
+                    .name-container{
+                        position: absolute;
+                        top: 6px;
+                        left: 6px;
+                        max-width: 97%;
+                        .name{
+                            background: rgba(0, 0, 0, .5);
+                            border-radius: 10px;
+                            color: #fff;
+                            padding: 4px 6px;
+                            border-radius: 10px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: block;
+                        }
+                    }
+                }
+                .owner-container{
+                    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+                    border-radius: 10px;
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #ddd;
+                    img, video{
+                        width: 100%! important;
+                        height: 100%;
+                        border-radius: 10px;  
+                        object-fit: cover;
+                    }
+                    .name-container{
+                        position: absolute;
+                        top: 6px;
+                        left: 6px;
+                        max-width: 97%;
+                        .name{
+                            background: rgba(0, 0, 0, .5);
+                            border-radius: 10px;
+                            color: #fff;
+                            padding: 4px 6px;
+                            border-radius: 10px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: block;
+                        }
                     }
                 }
             }
@@ -64,6 +99,7 @@
                     .chakra-button{
                         background-color: #ddd;
                         border-radius: 100%! important;
+                        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
                         .chakra-button__icon{
                             font-size: 20px;
                             margin: 0;
@@ -91,10 +127,14 @@
         .container{
             .media-views-container{
                 .media-items{
-                    height: 50%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-end;
                     .owner-container{
-                        width: 140px;
-                        height: 90px;
+                        float: right;
+                        margin-top: 20px;
+                        width: 180px;
+                        height: 120px;
                     }
                 }
             }
@@ -106,9 +146,9 @@
                         .chakra-button{
                             width: 46px;
                             height: 46px;
-                        }
-                        .icon{
-                            font-size: 16px;
+                            .chakra-button__icon{
+                                font-size: 16px;
+                            }
                         }
                     }
                 }
@@ -122,10 +162,17 @@
         .container{
             .media-views-container{
                 .media-items{
-                    height: 360px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-end;
                     .owner-container{
-                        width: 140px;
-                        height: 100px;
+                        float: right;
+                        margin-top: 20px;
+                        width: 180px;
+                        height: 120px;
+                    }
+                    .peer-container{
+                        width: 500px;
                     }
                 }
             }
@@ -153,10 +200,18 @@
         .container{
             .media-views-container{
                 .media-items{
-                    height: 480px;
+                    height: 380px;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: flex-end;
                     .owner-container{
-                        width: 180px;
-                        height: 120px;
+                        float: right;
+                        width: 150px;
+                        height: 100px;
+                    }
+                    .peer-container{
+                        width: 500px;
                     }
                 }
             }
@@ -176,15 +231,57 @@
     }
 }
 
-@media screen and (min-width: 992px){
+@media screen and (min-width: 992px) and(max-width: 1200px){
+    .video-call-page-container{
+        .container{
+            .media-views-container{
+                .media-items{
+                    height: 500px;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: flex-end;
+                    .owner-container{
+                        width: 180px;
+                        height: 120px;
+                    }
+                    .peer-container{
+                        width: 700px;
+                    }
+                }
+            }
+            .settings{
+                margin: 20px 0;
+                .button-container{
+                    width: 300px;
+                    .item{
+                        .chakra-button{
+                            width: 52px;
+                            height: 52px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1200px){
     .video-call-page-container{
         .container{
             .media-views-container{
                 .media-items{
                     height: 560px;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: flex-end;
                     .owner-container{
-                        width: 220px;
+                        width: 210px;
                         height: 140px;
+                    }
+                    .peer-container{
+                        width: 860px;
                     }
                 }
             }

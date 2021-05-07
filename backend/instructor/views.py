@@ -23,10 +23,13 @@ class InstructorListAPIView(ListAPIView):
         queryset = queryset.annotate(search_name = Concat('first_name', Value(' '), 'last_name'))
         name = self.request.GET.get('name')
         lecture_id = self.request.GET.get('lecture_id')
+        status = self.request.GET.get('status')
         if(lecture_id):
             queryset = queryset.filter(instructor__lectures__id = lecture_id)
         if(name):
             queryset = queryset.filter(search_name__icontains = name)
+        if(status):
+            queryset = queryset.filter(instructor__status = status)
         return queryset
 
 class InstructorUpdateAPIView(RetrieveUpdateAPIView):

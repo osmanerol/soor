@@ -32,7 +32,7 @@ class LectureStore{
         this.lectureList = toJS({ ...result.data, isLoading : false})
     }
 
-    @action async getInstructor(params:{ name : any, lecture_id : any, page : any }){
+    @action async getInstructor(params:{ name : any, lecture_id : any, page : any, status : any }){
         this.instructorList.isLoading = true;
         let name = Object.keys(params);
         let values = Object.values(params);

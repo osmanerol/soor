@@ -2,7 +2,6 @@ import React, { FC, useEffect } from 'react';
 import './App.scss';
 import { Switch, Route} from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
-import { useLocation } from 'react-router-dom';
 import { Navbar } from './components'; 
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -20,7 +19,7 @@ import { PrivateRoute } from './components';
 import UserStore from './application/user/store/userStore';
 import InstructorStore from './application/instructor/store/instructorStore';
 import StudentStore from './application/student/store/studentStore';
- 
+
 interface IDefaultProps {
   UserStore? : typeof UserStore;
   InstructorStore? : typeof InstructorStore;
@@ -29,7 +28,6 @@ interface IDefaultProps {
 
 const App : FC<IDefaultProps> = inject('UserStore', 'InstructorStore', 'StudentStore')(observer((props : IDefaultProps) => {
   const { UserStore : userStore, InstructorStore : instructorStore, StudentStore : studentStore } = props;
-  const location = useLocation();
   
   useEffect(() => {
     const getUser = async () => {
@@ -48,7 +46,7 @@ const App : FC<IDefaultProps> = inject('UserStore', 'InstructorStore', 'StudentS
 
   return (
     <>
-      { !location.pathname.includes('/call') && <Navbar />} 
+      <Navbar />
       <Switch>
         <Route path='/' exact strict component={HomePage} />
         <Route path='/login' exact strict component={LoginPage} />
