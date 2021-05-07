@@ -65,7 +65,6 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
                     <Nav className='ml-auto' onClick={isSmallScreen ? toggleExpanded : ()=>{}}>
                         <Nav.Link as={Link} to='/lesson-filter'>Ders Seç</Nav.Link>
                         <Nav.Link as={Link} to='/call'>Video Call</Nav.Link>
-                        <Nav.Link as={Link} to='/call'>Video Call</Nav.Link>
                         {
                             store!.baseUser.id !== 0 ? 
                             <>
