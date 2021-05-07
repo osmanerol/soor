@@ -64,6 +64,7 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
                 <Navbar.Collapse id='basic-navbar-nav'>
                     <Nav className='ml-auto' onClick={isSmallScreen ? toggleExpanded : ()=>{}}>
                         <Nav.Link as={Link} to='/lesson-filter'>Ders Seç</Nav.Link>
+                        <Nav.Link as={Link} to='/call/123'>Video Call</Nav.Link>
                         {
                             store!.baseUser.id !== 0 ? 
                             <>
