@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './index.scss';
-import Peer from "simple-peer";
-import io from "socket.io-client"
 import { Input } from '@chakra-ui/react';
 import { Container } from 'react-bootstrap';
 import { Button } from '../../components/index';
@@ -11,11 +9,6 @@ import { MdScreenShare, MdStopScreenShare } from 'react-icons/md';
 import { VscChromeClose } from 'react-icons/vsc';
 import { useHistory } from 'react-router-dom';
 import firestore from '../../services/firebaseConfig';
-
-/*
-const socketURL = process.env.REACT_APP_SOCKET_URL;
-const socket = io(`${socketURL}`);  
-*/
 
 const Index = () => {
     const [cameraSetting, setCameraSetting] = useState(true);
@@ -162,17 +155,13 @@ const Index = () => {
         <div className='video-call-page-container'>
             <Container>
                 <div className="row">
-                    <div className="col-3">
+                    <div className='col-4'>
                         <Button onClick={startLocalVideo} text='Başlat' />
-                        <Button onClick={makeOffer} text='Oda oluştur' />
-                        <p>Call</p>
-                        <Input
-                            id="filled-basic"
-                            value={idToCall}
-                            onChange={(e) => setIdToCall(e.target.value)}
-                        />
                     </div>
-                    <div className="col-3">
+                    <div className="col-4">
+                        <Button onClick={makeOffer} text='Oda oluştur' />
+                    </div>
+                    <div className="col-4">
                         <div className="call-button">
                             {callAccepted && !callEnded ? (
                                 <Button onClick={leaveCall} text='end call' />
@@ -180,6 +169,14 @@ const Index = () => {
                                 <Button onClick={answer} text='cevapla' />
                             )}
                         </div>
+                    </div>
+                    <div className="col-6">
+                        <p>Call</p>
+                        <Input
+                            id="filled-basic"
+                            value={idToCall}
+                            onChange={(e) => setIdToCall(e.target.value)}
+                        />
                     </div>
                     <div>
                         {receivingCall && !callAccepted ? (

@@ -23,6 +23,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "classnames": "^2.3.1",
+    "env-cmd": "^10.1.0",
     "firebase": "^8.5.0",
     "framer-motion": "^4",
     "gh-pages": "^3.1.0",
@@ -46,11 +47,11 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start": "env-cmd -f ./scripts/local.env react-scripts start",
+    "build:develop": "env-cmd -f  ./scripts/develop.env npm run-script build"
   },
   "eslintConfig": {
     "extends": [

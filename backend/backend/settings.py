@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     'comment'
 ]
 
-SECURE_SSL_REDIRECT = False
 SITE_ID = 1
 SITE_URL = 'http://192.168.1.40:8000'
 REST_USE_JWT = True
