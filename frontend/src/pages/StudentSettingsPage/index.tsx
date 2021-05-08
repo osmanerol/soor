@@ -183,7 +183,7 @@ const Index : FC<IDefaultProps> = inject('StudentStore', 'UserStore')(observer((
                                             </div>
                                             <div className='row p-0'>
                                                 <Input text='Ad' id='first_name' size='sm' variant='flushed' className='col-md-6 col-12 mb-3' defaultValue={store!.student.first_name} selectRef={register} errors={errors} onChange={(event: any)=>store!.student.first_name = event.target.value} />
-                                                <Input text='Soyad' id='last_name' size='sm' variant='flushed' className='col-md-6 col-12 mb-3' defaultValue={store!.student.last_name} selectRef={register} errors={errors} onChange={(event: any)=>store!.student.first_name = event.target.value} />
+                                                <Input text='Soyad' id='last_name' size='sm' variant='flushed' className='col-md-6 col-12 mb-3' defaultValue={store!.student.last_name} selectRef={register} errors={errors} onChange={(event: any)=>store!.student.last_name = event.target.value} />
                                             </div>
                                             <Input text='E-posta' id='email' type='email' size='sm' variant='flushed' className='mb-3' defaultValue={store!.student.email} selectRef={register} errors={errors} onChange={(event: any)=>store!.student.email = event.target.value } />
                                             <Input text='Kredi' id='credit' size='sm' variant='flushed' className='mb-3' defaultValue={(store!.student.student.credit).toString()} selectRef={register} errors={errors} onChange={(event: any)=>store!.student.student.credit = event.target.value } />

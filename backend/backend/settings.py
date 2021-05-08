@@ -69,12 +69,12 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 OLD_PASSWORD_FIELD_ENABLED = True
 
+"""
 CORS_ORIGIN_ALLOW_ALL = True 
 """
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000', 'https://localhost:3000', 'http://192.168.1.40:3000', 'https://192.168.1.40:3000', 'http://soor.vercel.app'
+    'http://localhost:3000', 'https://localhost:3000', 'http://localhost:3001', 'https://localhost:3001', 'http://192.168.1.40:3000', 'https://192.168.1.40:3000', 'https://soor.vercel.app', 'https://soor.vercel.app'
 ]
-"""
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
@@ -132,6 +132,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 
+"""
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 DATABASES = {
@@ -144,7 +145,6 @@ DATABASES = {
 DATABASES = {
     'default' : dj_database_url.config()
 }
-"""
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
