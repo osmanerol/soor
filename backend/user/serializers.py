@@ -34,6 +34,7 @@ class UserDetailSerializer(ModelSerializer):
             user = Student.objects.get(user = instance)
         elif(instance.is_instructor):
             user = Instructor.objects.get(user = instance)
+            print(user.image)
         image_url = '{}/media/{}'.format(settings.SITE_URL,user.image)
         return image_url
     

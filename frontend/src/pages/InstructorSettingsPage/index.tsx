@@ -75,9 +75,7 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'UserStore', 'Lectur
         const getLecture = async () => {
             await lectureStore!.getAllLectures();
         }
-        if(store!.instructor.id === 0){
-            getInstructor();
-        }
+        getInstructor();
         if(lectureStore!.lectureList.results.length === 0){
             getLecture();
         }

@@ -75,7 +75,7 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
                                         <Nav.Link as={Link} to='/add-balance'>Bakiye Yükle</Nav.Link>
                                         {
                                             store!.baseUser.userType === 2 &&
-                                            <Nav.Link as={Link} to='/instructor/jessica-jones'>Profil</Nav.Link>
+                                            <Nav.Link as={Link} to={`/instructor/${store?.baseUser.slug}`}>Profil</Nav.Link>
                                         }
                                         <Nav.Link as={Link} to={localStorage.getItem('userType') === '1' ? '/settings/student' : '/settings/instructor'}>Ayarlar</Nav.Link>
                                         <Nav.Link as={Link} to='/'>Çıkış Yap</Nav.Link>
