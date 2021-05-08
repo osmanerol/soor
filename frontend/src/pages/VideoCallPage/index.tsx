@@ -12,8 +12,10 @@ import { VscChromeClose } from 'react-icons/vsc';
 import { useHistory } from 'react-router-dom';
 import firestore from '../../services/firebaseConfig';
 
+/*
 const socketURL = process.env.REACT_APP_SOCKET_URL;
 const socket = io(`${socketURL}`);  
+*/
 
 const Index = () => {
     const [cameraSetting, setCameraSetting] = useState(true);
@@ -69,17 +71,14 @@ const Index = () => {
     }, [])
 
     const makeOffer = async () => {
-        // Reference Firestore collections for signaling
         const callDoc = firestore.collection('calls').doc();
         const offerCandidates = callDoc.collection('offerCandidates');
         const answerCandidates = callDoc.collection('answerCandidates');
         setIdToCall(callDoc.id);
-        // Get candidates for caller, save to db
         pc.onicecandidate = (event) => {
             event.candidate && offerCandidates.add(event.candidate.toJSON());
             console.log('candidate save')
         };
-        // Create offer
         const offerDescription = await pc.createOffer();
         await pc.setLocalDescription(offerDescription);
         const offer = {
@@ -87,7 +86,6 @@ const Index = () => {
             type: offerDescription.type,
         };
         await callDoc.set({ offer });
-        // Listen for remote answer
         callDoc.onSnapshot((snapshot : any) => {
             const data = snapshot.data();
             if (!pc.currentRemoteDescription && data?.answer) {
@@ -95,7 +93,6 @@ const Index = () => {
                 pc.setRemoteDescription(answerDescription);
             }
         });        
-        // When answered, add candidate to peer connection
         answerCandidates.onSnapshot((snapshot : any) => {
             snapshot.docChanges().forEach((change : any) => {
             if (change.type === 'added') {
