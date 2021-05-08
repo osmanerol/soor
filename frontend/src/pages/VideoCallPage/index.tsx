@@ -25,12 +25,12 @@ const Index = () => {
 	const [ callEnded, setCallEnded] = useState<any>(false);
 	const [ name, setName ] = useState<any>("");
     
-	const [ stream, setStream ] = useState<any>();
-	const [ remoteStream, setRemoteStream ] = useState<any>();
+	const [ localStream, setLocalStream ] = useState<any>();
     const ownerVideo = useRef<any>();
 	const peerVideo = useRef<any>();
 	const connectionRef= useRef<any>();
-    let remote : any = null;
+    const [isPermission, setIsPermission] = useState(false);
+    let remoteStream : any = null;
 
     const servers = {
         iceServers: [
@@ -43,6 +43,7 @@ const Index = () => {
     const [pc, setPc] = useState(new RTCPeerConnection(servers));
 
     const startLocalVideo = async () => {
+        /*
         await navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(streamData => {
             setStream(streamData);
             ownerVideo.current.srcObject = streamData;
@@ -50,17 +51,28 @@ const Index = () => {
                 pc.addTrack(track, streamData);
             });
         }) ;
-        remote =  new MediaStream();
+        */
+        remoteStream =  new MediaStream();
         pc.ontrack = (event) => {
             event.streams[0].getTracks().forEach((track) => {
-              remote.addTrack(track);
+                remoteStream.addTrack(track);
             });
         };
-        peerVideo.current.srcObject = remote;
+        peerVideo.current.srcObject = remoteStream;
     }
 
     useEffect(() => {
         document.title = 'Soor - Arama';
+        const getLocalStreamData = async () => {
+            await navigator.mediaDevices.getUserMedia({ video: false, audio: true }).then(localStream => {
+                setLocalStream(localStream);
+                ownerVideo.current.srcObject = localStream;
+                localStream.getTracks().forEach((track : any) => {
+                    pc.addTrack(track, localStream);
+                });
+            }) ;
+        } 
+        getLocalStreamData();
     }, [])
 
     const makeOffer = async () => {
@@ -203,12 +215,12 @@ const Index = () => {
                         </div>
                         <div className="owner-container">
                             {
-                                stream ? 
+                                localStream ? 
                                 <video playsInline ref={ownerVideo} autoPlay /> :
                                 <p className='text'>Veli Kurt</p>
                             }
                             {
-                                stream && 
+                                localStream && 
                                 <div className="name-container">
                                     <small className='name'>Veli Kurt</small>
                                 </div>

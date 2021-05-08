@@ -28,7 +28,7 @@ class UserDetailSerializer(ModelSerializer):
     image = serializers.SerializerMethodField()
     slug = serializers.SerializerMethodField()
     userType = serializers.SerializerMethodField()
-
+    
     def get_image(self, instance):
         if(instance.is_student):
             user = Student.objects.get(user = instance)
@@ -36,7 +36,7 @@ class UserDetailSerializer(ModelSerializer):
             user = Instructor.objects.get(user = instance)
         image_url = '{}/media/{}'.format(settings.SITE_URL,user.image)
         return image_url
-    
+
     def get_slug(self, instance):
         if(instance.is_student):
             user = Student.objects.get(user = instance)

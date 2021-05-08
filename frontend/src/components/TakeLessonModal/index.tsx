@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 //import { FaQuestion } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { BsCameraVideoFill } from 'react-icons/bs';
+import { useHistory } from 'react-router-dom';
 
 interface IDefaultProps{
     lessons: any,
@@ -19,6 +20,11 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [lesson, setSelectedLesson] = useState(-1);
     const { control } = useForm();
+    const history = useHistory();
+
+    const clickConfirm = () => {
+        history.push('/call');
+    }
 
     return (
         <div>
@@ -54,7 +60,7 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
                     <ModalFooter>
                         <Button text='Vazgeç' size='sm' className='cancel-button' onClick={onClose} />
                         {
-                            credit >= lessonPrice && <Button text='Onayla' size='sm' className='confirm-button' disabled={lesson === -1} onClick={()=>{}} />
+                            credit >= lessonPrice && <Button text='Onayla' size='sm' className='confirm-button' disabled={lesson === -1} onClick={clickConfirm} />
                         }
                     </ModalFooter>
                 </ModalContent>

@@ -133,7 +133,7 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'CommentStore', 'Stu
                                                 generalStore!.instructorList.results!.slice(0, 5).map((item : any, index : number)=>(
                                                     <div className='instructor' key={index}>
                                                         <div className="image-container">
-                                                            <img src={item.instructor.image} alt="instructor"/>
+                                                            <img src={(item.instructor.image === '' || item.instructor.image === null) ? DefaultProfile : item.instructor.image} alt="instructor"/>
                                                         </div>
                                                         <div className="text-container">
                                                             <Link className='sub-text' to={`/instructor/${item.instructor.slug}`}>{item.first_name} {item.last_name}</Link>

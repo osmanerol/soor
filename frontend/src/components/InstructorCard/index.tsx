@@ -3,6 +3,7 @@ import './index.scss';
 import { Link } from 'react-router-dom';
 import { StarIcon } from '@chakra-ui/icons';
 import { useHistory } from 'react-router-dom';
+import DefaultProfile from '../../assets/images/defaultProfile.png';
 
 interface IDefaultProps{
     image: string,
@@ -20,7 +21,7 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
     return (
         <div className='instructor-card' onClick={()=>history.push(`/instructor/${slug}`)}>
             <div className='image-container'>
-                <img src={image} alt='instructor'/>
+                <img src={(image === '' || image === null) ? DefaultProfile : image} alt='instructor'/>
                 <div className='rate text-center'>
                     <small>
                         {Array(5)
