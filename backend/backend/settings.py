@@ -14,11 +14,15 @@ from pathlib import Path, os
 from datetime import timedelta
 import django_heroku
 import dj_database_url
+import dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
+"""
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
+"""
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -39,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_cleanup.apps.CleanupConfig',
     'corsheaders',
     'rest_framework',
     'rest_framework_jwt',
@@ -69,9 +74,6 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 OLD_PASSWORD_FIELD_ENABLED = True
 
-"""
-CORS_ORIGIN_ALLOW_ALL = True 
-"""
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000', 'https://localhost:3000', 'http://localhost:3001', 'https://localhost:3001', 'http://192.168.1.40:3000', 'https://192.168.1.40:3000', 'https://soor.vercel.app', 'https://soor.vercel.app'
 ]
@@ -100,9 +102,10 @@ AUTHENTICATION_BACKENDS = (
 )
 
 MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -133,7 +136,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-"""
+DATABASES = {}
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -144,6 +147,8 @@ DATABASES = {
 DATABASES = {
     'default' : dj_database_url.config()
 }
+"""
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -186,6 +191,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 django_heroku.settings(locals())
+
 """
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'

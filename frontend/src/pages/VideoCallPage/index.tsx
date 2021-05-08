@@ -162,10 +162,13 @@ const Index = () => {
 
     const clickCameraButton = () => {
         setCameraSetting(!cameraSetting);
+        localStream.getVideoTracks().forEach((track : any) => {
+            track.stop();
+        });
     }
 
     useEffect(() => {
-        }, [cameraSetting])
+    }, [cameraSetting])
 
     const clickVoiceButton = () => {
         setAudioSetting(!audioSetting);
