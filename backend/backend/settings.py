@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'comment'
 ]
 
+SECURE_SSL_REDIRECT = False
 SITE_ID = 1
 SITE_URL = 'http://192.168.1.40:8000'
 REST_USE_JWT = True
@@ -71,7 +72,8 @@ OLD_PASSWORD_FIELD_ENABLED = True
 CORS_ORIGIN_ALLOW_ALL = True 
 """
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000', 'http://192.168.1.40:3000', 'https://soor.vercel.app']
+    'http://localhost:3000', 'https://localhost:3000', 'http://192.168.1.40:3000', 'https://192.168.1.40:3000', 'http://soor.vercel.app'
+]
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
