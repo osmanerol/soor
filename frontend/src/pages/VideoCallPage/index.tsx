@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './index.scss';
-import { Input } from '@chakra-ui/react';
+import { Input, useToast } from '@chakra-ui/react';
 import { Container } from 'react-bootstrap';
 import { Button } from '../../components/index';
 import { IoVideocam, IoVideocamOff } from 'react-icons/io5';
@@ -11,6 +11,7 @@ import { useHistory } from 'react-router-dom';
 import firestore from '../../services/firebaseConfig';
 
 const Index = () => {
+    const toast = useToast();
     const [cameraSetting, setCameraSetting] = useState(true);
     const [audioSetting, setAudioSetting] = useState(true);
     const [shareScreenSetting, setScreenShareSetting] = useState(true);
@@ -40,7 +41,8 @@ const Index = () => {
         ],
         iceCandidatePoolSize: 10,
     };
-    const [pc, setPc] = useState(new RTCPeerConnection(servers));
+
+    const pc = useRef<any>(new RTCPeerConnection(servers));
 
     const startLocalVideo = async () => {
         /*
@@ -53,39 +55,54 @@ const Index = () => {
         }) ;
         */
         remoteStream =  new MediaStream();
-        pc.ontrack = (event) => {
-            event.streams[0].getTracks().forEach((track) => {
+        pc.current.ontrack = (event : any) => {
+            event.streams[0].getTracks().forEach((track : any) => {
                 remoteStream.addTrack(track);
             });
         };
         peerVideo.current.srcObject = remoteStream;
     }
 
+    const gotStream = () => {
+
+    }
+
+    const error = () => {
+    }
+
     useEffect(() => {
         document.title = 'Soor - Arama';
         const getLocalStreamData = async () => {
-            await navigator.mediaDevices.getUserMedia({ video: false, audio: true }).then(localStream => {
+            await navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(localStream => {
                 setLocalStream(localStream);
                 ownerVideo.current.srcObject = localStream;
                 localStream.getTracks().forEach((track : any) => {
-                    pc.addTrack(track, localStream);
+                    pc.current.addTrack(track, localStream);
+                });
+            }).catch(error => {
+                toast({
+                    title: 'Hata',
+                    description: 'Kamera ve mikrofon ayarlarınızı tarayıcıdan açınız.',
+                    status: 'error',
+                    duration: 2000,
+                    isClosable: true,
                 });
             }) ;
         } 
         getLocalStreamData();
-    }, [])
+    }, [pc])
 
     const makeOffer = async () => {
         const callDoc = firestore.collection('calls').doc();
         const offerCandidates = callDoc.collection('offerCandidates');
         const answerCandidates = callDoc.collection('answerCandidates');
         setIdToCall(callDoc.id);
-        pc.onicecandidate = (event) => {
+        pc.current.onicecandidate = (event : any) => {
             event.candidate && offerCandidates.add(event.candidate.toJSON());
             console.log('candidate save')
         };
-        const offerDescription = await pc.createOffer();
-        await pc.setLocalDescription(offerDescription);
+        const offerDescription = await pc.current.createOffer();
+        await pc.current.setLocalDescription(offerDescription);
         const offer = {
             sdp: offerDescription.sdp,
             type: offerDescription.type,
@@ -93,16 +110,16 @@ const Index = () => {
         await callDoc.set({ offer });
         callDoc.onSnapshot((snapshot : any) => {
             const data = snapshot.data();
-            if (!pc.currentRemoteDescription && data?.answer) {
+            if (!pc.current.currentRemoteDescription && data?.answer) {
             const answerDescription = new RTCSessionDescription(data.answer);
-                pc.setRemoteDescription(answerDescription);
+            pc.current.setRemoteDescription(answerDescription);
             }
         });        
         answerCandidates.onSnapshot((snapshot : any) => {
             snapshot.docChanges().forEach((change : any) => {
             if (change.type === 'added') {
                 const candidate = new RTCIceCandidate(change.doc.data());
-                pc.addIceCandidate(candidate);
+                pc.current.addIceCandidate(candidate);
             }
             });
         });
@@ -113,14 +130,14 @@ const Index = () => {
         const callDoc = firestore.collection('calls').doc(callId);
         const answerCandidates = callDoc.collection('answerCandidates');
         const offerCandidates = callDoc.collection('offerCandidates');
-        pc.onicecandidate = (event : any) => {
+        pc.current.onicecandidate = (event : any) => {
           event.candidate && answerCandidates.add(event.candidate.toJSON());
         };
         const callData = (await callDoc.get()).data();
         const offerDescription = callData!.offer;
-        await pc.setRemoteDescription(new RTCSessionDescription(offerDescription));
-        const answerDescription = await pc.createAnswer();
-        await pc.setLocalDescription(answerDescription);
+        await pc.current.setRemoteDescription(new RTCSessionDescription(offerDescription));
+        const answerDescription = await pc.current.createAnswer();
+        await pc.current.setLocalDescription(answerDescription);
         const answer = {
           type: answerDescription.type,
           sdp: answerDescription.sdp,
@@ -131,7 +148,7 @@ const Index = () => {
             console.log(change);
             if (change.type === 'added') {
               let data = change.doc.data();
-              pc.addIceCandidate(new RTCIceCandidate(data));
+              pc.current.addIceCandidate(new RTCIceCandidate(data));
             }
           });
         });
