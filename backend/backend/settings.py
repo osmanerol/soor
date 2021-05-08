@@ -67,14 +67,11 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 OLD_PASSWORD_FIELD_ENABLED = True
 
+"""
 CORS_ORIGIN_ALLOW_ALL = True 
-
 """
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'http://192.168.1.40:3000',
-]
-"""
+    'http://localhost:3000', 'http://192.168.1.40:3000', 'https://soor.vercel.app']
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
