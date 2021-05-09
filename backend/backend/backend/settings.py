@@ -51,7 +51,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 OLD_PASSWORD_FIELD_REQUIRED = True
 
 CORS_ORIGIN_WHITELIST = [
-    'https://localhost:3000', 'https://192.168.1.40:3000', 'https://soor.vercel.app'
+    'http://localhost:3000', 'https://localhost:3000', 'https://192.168.1.40:3000', 'http://192.168.1.40:3000', 'https://soor.vercel.app'
 ]
 
 MIDDLEWARE = [
@@ -111,7 +111,6 @@ AUTHENTICATION_BACKENDS = (
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -122,7 +121,7 @@ DATABASES = {
 DATABASES = {
     'default' : dj_database_url.config()
 }
-
+"""
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
