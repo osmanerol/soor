@@ -17,8 +17,11 @@ class UserUpdateSerializer(ModelSerializer):
     def update(self, instance, validated_data):
         student = validated_data.pop('student')
         student_profile = Student.objects.get(id = instance.student.id)
+        """
         if 'image' in student:
             student_profile.image = student['image']
+        """
+        student_profile.image = student['image']
         student_profile.credit = student['credit']
         student_profile.save()      
         instance.student = student_profile

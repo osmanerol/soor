@@ -1,6 +1,7 @@
 import { makeAutoObservable, action } from 'mobx';
 import http from '../../../services';
 import { StudentCreateDto } from '../dto/studentDto';
+import { storage } from '../../../services/firebaseConfig';
 
 const DefaultStudent : StudentCreateDto = {
     id : 0,
@@ -38,6 +39,16 @@ class StudentStore{
         this.isLoading = false;
     }
 
+    @action async uploadImageToFireStore(){
+        let storageRef = storage.ref();
+        let imageRef = storageRef.child(`images/${this.student.student.slug}.png`);
+        await imageRef.put(this.student.student.image).then(async response => {
+            await response.ref.getDownloadURL().then(responseURL => {
+                this.student.student.image = responseURL;
+            })
+        })
+    }
+
     @action async update(){
         this.isLoading = true;
         this.error = '';
@@ -45,10 +56,19 @@ class StudentStore{
         formData.append('first_name', this.student.first_name);
         formData.append('last_name', this.student.last_name);
         formData.append('email', this.student.email);
+        /*
         if(this.student.student.image){
             formData.append('student.image', this.student.student.image, this.student.student.slug);
         }
+        */
         formData.append('student.credit', (this.student.student.credit).toString());
+        if(typeof this.student.student.image === 'object'){
+            await this.uploadImageToFireStore();
+            formData.append('student.image', this.student.student.image);
+        }
+        else{
+            formData.append('student.image', this.student.student.image);
+        }
         try{
             const result = await http.put(`/api/student/update`, formData, {
                 headers : {

@@ -20,7 +20,7 @@ class UserSerializer(ModelSerializer):
 class InstructorUpdateSerializer(ModelSerializer):
     class Meta:
         model = Instructor
-        fields = ['image', 'university', 'department', 'job', 'lessonPrice', 'about', 'lectures']
+        fields = ['slug', 'image', 'university', 'department', 'job', 'lessonPrice', 'about', 'lectures']
 
 class UserUpdateSerializer(ModelSerializer):
     instructor = InstructorUpdateSerializer()
@@ -32,8 +32,11 @@ class UserUpdateSerializer(ModelSerializer):
     def update(self, instance, validated_data):
         instructor = validated_data.pop('instructor')
         instructor_profile = Instructor.objects.get(id = instance.instructor.id)
+        """
         if 'image' in instructor:
             instructor_profile.image = instructor['image']
+        """
+        instructor_profile.image = instructor['image']
         instructor_profile.university = instructor['university']
         instructor_profile.department = instructor['department']
         instructor_profile.job = instructor['job']

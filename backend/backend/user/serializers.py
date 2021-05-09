@@ -29,6 +29,7 @@ class UserDetailSerializer(ModelSerializer):
     slug = serializers.SerializerMethodField()
     userType = serializers.SerializerMethodField()
 
+    """
     def get_image(self, instance):
         request = self.context.get('request')
         if(instance.is_student):
@@ -38,7 +39,14 @@ class UserDetailSerializer(ModelSerializer):
         if(user.image):
             return request.build_absolute_uri(user.image.url)
         return ''
-        
+    """
+    def get_image(self, instance):
+        if(instance.is_student):
+            user = Student.objects.get(user = instance)
+        elif(instance.is_instructor):
+            user = Instructor.objects.get(user = instance)
+        return user.image
+
     def get_slug(self, instance):
         if(instance.is_student):
             user = Student.objects.get(user = instance)
