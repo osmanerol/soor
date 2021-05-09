@@ -54,13 +54,6 @@ const Index = () => {
             });
         }) ;
         */
-        remoteStream =  new MediaStream();
-        pc.current.ontrack = (event : any) => {
-            event.streams[0].getTracks().forEach((track : any) => {
-                remoteStream.addTrack(track);
-            });
-        };
-        peerVideo.current.srcObject = remoteStream;
     }
 
     const gotStream = () => {
@@ -89,7 +82,18 @@ const Index = () => {
                 });
             }) ;
         } 
+        const getPeerStreamData = () => {            
+            remoteStream =  new MediaStream();
+            pc.current.ontrack = (event : any) => {
+                event.streams[0].getTracks().forEach((track : any) => {
+                    remoteStream.addTrack(track);
+                });
+            };
+            peerVideo.current.srcObject = remoteStream;
+        }
         getLocalStreamData();
+        getPeerStreamData();
+        console.log('useeffect run')
     }, [pc])
 
     const makeOffer = async () => {
@@ -97,6 +101,7 @@ const Index = () => {
         const offerCandidates = callDoc.collection('offerCandidates');
         const answerCandidates = callDoc.collection('answerCandidates');
         setIdToCall(callDoc.id);
+        console.log('candidate save 2')
         pc.current.onicecandidate = (event : any) => {
             event.candidate && offerCandidates.add(event.candidate.toJSON());
             console.log('candidate save')
@@ -236,7 +241,7 @@ const Index = () => {
                         <div className="owner-container">
                             {
                                 localStream ? 
-                                <video playsInline ref={ownerVideo} className='video-element' autoPlay /> :
+                                <video playsInline ref={ownerVideo} className='video-element' muted={true} autoPlay /> :
                                 <p className='text'>Veli Kurt</p>
                             }
                             {
