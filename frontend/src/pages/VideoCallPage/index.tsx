@@ -166,7 +166,7 @@ const Index = () => {
             track.stop();
         });
     }
-
+    
     useEffect(() => {
     }, [cameraSetting])
 

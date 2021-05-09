@@ -45,10 +45,8 @@ class StudentStore{
         formData.append('first_name', this.student.first_name);
         formData.append('last_name', this.student.last_name);
         formData.append('email', this.student.email);
-        if(typeof this.student.student.image === 'object'){
-            if(this.student.student.image.name !== '' && this.student.student.image.name !== null){
-                formData.append('student.image', this.student.student.image, this.student.student.image.name);
-            }
+        if(this.student.student.image){
+            formData.append('student.image', this.student.student.image, this.student.student.slug);
         }
         formData.append('student.credit', (this.student.student.credit).toString());
         try{

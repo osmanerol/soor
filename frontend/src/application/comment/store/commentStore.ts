@@ -39,6 +39,9 @@ class CommentStore{
         }
     }
 
+    @action clearCommentList(){
+        this.commentList = { count : 0, next : '', previous : '', results : [], isLoading : false };
+    }
 }
 
 export default new CommentStore();

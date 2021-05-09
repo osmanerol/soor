@@ -78,10 +78,8 @@ class InstructorStore{
         formData.append('first_name', this.instructor.first_name);
         formData.append('last_name', this.instructor.last_name);
         formData.append('email', this.instructor.email);
-        if(typeof this.instructor.instructor.image === 'object'){
-            if(this.instructor.instructor.image.name !== '' && this.instructor.instructor.image.name !== null){
-                formData.append('instructor.image', this.instructor.instructor.image, this.instructor.instructor.image.name);
-            }
+        if(this.instructor.instructor.image.name){
+            formData.append('instructor.image', this.instructor.instructor.image, this.instructor.instructor.image.name);
         }
         formData.append('instructor.university', this.instructor.instructor.university);
         formData.append('instructor.department', this.instructor.instructor.department);
@@ -94,7 +92,7 @@ class InstructorStore{
                 return item;
             })
         }
-       try{
+        try{
             const result = await http.put(`/api/instructor/update`, formData, {
                 headers : {
                     'content-type' : 'multipart/form-data'

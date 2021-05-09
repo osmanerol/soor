@@ -77,12 +77,14 @@
         }
     }
     .instructors-container{
+        /*
         .instructor-list{
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             flex-wrap: wrap;
         }
+        */
     }
     .total-datas-container{
         width: 100%;
@@ -180,9 +182,10 @@
                 margin-bottom: 40px;
             }
             .instructor-list{
-                & > *{
-                    width: 47%;
-                }
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-column-gap: 20px;
+                grid-row-gap: 10px;
             }
         }
         .total-datas-container{
@@ -264,9 +267,10 @@
                 margin-bottom: 40px;
             }
             .instructor-list{
-                & > *{
-                    width: 31%;
-                }
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-column-gap: 20px;
+                grid-row-gap: 10px;
             }
         }
         .total-datas-container{
@@ -348,9 +352,10 @@
                 margin-bottom: 40px;
             }
             .instructor-list{
-                & > *{
-                    width: 23%;
-                }
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                grid-column-gap: 10px;
+                grid-row-gap: 10px;
             }
         }
         .total-datas-container{
@@ -432,9 +437,10 @@
                 margin-bottom: 50px;
             }
             .instructor-list{
-                & > *{
-                    width: 23%;
-                }
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                grid-column-gap: 20px;
+                grid-row-gap: 10px;
             }
         }
         .total-datas-container{

@@ -72,7 +72,7 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
                                 {
                                     isSmallScreen ?
                                     <>
-                                        <Nav.Link as={Link} to='/add-balance'>Bakiye Yükle</Nav.Link>
+                                        <Nav.Link as={Link} to='/balance'>Bakiye</Nav.Link>
                                         {
                                             store!.baseUser.userType === 2 &&
                                             <Nav.Link as={Link} to={`/instructor/${store?.baseUser.slug}`}>Profil</Nav.Link>
@@ -81,7 +81,7 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
                                         <Nav.Link as={Link} to='/'>Çıkış Yap</Nav.Link>
                                     </> : 
                                     <NavDropdown title={<div className='navbar-dropdown-name'><span className='image-container'><img src={store?.baseUser.image === '' || store?.baseUser.image === null ? DefaultProfile : store?.baseUser.image} alt='profile' className='profile-image' /></span><span className='navbar-name'>{store!.baseUser.first_name} {store!.baseUser.last_name}</span></div>} id='nav-dropdown'>
-                                        <NavDropdown.Item as={Link} to='/add-balance'>Bakiye Yükle</NavDropdown.Item>
+                                        <NavDropdown.Item as={Link} to='/balance'>Bakiye</NavDropdown.Item>
                                         {
                                             store!.baseUser.userType === 2 &&
                                             <NavDropdown.Item as={Link} to={`/instructor/${store?.baseUser.slug}`}>Profil</NavDropdown.Item>

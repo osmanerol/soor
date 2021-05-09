@@ -31,6 +31,7 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'CommentStore', 'Stu
     useEffect(()=>{
         commentStore.pageNumber = 1;
         store!.getInstructor(slug);
+        commentStore!.clearCommentList();
         commentStore!.getComments(slug);
         if(generalStore!.instructorList.results?.length === 0){
             generalStore!.getLastInstructor();
