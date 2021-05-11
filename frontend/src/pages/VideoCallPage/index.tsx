@@ -57,9 +57,12 @@ const Index = () => {
 
     const getPeerVideos = () => {
         remoteStream =  new MediaStream();
+        console.log('here')
         pc.current.ontrack = (event : any) => {
+            console.log(event)
             event.streams[0].getTracks().forEach((track : any) => {
                 remoteStream.addTrack(track);
+                console.log(track)
             });
         };
         peerVideo.current.srcObject = remoteStream;
@@ -180,7 +183,7 @@ const Index = () => {
                     <div className='media-items'>
                         <div className="peer-container">
                             {
-                                true ?
+                                (remoteStream && remoteStream.getVideoTracks()[0].enabled) ?
                                 <>
                                     <video playsInline ref={peerVideo} autoPlay />
                                     <div className="name-container">
@@ -192,12 +195,12 @@ const Index = () => {
                         </div>
                         <div className="owner-container">
                             {
-                                (localStream && localStream.getVideoTracks().length > 0) ? 
+                                (localStream && localStream.getVideoTracks()[0].enabled) ? 
                                 <video playsInline ref={ownerVideo} className='video-element' muted={true} autoPlay /> :
                                 <p className='text'>Veli Kurt</p>
                             }
                             {
-                                (localStream && localStream.getVideoTracks().length > 0) && 
+                                (localStream && localStream.getVideoTracks()[0].enabled) && 
                                 <div className="name-container">
                                     <small className='name'>Veli Kurt</small>
                                 </div>
