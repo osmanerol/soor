@@ -15,23 +15,12 @@ const Index = () => {
     const [cameraSetting, setCameraSetting] = useState(true);
     const [audioSetting, setAudioSetting] = useState(true);
     const [shareScreenSetting, setScreenShareSetting] = useState(true);
-    const [endCall, setEndCall] = useState(false);
-    const history = useHistory();
-    const [ me, setMe ] = useState<any>("");
-	const [ receivingCall, setReceivingCall ] = useState<any>(false);
-	const [ caller, setCaller ] = useState<any>("");
-	const [ callerSignal, setCallerSignal ] = useState<any>();
-	const [ callAccepted, setCallAccepted ] = useState<any>(false);
-	const [ idToCall, setIdToCall ] = useState<any>("");
-	const [ callEnded, setCallEnded] = useState<any>(false);
-	const [ name, setName ] = useState<any>("");
-    
-	const [ localStream, setLocalStream ] = useState<any>();
+	const [idToCall, setIdToCall ] = useState<any>('');
+	const [localStream, setLocalStream] = useState<any>();
     const ownerVideo = useRef<any>();
 	const peerVideo = useRef<any>();
-	const connectionRef= useRef<any>();
-    const [isPermission, setIsPermission] = useState(false);
     let remoteStream : any = null;
+    const history = useHistory();
 
     const servers = {
         iceServers: [
@@ -43,25 +32,6 @@ const Index = () => {
     };
 
     const pc = useRef<any>(new RTCPeerConnection(servers));
-
-    const startLocalVideo = async () => {
-        /*
-        await navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(streamData => {
-            setStream(streamData);
-            ownerVideo.current.srcObject = streamData;
-            streamData.getTracks().forEach((track) => {
-                pc.addTrack(track, streamData);
-            });
-        }) ;
-        */
-    }
-
-    const gotStream = () => {
-
-    }
-
-    const error = () => {
-    }
 
     useEffect(() => {
         document.title = 'Soor - Arama';
@@ -82,29 +52,26 @@ const Index = () => {
                 });
             }) ;
         } 
-        const getPeerStreamData = () => {            
-            remoteStream =  new MediaStream();
-            pc.current.ontrack = (event : any) => {
-                event.streams[0].getTracks().forEach((track : any) => {
-                    remoteStream.addTrack(track);
-                });
-            };
-            peerVideo.current.srcObject = remoteStream;
-        }
         getLocalStreamData();
-        getPeerStreamData();
-        console.log('useeffect run')
-    }, [pc])
+    }, [toast])
+
+    const getPeerVideos = () => {
+        remoteStream =  new MediaStream();
+        pc.current.ontrack = (event : any) => {
+            event.streams[0].getTracks().forEach((track : any) => {
+                remoteStream.addTrack(track);
+            });
+        };
+        peerVideo.current.srcObject = remoteStream;
+    }
 
     const makeOffer = async () => {
         const callDoc = firestore.collection('calls').doc();
         const offerCandidates = callDoc.collection('offerCandidates');
         const answerCandidates = callDoc.collection('answerCandidates');
         setIdToCall(callDoc.id);
-        console.log('candidate save 2')
         pc.current.onicecandidate = (event : any) => {
             event.candidate && offerCandidates.add(event.candidate.toJSON());
-            console.log('candidate save')
         };
         const offerDescription = await pc.current.createOffer();
         await pc.current.setLocalDescription(offerDescription);
@@ -116,9 +83,9 @@ const Index = () => {
         callDoc.onSnapshot((snapshot : any) => {
             const data = snapshot.data();
             if (!pc.current.currentRemoteDescription && data?.answer) {
-            const answerDescription = new RTCSessionDescription(data.answer);
-            pc.current.setRemoteDescription(answerDescription);
-            }
+                const answerDescription = new RTCSessionDescription(data.answer);
+                pc.current.setRemoteDescription(answerDescription);
+            }   
         });        
         answerCandidates.onSnapshot((snapshot : any) => {
             snapshot.docChanges().forEach((change : any) => {
@@ -150,7 +117,6 @@ const Index = () => {
         await callDoc.update({ answer });
         offerCandidates.onSnapshot((snapshot : any) => {
           snapshot.docChanges().forEach((change : any) => {
-            console.log(change);
             if (change.type === 'added') {
               let data = change.doc.data();
               pc.current.addIceCandidate(new RTCIceCandidate(data));
@@ -159,32 +125,30 @@ const Index = () => {
         });
     }
 
-    const answerCall =() =>  {
+    const clickCameraButton = (currentCameraSetting : boolean) => {
+        setCameraSetting(currentCameraSetting);
+        let videoTracks = localStream.getVideoTracks();
+        for(let i = 0; i < videoTracks.length; i++){
+            videoTracks[i].enabled = !videoTracks[i].enabled;
+        }
     }
 
-    const leaveCall = () => {
+    const clickAudioButton = (currentAudioSetting : boolean) => {
+        setAudioSetting(currentAudioSetting);
+        let audioTracks = localStream.getAudioTracks();
+        for(let i = 0; i < audioTracks.length; i++){
+            audioTracks[i].enabled = !audioTracks[i].enabled;
+        }
     }
 
-    const clickCameraButton = () => {
-        setCameraSetting(!cameraSetting);
-        localStream.getVideoTracks().forEach((track : any) => {
-            track.stop();
-        });
-    }
-    
-    useEffect(() => {
-    }, [cameraSetting])
-
-    const clickVoiceButton = () => {
-        setAudioSetting(!audioSetting);
-    }
-
-    const clickShareScreenButton = () => {
-        setScreenShareSetting(!shareScreenSetting);
+    const clickShareScreenButton = (currentScreenShareSetting : boolean) => {
+        setScreenShareSetting(currentScreenShareSetting);
     }
 
     const clickCloseButton = () => {
-        setEndCall(true);
+        pc.current.close();
+        ownerVideo.current = null;
+        setLocalStream(null);
         history.push('/');
     }
 
@@ -193,18 +157,14 @@ const Index = () => {
             <Container>
                 <div className="row">
                     <div className='col-4'>
-                        <Button onClick={startLocalVideo} text='Başlat' />
+                        <Button onClick={getPeerVideos} text='Başlat' />
                     </div>
                     <div className="col-4">
                         <Button onClick={makeOffer} text='Oda oluştur' />
                     </div>
                     <div className="col-4">
                         <div className="call-button">
-                            {callAccepted && !callEnded ? (
-                                <Button onClick={leaveCall} text='end call' />
-                            ) : (
-                                <Button onClick={answer} text='cevapla' />
-                            )}
+                            <Button onClick={answer} text='cevapla' />
                         </div>
                     </div>
                     <div className="col-6">
@@ -214,14 +174,6 @@ const Index = () => {
                             value={idToCall}
                             onChange={(e) => setIdToCall(e.target.value)}
                         />
-                    </div>
-                    <div>
-                        {receivingCall && !callAccepted ? (
-                                <div className="caller">
-                                <h1 >{name} is calling...</h1>
-                                <Button onClick={answerCall} text='answer' />
-                            </div>
-                        ) : null}
                     </div>
                 </div>
                 <div className='media-views-container'>
@@ -240,12 +192,12 @@ const Index = () => {
                         </div>
                         <div className="owner-container">
                             {
-                                localStream ? 
+                                (localStream && localStream.getVideoTracks().length > 0) ? 
                                 <video playsInline ref={ownerVideo} className='video-element' muted={true} autoPlay /> :
                                 <p className='text'>Veli Kurt</p>
                             }
                             {
-                                localStream && 
+                                (localStream && localStream.getVideoTracks().length > 0) && 
                                 <div className="name-container">
                                     <small className='name'>Veli Kurt</small>
                                 </div>
@@ -255,9 +207,9 @@ const Index = () => {
                 </div>
                 <div className='settings'>
                     <div className="button-container">
-                        <Button className="item" leftIcon={cameraSetting ? <IoVideocam /> : <IoVideocamOff />} onClick={clickCameraButton} />
-                        <Button className="item" leftIcon={audioSetting ? <IoMdMic /> : <IoMdMicOff />} onClick={clickVoiceButton} />
-                        <Button className="item" leftIcon={shareScreenSetting ? <MdScreenShare /> : <MdStopScreenShare />} onClick={clickShareScreenButton} />
+                        <Button className="item" leftIcon={cameraSetting ? <IoVideocam /> : <IoVideocamOff />} onClick={() => clickCameraButton(!cameraSetting)} />
+                        <Button className="item" leftIcon={audioSetting ? <IoMdMic /> : <IoMdMicOff />} onClick={() => clickAudioButton(!audioSetting)} />
+                        <Button className="item" leftIcon={shareScreenSetting ? <MdScreenShare /> : <MdStopScreenShare />} onClick={() => clickShareScreenButton(!shareScreenSetting)} />
                         <Button className="item item-cancel" leftIcon={<VscChromeClose />} showConfirm={true} confirmText='Görüşmeyi sonlandırmak istediğinizden emin misiniz ?' onClick={clickCloseButton} />
                     </div>
                 </div>
