@@ -4,6 +4,7 @@ export interface CommentDto {
     student : any;
     content : string;
     created : Date | null;
+    point : number;
 }
 
 export interface CommentCreateDto extends CommentDto { }

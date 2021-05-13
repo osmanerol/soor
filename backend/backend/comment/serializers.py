@@ -11,7 +11,7 @@ class StudentSerializer(ModelSerializer):
     def get_image(self, instance):
         request = self.context.get('request')
         student = Student.objects.get(user = instance)
-        return request.build_absolute_uri(student.image.url)
+        return student.image
 
     class Meta:
         model = User

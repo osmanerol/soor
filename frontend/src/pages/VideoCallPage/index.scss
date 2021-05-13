@@ -67,8 +67,8 @@
                     }
                     .video-element{
                         transform: rotateY(180deg);
-                        -webkit-transform:rotateY(180deg); /* Safari and Chrome /
-                        -moz-transform:rotateY(180deg); / Firefox */
+                        -webkit-transform:rotateY(180deg); 
+                        -moz-transform:rotateY(180deg);
                     }
                     .name-container{
                         position: absolute;

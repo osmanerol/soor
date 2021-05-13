@@ -7,7 +7,8 @@ const defaultComment : CommentCreateDto = {
     instructor : 0,
     student : 0,
     content : '',
-    created : null
+    created : null,
+    point : 1
 }
 
 class CommentStore{
@@ -41,6 +42,14 @@ class CommentStore{
 
     @action clearCommentList(){
         this.commentList = { count : 0, next : '', previous : '', results : [], isLoading : false };
+    }
+
+    @action createEmptyComment(){
+        this.comment = defaultComment;
+    }
+
+    @action makeComment(){
+        
     }
 }
 

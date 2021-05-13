@@ -1,26 +1,30 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './index.scss';
-import { Input, useToast } from '@chakra-ui/react';
+import { Input, useToast, useDisclosure } from '@chakra-ui/react';
 import { Container } from 'react-bootstrap';
-import { Button } from '../../components/index';
+import { Button, CommentModal } from '../../components/index';
 import { IoVideocam, IoVideocamOff } from 'react-icons/io5';
 import { IoMdMic, IoMdMicOff } from 'react-icons/io';
 import { MdScreenShare, MdStopScreenShare } from 'react-icons/md';
 import { VscChromeClose } from 'react-icons/vsc';
+//import { useHistory, useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { firestore } from '../../services/firebaseConfig';
 
 const Index = () => {
-    const toast = useToast();
-    const [cameraSetting, setCameraSetting] = useState(true);
-    const [audioSetting, setAudioSetting] = useState(true);
-    const [shareScreenSetting, setScreenShareSetting] = useState(true);
+    const [cameraSetting, setCameraSetting] = useState(false);
+    const [audioSetting, setAudioSetting] = useState(false);
+    const [screenShareSetting, setScreenShareSetting] = useState(false);
 	const [idToCall, setIdToCall ] = useState<any>('');
-	const [localStream, setLocalStream] = useState<any>();
+	const [localStream, setLocalStream] = useState<any>(null);
+    const [peerHasVideo, setPeerHasVideo] = useState<boolean>(false);
+    let remoteStream : any = new MediaStream();
     const ownerVideo = useRef<any>();
 	const peerVideo = useRef<any>();
-    let remoteStream : any = null;
     const history = useHistory();
+    const toast = useToast();
+    //const { callId } = useParams<{ callId : string}>(); 
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const servers = {
         iceServers: [
@@ -33,10 +37,19 @@ const Index = () => {
 
     const pc = useRef<any>(new RTCPeerConnection(servers));
 
+    pc.current.oniceconnectionstatechange = () => {
+        if(pc.current.iceConnectionState === 'disconnected') {
+            // peer baglantisi kesildi
+            clickCloseButton();
+        }
+    }
+
     useEffect(() => {
         document.title = 'Soor - Arama';
         const getLocalStreamData = async () => {
-            await navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(localStream => {
+            await navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then(localStream => {
+                setCameraSetting(true);
+                setAudioSetting(true);
                 setLocalStream(localStream);
                 ownerVideo.current.srcObject = localStream;
                 localStream.getTracks().forEach((track : any) => {
@@ -55,18 +68,16 @@ const Index = () => {
         getLocalStreamData();
     }, [toast])
 
-    const getPeerVideos = () => {
-        remoteStream =  new MediaStream();
-        console.log('here')
-        pc.current.ontrack = (event : any) => {
-            console.log(event)
-            event.streams[0].getTracks().forEach((track : any) => {
-                remoteStream.addTrack(track);
-                console.log(track)
-            });
-        };
-        peerVideo.current.srcObject = remoteStream;
-    }
+    // get peer's media stream
+    pc.current.ontrack = (event : any) => {
+        event.streams[0].getTracks().forEach((track : any) => {
+            remoteStream.addTrack(track);
+            if(track.kind === 'video' && track.enabled){
+                setPeerHasVideo(true);
+                peerVideo.current.srcObject = remoteStream;
+            }
+        });
+    };
 
     const makeOffer = async () => {
         const callDoc = firestore.collection('calls').doc();
@@ -103,8 +114,8 @@ const Index = () => {
     const answer = async () => {
         const callId = idToCall;
         const callDoc = firestore.collection('calls').doc(callId);
-        const answerCandidates = callDoc.collection('answerCandidates');
         const offerCandidates = callDoc.collection('offerCandidates');
+        const answerCandidates = callDoc.collection('answerCandidates');
         pc.current.onicecandidate = (event : any) => {
           event.candidate && answerCandidates.add(event.candidate.toJSON());
         };
@@ -127,45 +138,61 @@ const Index = () => {
           });
         });
     }
-
-    const clickCameraButton = (currentCameraSetting : boolean) => {
-        setCameraSetting(currentCameraSetting);
-        let videoTracks = localStream.getVideoTracks();
+    
+    const clickCameraButton = () => {
+        setCameraSetting(!cameraSetting);
+        let videoTracks = localStream.getVideoTracks(); 
         for(let i = 0; i < videoTracks.length; i++){
             videoTracks[i].enabled = !videoTracks[i].enabled;
         }
     }
 
-    const clickAudioButton = (currentAudioSetting : boolean) => {
-        setAudioSetting(currentAudioSetting);
+    useEffect(() => {
+        if(cameraSetting){
+            ownerVideo.current.srcObject = localStream;
+        }
+    }, [cameraSetting, localStream])
+
+    const clickAudioButton = () => {
+        setAudioSetting(!audioSetting);
         let audioTracks = localStream.getAudioTracks();
         for(let i = 0; i < audioTracks.length; i++){
             audioTracks[i].enabled = !audioTracks[i].enabled;
         }
-    }
-
-    const clickShareScreenButton = (currentScreenShareSetting : boolean) => {
-        setScreenShareSetting(currentScreenShareSetting);
+    } 
+    
+    const clickShareScreenButton = () => {
+        setScreenShareSetting(!screenShareSetting);
     }
 
     const clickCloseButton = () => {
         pc.current.close();
-        ownerVideo.current = null;
-        setLocalStream(null);
-        history.push('/');
+        if(localStorage.getItem('userType') === '1'){
+            //setShowCommentModal(true);
+            onOpen();
+        }
+        else{
+            toast({
+                title: 'Bilgi',
+                description: 'Görüşme sonlandı. Anasayfaya yönlendiriliyorsunuz.',
+                status: 'info',
+                duration: 2000,
+                isClosable: true,
+            });
+            setTimeout(()=>{
+                history.push('/');
+            }, 2000)
+        }
     }
 
     return (
         <div className='video-call-page-container'>
             <Container>
                 <div className="row">
-                    <div className='col-4'>
-                        <Button onClick={getPeerVideos} text='Başlat' />
-                    </div>
-                    <div className="col-4">
+                    <div className="col-6">
                         <Button onClick={makeOffer} text='Oda oluştur' />
                     </div>
-                    <div className="col-4">
+                    <div className="col-6">
                         <div className="call-button">
                             <Button onClick={answer} text='cevapla' />
                         </div>
@@ -183,7 +210,7 @@ const Index = () => {
                     <div className='media-items'>
                         <div className="peer-container">
                             {
-                                (remoteStream && remoteStream.getVideoTracks()[0].enabled) ?
+                                peerHasVideo ?
                                 <>
                                     <video playsInline ref={peerVideo} autoPlay />
                                     <div className="name-container">
@@ -195,28 +222,28 @@ const Index = () => {
                         </div>
                         <div className="owner-container">
                             {
-                                (localStream && localStream.getVideoTracks()[0].enabled) ? 
-                                <video playsInline ref={ownerVideo} className='video-element' muted={true} autoPlay /> :
-                                <p className='text'>Veli Kurt</p>
-                            }
-                            {
-                                (localStream && localStream.getVideoTracks()[0].enabled) && 
-                                <div className="name-container">
-                                    <small className='name'>Veli Kurt</small>
-                                </div>
+                                cameraSetting ? 
+                                <>
+                                    <video playsInline ref={ownerVideo} className='video-element' muted={true} autoPlay /> 
+                                    <div className="name-container">
+                                        <small className='name'>Veli Kurt</small>
+                                    </div>
+                                </> :
+                                <p className='text'>Veli Kurt</p> 
                             }
                         </div>
                     </div>
                 </div>
                 <div className='settings'>
                     <div className="button-container">
-                        <Button className="item" leftIcon={cameraSetting ? <IoVideocam /> : <IoVideocamOff />} onClick={() => clickCameraButton(!cameraSetting)} />
-                        <Button className="item" leftIcon={audioSetting ? <IoMdMic /> : <IoMdMicOff />} onClick={() => clickAudioButton(!audioSetting)} />
-                        <Button className="item" leftIcon={shareScreenSetting ? <MdScreenShare /> : <MdStopScreenShare />} onClick={() => clickShareScreenButton(!shareScreenSetting)} />
+                        <Button className="item" leftIcon={cameraSetting ? <IoVideocam /> : <IoVideocamOff />} onClick={clickCameraButton} />
+                        <Button className="item" leftIcon={audioSetting ? <IoMdMic /> : <IoMdMicOff />} onClick={clickAudioButton} />
+                        <Button className="item" leftIcon={screenShareSetting ? <MdScreenShare /> : <MdStopScreenShare />} onClick={clickShareScreenButton} />
                         <Button className="item item-cancel" leftIcon={<VscChromeClose />} showConfirm={true} confirmText='Görüşmeyi sonlandırmak istediğinizden emin misiniz ?' onClick={clickCloseButton} />
                     </div>
                 </div>
             </Container>
+            <CommentModal isOpen={isOpen} onClose={onClose} />    
         </div>
     );
 };

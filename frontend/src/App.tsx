@@ -9,8 +9,6 @@ import SignupPage from './pages/SignupPage';
 import LessonFilterPage from './pages/LessonFilterPage';
 import InstructorPage from './pages/InstructorPage';
 import LessonsPage from './pages/LessonsPage';
-// import MessagePage from './pages/MessagePage';
-//import MessageDetailPage from './pages/MessageDetailPage';
 import InstructorSettingsPage from './pages/InstructorSettingsPage';
 import StudentSettingsPage from './pages/StudentSettingsPage';
 import VideoCallPage from './pages/VideoCallPage';
@@ -65,29 +63,3 @@ const App : FC<IDefaultProps> = inject('UserStore', 'InstructorStore', 'StudentS
 }));
 
 export default App;
-/*
-  const [isSmallScreen, setSmallScreen] = useState(false);
-  const location= useLocation();
-
-  const setScreen=()=>{
-    if(window.innerWidth<=768){
-      setSmallScreen(true);
-    }
-    else{
-      setSmallScreen(false);
-    }
-  }
-
-  useEffect(()=>{
-    setScreen();
-  }, [])
- 
-  useEffect(()=>{
-    window.addEventListener('resize', setScreen);
-  })
-  { 
-    !(isSmallScreen && location.pathname.includes('/messages/')) && <Navbar />
-  }
-  <PrivateRoute path='/messages' exact={isSmallScreen} strict component={MessagePage} /> 
-  <PrivateRoute path='/messages/:slug' exact strict component={MessageDetailPage} />
-*/

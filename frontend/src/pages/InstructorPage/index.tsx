@@ -21,7 +21,7 @@ interface IDefaultProps{
 
 const Index : FC<IDefaultProps> = inject('InstructorStore', 'CommentStore', 'StudentStore', 'GeneralStore')(observer((props : IDefaultProps) => {
     const { InstructorStore : store, CommentStore : commentStore, StudentStore : studentStore, GeneralStore : generalStore } = props;
-    let { slug } = useParams<{ slug : string }>();
+    const { slug } = useParams<{ slug : string }>();
 
     useEffect(()=>{
         document.title = 'Soor - Eğitmen';
@@ -62,7 +62,8 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'CommentStore', 'Stu
                                 </div>
                                 <div className="name-container mt-3">
                                     <p className='name'>{store!.instructorProfile.first_name} {store!.instructorProfile.last_name} <span className={`ml-2 status status-${store!.instructorProfile.instructor.status}`}></span></p>
-                                    <p className='job mt-2'>
+                                    <p className='sub-text mt-1 text-center'>{store!.instructorProfile.instructor.university} - {store!.instructorProfile.instructor.department}</p>
+                                    <p className='job mt-1 text-center'>
                                         <span className='mr-2 sub-text'>{store!.instructorProfile.instructor.job}</span>
                                         <small>
                                             {Array(5)
