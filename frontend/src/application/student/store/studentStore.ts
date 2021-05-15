@@ -103,6 +103,10 @@ class StudentStore{
         }
         this.isLoading = false;
     }
+
+    @action async updateStudentCredit(lessonPrice : number){
+        await http.put(`api/student/update-credit`, { lessonPrice : lessonPrice })
+    }
 }
 
 export default new StudentStore();

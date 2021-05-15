@@ -1,4 +1,3 @@
-  
 from .models import User
 from .serializers import UserSerializer, UserDetailSerializer, CustomTokenObtainSerializer
 from rest_framework.generics import CreateAPIView, DestroyAPIView, RetrieveAPIView, get_object_or_404
@@ -10,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from .permissions import NotAuthenticated
 from instructor.models import Instructor
 from student.models import Student
+from lesson.models import Lesson
 
 class UserRegisterAPIView(CreateAPIView):
     queryset = User.objects.all()
@@ -45,7 +45,7 @@ class TotalDataListAPIView(APIView):
         data = {
             'total_instructor' : Instructor.objects.count(),
             'total_student' : Student.objects.count(),
-            'total_lesson' : 10
+            'total_lesson' : Lesson.objects.count()
         }
         return Response(data)
 

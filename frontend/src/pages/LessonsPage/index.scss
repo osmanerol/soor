@@ -3,6 +3,9 @@
     min-height: 80%;
     .container{
         min-height: 80vh;
+        .empty-page-container, .spinner-container{
+            margin-top: 50px;
+        }
         .table{
             background-color: #fff;
             th{

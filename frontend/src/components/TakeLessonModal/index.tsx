@@ -1,29 +1,40 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import './index.scss';
 import { Button, Select } from '../index';
+import { inject, observer } from 'mobx-react';
 import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-//import { FaQuestion } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { BsCameraVideoFill } from 'react-icons/bs';
 import { useHistory } from 'react-router-dom';
+import { firestore } from '../../services/firebaseConfig';
+import LessonStore from '../../application/lesson/store/lessonStore';
 
 interface IDefaultProps{
+    LessonStore? : typeof LessonStore,
     lessons: any,
     lessonPrice: number,
     credit: number,
-    disabled: boolean
+    disabled: boolean,
+    instructorId : number,
 }
 
-const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
-    const { lessons, lessonPrice, credit, disabled } = props;
+const Index : FC<IDefaultProps> = inject('LessonStore')(observer((props : IDefaultProps) => {
+    const { LessonStore : lessonStore, lessons, lessonPrice, credit, disabled, instructorId } = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [lesson, setSelectedLesson] = useState(-1);
     const { control } = useForm();
     const history = useHistory();
 
-    const clickConfirm = () => {
-        history.push('/call');
+    useEffect(() => {
+        lessonStore!.createLesson();
+    }, [lessonStore])
+
+    const clickConfirm =async () => {
+        const callDoc = firestore.collection('calls').doc();
+        lessonStore!.lesson.link = callDoc.id;
+        lessonStore!.lesson.instructor = instructorId;
+        await lessonStore?.createLessonRequest();
+        history.push('/lessons');
     }
 
     return (
@@ -40,14 +51,14 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
                             <>
                                 <div className='mb-3'>
                                     <p className='sub-text'>Hangi derste soru sormak istiyorsunuz ?<span className='text-danger ml-1'>*</span></p>
-                                    <Select datas={lessons} placeholder='Ders seç' size='sm' onChange={(event: any)=>setSelectedLesson(parseInt(event.target.value))} id='id' value='name' control={control}/>
+                                    <Select datas={lessons} placeholder='Ders seç' size='sm' onChange={(event: any)=>lessonStore!.lesson.lecture = parseInt(event.target.value)} id='id' value='name' control={control}/>
                                 </div>
                                 <div className='mb-3'>
-                                    <p className='sub-text'>Soracağınız soruların fotoğraflarını yüklemek ister misiniz ?</p>
+                                    <p className='sub-text'>Soracağın sorunun fotoğrafını yüklemek ister misiniz ?</p>
                                     <input type='file' className='mt-2 sub-text' multiple />
                                 </div>
                                 <div className='mb-3 lesson-information'>
-                                    <p className='sub-text'>Ders ücreti <span className='text-bold'>{lessonPrice} TL</span> ders bitiminde hesabından çekilecektir. Eğitmen onayından sonra derslerim alanında bildirim olarak ders linkini görebilirsin. Link'e 5 dakika içinde tıklayarak derste olmanı bekliyoruz. İyi dersler...</p>
+                                    <p className='sub-text'>Ders ücreti <span className='text-bold'>{lessonPrice} TL</span> derse git'e tıkladığında hesabından çekilecektir. Ders linkini derslerim alanında görebilirsin. Link'e 2 dakika içinde tıklayarak derste olmanı bekliyoruz. İyi dersler...</p>
                                 </div>
                             </> :
                             <>
@@ -60,13 +71,13 @@ const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
                     <ModalFooter>
                         <Button text='Vazgeç' size='sm' className='cancel-button' onClick={onClose} />
                         {
-                            credit >= lessonPrice && <Button text='Onayla' size='sm' className='confirm-button' disabled={lesson === -1} onClick={clickConfirm} />
+                            credit >= lessonPrice && <Button text='Onayla' size='sm' className='confirm-button' disabled={lessonStore!.lesson.lecture === 0} onClick={clickConfirm} />
                         }
                     </ModalFooter>
                 </ModalContent>
             </Modal>
         </div>
     );
-};
+}));
 
 export default Index;

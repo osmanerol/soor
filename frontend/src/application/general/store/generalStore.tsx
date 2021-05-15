@@ -9,7 +9,7 @@ interface InstructorList {
 }
 
 class GeneralStore{
-    static readonly id: string = 'InstructorStore';
+    static readonly id: string = 'GeneralStore';
     instructorList! : InstructorList;
     totalData! : TotalDataDto;
     error! : any;

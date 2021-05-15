@@ -12,15 +12,11 @@ class UserUpdateSerializer(ModelSerializer):
     
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'student']
+        fields = ['id', 'first_name', 'last_name', 'email', 'student']
     
     def update(self, instance, validated_data):
         student = validated_data.pop('student')
         student_profile = Student.objects.get(id = instance.student.id)
-        """
-        if 'image' in student:
-            student_profile.image = student['image']
-        """
         student_profile.image = student['image']
         student_profile.credit = student['credit']
         student_profile.save()      

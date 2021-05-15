@@ -51,7 +51,7 @@ const App : FC<IDefaultProps> = inject('UserStore', 'InstructorStore', 'StudentS
         <Route path='/signup' exact strict component={SignupPage} />
         <Route path='/lesson-filter' exact strict component={LessonFilterPage} />
         <Route path='/lesson-filter/:lesson' exact strict component={LessonFilterPage} />
-        <Route path='/call' exact strict component={VideoCallPage} />
+        <Route path='/call/:callId' exact strict component={VideoCallPage} />
         <PrivateRoute path='/settings/instructor' exact strict component={InstructorSettingsPage} />
         <PrivateRoute path='/settings/student' exact strict component={StudentSettingsPage} />
         <Route path='/instructor/:slug' exact strict component={InstructorPage} />

@@ -1,30 +1,39 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { FC, useEffect, useState, useRef } from 'react';
 import './index.scss';
-import { Input, useToast, useDisclosure } from '@chakra-ui/react';
+import { inject, observer } from 'mobx-react';
+import { useToast, useDisclosure } from '@chakra-ui/react';
 import { Container } from 'react-bootstrap';
 import { Button, CommentModal } from '../../components/index';
 import { IoVideocam, IoVideocamOff } from 'react-icons/io5';
 import { IoMdMic, IoMdMicOff } from 'react-icons/io';
 import { MdScreenShare, MdStopScreenShare } from 'react-icons/md';
 import { VscChromeClose } from 'react-icons/vsc';
-//import { useHistory, useParams } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { firestore } from '../../services/firebaseConfig';
+import InstructorStore from '../../application/instructor/store/instructorStore';
+import StudentStore from '../../application/student/store/studentStore';
 
-const Index = () => {
+interface IDefaultProps{
+    InstructorStore? : typeof InstructorStore,
+    StudentStore? : typeof StudentStore
+}
+
+const Index : FC<IDefaultProps> = inject('InstructorStore', 'StudentStore')(observer((props : IDefaultProps) => {
+    const { InstructorStore : instructorStore, StudentStore : studentStore } = props;
     const [cameraSetting, setCameraSetting] = useState(false);
     const [audioSetting, setAudioSetting] = useState(false);
     const [screenShareSetting, setScreenShareSetting] = useState(false);
-	const [idToCall, setIdToCall ] = useState<any>('');
+    const [showPreview, setShowPreview] = useState<boolean>(true);
 	const [localStream, setLocalStream] = useState<any>(null);
     const [peerHasVideo, setPeerHasVideo] = useState<boolean>(false);
     let remoteStream : any = new MediaStream();
     const ownerVideo = useRef<any>();
+    const previewVideo = useRef<any>();
 	const peerVideo = useRef<any>();
     const history = useHistory();
     const toast = useToast();
-    //const { callId } = useParams<{ callId : string}>(); 
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const { callId } = useParams<{ callId : string}>();
 
     const servers = {
         iceServers: [
@@ -37,6 +46,7 @@ const Index = () => {
 
     const pc = useRef<any>(new RTCPeerConnection(servers));
 
+    // listen peer connection disconnected or not
     pc.current.oniceconnectionstatechange = () => {
         if(pc.current.iceConnectionState === 'disconnected') {
             // peer baglantisi kesildi
@@ -51,14 +61,11 @@ const Index = () => {
                 setCameraSetting(true);
                 setAudioSetting(true);
                 setLocalStream(localStream);
-                ownerVideo.current.srcObject = localStream;
-                localStream.getTracks().forEach((track : any) => {
-                    pc.current.addTrack(track, localStream);
-                });
+                previewVideo.current.srcObject = localStream;
             }).catch(error => {
                 toast({
                     title: 'Hata',
-                    description: 'Kamera ve mikrofon ayarlarınızı tarayıcıdan açınız.',
+                    description: 'Tarayıcınızın kamera ve mikrofon ayarlarına izin veriniz.',
                     status: 'error',
                     duration: 2000,
                     isClosable: true,
@@ -66,6 +73,7 @@ const Index = () => {
             }) ;
         } 
         getLocalStreamData();
+
     }, [toast])
 
     // get peer's media stream
@@ -79,11 +87,7 @@ const Index = () => {
         });
     };
 
-    const makeOffer = async () => {
-        const callDoc = firestore.collection('calls').doc();
-        const offerCandidates = callDoc.collection('offerCandidates');
-        const answerCandidates = callDoc.collection('answerCandidates');
-        setIdToCall(callDoc.id);
+    const makeOffer = async (callDoc : any, offerCandidates : any, answerCandidates : any) => {
         pc.current.onicecandidate = (event : any) => {
             event.candidate && offerCandidates.add(event.candidate.toJSON());
         };
@@ -111,15 +115,10 @@ const Index = () => {
         });
     }
 
-    const answer = async () => {
-        const callId = idToCall;
-        const callDoc = firestore.collection('calls').doc(callId);
-        const offerCandidates = callDoc.collection('offerCandidates');
-        const answerCandidates = callDoc.collection('answerCandidates');
+    const answer = async (callDoc : any, callData : any, offerCandidates : any, answerCandidates : any) => {
         pc.current.onicecandidate = (event : any) => {
-          event.candidate && answerCandidates.add(event.candidate.toJSON());
+            event.candidate && answerCandidates.add(event.candidate.toJSON());
         };
-        const callData = (await callDoc.get()).data();
         const offerDescription = callData!.offer;
         await pc.current.setRemoteDescription(new RTCSessionDescription(offerDescription));
         const answerDescription = await pc.current.createAnswer();
@@ -138,6 +137,29 @@ const Index = () => {
           });
         });
     }
+
+    const joinCall = async () => {
+        setShowPreview(false);
+        localStream.getTracks().forEach((track : any) => {
+            pc.current.addTrack(track, localStream);
+        });
+        const callDoc = firestore.collection('calls').doc(callId);
+        const offerCandidates = callDoc.collection('offerCandidates');
+        const answerCandidates = callDoc.collection('answerCandidates');
+        const callData = (await callDoc.get()).data();
+        if(callData){
+            answer(callDoc, callData, offerCandidates, answerCandidates);
+        }
+        else{
+            makeOffer(callDoc, offerCandidates, answerCandidates);
+        }
+    }
+
+    useEffect(() => {
+        if(!showPreview){
+            ownerVideo.current.srcObject = localStream;
+        }
+    }, [showPreview, localStream])
     
     const clickCameraButton = () => {
         setCameraSetting(!cameraSetting);
@@ -148,10 +170,12 @@ const Index = () => {
     }
 
     useEffect(() => {
-        if(cameraSetting){
-            ownerVideo.current.srcObject = localStream;
+        if(!showPreview){
+            if(cameraSetting){
+                ownerVideo.current.srcObject = localStream;
+            }
         }
-    }, [cameraSetting, localStream])
+    }, [cameraSetting, localStream, showPreview])
 
     const clickAudioButton = () => {
         setAudioSetting(!audioSetting);
@@ -165,11 +189,42 @@ const Index = () => {
         setScreenShareSetting(!screenShareSetting);
     }
 
-    const clickCloseButton = () => {
-        pc.current.close();
+    const leaveCall = async () => {
+        //Stop track local stream if there is any
+        if (localStream){
+            localStream.getTracks().forEach((track : any) => {
+                track.stop();
+            });
+        }
+        //Stop track remote stream if there is any
+        if(remoteStream){
+            remoteStream.getTracks().forEach((track : any) => {
+                track.stop();
+            });
+        }
+        //Close peer connection
+        if(pc) {
+            pc.current.close();
+        }
+        //Delete call document from db
+        if(callId) {
+            const callDoc = firestore.collection('calls').doc(callId);
+            callDoc.delete();
+        }
+    }
+
+    const clickCloseButton = async () => {
+        await leaveCall();
         if(localStorage.getItem('userType') === '1'){
-            //setShowCommentModal(true);
             onOpen();
+            let lessonPrice = localStorage.getItem('lessonPrice');
+            if(lessonPrice){
+                await studentStore?.updateStudentCredit(parseInt(lessonPrice));
+                localStorage.removeItem('lessonPrice');
+            }
+        }
+        else if(localStorage.getItem('userType') === '2'){
+            await instructorStore?.updateInstructorBalance();
         }
         else{
             toast({
@@ -185,67 +240,74 @@ const Index = () => {
         }
     }
 
+    useEffect(() => {
+        return () => {
+            clickCloseButton();
+        }
+    }, [])
+
     return (
         <div className='video-call-page-container'>
             <Container>
-                <div className="row">
-                    <div className="col-6">
-                        <Button onClick={makeOffer} text='Oda oluştur' />
-                    </div>
-                    <div className="col-6">
-                        <div className="call-button">
-                            <Button onClick={answer} text='cevapla' />
+                {
+                    showPreview ?
+                    <div className="preview-container">
+                        <div>
+                            <div className="owner-container">
+                                {
+                                    cameraSetting ? 
+                                    <>
+                                        <video playsInline ref={previewVideo} className='video-element' muted={true} autoPlay /> 
+                                    </> :
+                                    <p className='text'>Veli Kurt</p> 
+                                }
+                            </div>
+                            <Button text='Görüşmeye katıl' className='text-center' disabled={!cameraSetting} onClick={joinCall} />
                         </div>
-                    </div>
-                    <div className="col-6">
-                        <p>Call</p>
-                        <Input
-                            id="filled-basic"
-                            value={idToCall}
-                            onChange={(e) => setIdToCall(e.target.value)}
-                        />
-                    </div>
-                </div>
-                <div className='media-views-container'>
-                    <div className='media-items'>
-                        <div className="peer-container">
-                            {
-                                peerHasVideo ?
-                                <>
-                                    <video playsInline ref={peerVideo} autoPlay />
-                                    <div className="name-container">
-                                        <small className='name'>Veli Kurt</small>
-                                    </div>
-                                </> :
-                                <p className='text'>Ali Kurt</p>
-                            }
+                    </div> :
+                    <>
+                        <div className='media-views-container'>
+                            <div className='media-items'>
+                                <div className="peer-container">
+                                    {
+                                        peerHasVideo ?
+                                        <>
+                                            <video playsInline ref={peerVideo} autoPlay />
+                                            <div className="name-container">
+                                                <small className='name'>Veli Kurt</small>
+                                            </div>
+                                        </> :
+                                        <p className='text'>Ali Kurt</p>
+                                    }
+                                </div>
+                                <div className="owner-container">
+                                    {
+                                        cameraSetting ? 
+                                        <>
+                                            <video playsInline ref={ownerVideo} className='video-element' muted={true} autoPlay /> 
+                                            <div className="name-container">
+                                                <small className='name'>Veli Kurt</small>
+                                            </div>
+                                        </> :
+                                        <p className='text'>Veli Kurt</p> 
+                                    }
+                                </div>
+                            </div>
                         </div>
-                        <div className="owner-container">
-                            {
-                                cameraSetting ? 
-                                <>
-                                    <video playsInline ref={ownerVideo} className='video-element' muted={true} autoPlay /> 
-                                    <div className="name-container">
-                                        <small className='name'>Veli Kurt</small>
-                                    </div>
-                                </> :
-                                <p className='text'>Veli Kurt</p> 
-                            }
+                        <div className='settings'>
+                            <div className="button-container">
+                                <Button className="item" leftIcon={cameraSetting ? <IoVideocam /> : <IoVideocamOff />} onClick={clickCameraButton} />
+                                <Button className="item" leftIcon={audioSetting ? <IoMdMic /> : <IoMdMicOff />} onClick={clickAudioButton} />
+                                <Button className="item" leftIcon={screenShareSetting ? <MdScreenShare /> : <MdStopScreenShare />} onClick={clickShareScreenButton} />
+                                <Button className="item item-cancel" leftIcon={<VscChromeClose />} showConfirm={true} confirmText='Görüşmeyi sonlandırmak istediğinizden emin misiniz ?' onClick={clickCloseButton} />
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div className='settings'>
-                    <div className="button-container">
-                        <Button className="item" leftIcon={cameraSetting ? <IoVideocam /> : <IoVideocamOff />} onClick={clickCameraButton} />
-                        <Button className="item" leftIcon={audioSetting ? <IoMdMic /> : <IoMdMicOff />} onClick={clickAudioButton} />
-                        <Button className="item" leftIcon={screenShareSetting ? <MdScreenShare /> : <MdStopScreenShare />} onClick={clickShareScreenButton} />
-                        <Button className="item item-cancel" leftIcon={<VscChromeClose />} showConfirm={true} confirmText='Görüşmeyi sonlandırmak istediğinizden emin misiniz ?' onClick={clickCloseButton} />
-                    </div>
-                </div>
-            </Container>
-            <CommentModal isOpen={isOpen} onClose={onClose} />    
+                    </>
+                }
+                <CommentModal isOpen={isOpen} onClose={onClose} />   
+            </Container> 
         </div>
     );
-};
+}));
 
 export default Index;

@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'category',
     'lecture',
     'comment',
+    'lesson',
     'user',
     'student',
     'instructor'

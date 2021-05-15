@@ -60,3 +60,12 @@ class InstructorLastAPIView(ListAPIView):
     queryset = User.objects.filter(is_instructor = True).order_by('id')[:12]
     serializer_class = UserSerializer
     authentication_classes = []
+
+class InstructorUpdateBalanceAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request):
+        instructor = Instructor.objects.get(user__id = self.request.user.id)
+        instructor.balance += instructor.lessonPrice
+        instructor.save()
+        return Response({ 'detail' : 'balance updated' })

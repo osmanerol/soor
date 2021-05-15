@@ -94,7 +94,7 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'CommentStore', 'Stu
                                 {
                                     localStorage.getItem('userType') === '1' &&
                                     <div className="button-container mt-3">
-                                        <TakeLessonModal lessons={store!.instructorProfile.instructor.lectures} lessonPrice={store!.instructorProfile.instructor.lessonPrice} credit={studentStore.student.student.credit} disabled={store.instructorProfile.instructor.status !== 1} />
+                                        <TakeLessonModal lessons={store!.instructorProfile.instructor.lectures} lessonPrice={store!.instructorProfile.instructor.lessonPrice} credit={studentStore.student.student.credit} disabled={store.instructorProfile.instructor.status !== 1} instructorId={store.instructorProfile.id} />
                                     </div>
                                 }
                                 <div className="about-container mt-3">
