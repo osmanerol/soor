@@ -11,14 +11,19 @@ class StudentSerializer(ModelSerializer):
 
 class InstructorSerializer(ModelSerializer):
     lessonPrice = serializers.SerializerMethodField()
-
+    slug = serializers.SerializerMethodField()
+    
     def get_lessonPrice(self, instance):
         instructor = Instructor.objects.get(user = instance)
         return instructor.lessonPrice
 
+    def get_slug(self, instance):
+        instructor = Instructor.objects.get(user = instance)
+        return instructor.slug
+
     class Meta:
         model = User
-        fields = ['id', 'first_name', 'last_name', 'lessonPrice']
+        fields = ['id', 'first_name', 'last_name', 'lessonPrice', 'slug']
 
 class LessonListSerializer(ModelSerializer):
     student = StudentSerializer()

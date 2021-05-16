@@ -1,38 +1,81 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useState, useEffect, useCallback } from 'react';
 import './index.scss';
 import { inject, observer } from 'mobx-react';
 import { Empty, Spinner, Footer } from '../../components';
 import { Container, Pagination, Table } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import cx from 'classnames';
 import LessonStore from '../../application/lesson/store/lessonStore';
+import InstructorStore from '../../application/instructor/store/instructorStore';
+import StudentStore from '../../application/student/store/studentStore';
 
 interface IDefaultProps {
     LessonStore? : typeof LessonStore,
+    InstructorStore? : typeof InstructorStore,
+    StudentStore? : typeof StudentStore
 }
 
-const Index : FC<IDefaultProps> = inject('LessonStore')(observer((props : IDefaultProps) => {
-    const { LessonStore : store } = props;
+const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore', 'StudentStore')(observer((props : IDefaultProps) => {
+    const { LessonStore : store, InstructorStore : instructorStore, StudentStore : studentStore } = props;
+    const [searchPage, setSearchPage] = useState<number>(1);
+    const [userType, setUserType] = useState<number>(0);
+    const history = useHistory();
 
-    useEffect(()=>{
+    const getLessonList = useCallback(async () => {
+        if(userType === 1){
+            await store!.getStudentLesson(searchPage);
+        }
+        else if(userType === 2){
+            await store!.getInstructorLesson(searchPage);
+        }
+    }, [store, userType, searchPage])
+
+    useEffect(()=>{ 
         document.title = 'Soor - Derslerim';
         window.scrollTo(0,0);
-        const getLessonList = async () => {
-            store!.createLessonList();
-            if(localStorage.getItem('userType') === '1'){
-                await store!.getStudentLesson();
-            }
-            else if(localStorage.getItem('userType') === '2'){
-                await store!.getInstructorLesson();
-            }
+        if(localStorage.getItem('userType') === '1'){
+            setUserType(1);
+        }
+        else if(localStorage.getItem('userType') === '2'){
+            setUserType(2);
         }
         getLessonList();
-    }, [store])
+    }, [store, getLessonList])
 
-    const updateLessonStatus = async (id : number, status : number, lessonPrice : number) => {
-        if(status !== 2){
-            await store!.updateLessonStatus(id);
-            localStorage.setItem('lessonPrice', lessonPrice.toString());
+    const cancelLesson = async (lessonItem : any) => {
+        if(!lessonItem.instructorStatus){
+            await instructorStore!.decreaseInstructorBalance(lessonItem.instructor.id);
+            await studentStore!.increaseStudentCredit(lessonItem.instructor.lessonPrice);
+            await store!.deleteLesson(lessonItem.id);
+            store!.lessonList.results = store!.lessonList.results!.filter(item => item.id !== lessonItem.id);
+            store!.lessonList.count -= 1;
+        }
+    }
+    
+    const goCallPage = async (lessonItem : any) => {
+        let condition = userType === 1 ? !lessonItem.studentStatus : !lessonItem.instructorStatus;
+        if(condition){
+            if(userType === 1){
+                await store!.updateLessonStatus(lessonItem.id, 1);
+            }
+            else if(userType === 2){
+                await store!.updateLessonStatus(lessonItem.id, 2);
+            }
+            store!.lessonList.results = store!.lessonList.results!.map(item => {
+                if(item.id === lessonItem.id){
+                    if(userType === 1){
+                        item.studentStatus = true;
+                    }
+                    else if(userType === 2){
+                        item.instructorStatus = true;
+                    }
+                }
+                return item;
+            });
+            if(userType === 2){
+                await instructorStore!.updateStatus(2);
+            }
+            history.push(`/call/${lessonItem.link}`);
         }
     }
 
@@ -53,42 +96,45 @@ const Index : FC<IDefaultProps> = inject('LessonStore')(observer((props : IDefau
                                         <tr>
                                             <th className='sub-text'>Tarih</th>
                                             <th className='sub-text'>Ders</th>
-                                            <th className='sub-text'>Eğitmen</th>
+                                            <th className='sub-text'>{localStorage.getItem('userType') === '1' ? 'Eğitmen' : 'Öğrenci'}</th>
                                             <th className='sub-text'>Link</th>
+                                            {
+                                                localStorage.getItem('userType') === '1' &&
+                                                <th className='sub-text'>İptal</th>
+                                            }
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {
                                             store!.lessonList.results!.map((item : any, index : number)=>(
-                                                <tr key={index} className={cx({'bg-light' : item.status >= 2})}>
+                                                <tr key={index} className={cx({'bg-light' : userType === 1 ? item.studentStatus : item.instructorStatus})}>
                                                     <td className='sub-text'>{item.created}</td>
                                                     <td className='sub-text'>{item.lecture.name}</td>
-                                                    <td className='sub-text'>{item.instructor.first_name} {item.instructor.last_name}</td>
-                                                    <td className='sub-text' onClick={() => updateLessonStatus(item.id, item.status, item.instructor.lessonPrice)}>
-                                                        {
-                                                            item.status === 0 || item.status === 1 ?
-                                                            <Link to={`/call/${item.link}`}>Derse git</Link> :
-                                                            <p>Derse git</p>
-                                                        }
+                                                    <td className='sub-text'>
+                                                        <Link to={`/instructor/${item.instructor.slug}`} >{localStorage.getItem('userType') === '1' ? `${item.instructor.first_name} ${item.instructor.last_name}` : `${item.student.first_name} ${item.student.last_name}`}</Link>
                                                     </td>
+                                                    <td className={cx({'sub-text' : true, 'pointer' : userType === 1 ? !item.studentStatus : !item.instructorStatus })} onClick={() => goCallPage(item)}>Derse git</td>
+                                                    {
+                                                        userType === 1 &&
+                                                        <td className={cx({'sub-text' : true, 'pointer' :!item.instructorStatus })} onClick={() => cancelLesson(item)}>İptal Et</td>
+                                                    }
                                                 </tr>
                                             )) 
                                         }
                                     </tbody>
                                 </Table>    
-                                <small className='pagination-container my-4'>
-                                    <Pagination>
-                                        <Pagination.First />
-                                        <Pagination.Prev />
-                                        <Pagination.Item>{1}</Pagination.Item>
-                                        <Pagination.Item>{2}</Pagination.Item>
-                                        <Pagination.Ellipsis />
-                                        <Pagination.Item>{7}</Pagination.Item>
-                                        <Pagination.Item>{8}</Pagination.Item>
-                                        <Pagination.Next />
-                                        <Pagination.Last />
-                                    </Pagination>
-                                </small>
+                                {
+                                    (!store!.lessonList.isLoading && store!.lessonList.results!.length > 10) &&
+                                    <small className='pagination-container mt-3'>
+                                        <Pagination>
+                                            <Pagination.First onClick={()=>{setSearchPage(1)}} />
+                                            <Pagination.Prev onClick={()=>{setSearchPage(searchPage > 1 ? searchPage-1 : 1)}} />
+                                            <Pagination.Item onClick={()=>{}} >{searchPage}</Pagination.Item>
+                                            <Pagination.Next onClick={()=>{setSearchPage(searchPage === Math.ceil(store!.lessonList.count/10) ? searchPage : searchPage+1)}} />
+                                            <Pagination.Last onClick={()=>{setSearchPage(Math.ceil(store!.lessonList.count/10))}} />
+                                        </Pagination>
+                                    </small>
+                                }
                             </div> :
                             <Empty text='Ders alma geçmişi boş.' showButton={false} />
                         }
@@ -100,19 +146,3 @@ const Index : FC<IDefaultProps> = inject('LessonStore')(observer((props : IDefau
 }));
 
 export default Index;
-/*
-    const lessonsSummary = [
-        { date: '05.04.2021-09.00', lesson: 'Matematik', instructor: 'Jessica Jones', slug:'jessica-jones', link: '/lesson', status: 1},
-        { date: '10.03.2021-10.00', lesson: 'Fizik', instructor: 'Justin Hammer', slug:'jessica-jones', link: '/lesson', status: 0},
-        { date: '09.02.2021-11.00', lesson: 'Biyoloji', instructor: 'Barbara Hammer', slug:'jessica-jones', link: '/lesson', status: 0},
-        { date: '06.02.2021-14.00', lesson: 'Kimya', instructor: 'Jessica Jones', slug:'jessica-jones', link: '/lesson', status: 0},
-        { date: '01.02.2021-15.00', lesson: 'Geometri', instructor: 'Jessica Jones', slug:'jessica-jones', link: '/lesson', status: 0},
-        { date: '06.02.2021-08.00', lesson: 'Kimya', instructor: 'Victoria Jones', slug:'jessica-jones', link: '/lesson', status: 0},
-        { date: '01.02.2021-09.00', lesson: 'Geometri', instructor: 'Jessica Jones', slug:'jessica-jones', link: '/lesson', status: 0},
-        { date: '06.02.2021-10.00', lesson: 'Kimya', instructor: 'Rebecca Jones', slug:'jessica-jones', link: '/lesson', status: 0},
-        { date: '01.02.2021-12.00', lesson: 'Geometri', instructor: 'Jason Jones', slug:'jessica-jones', link: '/lesson', status: 0},
-        { date: '06.02.2021-14.00', lesson: 'Kimya', instructor: 'Jessica Jones', slug:'jessica-jones', link: '/lesson', status: 0},
-        { date: '01.02.2021-17.00', lesson: 'Geometri', instructor: 'Ashley Jones', slug:'jessica-jones', link: '/lesson', status: 0},
-    ]
-    
-*/

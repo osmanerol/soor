@@ -6,6 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import logo from '../../assets/images/logo.png';
 import DefaultProfile from '../../assets/images/defaultProfile.png';
+import cx from 'classnames';
 import UserStore from '../../application/user/store/userStore';
 
 interface IDefaultProps {
@@ -26,7 +27,7 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
 
     useEffect(()=>{
         window.addEventListener('resize', resizeListener);
-        setLessonNotification(2);
+        setLessonNotification(0);
     }, [])
 
     const resizeListener=()=>{
@@ -67,7 +68,7 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
                         {
                             store!.baseUser.id !== 0 ? 
                             <>
-                                <Nav.Link as={Link} to='/lessons' className={`${lessonNotification > 0 && 'notification'}`}>Derslerim</Nav.Link>
+                                <Nav.Link as={Link} to='/lessons' className={cx({'notification' : lessonNotification > 0})} >Derslerim</Nav.Link>
                                 {
                                     isSmallScreen ?
                                     <>

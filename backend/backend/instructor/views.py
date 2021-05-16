@@ -61,11 +61,31 @@ class InstructorLastAPIView(ListAPIView):
     serializer_class = UserSerializer
     authentication_classes = []
 
-class InstructorUpdateBalanceAPIView(APIView):
+class InstructorIncreaseBalanceAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request):
+        instructor = Instructor.objects.get(user__id = request.data['instructorId'])
+        instructor.balance += instructor.lessonPrice
+        instructor.save()
+        return Response({ 'detail' : 'balance increased' })
+
+class InstructorDecreaseBalanceAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request):
+        instructor = Instructor.objects.get(user__id = request.data['instructorId'])
+        instructor.balance -= instructor.lessonPrice
+        instructor.save()
+        return Response({ 'detail' : 'balance decreased' })
+
+class InstructorUpdateStatusAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def put(self, request):
         instructor = Instructor.objects.get(user__id = self.request.user.id)
-        instructor.balance += instructor.lessonPrice
+        if instructor.status == 2:
+            instructor.totalLesson += 1
+        instructor.status = request.data['status']
         instructor.save()
-        return Response({ 'detail' : 'balance updated' })
+        return Response({ 'detail' : 'status updated' })

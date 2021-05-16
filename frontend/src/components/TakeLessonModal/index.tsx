@@ -9,9 +9,13 @@ import { BsCameraVideoFill } from 'react-icons/bs';
 import { useHistory } from 'react-router-dom';
 import { firestore } from '../../services/firebaseConfig';
 import LessonStore from '../../application/lesson/store/lessonStore';
+import InstructorStore from '../../application/instructor/store/instructorStore';
+import StudentStore from '../../application/student/store/studentStore';
 
 interface IDefaultProps{
     LessonStore? : typeof LessonStore,
+    InstructorStore? : typeof InstructorStore,
+    StudentStore? : typeof StudentStore,
     lessons: any,
     lessonPrice: number,
     credit: number,
@@ -19,8 +23,8 @@ interface IDefaultProps{
     instructorId : number,
 }
 
-const Index : FC<IDefaultProps> = inject('LessonStore')(observer((props : IDefaultProps) => {
-    const { LessonStore : lessonStore, lessons, lessonPrice, credit, disabled, instructorId } = props;
+const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore', 'StudentStore')(observer((props : IDefaultProps) => {
+    const { LessonStore : lessonStore, InstructorStore : instructorStore, StudentStore : studentStore, lessons, lessonPrice, credit, disabled, instructorId } = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { control } = useForm();
     const history = useHistory();
@@ -34,7 +38,16 @@ const Index : FC<IDefaultProps> = inject('LessonStore')(observer((props : IDefau
         lessonStore!.lesson.link = callDoc.id;
         lessonStore!.lesson.instructor = instructorId;
         await lessonStore?.createLessonRequest();
+        await instructorStore!.increaseInstructorBalance(instructorId);
+        await studentStore!.decreasetudentCredit(lessonPrice);
         history.push('/lessons');
+    }
+
+    const handleChange=(event: any)=>{
+        if(event.target.files[0]){
+            let image = event.target.files[0];
+            lessonStore!.lesson.image = image;
+        }
     }
 
     return (
@@ -55,7 +68,7 @@ const Index : FC<IDefaultProps> = inject('LessonStore')(observer((props : IDefau
                                 </div>
                                 <div className='mb-3'>
                                     <p className='sub-text'>Soracağın sorunun fotoğrafını yüklemek ister misiniz ?</p>
-                                    <input type='file' className='mt-2 sub-text' multiple />
+                                    <input type='file' className='mt-2 sub-text' onChange={(event : any)=>handleChange(event)}/>
                                 </div>
                                 <div className='mb-3 lesson-information'>
                                     <p className='sub-text'>Ders ücreti <span className='text-bold'>{lessonPrice} TL</span> derse git'e tıkladığında hesabından çekilecektir. Ders linkini derslerim alanında görebilirsin. Link'e 2 dakika içinde tıklayarak derste olmanı bekliyoruz. İyi dersler...</p>

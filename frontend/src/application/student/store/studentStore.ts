@@ -104,8 +104,12 @@ class StudentStore{
         this.isLoading = false;
     }
 
-    @action async updateStudentCredit(lessonPrice : number){
-        await http.put(`api/student/update-credit`, { lessonPrice : lessonPrice })
+    @action async increaseStudentCredit(lessonPrice : number){
+        await http.put(`api/student/increase-credit`, { lessonPrice : lessonPrice })
+    }
+
+    @action async decreasetudentCredit(lessonPrice : number){
+        await http.put(`api/student/decrease-credit`, { lessonPrice : lessonPrice })
     }
 }
 

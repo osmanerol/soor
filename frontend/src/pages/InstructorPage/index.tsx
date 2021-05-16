@@ -138,7 +138,7 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'CommentStore', 'Stu
                                                             <img src={(item.instructor.image === '' || item.instructor.image === null) ? DefaultProfile : item.instructor.image} alt="instructor"/>
                                                         </div>
                                                         <div className="text-container">
-                                                            <Link className='sub-text' to={`/instructor/${item.instructor.slug}`}>{item.first_name} {item.last_name}</Link>
+                                                            <Link className='sub-text' to={`/instructor/${item.instructor.slug}`} onClick={() => window.scrollTo(0,0)}>{item.first_name} {item.last_name}</Link>
                                                             <small>{item.instructor.job}</small>
                                                         </div>
                                                     </div>

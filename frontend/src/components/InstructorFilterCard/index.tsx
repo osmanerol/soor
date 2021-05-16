@@ -20,11 +20,10 @@ interface IDefaultProps{
 const Index : FC<IDefaultProps> = (props : IDefaultProps) => {
     const { image, first_name, last_name, job, slug, rate, price, totalLesson, comment, status } = props;
     const history = useHistory();
-    const statusCode = status ? 1 : 0;
 
     return (
         <div className='instructor-filter-card' onClick={()=>history.push(`/instructor/${slug}`)}>
-            <span className={`status status-${statusCode}`}></span>
+            <span className={`status status-${status}`}></span>
             <div className="image-container">
                 <img src={(image === '' || image === null) ? DefaultProfile : image} alt="profile"/>
             </div>

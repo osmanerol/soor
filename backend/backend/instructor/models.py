@@ -12,7 +12,7 @@ class Instructor(models.Model):
     #image = models.ImageField(upload_to = 'images', null = True, blank = True)
     image = models.CharField(max_length = 500)
     slug = models.SlugField(unique = True, max_length = 100, editable = False)
-    status = models.IntegerField(default = 0, editable = False)
+    status = models.IntegerField(default = 0)
     university = models.CharField(max_length = 100)
     department = models.CharField(max_length = 100)
     job = models.CharField(max_length = 100)
@@ -22,7 +22,7 @@ class Instructor(models.Model):
     lessonPrice = models.IntegerField(default = 0)
     lectures = models.ManyToManyField(to = Lecture, blank = True)
     about = models.TextField()
-    balance = models.FloatField(default = 0, editable = False)
+    balance = models.FloatField(default = 0)
 
     def __str__(self):
         full_name = '{} {}'.format(self.user.first_name, self.user.last_name)

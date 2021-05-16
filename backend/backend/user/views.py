@@ -53,7 +53,6 @@ class UserLogoutAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        user = self
         if(self.request.user.is_instructor):
             instructor = Instructor.objects.get(user__id = self.request.user.id)
             instructor.status = 0

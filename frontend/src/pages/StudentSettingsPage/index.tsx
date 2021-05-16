@@ -60,9 +60,7 @@ const Index : FC<IDefaultProps> = inject('StudentStore', 'UserStore')(observer((
         const getStudent = async () => {
             await store!.getProfile();
         }
-        if(store!.student.id === 0){
-            getStudent();
-        }
+        getStudent();
     }, [store, history])
     
     useEffect(()=>{

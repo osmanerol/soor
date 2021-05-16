@@ -8,11 +8,13 @@ class Lesson(models.Model):
     student = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'lecture_user', blank = True)
     lecture = models.ForeignKey(Lecture, on_delete = models.CASCADE, related_name = 'lecture', blank = True)
     link = models.CharField(max_length = 100)
-    status = models.IntegerField(default = 0)
+    image = models.CharField(max_length = 500, null = True, blank = True)
+    instructorStatus = models.BooleanField(default = False)
+    studentStatus = models.BooleanField(default = False)
     created = models.DateField(editable = False)
 
     class Meta:
-        ordering = ['created']
+        ordering = ['-id']
 
     def __str__(self):
         return self.link

@@ -26,10 +26,18 @@ class StudentUpdateAPIView(RetrieveUpdateAPIView):
         object = get_object_or_404(queryset, id = self.request.user.id)
         return object
 
-class StudentUpdateCreditAPIView(APIView):
+class StudentIncreaseCreditAPIView(APIView):
+    
+    def put(self, request):
+        student = Student.objects.get(user__id = self.request.user.id)
+        student.credit += request.data['lessonPrice']
+        student.save()
+        return Response({ 'detail' : 'credit increased'})
+
+class StudentDecreaseCreditAPIView(APIView):
     
     def put(self, request):
         student = Student.objects.get(user__id = self.request.user.id)
         student.credit -= request.data['lessonPrice']
         student.save()
-        return Response({ 'detail' : 'credit updated'})
+        return Response({ 'detail' : 'credit decreased'})

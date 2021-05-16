@@ -32,7 +32,9 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
     }, [history])
     
     useEffect(()=>{
-        store!.createSignupUser();
+        if(localStorage.getItem('token') === null){
+            store!.createSignupUser();
+        }
     }, [store])
 
     const submitForm=async ()=>{

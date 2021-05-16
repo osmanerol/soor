@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import './App.scss';
-import { Switch, Route} from 'react-router-dom';
+import { Switch, Route, useLocation } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import { Navbar } from './components'; 
 import HomePage from './pages/HomePage';
@@ -26,7 +26,8 @@ interface IDefaultProps {
 
 const App : FC<IDefaultProps> = inject('UserStore', 'InstructorStore', 'StudentStore')(observer((props : IDefaultProps) => {
   const { UserStore : userStore, InstructorStore : instructorStore, StudentStore : studentStore } = props;
-  
+  const location = useLocation();
+
   useEffect(() => {
     const getUser = async () => {
       if(localStorage.getItem('token')){
@@ -44,7 +45,9 @@ const App : FC<IDefaultProps> = inject('UserStore', 'InstructorStore', 'StudentS
 
   return (
     <>
-      <Navbar />
+      {
+        !location.pathname.includes('call') && <Navbar />
+      }
       <Switch>
         <Route path='/' exact strict component={HomePage} />
         <Route path='/login' exact strict component={LoginPage} />

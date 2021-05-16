@@ -47,6 +47,10 @@ class LessonStatusUpdateAPIView(APIView):
 
     def put(self, request, pk):
         lesson = Lesson.objects.get(id = pk)
-        lesson.status += 1
+        print(request.data['userType'] == 1)
+        if request.data['userType'] == 1:
+            lesson.studentStatus = True 
+        elif request.data['userType'] == 2:
+            lesson.instructorStatus = True            
         lesson.save()
         return Response({ 'detail' : 'status updated' })

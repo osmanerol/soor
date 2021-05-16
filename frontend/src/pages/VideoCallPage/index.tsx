@@ -11,27 +11,28 @@ import { VscChromeClose } from 'react-icons/vsc';
 import { useHistory, useParams } from 'react-router-dom';
 import { firestore } from '../../services/firebaseConfig';
 import InstructorStore from '../../application/instructor/store/instructorStore';
-import StudentStore from '../../application/student/store/studentStore';
 
 interface IDefaultProps{
     InstructorStore? : typeof InstructorStore,
-    StudentStore? : typeof StudentStore
 }
 
-const Index : FC<IDefaultProps> = inject('InstructorStore', 'StudentStore')(observer((props : IDefaultProps) => {
-    const { InstructorStore : instructorStore, StudentStore : studentStore } = props;
+const Index : FC<IDefaultProps> = inject('InstructorStore')(observer((props : IDefaultProps) => {
+    const { InstructorStore : instructorStore} = props;
     const [cameraSetting, setCameraSetting] = useState(false);
     const [audioSetting, setAudioSetting] = useState(false);
     const [screenShareSetting, setScreenShareSetting] = useState(false);
     const [showPreview, setShowPreview] = useState<boolean>(true);
 	const [localStream, setLocalStream] = useState<any>(null);
     const [peerHasVideo, setPeerHasVideo] = useState<boolean>(false);
+    const [timer, setTimer] = useState<number>(0);
     let remoteStream : any = new MediaStream();
     const ownerVideo = useRef<any>();
     const previewVideo = useRef<any>();
 	const peerVideo = useRef<any>();
+    const senders = useRef<any>([]);
     const history = useHistory();
     const toast = useToast();
+    const increment = useRef<any>();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { callId } = useParams<{ callId : string}>();
 
@@ -48,10 +49,51 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'StudentStore')(obse
 
     // listen peer connection disconnected or not
     pc.current.oniceconnectionstatechange = () => {
+        if(pc.current.iceConnectionState === 'connected'){
+            startTime();
+        }
         if(pc.current.iceConnectionState === 'disconnected') {
             // peer baglantisi kesildi
             clickCloseButton();
+            stopTime();
         }
+    }
+
+    useEffect(() => {
+        if(timer === 540){
+            toast({
+                title: 'Bilgi',
+                description: 'Görüşme bir dakika sonra sonlanacaktır.',
+                status: 'info',
+                duration: 2000,
+                isClosable: true,
+            });
+        }
+        if(timer === 600){
+            clearInterval(increment.current);
+            clickCloseButton();
+        }
+    }, [timer])
+
+    const startTime = () => {
+        increment.current = setInterval(() => {
+            setTimer((timer : number) => timer+1);
+        }, 1000);
+    }
+    
+    const stopTime = () => {
+        clearInterval(increment.current);
+    }
+
+    const formatTime = () => {
+        const getSeconds = ("0" + timer % 60).slice(-2);
+        const minutes = Math.floor(timer / 60);
+        const getMinutes = ("0" + minutes % 60).slice(-2);
+        return `${getMinutes} : ${getSeconds}`;
+    }
+
+    window.onpopstate = () => {
+        clickCloseButton();
     }
 
     useEffect(() => {
@@ -141,7 +183,7 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'StudentStore')(obse
     const joinCall = async () => {
         setShowPreview(false);
         localStream.getTracks().forEach((track : any) => {
-            pc.current.addTrack(track, localStream);
+            senders.current.push(pc.current.addTrack(track, localStream));
         });
         const callDoc = firestore.collection('calls').doc(callId);
         const offerCandidates = callDoc.collection('offerCandidates');
@@ -185,8 +227,19 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'StudentStore')(obse
         }
     } 
     
-    const clickShareScreenButton = () => {
-        setScreenShareSetting(!screenShareSetting);
+    const clickShareScreenButton = async () => {
+        setScreenShareSetting(true);
+        //@ts-ignore
+        await navigator.mediaDevices.getDisplayMedia({cursor: true}).then((stream : any) => {
+            let screenTrack = stream.getTracks()[0];
+            if(screenTrack){
+                senders.current.find((sender : any) => sender.track.kind === 'video').replaceTrack(screenTrack);
+                screenTrack.onended = () => {
+                    senders.current.find((sender : any) => sender.track.kind === 'video').replaceTrack(localStream.getVideoTracks()[0]);
+                    setScreenShareSetting(false);
+                }
+            }
+        })
     }
 
     const leaveCall = async () => {
@@ -217,16 +270,9 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'StudentStore')(obse
         await leaveCall();
         if(localStorage.getItem('userType') === '1'){
             onOpen();
-            let lessonPrice = localStorage.getItem('lessonPrice');
-            if(lessonPrice){
-                await studentStore?.updateStudentCredit(parseInt(lessonPrice));
-                localStorage.removeItem('lessonPrice');
-            }
         }
-        else if(localStorage.getItem('userType') === '2'){
-            await instructorStore?.updateInstructorBalance();
-        }
-        else{
+        if(localStorage.getItem('userType') === '2'){
+            await instructorStore!.updateStatus(1);
             toast({
                 title: 'Bilgi',
                 description: 'Görüşme sonlandı. Anasayfaya yönlendiriliyorsunuz.',
@@ -239,12 +285,6 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'StudentStore')(obse
             }, 2000)
         }
     }
-
-    useEffect(() => {
-        return () => {
-            clickCloseButton();
-        }
-    }, [])
 
     return (
         <div className='video-call-page-container'>
@@ -266,6 +306,9 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'StudentStore')(obse
                         </div>
                     </div> :
                     <>
+                        <div className='timer'>
+                            { formatTime() }
+                        </div>
                         <div className='media-views-container'>
                             <div className='media-items'>
                                 <div className="peer-container">
@@ -298,7 +341,7 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'StudentStore')(obse
                             <div className="button-container">
                                 <Button className="item" leftIcon={cameraSetting ? <IoVideocam /> : <IoVideocamOff />} onClick={clickCameraButton} />
                                 <Button className="item" leftIcon={audioSetting ? <IoMdMic /> : <IoMdMicOff />} onClick={clickAudioButton} />
-                                <Button className="item" leftIcon={screenShareSetting ? <MdScreenShare /> : <MdStopScreenShare />} onClick={clickShareScreenButton} />
+                                <Button className="item" leftIcon={!screenShareSetting ? <MdScreenShare /> : <MdStopScreenShare />} onClick={clickShareScreenButton} disabled={screenShareSetting} />
                                 <Button className="item item-cancel" leftIcon={<VscChromeClose />} showConfirm={true} confirmText='Görüşmeyi sonlandırmak istediğinizden emin misiniz ?' onClick={clickCloseButton} />
                             </div>
                         </div>

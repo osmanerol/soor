@@ -11,6 +11,10 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        .timer{
+            display: flex;
+            justify-content: flex-end;
+        }
         .preview-container{
             height: 100%;
             display: flex;

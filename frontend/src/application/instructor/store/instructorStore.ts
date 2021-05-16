@@ -143,8 +143,16 @@ class InstructorStore{
         }
     }
 
-    @action async updateInstructorBalance(){
-        await http.put('api/instructor/update-balance');
+    @action async increaseInstructorBalance(instructorId : number){
+        await http.put('api/instructor/increase-balance', { instructorId : instructorId});
+    }
+
+    @action async decreaseInstructorBalance(instructorId : number){
+        await http.put('api/instructor/decrease-balance', { instructorId : instructorId});
+    }
+
+    @action async updateStatus(status : number){
+        await http.put('api/instructor/update-status', { status : status });
     }
 }
 
