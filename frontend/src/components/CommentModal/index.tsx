@@ -54,13 +54,27 @@ const Index : FC<IDefaultProps> = inject('CommentStore')(observer((props : IDefa
         }, 2000)
     }
 
+    const close = async () => {
+        onClose();
+        toast({
+            title: 'Bilgi',
+            description: 'Görüşme sonlandı. Anasayfaya yönlendiriliyorsunuz.',
+            status: 'info',
+            duration: 2000,
+            isClosable: true,
+        });
+        setTimeout(()=>{
+            history.push('/');
+        }, 2000)
+    }
+
     return (
         <div>
             <Modal onClose={onClose} size={'xl'} isOpen={isOpen}>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>Eğitmeni Puanla</ModalHeader>
-                    <ModalCloseButton />
+                    <ModalCloseButton onClick={close} />
                     <form onSubmit={handleSubmit(submitComment)}>
                         <ModalBody>
                                 <p className='sub-text'>Puan :</p>
@@ -75,7 +89,7 @@ const Index : FC<IDefaultProps> = inject('CommentStore')(observer((props : IDefa
                                 <TextArea id='content' selectRef={register} errors={errors} onChange={(event : any)=>{ store!.comment.content = event.target.value }} />
                         </ModalBody>    
                         <ModalFooter>
-                            <Button text='Vazgeç' size='sm' className='cancel-button' onClick={onClose} />
+                            <Button text='Vazgeç' size='sm' className='cancel-button' onClick={close} />
                             <Button text='Gönder' size='sm' className='send-button' type='submit' />
                         </ModalFooter>
                         </form>
