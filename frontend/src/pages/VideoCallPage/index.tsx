@@ -167,7 +167,7 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore')(obser
                 }
                 else {
                     // get navigator media
-                    await navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then(localStream => {
+                    await navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(localStream => {
                         setCameraSetting(true);
                         setAudioSetting(true);
                         setLocalStream(localStream);
