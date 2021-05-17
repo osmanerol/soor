@@ -11,8 +11,8 @@ const defaultLesson = {
     lecture : 0,
     link : '',
     image : '',
-    studentStatus : false,
-    instructorStatus : false
+    studentStatus : 0,
+    instructorStatus : 0
 }
 
 const defaultLessonList = {
@@ -71,12 +71,22 @@ class LessonStore{
         this.lessonList = { ...result.data, isLoading : false};
     }
 
-    @action async updateLessonStatus(id: number, userType : number){
-        await http.put(`api/lesson/update-status/${id}`, { userType : userType });
+    @action async updateLessonStatus(id: number, userType : number, status : number){
+        await http.put(`api/lesson/update-status/${id}`, { userType : userType, status : status });
     }
 
     @action async deleteLesson(id : number){
         await http.delete(`api/lesson/delete/${id}`);
+    }
+
+    @action async getLesson(callId: string) {
+        try {
+            const result = await http.get(`api/lesson/detail/${callId}`);
+            this.lesson = result.data;
+        }
+        catch (error) {
+            
+        }
     }
 }
 export default new LessonStore();

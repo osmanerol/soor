@@ -47,10 +47,15 @@ class LessonStatusUpdateAPIView(APIView):
 
     def put(self, request, pk):
         lesson = Lesson.objects.get(id = pk)
-        print(request.data['userType'] == 1)
         if request.data['userType'] == 1:
-            lesson.studentStatus = True 
+            lesson.studentStatus = request.data['status'] 
         elif request.data['userType'] == 2:
-            lesson.instructorStatus = True            
+            lesson.instructorStatus = request.data['status']           
         lesson.save()
         return Response({ 'detail' : 'status updated' })
+
+class LessonDetailAPIView(RetrieveAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer
+    permission_class = [IsAuthenticated]
+    lookup_field = 'link'

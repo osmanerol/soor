@@ -5,8 +5,8 @@ export interface LessonDto {
     link : string;
     lecture : any;
     image : any;
-    studentStatus : boolean;
-    instructorStatus : boolean;
+    studentStatus : number;
+    instructorStatus : number;
     created? : Date | null;
 }
 

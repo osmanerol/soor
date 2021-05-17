@@ -30,16 +30,22 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'CommentStore', 'Stu
 
     useEffect(()=>{
         commentStore.pageNumber = 1;
-        store!.getInstructor(slug);
-        commentStore!.clearCommentList();
-        commentStore!.getComments(slug);
+        const getInstructor = async () => {
+            await store!.getInstructor(slug);
+            getComments();
+        }
+        const getComments = async () => {
+            await commentStore!.clearCommentList();
+            await commentStore!.getComments(store!.instructorProfile.id);
+        }
         if(generalStore!.instructorList.results?.length === 0){
             generalStore!.getLastInstructor();
         }
+        getInstructor();
     }, [store, commentStore, generalStore, studentStore, slug])
 
     const loadMoreComment = async () =>{
-        commentStore.getComments(slug);
+        commentStore.getComments(store!.instructorProfile.id);
     }
 
     return (
@@ -66,14 +72,11 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'CommentStore', 'Stu
                                     <p className='job mt-1 text-center'>
                                         <span className='mr-2 sub-text'>{store!.instructorProfile.instructor.job}</span>
                                         <small>
-                                            {Array(5)
-                                                .fill('')
-                                                .map((_, i) => (
-                                                <StarIcon
-                                                    key={i}
-                                                    color={i+1 <= store!.instructorProfile.instructor.rate ? 'yellow.400' : 'gray.300'}
-                                                />
-                                            ))}
+                                            {
+                                                Array(5).fill('').map((_, i) => (
+                                                    <StarIcon key={i} color={i+1 <= store!.instructorProfile.instructor.rate ? 'yellow.400' : 'gray.300'} />
+                                                ))
+                                            }
                                         </small>    
                                     </p>
                                 </div>

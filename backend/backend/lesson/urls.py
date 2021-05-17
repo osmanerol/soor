@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import LessonCreateAPIView, LessonInstructorListAPIView, LessonStudentListAPIView, LessonDeleteAPIView, LessonStatusUpdateAPIView
+from .views import LessonCreateAPIView, LessonInstructorListAPIView, LessonStudentListAPIView, LessonDeleteAPIView, LessonStatusUpdateAPIView, LessonDetailAPIView
 
 urlpatterns = [
     path('create', LessonCreateAPIView.as_view(), name = 'create'),
@@ -7,4 +7,5 @@ urlpatterns = [
     path('instructor/list', LessonInstructorListAPIView.as_view(), name = 'list'),
     path('student/list', LessonStudentListAPIView.as_view(), name = 'list'),
     path('update-status/<pk>', LessonStatusUpdateAPIView.as_view(), name = 'update'),
+    path('detail/<link>', LessonDetailAPIView.as_view(), name = 'detail'),
 ]

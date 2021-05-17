@@ -1,23 +1,26 @@
 import React, { FC, useEffect, useState, useRef } from 'react';
 import './index.scss';
+import axios from 'axios';
 import { inject, observer } from 'mobx-react';
 import { useToast, useDisclosure } from '@chakra-ui/react';
 import { Container } from 'react-bootstrap';
 import { Button, CommentModal } from '../../components/index';
 import { IoVideocam, IoVideocamOff } from 'react-icons/io5';
 import { IoMdMic, IoMdMicOff } from 'react-icons/io';
-import { MdScreenShare, MdStopScreenShare } from 'react-icons/md';
+import { MdScreenShare, MdStopScreenShare, MdFileDownload } from 'react-icons/md';
 import { VscChromeClose } from 'react-icons/vsc';
 import { useHistory, useParams } from 'react-router-dom';
 import { firestore } from '../../services/firebaseConfig';
+import LessonStore from '../../application/lesson/store/lessonStore';
 import InstructorStore from '../../application/instructor/store/instructorStore';
 
 interface IDefaultProps{
+    LessonStore? : typeof LessonStore,
     InstructorStore? : typeof InstructorStore,
 }
 
-const Index : FC<IDefaultProps> = inject('InstructorStore')(observer((props : IDefaultProps) => {
-    const { InstructorStore : instructorStore} = props;
+const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore')(observer((props : IDefaultProps) => {
+    const { InstructorStore : instructorStore, LessonStore : lessonStore } = props;
     const [cameraSetting, setCameraSetting] = useState(false);
     const [audioSetting, setAudioSetting] = useState(false);
     const [screenShareSetting, setScreenShareSetting] = useState(false);
@@ -25,6 +28,8 @@ const Index : FC<IDefaultProps> = inject('InstructorStore')(observer((props : ID
 	const [localStream, setLocalStream] = useState<any>(null);
     const [peerHasVideo, setPeerHasVideo] = useState<boolean>(false);
     const [timer, setTimer] = useState<number>(0);
+    const [ownerName, setOwnerName] = useState<string>('');
+    const [peerName, setPeerName] = useState<string>('');
     let remoteStream : any = new MediaStream();
     const ownerVideo = useRef<any>();
     const previewVideo = useRef<any>();
@@ -46,11 +51,57 @@ const Index : FC<IDefaultProps> = inject('InstructorStore')(observer((props : ID
     };
 
     const pc = useRef<any>(new RTCPeerConnection(servers));
+    
+    const leaveCall = async () => {
+        //Stop track local stream if there is any
+        if (localStream){
+            localStream.getTracks().forEach((track : any) => {
+                track.stop();
+            });
+        }
+        //Stop track remote stream if there is any
+        if(remoteStream){
+            remoteStream.getTracks().forEach((track : any) => {
+                track.stop();
+            });
+        }
+        //Close peer connection
+        if(pc) {
+            pc.current.close();
+        }
+        //Delete call document from db
+        if(callId) {
+            const callDoc = firestore.collection('calls').doc(callId);
+            callDoc.delete();
+        }
+    }
+
+    const clickCloseButton = async () => {
+        await leaveCall();
+        if(localStorage.getItem('userType') === '1'){
+            onOpen();
+        }
+        if(localStorage.getItem('userType') === '2'){
+            await instructorStore!.updateStatus(1);
+            toast({
+                title: 'Bilgi',
+                description: 'Görüşme sonlandı. Anasayfaya yönlendiriliyorsunuz.',
+                status: 'info',
+                duration: 2000,
+                isClosable: true,
+            });
+            setTimeout(()=>{
+                history.push('/');
+            }, 2000)
+        }
+    }
 
     // listen peer connection disconnected or not
-    pc.current.oniceconnectionstatechange = () => {
+    pc.current.oniceconnectionstatechange = async () => {
         if(pc.current.iceConnectionState === 'connected'){
             startTime();
+            await lessonStore?.updateLessonStatus(lessonStore!.lesson.id!, 1, 2);
+            await lessonStore?.updateLessonStatus(lessonStore!.lesson.id!, 2, 2);
         }
         if(pc.current.iceConnectionState === 'disconnected') {
             // peer baglantisi kesildi
@@ -73,7 +124,7 @@ const Index : FC<IDefaultProps> = inject('InstructorStore')(observer((props : ID
             clearInterval(increment.current);
             clickCloseButton();
         }
-    }, [timer])
+    }, [timer, toast])
 
     const startTime = () => {
         increment.current = setInterval(() => {
@@ -98,25 +149,72 @@ const Index : FC<IDefaultProps> = inject('InstructorStore')(observer((props : ID
 
     useEffect(() => {
         document.title = 'Soor - Arama';
-        const getLocalStreamData = async () => {
-            await navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then(localStream => {
-                setCameraSetting(true);
-                setAudioSetting(true);
-                setLocalStream(localStream);
-                previewVideo.current.srcObject = localStream;
-            }).catch(error => {
+        const getLesson = async () => {
+            await lessonStore!.createLesson();
+            await lessonStore!.getLesson(callId);
+            if (lessonStore!.lesson.id !== 0) {
+                if (lessonStore!.lesson.instructorStatus === 2 || lessonStore!.lesson.studentStatus === 2) {
+                    toast({
+                        title: 'Bilgi',
+                        description: 'Link aktif veya doğru değil.',
+                        status: 'info',
+                        duration: 2000,
+                        isClosable: true,
+                    });
+                    setTimeout(()=>{
+                        history.push('/');
+                    }, 2000)
+                }
+                else {
+                    // get navigator media
+                    await navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then(localStream => {
+                        setCameraSetting(true);
+                        setAudioSetting(true);
+                        setLocalStream(localStream);
+                        previewVideo.current.srcObject = localStream;
+                    }).catch(error => {
+                        toast({
+                            title: 'Hata',
+                            description: 'Tarayıcınızın kamera ve mikrofon ayarlarına izin veriniz.',
+                            status: 'error',
+                            duration: 2000,
+                            isClosable: true,
+                        });
+                    }) ;
+                    if(localStorage.getItem('userType') === '1'){
+                        setOwnerName(lessonStore!.lesson.student.first_name + ' ' + lessonStore!.lesson.student.last_name);
+                        setPeerName(lessonStore!.lesson.instructor.first_name + ' ' + lessonStore!.lesson.instructor.last_name);
+                    }
+                    else if(localStorage.getItem('userType') === '2'){
+                        setOwnerName(lessonStore!.lesson.instructor.first_name + ' ' + lessonStore!.lesson.instructor.last_name);
+                        setPeerName(lessonStore!.lesson.student.first_name + ' ' + lessonStore!.lesson.student.last_name);
+                    }
+                }
+            }
+            else {
+                await leaveCall();
+                if (localStorage.getItem('userType') === '2') {
+                    instructorStore!.updateStatus(1);
+                }
                 toast({
-                    title: 'Hata',
-                    description: 'Tarayıcınızın kamera ve mikrofon ayarlarına izin veriniz.',
-                    status: 'error',
+                    title: 'Bilgi',
+                    description: 'Link aktif veya doğru değil.',
+                    status: 'info',
                     duration: 2000,
                     isClosable: true,
                 });
-            }) ;
-        } 
-        getLocalStreamData();
-
+                setTimeout(async ()=>{
+                    history.push('/');
+                }, 2000)
+            }
+        }
+        getLesson();
     }, [toast])
+    
+    // to get lesson information
+    useEffect(() => {
+    }, [callId, lessonStore, history, instructorStore])
+
 
     // get peer's media stream
     pc.current.ontrack = (event : any) => {
@@ -242,48 +340,18 @@ const Index : FC<IDefaultProps> = inject('InstructorStore')(observer((props : ID
         })
     }
 
-    const leaveCall = async () => {
-        //Stop track local stream if there is any
-        if (localStream){
-            localStream.getTracks().forEach((track : any) => {
-                track.stop();
-            });
-        }
-        //Stop track remote stream if there is any
-        if(remoteStream){
-            remoteStream.getTracks().forEach((track : any) => {
-                track.stop();
-            });
-        }
-        //Close peer connection
-        if(pc) {
-            pc.current.close();
-        }
-        //Delete call document from db
-        if(callId) {
-            const callDoc = firestore.collection('calls').doc(callId);
-            callDoc.delete();
-        }
-    }
-
-    const clickCloseButton = async () => {
-        await leaveCall();
-        if(localStorage.getItem('userType') === '1'){
-            onOpen();
-        }
-        if(localStorage.getItem('userType') === '2'){
-            await instructorStore!.updateStatus(1);
-            toast({
-                title: 'Bilgi',
-                description: 'Görüşme sonlandı. Anasayfaya yönlendiriliyorsunuz.',
-                status: 'info',
-                duration: 2000,
-                isClosable: true,
-            });
-            setTimeout(()=>{
-                history.push('/');
-            }, 2000)
-        }
+    const downloadImage = () => {
+        axios.get(`${lessonStore!.lesson.image}`, { 
+            responseType: 'blob',
+            
+        }).then(response => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `question-${lessonStore!.lesson.id}.jpg`);
+            document.body.appendChild(link);
+            link.click();
+        });
     }
 
     return (
@@ -299,7 +367,7 @@ const Index : FC<IDefaultProps> = inject('InstructorStore')(observer((props : ID
                                     <>
                                         <video playsInline ref={previewVideo} className='video-element' muted={true} autoPlay /> 
                                     </> :
-                                    <p className='text'>Veli Kurt</p> 
+                                    <p className='text'>{ ownerName }</p> 
                                 }
                             </div>
                             <Button text='Görüşmeye katıl' className='text-center' disabled={!cameraSetting} onClick={joinCall} />
@@ -317,10 +385,10 @@ const Index : FC<IDefaultProps> = inject('InstructorStore')(observer((props : ID
                                         <>
                                             <video playsInline ref={peerVideo} autoPlay />
                                             <div className="name-container">
-                                                <small className='name'>Veli Kurt</small>
+                                                <small className='name'>{ peerName }</small>
                                             </div>
                                         </> :
-                                        <p className='text'>Ali Kurt</p>
+                                        <p className='text'>{ peerName }</p>
                                     }
                                 </div>
                                 <div className="owner-container">
@@ -329,10 +397,10 @@ const Index : FC<IDefaultProps> = inject('InstructorStore')(observer((props : ID
                                         <>
                                             <video playsInline ref={ownerVideo} className='video-element' muted={true} autoPlay /> 
                                             <div className="name-container">
-                                                <small className='name'>Veli Kurt</small>
+                                                <small className='name'>{ ownerName }</small>
                                             </div>
                                         </> :
-                                        <p className='text'>Veli Kurt</p> 
+                                        <p className='text'>{ ownerName }</p> 
                                     }
                                 </div>
                             </div>
@@ -342,12 +410,13 @@ const Index : FC<IDefaultProps> = inject('InstructorStore')(observer((props : ID
                                 <Button className="item" leftIcon={cameraSetting ? <IoVideocam /> : <IoVideocamOff />} onClick={clickCameraButton} />
                                 <Button className="item" leftIcon={audioSetting ? <IoMdMic /> : <IoMdMicOff />} onClick={clickAudioButton} />
                                 <Button className="item" leftIcon={!screenShareSetting ? <MdScreenShare /> : <MdStopScreenShare />} onClick={clickShareScreenButton} disabled={screenShareSetting} />
+                                <Button className="item" leftIcon={<MdFileDownload />} onClick={downloadImage} disabled={lessonStore!.lesson.image === ''} />
                                 <Button className="item item-cancel" leftIcon={<VscChromeClose />} showConfirm={true} confirmText='Görüşmeyi sonlandırmak istediğinizden emin misiniz ?' onClick={clickCloseButton} />
                             </div>
                         </div>
                     </>
                 }
-                <CommentModal isOpen={isOpen} onClose={onClose} />   
+                <CommentModal isOpen={isOpen} onClose={onClose} student={lessonStore!.lesson.student.id} instructor={lessonStore!.lesson.instructor.id} />   
             </Container> 
         </div>
     );

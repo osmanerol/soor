@@ -1,11 +1,10 @@
 from django.db import models
-from django.utils import timezone
-from instructor.models import Instructor
+import datetime
 from user.models import User
 
 class Comment(models.Model):
     student = models.ForeignKey(User, on_delete = models.CASCADE)
-    instructor = models.ForeignKey(Instructor, on_delete = models.CASCADE, related_name = 'instructor')
+    instructor = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'user')
     content = models.TextField()
     created = models.DateField(editable = False)
 
@@ -17,5 +16,5 @@ class Comment(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.created = timezone.now()
+            self.created = datetime.date.today()
         return super(Comment, self).save(*args, **kwargs)

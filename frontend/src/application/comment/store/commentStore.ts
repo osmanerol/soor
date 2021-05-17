@@ -8,7 +8,7 @@ const defaultComment : CommentCreateDto = {
     student : 0,
     content : '',
     created : null,
-    point : 1
+    point : 3
 }
 
 class CommentStore{
@@ -26,11 +26,11 @@ class CommentStore{
         this.pageNumber = 1;
     }
 
-    @action async getComments(instructor_slug : string){
+    @action async getComments(instructor_id : number){
         this.commentList.isLoading = true;
         this.error = '';
         try{
-            const result = await http.get(`/api/comment/list/${instructor_slug}?page=${this.pageNumber}`);
+            const result = await http.get(`/api/comment/list/${instructor_id}?page=${this.pageNumber}`);
             this.commentList = { ...result.data, results : [...this.commentList.results!, ...toJS(result.data.results)], isLoading : false};
             this.pageNumber += 1;
         }
@@ -48,8 +48,8 @@ class CommentStore{
         this.comment = defaultComment;
     }
 
-    @action makeComment(){
-        
+    @action async makeComment(){
+        await http.post('api/comment/create', this.comment  );
     }
 }
 

@@ -7,19 +7,21 @@ import { TextArea } from '../index';
 import { useHistory } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
+import { StarIcon } from '@chakra-ui/icons';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'; 
-import cx from 'classnames';
 import CommentStore from '../../application/comment/store/commentStore';
 
 interface IDefaultProps{
     CommentStore? : typeof CommentStore,
+    student : number,
+    instructor : number,
     isOpen : any,
     onClose : any
 }
 
 const Index : FC<IDefaultProps> = inject('CommentStore')(observer((props : IDefaultProps) => {
-    const { CommentStore : store, isOpen, onClose } = props;
+    const { CommentStore : store, isOpen, onClose, student, instructor } = props;
     const history = useHistory();
     const toast = useToast();
 
@@ -36,6 +38,9 @@ const Index : FC<IDefaultProps> = inject('CommentStore')(observer((props : IDefa
     })
 
     const submitComment=()=>{
+        store!.comment.student = student;
+        store!.comment.instructor = instructor;
+        store!.makeComment();
         onClose();
         toast({
             title: 'Bilgi',
@@ -51,7 +56,7 @@ const Index : FC<IDefaultProps> = inject('CommentStore')(observer((props : IDefa
 
     return (
         <div>
-            <Modal onClose={onClose} size={'xl'} isOpen={isOpen }>
+            <Modal onClose={onClose} size={'xl'} isOpen={isOpen}>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>Eğitmeni Puanla</ModalHeader>
@@ -61,8 +66,9 @@ const Index : FC<IDefaultProps> = inject('CommentStore')(observer((props : IDefa
                                 <p className='sub-text'>Puan :</p>
                                 <div className='point'>
                                     {
-                                        Array(5).fill(null).map((item : any, index : number) =>
-                                        <span className={cx('item text', { 'active' : index < store!.comment.point })} key={index} onClick={()=>{ store!.comment.point = index+1 }}>{index+1}</span>)
+                                        Array(5).fill('').map((_, index) => (
+                                            <StarIcon key={index} color={index < store!.comment.point ? 'yellow.400' : 'gray.300'} onClick={()=>{ store!.comment.point = index+1 }} />
+                                        ))
                                     }
                                 </div>
                                 <p className='sub-text'>Yorum :</p>

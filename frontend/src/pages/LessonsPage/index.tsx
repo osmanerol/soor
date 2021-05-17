@@ -53,21 +53,20 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore', 'Stud
     }
     
     const goCallPage = async (lessonItem : any) => {
-        let condition = userType === 1 ? !lessonItem.studentStatus : !lessonItem.instructorStatus;
-        if(condition){
+        if(userType === 1 ? lessonItem.studentStatus === 0 : lessonItem.instructorStatus === 0){
             if(userType === 1){
-                await store!.updateLessonStatus(lessonItem.id, 1);
+                await store!.updateLessonStatus(lessonItem.id, 1, 1);
             }
             else if(userType === 2){
-                await store!.updateLessonStatus(lessonItem.id, 2);
+                await store!.updateLessonStatus(lessonItem.id, 2, 1);
             }
             store!.lessonList.results = store!.lessonList.results!.map(item => {
                 if(item.id === lessonItem.id){
                     if(userType === 1){
-                        item.studentStatus = true;
+                        item.studentStatus = 1;
                     }
                     else if(userType === 2){
-                        item.instructorStatus = true;
+                        item.instructorStatus = 1;
                     }
                 }
                 return item;
@@ -107,16 +106,20 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore', 'Stud
                                     <tbody>
                                         {
                                             store!.lessonList.results!.map((item : any, index : number)=>(
-                                                <tr key={index} className={cx({'bg-light' : userType === 1 ? item.studentStatus : item.instructorStatus})}>
+                                                <tr key={index} className={cx({'bg-light' : userType === 1 ? item.studentStatus !== 0 : item.instructorStatus !== 0})}>
                                                     <td className='sub-text'>{item.created}</td>
                                                     <td className='sub-text'>{item.lecture.name}</td>
                                                     <td className='sub-text'>
-                                                        <Link to={`/instructor/${item.instructor.slug}`} >{localStorage.getItem('userType') === '1' ? `${item.instructor.first_name} ${item.instructor.last_name}` : `${item.student.first_name} ${item.student.last_name}`}</Link>
+                                                        {
+                                                            localStorage.getItem('userType') === '1' ? 
+                                                            <Link to={`/instructor/${item.instructor.slug}`} >{`${item.instructor.first_name} ${item.instructor.last_name}`}</Link> :
+                                                            `${item.student.first_name} ${item.student.last_name}`
+                                                        }
                                                     </td>
-                                                    <td className={cx({'sub-text' : true, 'pointer' : userType === 1 ? !item.studentStatus : !item.instructorStatus })} onClick={() => goCallPage(item)}>Derse git</td>
+                                                    <td className={cx({'sub-text' : true, 'pointer' : userType === 1 ? item.studentStatus ===  0 : item.instructorStatus === 0})} onClick={() => goCallPage(item)}>Derse git</td>
                                                     {
                                                         userType === 1 &&
-                                                        <td className={cx({'sub-text' : true, 'pointer' :!item.instructorStatus })} onClick={() => cancelLesson(item)}>İptal Et</td>
+                                                        <td className={cx({'sub-text' : true, 'pointer' :item.instructorStatus === 0 })} onClick={() => cancelLesson(item)}>İptal Et</td>
                                                     }
                                                 </tr>
                                             )) 
@@ -124,7 +127,7 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore', 'Stud
                                     </tbody>
                                 </Table>    
                                 {
-                                    (!store!.lessonList.isLoading && store!.lessonList.results!.length > 10) &&
+                                    (!store!.lessonList.isLoading && store!.lessonList.count > 10) &&
                                     <small className='pagination-container mt-3'>
                                         <Pagination>
                                             <Pagination.First onClick={()=>{setSearchPage(1)}} />

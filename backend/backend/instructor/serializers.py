@@ -7,7 +7,7 @@ from lecture.models import Lecture
 class InstructorSerializer(ModelSerializer):
     class Meta:
         model = Instructor
-        exclude = ['user']
+        exclude = ['user', 'balance']
         depth = 1
 
 class UserSerializer(ModelSerializer):
@@ -20,7 +20,7 @@ class UserSerializer(ModelSerializer):
 class InstructorUpdateSerializer(ModelSerializer):
     class Meta:
         model = Instructor
-        fields = ['slug', 'image', 'university', 'department', 'job', 'lessonPrice', 'about', 'lectures']
+        fields = ['slug', 'image', 'university', 'department', 'job', 'lessonPrice', 'about', 'lectures', 'balance']
 
 class UserUpdateSerializer(ModelSerializer):
     instructor = InstructorUpdateSerializer()
