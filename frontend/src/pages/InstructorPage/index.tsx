@@ -30,6 +30,12 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'CommentStore', 'Stu
 
     useEffect(()=>{
         commentStore.pageNumber = 1;
+        const getStudent = async () => {
+            await studentStore?.getProfile();
+        }
+        if(localStorage.getItem('userType') === '1'){
+           getStudent();
+        }
         const getInstructor = async () => {
             await store!.getInstructor(slug);
             getComments();

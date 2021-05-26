@@ -10,7 +10,8 @@ import { IoMdMic, IoMdMicOff } from 'react-icons/io';
 import { MdScreenShare, MdStopScreenShare, MdFileDownload } from 'react-icons/md';
 import { VscChromeClose } from 'react-icons/vsc';
 import { useHistory, useParams } from 'react-router-dom';
-import { firestore } from '../../services/firebaseConfig';
+import { firestore, storage } from '../../services/firebaseConfig';
+import fileDownload from 'js-file-download';
 import LessonStore from '../../application/lesson/store/lessonStore';
 import InstructorStore from '../../application/instructor/store/instructorStore';
 
@@ -51,7 +52,7 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore')(obser
     };
 
     const pc = useRef<any>(new RTCPeerConnection(servers));
-    
+
     const leaveCall = async () => {
         //Stop track local stream if there is any
         if (localStream){
@@ -339,19 +340,13 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore')(obser
             }
         })
     }
-
+    
     const downloadImage = () => {
-        axios.get(`${lessonStore!.lesson.image}`, { 
-            responseType: 'blob',
-            
-        }).then(response => {
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', `question-${lessonStore!.lesson.id}.jpg`);
-            document.body.appendChild(link);
-            link.click();
-        });
+        axios.get(lessonStore!.lesson.image, {
+            responseType : 'blob'
+        }).then((response : any) => {
+            fileDownload(response.data, `${peerName}.jpg`);
+        })
     }
 
     return (
