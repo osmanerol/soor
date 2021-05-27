@@ -104,7 +104,7 @@ const Index : FC<IDefaultProps> = inject('LectureStore')(observer((props : IDefa
                                     <Pagination.First onClick={()=>clickFilter(1)} />
                                     <Pagination.Prev onClick={()=>clickFilter(searchPage > 1 ? searchPage-1 : 1)} />
                                     <Pagination.Item onClick={()=>clickFilter(searchPage)}>{searchPage}</Pagination.Item>
-                                    <Pagination.Next onClick={()=>clickFilter(searchPage > 0 ? searchPage+1 : 1)}  />
+                                    <Pagination.Next onClick={()=>clickFilter(searchPage === store!.instructorList.count ? searchPage : searchPage+1)}  />
                                     <Pagination.Last onClick={()=>clickFilter(parseInt((store!.instructorList.count/12).toString())+1)}  />
                                 </Pagination>
                             </small>

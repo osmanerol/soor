@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 ]
 
 # 2 for local, 3 for product
-SITE_ID = 2
+SITE_ID = 1
 REST_USE_JWT = True
 AUTH_USER_MODEL = 'user.User'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
