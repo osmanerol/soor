@@ -35,7 +35,7 @@ const Index : FC<IDefaultProps> = inject('LectureStore')(observer((props : IDefa
     },[store])
 
     const clickFilter=(page : any = null)=>{
-        if(page <= store!.instructorList.count){
+        if(page <= Math.ceil(store!.instructorList.count / 12)){
             setSearchPage(page);
             window.scrollTo(0,0);
             if(selectedLecture){
