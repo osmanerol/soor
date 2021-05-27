@@ -35,12 +35,14 @@ const Index : FC<IDefaultProps> = inject('LectureStore')(observer((props : IDefa
     },[store])
 
     const clickFilter=(page : any = null)=>{
-        setSearchPage(page);
-        window.scrollTo(0,0);
-        if(selectedLecture){
-            setSelectedLectureName(store!.lectureList.results.find(item=> item.id === selectedLecture)!.name)
+        if(page <= store!.instructorList.count){
+            setSearchPage(page);
+            window.scrollTo(0,0);
+            if(selectedLecture){
+                setSelectedLectureName(store!.lectureList.results.find(item=> item.id === selectedLecture)!.name)
+            }
+            store?.getInstructor({ name : searchText, lecture_id : selectedLecture, page : page, status : searchStatus.current});
         }
-        store?.getInstructor({ name : searchText, lecture_id : selectedLecture, page : page, status : searchStatus.current});
     }
 
     return (
@@ -104,7 +106,7 @@ const Index : FC<IDefaultProps> = inject('LectureStore')(observer((props : IDefa
                                     <Pagination.First onClick={()=>clickFilter(1)} />
                                     <Pagination.Prev onClick={()=>clickFilter(searchPage > 1 ? searchPage-1 : 1)} />
                                     <Pagination.Item onClick={()=>clickFilter(searchPage)}>{searchPage}</Pagination.Item>
-                                    <Pagination.Next onClick={()=>clickFilter(searchPage === store!.instructorList.count ? searchPage : searchPage+1)}  />
+                                    <Pagination.Next onClick={()=>clickFilter(searchPage > 0 ? searchPage+1 : 1)}  />
                                     <Pagination.Last onClick={()=>clickFilter(parseInt((store!.instructorList.count/12).toString())+1)}  />
                                 </Pagination>
                             </small>
