@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'instructor'
 ]
 
-SITE_ID = 1
+# 2 for local, 3 for product
+SITE_ID = 2
 REST_USE_JWT = True
 AUTH_USER_MODEL = 'user.User'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
@@ -54,6 +55,15 @@ OLD_PASSWORD_FIELD_REQUIRED = True
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000', 'https://localhost:3000', 'https://192.168.1.40:3000', 'http://192.168.1.40:3000', 'https://soor.vercel.app'
 ]
+
+# change password by email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = 'soorappdev@gmail.com'
+EMAIL_HOST_PASSWORD = 'leos2021'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -62,12 +62,12 @@ class StudentStore{
         }
         */
         formData.append('student.credit', (this.student.student.credit).toString());
-        if(typeof this.student.student.image === 'object'){
+        if(typeof this.student.student.image === 'object' && this.student.student.image !== null){
             await this.uploadImageToFireStore();
             formData.append('student.image', this.student.student.image);
         }
         else{
-            formData.append('student.image', this.student.student.image);
+            formData.append('student.image', this.student.student.image === null ? '' : this.student.student.image);
         }
         try{
             const result = await http.put(`/api/student/update`, formData, {

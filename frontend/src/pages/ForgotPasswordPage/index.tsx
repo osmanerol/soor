@@ -2,8 +2,8 @@ import React, { FC, useEffect } from 'react';
 import './index.scss';
 import { useToast } from '@chakra-ui/react';
 import { observer, inject } from 'mobx-react';
-import { Input, Button, PasswordInput, Footer } from '../../components';
-import { Link, useHistory } from 'react-router-dom';
+import { Input, Button, Footer } from '../../components';
+import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import UserStore from '../../application/user/store/userStore';
 
@@ -18,7 +18,7 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
     const { handleSubmit } = useForm();
 
     useEffect(()=>{
-        document.title = 'Soor - Giriş Yap';
+        document.title = 'Soor - Şifremi Unuttum';
         window.scrollTo(0,0);
     }, [store])
 
@@ -30,13 +30,13 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
 
     useEffect(()=>{
         if(localStorage.getItem('token') === null){
-            store!.createLoginUser();
+            store!.passwordResetEmail = '';
         }
     }, [store])
 
     const submitForm=async ()=>{
-        if(store!.loginUser.email !== '' && store!.loginUser.password !== ''){
-            await store!.login();
+        if(store!.passwordResetEmail !== ''){
+            await store!.passwordReset();
             if(store?.error){
                 let error = Object.values(store?.error);
                 toast({
@@ -50,14 +50,14 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
             }
             else{
                 toast({
-                    title: 'Giriş başarılı',
-                    description: 'Anasayfaya yönlendiriliyorsunuz.',
+                    title: 'Başarılı',
+                    description: 'Şifre sıfırlama linki mailinize gönderildi.',
                     status: 'success',
                     duration: 2000,
                     isClosable: true,
                 });
                 setTimeout(()=>{
-                    history.push('/');
+                    history.push('/login');
                 }, 2000);
             }
         }
@@ -74,22 +74,15 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
 
     return (
         <>
-            <div className='login-page-container'>
+            <div className='forgot-password-page-container'>
                 <div className='form-content'>
                     <div className='text-center'>
-                        <h2 className='title'>Giriş Yap</h2>
+                        <h2 className='title'>Şifremi Unuttum</h2>
                     </div>
                     <form className='form' onSubmit={handleSubmit(submitForm)}>
-                        <Input type='email' variant='outline' placeholder='E-posta' value={store!.loginUser.email} className='w-100' onChange={(event : any)=>{ store!.loginUser.email = event.target.value.replace(' ', ''); }} />
-                        <PasswordInput variant='outline' placeholder='Şifre' className='mt-2 w-100' onChange={(event : any)=>{
-                            store!.loginUser.password = event.target.value;
-                        }} />
-                        <small className='forget-password text-right my-2'><Link to='/forgot-password'>Şifremi unuttum</Link></small>
-                        <Button text={'Giriş Yap'}  className='submit-button' type='submit' size='sm' disabled={store?.isLoading} isLoading={store?.isLoading} />
+                        <Input type='email' variant='outline' placeholder='E-posta' value={store!.passwordResetEmail} className='w-100 my-4' onChange={(event : any)=>{ store!.passwordResetEmail = event.target.value.replace(' ', ''); }} />
+                        <Button text={'Şifre Sıfırla'}  className='submit-button' type='submit' size='sm' disabled={store?.isLoading} isLoading={store?.isLoading} />
                     </form>
-                    <div className='go-other-sign text-center mt-4'>
-                        <small className='text-muted'>Hesabınız yok mu ? <Link to='/signup'>Kaydol</Link></small>
-                    </div>
                 </div>
             </div>
             <Footer />

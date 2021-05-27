@@ -1,0 +1,94 @@
+.forgot-password-page-container{
+    margin-top: 70px;
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .form-content{
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        .type-container{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            .type-item{
+                display: flex;
+                flex-direction: column;
+                border: 1px solid transparent;
+                width: 44%;
+                padding: 20px;
+                p{
+                    font-size: 14px;
+                }
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+            .active{
+                border-color: #3b405d;
+                border-width: 2px;
+                background-color: #fff;
+            }
+        }
+        .form{
+            display: flex;
+            flex-direction: column;
+            .full-name-container{
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                & > *{
+                    width: 48%! important;
+                }
+            }
+            .submit-button{
+                .chakra-button{
+                    background-color: #488bf8;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 576px){
+    .forgot-password-page-container{
+        .form-content{
+            width: 90%;
+            min-height: 400px;
+        }
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px){
+    .forgot-password-page-container{
+        .form-content{
+            width: 400px;
+            height: 400px;
+        }
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px){
+    .forgot-password-page-container{
+        .form-content{
+            width: 400px;
+        }
+    }
+}
+
+@media screen and (min-width: 992px){
+    .forgot-password-page-container{
+        .form-content{
+            width: 440px;
+        }
+    }
+}

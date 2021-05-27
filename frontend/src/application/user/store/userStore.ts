@@ -34,6 +34,7 @@ class UserStore{
     loginUser! : LoginDto;
     signupUser! : SignupDto;
     error! : any;
+    passwordResetEmail : string;
     isLoading! : boolean;
 
     constructor() {
@@ -42,6 +43,7 @@ class UserStore{
         this.loginUser = defaultLoginUser;
         this.signupUser = defaultSignupUser;
         this.error = null;
+        this.passwordResetEmail = '';
         this.isLoading = false;
     }
 
@@ -109,6 +111,21 @@ class UserStore{
         localStorage.clear();
         this.signupUser = defaultSignupUser;
         this.error = null;
+    }
+
+    @action async passwordReset(){
+        this.error = '';
+        try{
+            const formData = new FormData();
+            formData.append('email',  this.passwordResetEmail);
+            formData.append('csrfmiddlewaretoken', 'HOPGP478oVjSmC5auyshZXyIx4Nlq53Kn0PwDNV9lzzl0bKWBw72dVuyZpIft8G5');
+            await http.post('/reset_password', formData, {
+                xsrfCookieName : 'srftoken=ovv0Y80sw9KqUdqAHHjHQrwkc9VwvqYljVIL1MT7NT5cbpcLPDiJbiraNKDgKM8P'
+            });
+        }
+        catch(error : any){
+            this.error = error;
+        }
     }
     
 }

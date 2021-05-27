@@ -105,12 +105,12 @@ class InstructorStore{
                 return item;
             })
         }
-        if(typeof this.instructor.instructor.image === 'object'){
+        if(typeof this.instructor.instructor.image === 'object' && this.instructor.instructor.image !== null){
             await this.uploadImageToFireStore();
             formData.append('instructor.image', this.instructor.instructor.image);
         }
         else{
-            formData.append('instructor.image', this.instructor.instructor.image);
+            formData.append('instructor.image', this.instructor.instructor.image === null ? '' : this.instructor.instructor.image);
         }
         try{
             const result = await http.put(`/api/instructor/update`, formData, {
