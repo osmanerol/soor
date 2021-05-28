@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import './index.scss';
 import { useToast } from '@chakra-ui/react';
 import { observer, inject } from 'mobx-react';
@@ -13,6 +13,7 @@ interface IDefaultProps {
 
 const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefaultProps) => {
     const { UserStore : store } = props;
+    const [email, setEmail] = useState('');
     const toast = useToast();
     const history= useHistory();
     const { handleSubmit } = useForm();
@@ -28,15 +29,9 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
         }
     }, [history])
 
-    useEffect(()=>{
-        if(localStorage.getItem('token') === null){
-            store!.passwordResetEmail = '';
-        }
-    }, [store])
-
     const submitForm=async ()=>{
-        if(store!.passwordResetEmail !== ''){
-            await store!.passwordReset();
+        if(email !== ''){
+            await store!.passwordReset(email);
             if(store?.error){
                 let error = Object.values(store?.error);
                 toast({
@@ -56,9 +51,7 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
                     duration: 2000,
                     isClosable: true,
                 });
-                setTimeout(()=>{
-                    history.push('/login');
-                }, 2000);
+                setEmail('');   
             }
         }
         else{
@@ -74,13 +67,13 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
 
     return (
         <>
-            <div className='forgot-password-page-container'>
+            <div className='forgot-password-confirm-page-container'>
                 <div className='form-content'>
                     <div className='text-center'>
                         <h2 className='title'>Şifremi Unuttum</h2>
                     </div>
                     <form className='form' onSubmit={handleSubmit(submitForm)}>
-                        <Input type='email' variant='outline' placeholder='E-posta' value={store!.passwordResetEmail} className='w-100 my-4' onChange={(event : any)=>{ store!.passwordResetEmail = event.target.value.replace(' ', ''); }} />
+                        <Input type='email' variant='outline' placeholder='E-posta' value={email} className='w-100 my-4' onChange={(event : any)=>{ setEmail(event.target.value.replace(' ', '')) }} />
                         <Button text={'Şifre Sıfırla'}  className='submit-button' type='submit' size='sm' disabled={store?.isLoading} isLoading={store?.isLoading} />
                     </form>
                 </div>

@@ -10,7 +10,7 @@ import { IoMdMic, IoMdMicOff } from 'react-icons/io';
 import { MdScreenShare, MdStopScreenShare, MdFileDownload } from 'react-icons/md';
 import { VscChromeClose } from 'react-icons/vsc';
 import { useHistory, useParams } from 'react-router-dom';
-import { firestore, storage } from '../../services/firebaseConfig';
+import { firestore } from '../../services/firebaseConfig';
 import fileDownload from 'js-file-download';
 import LessonStore from '../../application/lesson/store/lessonStore';
 import InstructorStore from '../../application/instructor/store/instructorStore';

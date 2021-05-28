@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'rest_framework_jwt',
     'rest_auth',
     'allauth',
+    'djoser',
     'allauth.account',
     'rest_auth.registration',
     'django_cleanup',
@@ -79,6 +80,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'backend.urls'
 
+DJOSER = {
+    'PASSWORD_RESET_CONFIRM_URL': 'reset-password-confirm/{uid}/{token}',
+    'ACTIVATION_URL': 'activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+}
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -122,7 +129,6 @@ AUTHENTICATION_BACKENDS = (
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-"""
 DATABASES = {
     'default' : dj_database_url.config()
 }
@@ -133,6 +139,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

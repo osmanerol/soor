@@ -84,7 +84,7 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
                         <PasswordInput variant='outline' placeholder='Şifre' className='mt-2 w-100' onChange={(event : any)=>{
                             store!.loginUser.password = event.target.value;
                         }} />
-                        <small className='forget-password text-right my-2'><Link to='/forgot-password'>Şifremi unuttum</Link></small>
+                        <small className='forget-password text-right my-2'><Link to='/reset-password'>Şifremi unuttum</Link></small>
                         <Button text={'Giriş Yap'}  className='submit-button' type='submit' size='sm' disabled={store?.isLoading} isLoading={store?.isLoading} />
                     </form>
                     <div className='go-other-sign text-center mt-4'>

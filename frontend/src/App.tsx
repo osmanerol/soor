@@ -6,7 +6,8 @@ import { Navbar } from './components';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
-import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
+import ResetPasswordConfirmPage from './pages/ResetPasswordConfirmPage';
 import LessonFilterPage from './pages/LessonFilterPage';
 import InstructorPage from './pages/InstructorPage';
 import LessonsPage from './pages/LessonsPage';
@@ -53,7 +54,8 @@ const App : FC<IDefaultProps> = inject('UserStore', 'InstructorStore', 'StudentS
         <Route path='/' exact strict component={HomePage} />
         <Route path='/login' exact strict component={LoginPage} />
         <Route path='/signup' exact strict component={SignupPage} />
-        <Route path='/forgot-password' exact strict component={ForgotPasswordPage} />
+        <Route path='/reset-password' exact strict component={ResetPasswordPage} />
+        <Route path='/reset-password-confirm/:uid/:token' exact strict component={ResetPasswordConfirmPage} />
         <Route path='/lesson-filter' exact strict component={LessonFilterPage} />
         <Route path='/lesson-filter/:lesson' exact strict component={LessonFilterPage} />
         <Route path='/call/:callId' exact strict component={VideoCallPage} />

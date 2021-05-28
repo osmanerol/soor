@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { makeAutoObservable, action } from 'mobx';
 import http from '../../../services';
 import { LoginDto } from '../dto/loginDto';
@@ -34,7 +35,6 @@ class UserStore{
     loginUser! : LoginDto;
     signupUser! : SignupDto;
     error! : any;
-    passwordResetEmail : string;
     isLoading! : boolean;
 
     constructor() {
@@ -43,7 +43,6 @@ class UserStore{
         this.loginUser = defaultLoginUser;
         this.signupUser = defaultSignupUser;
         this.error = null;
-        this.passwordResetEmail = '';
         this.isLoading = false;
     }
 
@@ -93,7 +92,7 @@ class UserStore{
         this.error = null;
         this.isLoading = true;
         try{
-            await http.post('/api/user/register',this.signupUser);
+            await http.post('/api/user/register', this.signupUser);
         }
         catch(error){
             this.error = error.response.data;
@@ -113,18 +112,29 @@ class UserStore{
         this.error = null;
     }
 
-    @action async passwordReset(){
+    @action async passwordReset(email : string){
+        this.isLoading = true;
         this.error = '';
         try{
-            const formData = new FormData();
-            formData.append('email',  this.passwordResetEmail);
-            formData.append('csrfmiddlewaretoken', 'HOPGP478oVjSmC5auyshZXyIx4Nlq53Kn0PwDNV9lzzl0bKWBw72dVuyZpIft8G5');
-            await http.post('/reset_password', formData, {
-                xsrfCookieName : 'srftoken=ovv0Y80sw9KqUdqAHHjHQrwkc9VwvqYljVIL1MT7NT5cbpcLPDiJbiraNKDgKM8P'
-            });
+            await http.post('/auth/users/reset_password/', { email : email });
+            this.isLoading = false;
         }
         catch(error : any){
             this.error = error;
+            this.isLoading = false;
+        }
+    }
+
+    @action async passwordResetConfirm(uid : any, token : any, new_password : string, re_new_password : string){
+        this.isLoading = true;
+        this.error = '';
+        try{
+            await http.post('/auth/users/reset_password_confirm/', { uid : uid, token : token, new_password : new_password, re_new_password : re_new_password});
+            this.isLoading = false;
+        }
+        catch(error : any){
+            this.error = error;
+            this.isLoading = false;
         }
     }
     
