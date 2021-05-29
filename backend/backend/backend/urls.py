@@ -20,6 +20,7 @@ urlpatterns = [
     path('api/token/refresh', TokenRefreshView.as_view(), name = 'token_refresh'),
     path('auth/', include('djoser.urls')),
 ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+
 """
 path('reset_password', auth_views.PasswordResetView.as_view(), name = 'reset_password'),
 path('reset_password_sent', auth_views.PasswordResetDoneView.as_view(), name = 'password_reset_done'),

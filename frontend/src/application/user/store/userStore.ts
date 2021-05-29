@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { makeAutoObservable, action } from 'mobx';
 import http from '../../../services';
 import { LoginDto } from '../dto/loginDto';

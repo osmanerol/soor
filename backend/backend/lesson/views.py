@@ -5,6 +5,7 @@ from .models import Lesson
 from user.models import User
 from lecture.models import Lecture
 from rest_framework.permissions import IsAuthenticated
+from django.core.mail import send_mail
 from .serializers import LessonSerializer, LessonListSerializer
 from .paginations import LessonPagination
 from rest_framework.response import Response
@@ -16,6 +17,13 @@ class LessonCreateAPIView(CreateAPIView):
 
     def perform_create(self, serializer):
         instructor = get_object_or_404(User, id = self.request.data.get('instructor'))
+        send_mail(
+            'Yeni ders',
+            'Yeni bir ders kaydı oluşturuldu. Derslerim alanından derse gidebilirsiniz.',
+            'soorappdev@gmail.com',
+            [instructor.email],
+            fail_silently=False,
+        )
         student = get_object_or_404(User, id = self.request.user.id)
         lecture = get_object_or_404(Lecture, id = self.request.data.get('lecture'))
         return serializer.save(instructor = instructor, student = student, lecture = lecture)
