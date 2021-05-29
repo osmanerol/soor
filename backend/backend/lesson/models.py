@@ -3,7 +3,6 @@ from user.models import User
 from lecture.models import Lecture
 import datetime
 
-
 class Lesson(models.Model):
     instructor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='instructor_user', blank=True)
     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='lecture_user', blank=True)

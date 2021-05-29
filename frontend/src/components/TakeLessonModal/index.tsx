@@ -1,8 +1,8 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import './index.scss';
 import { Button, Select } from '../index';
 import { inject, observer } from 'mobx-react';
-import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from '@chakra-ui/react';
+import { useDisclosure, useToast, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { BsCameraVideoFill } from 'react-icons/bs';
@@ -25,8 +25,10 @@ interface IDefaultProps{
 
 const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore', 'StudentStore')(observer((props : IDefaultProps) => {
     const { LessonStore : lessonStore, InstructorStore : instructorStore, StudentStore : studentStore, lessons, lessonPrice, credit, disabled, instructorId } = props;
+    const [fileError, setFileError] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { control } = useForm();
+    const toast = useToast();
     const history = useHistory();
 
     useEffect(() => {
@@ -44,9 +46,22 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore', 'Stud
     }
 
     const handleChange=(event: any)=>{
-        if(event.target.files[0]){
-            let image = event.target.files[0];
-            lessonStore!.lesson.image = image;
+        if(event.target.files[0].name.includes('.jpg') || event.target.files[0].name.includes('.png')){
+            if(event.target.files[0]){
+                let image = event.target.files[0];
+                lessonStore!.lesson.image = image;
+            }
+            setFileError(false);
+        }
+        else{
+            setFileError(true);
+            toast({
+                title: 'Hata',
+                description: 'Desteklenmeyen dosya formatı. Png veya jpg türünde dosya seçiniz.',
+                status: 'error',
+                duration: 2000,
+                isClosable: true,
+            });
         }
     }
 
@@ -84,7 +99,7 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore', 'Stud
                     <ModalFooter>
                         <Button text='Vazgeç' size='sm' className='cancel-button' onClick={onClose} />
                         {
-                            credit >= lessonPrice && <Button text='Onayla' size='sm' className='confirm-button' disabled={lessonStore!.lesson.lecture === 0} onClick={clickConfirm} />
+                            credit >= lessonPrice && <Button text='Onayla' size='sm' className='confirm-button' disabled={lessonStore!.lesson.lecture === 0 || fileError} onClick={clickConfirm} />
                         }
                     </ModalFooter>
                 </ModalContent>
