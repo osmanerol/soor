@@ -195,7 +195,7 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'UserStore', 'Lectur
                                             </div>
                                             <div className='row p-0'>
                                                 <Input text='Ad' id='first_name' size='sm' variant='flushed' className='col-md-6 col-12 mb-3' defaultValue={store!.instructor.first_name} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.first_name = event.target.value} />
-                                                <Input text='Soyad' id='last_name' size='sm' variant='flushed' className='col-md-6 col-12 mb-3' defaultValue={store!.instructor.last_name} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.first_name = event.target.value} />
+                                                <Input text='Soyad' id='last_name' size='sm' variant='flushed' className='col-md-6 col-12 mb-3' defaultValue={store!.instructor.last_name} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.last_name = event.target.value} />
                                             </div>
                                             <Input text='E-posta' id='email' type='email' size='sm' variant='flushed' className='mb-3' defaultValue={store!.instructor.email} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.email = event.target.value } />
                                             <Input text='Üniversite' id='university' size='sm' variant='flushed' className='mb-3' defaultValue={store!.instructor.instructor.university} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.instructor.university = event.target.value } />
