@@ -45,6 +45,14 @@ const App : FC<IDefaultProps> = inject('UserStore', 'InstructorStore', 'StudentS
     getUser();
   }, [userStore, studentStore, instructorStore])
 
+  useEffect(() => {
+    if(localStorage.getItem('token') && localStorage.getItem('userType') === '2'){
+      if(!location.pathname.includes('call')){
+        instructorStore!.updateStatus(1);
+      }
+    } 
+  }, [])
+
   return (
     <>
       {

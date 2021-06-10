@@ -78,7 +78,7 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
                                             <Nav.Link as={Link} to={`/instructor/${store?.baseUser.slug}`}>Profil</Nav.Link>
                                         }
                                         <Nav.Link as={Link} to={localStorage.getItem('userType') === '1' ? '/settings/student' : '/settings/instructor'}>Ayarlar</Nav.Link>
-                                        <Nav.Link as={Link} to='/'>Çıkış Yap</Nav.Link>
+                                        <Nav.Link onClick={onLogOut}>Çıkış Yap</Nav.Link>
                                     </> : 
                                     <NavDropdown title={<div className='navbar-dropdown-name'><span className='image-container'><img src={store?.baseUser.image === '' || store?.baseUser.image === null ? DefaultProfile : store?.baseUser.image} alt='profile' className='profile-image' /></span><span className='navbar-name'>{store!.baseUser.first_name} {store!.baseUser.last_name}</span></div>} id='nav-dropdown'>
                                         <NavDropdown.Item as={Link} to='/balance'>Bakiye</NavDropdown.Item>

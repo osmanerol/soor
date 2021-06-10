@@ -22,7 +22,6 @@ class CommentCreateAPIView(APIView):
         print(request.data)
         instructor = Instructor.objects.get(user__id = request.data['instructor'])
         instructor.rate = ((instructor.totalComment * instructor.rate) + request.data['point']) / (instructor.totalComment + 1)
-        instructor.totalComment += 1
         instructor.save()
         if serializer.is_valid():
             serializer.save()

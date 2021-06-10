@@ -194,9 +194,6 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore')(obser
             }
             else {
                 await leaveCall();
-                if (localStorage.getItem('userType') === '2') {
-                    instructorStore!.updateStatus(1);
-                }
                 toast({
                     title: 'Bilgi',
                     description: 'Link aktif veya doğru değil.',

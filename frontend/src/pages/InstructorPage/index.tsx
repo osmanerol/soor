@@ -45,7 +45,7 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'CommentStore', 'Stu
             await commentStore!.getComments(store!.instructorProfile.id);
         }
         if(generalStore!.instructorList.results?.length === 0){
-            generalStore!.getLastInstructor();
+            // generalStore!.getLastInstructor();
         }
         getInstructor();
     }, [store, commentStore, generalStore, studentStore, slug])

@@ -3,8 +3,16 @@ from rest_framework.serializers import ModelSerializer
 from user.models import User
 from .models import Instructor
 from lecture.models import Lecture
+from comment.models import Comment
 
 class InstructorSerializer(ModelSerializer):
+    totalComment = serializers.SerializerMethodField()
+
+    def get_totalComment(self, instance):
+        user_id = Instructor.objects.get(id = instance.id).user.id
+        commentCount = Comment.objects.filter(instructor = user_id).count()
+        return commentCount
+
     class Meta:
         model = Instructor
         exclude = ['user', 'balance']
