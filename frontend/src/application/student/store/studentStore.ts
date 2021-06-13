@@ -111,6 +111,13 @@ class StudentStore{
     @action async decreasetudentCredit(lessonPrice : number){
         await http.put(`api/student/decrease-credit`, { lessonPrice : lessonPrice })
     }
+
+    @action async updateCredit(balanceInfo : any){
+        this.isLoading = true;
+        await http.put(`api/student/update-credit`, { amount : Number(balanceInfo.amount) });
+        this.student.student.credit += Number(balanceInfo.amount);
+        this.isLoading = false;
+    }
 }
 
 export default new StudentStore();

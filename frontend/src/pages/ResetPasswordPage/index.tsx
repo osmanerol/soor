@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import './index.scss';
 import { useToast } from '@chakra-ui/react';
 import { observer, inject } from 'mobx-react';
-import { Input, Button, Footer } from '../../components';
+import { Input, Button } from '../../components';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import UserStore from '../../application/user/store/userStore';
@@ -66,20 +66,17 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
     }
 
     return (
-        <>
-            <div className='forgot-password-confirm-page-container'>
-                <div className='form-content'>
-                    <div className='text-center'>
-                        <h2 className='title'>Şifremi Unuttum</h2>
-                    </div>
-                    <form className='form' onSubmit={handleSubmit(submitForm)}>
-                        <Input type='email' variant='outline' placeholder='E-posta' value={email} className='w-100 my-4' onChange={(event : any)=>{ setEmail(event.target.value.replace(' ', '')) }} />
-                        <Button text={'Şifre Sıfırla'}  className='submit-button' type='submit' size='sm' disabled={store?.isLoading} isLoading={store?.isLoading} />
-                    </form>
+        <div className='forgot-password-confirm-page-container'>
+            <div className='form-content'>
+                <div className='text-center'>
+                    <h2 className='title'>Şifremi Unuttum</h2>
                 </div>
+                <form className='form' onSubmit={handleSubmit(submitForm)}>
+                    <Input type='email' variant='outline' placeholder='E-posta' value={email} className='w-100 my-4' onChange={(event : any)=>{ setEmail(event.target.value.replace(' ', '')) }} />
+                    <Button text={'Şifre Sıfırla'}  className='submit-button' type='submit' size='sm' disabled={store?.isLoading} isLoading={store?.isLoading} />
+                </form>
             </div>
-            <Footer />
-        </>
+        </div>
     );
 }));
 

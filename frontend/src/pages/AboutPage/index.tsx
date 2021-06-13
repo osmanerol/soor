@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import './index.scss';
 import { Container } from 'react-bootstrap';
-import { Footer } from '../../components';
 
 const Index = () => {
     
@@ -11,13 +10,12 @@ const Index = () => {
     }, [])
 
     return (
-        <>
-            <Container className='about-page-container pb-4'>
-                <h2 className='title text-center py-4'>Hakkımızda</h2>
-                <p className='text pb-3'>Yazı gelecek.</p> 
+        <div className='about-page-container pb-4'>
+            <h2 className='title text-center py-4'>Hakkımızda</h2>
+            <Container>
+                <p className='text my-4'>Yazı gelecek.</p> 
             </Container>
-            <Footer />
-        </>
+        </div>
     );
 };
 

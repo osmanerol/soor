@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import './index.scss';
 import { Container } from 'react-bootstrap';
 import { observer, inject } from 'mobx-react';
-import { InstructorCard, Button, Comment, Spinner, Footer } from '../../components';
+import { InstructorCard, Button, Comment, Spinner } from '../../components';
 import { Link } from 'react-router-dom';
 import expected1 from '../../assets/images/expected-1.jpg';
 import expected2 from '../../assets/images/expected-2.jpg';
@@ -43,139 +43,119 @@ const Index : FC<IDefaultProps> = inject('GeneralStore')(observer((props : IDefa
     }, [])
 
     return (
-        <>
-            <div className='homepage-container'>
-                <div className="cover">
-                    <Container>
-                        <div className="col-lg-7 col-md-9 col-sm-10 col-12 content">
-                            <p className='cover-title'>Yüzlerce Çevrimiçi Eğitmene Sorularını SOOR</p>
-                            <p className='cover-text'>Alanında uzman eğitmenler, çözemediğin sorulara yardımcı olmak için seni bekliyor. Zaman kaybetmeden giriş yap ve sorularını eğitmenlere sor.</p>
-                            <div className="button-container">
-                                {
-                                    localStorage.getItem('token') ? 
-                                    <>
-                                        <Button text='Ders Seç' className='filter-button' as={Link} to='/lesson-filter' />
-                                    </> :  
-                                    <>
-                                        <Button text='Giriş Yap' className='filter-button' as={Link} to='/login' />
-                                        <Button text='Kaydol' className='login-button' as={Link} to='/signup' />
-                                    </>
-                                }
-                            </div>
-                        </div>
-                    </Container>
-                </div>
+        <div className='homepage-container'>
+            <div className="cover">
                 <Container>
-                    <div className="expected-container">
-                        <h2 className='title text-center'>SOOR'da seni neler bekliyor ?</h2>
-                        <div className="items-container">
-                            <div className="item">
-                                <div className="image-container">
-                                    <img src={expected1} alt="item"/>
-                                </div>
-                                <div className="text-container text-center">
-                                    <h2 className='sub-title text-center mb-3'>Soru çözümü</h2>
-                                    <p className='sub-text'>Çözemediğin sorulara yardımcı olmak için alanında uzman eğitmenler seni bekliyor .</p>
-                                </div>
-                            </div>
-                            <div className="item">
-                                <div className="image-container">
-                                    <img src={expected2} alt="item"/>
-                                </div>
-                                <div className="text-container text-center">
-                                    <h2 className='sub-title text-center mb-3'>Canlı Ders</h2>
-                                    <p className='sub-text'>Soru sormak dışında süreyi uzatarak eğitmenden konu anlatmasını da isteyebilirsin.</p>
-                                </div>
-                            </div>
-                            <div className="item text-center">
-                                <div className="image-container">
-                                    <img src={expected3} alt="item"/>
-                                </div>
-                                <div className="text-container text-center">
-                                    <h2 className='sub-title text-center mb-3'>Danışmanlık</h2>
-                                    <p className='sub-text'>Tercih ve akademik danışma konusunda yardım alabileceğin eğitmenler de SOOR'da.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="instructors-container">
-                        <h2 className='title text-center'>SOOR'da ders veren eğitmenlerden bazıları :</h2>
-                        <div className="instructor-list">
+                    <div className="col-lg-7 col-md-9 col-sm-10 col-12 content">
+                        <p className='cover-title'>Yüzlerce Çevrimiçi Eğitmene Sorularını SOOR</p>
+                        <p className='cover-text'>Alanında uzman eğitmenler, çözemediğin sorulara yardımcı olmak için seni bekliyor. Zaman kaybetmeden giriş yap ve sorularını eğitmenlere sor.</p>
+                        <div className="button-container">
                             {
-                                store!.instructorList.isLoading ?
+                                localStorage.getItem('token') ? 
                                 <>
-                                <Spinner /> 
-                                </>:
-                                store!.instructorList.results!.map((item : any, index : number)=>(
-                                    <InstructorCard key={index} image={item.instructor.image} first_name={item.first_name} last_name={item.last_name} job={item.instructor.job} rate={item.instructor.rate} slug={item.instructor.slug} />
-                                ))
+                                    <Button text='Ders Seç' className='filter-button' as={Link} to='/lesson-filter' />
+                                </> :  
+                                <>
+                                    <Button text='Giriş Yap' className='filter-button' as={Link} to='/login' />
+                                    <Button text='Kaydol' className='login-button' as={Link} to='/signup' />
+                                </>
                             }
                         </div>
                     </div>
                 </Container>
-                <div className="total-datas-container">
-                    <Container className='total-datas-content'>
-                        <div className="row">
-                            <div className="col-md-6 col-12 text-center">
-                                <h2 className="total-datas-title">SOOR olarak her geçen gün büyümeye devam ediyoruz.</h2>
+            </div>
+            <Container>
+                <div className="expected-container">
+                    <h2 className='title text-center'>SOOR'da seni neler bekliyor ?</h2>
+                    <div className="items-container">
+                        <div className="item">
+                            <div className="image-container">
+                                <img src={expected1} alt="item"/>
                             </div>
-                            <div className="col-md-6 col-12">
-                                <p className='total-datas-text title text-center mb-4'>Şimdiye kadar toplam : </p>
-                                {
-                                    store!.totalData.isLoading ?
-                                    <Spinner /> :
-                                    <div className="items">
-                                        <div className="item">
-                                            <span className='title'>{store!.totalData.total_student}</span>
-                                            <span className='sub-title'>Öğrenci</span>
-                                        </div>
-                                        <div className="item">
-                                            <span className='title'>{store!.totalData.total_instructor}</span>
-                                            <span className='sub-title'>Eğitmen</span>
-                                        </div>
-                                        <div className="item">
-                                            <span className='title'>{store!.totalData.total_lesson}</span>
-                                            <span className='sub-title'>Canlı Ders</span>
-                                        </div>
-                                    </div>
-                                }
+                            <div className="text-container text-center">
+                                <h2 className='sub-title text-center mb-3'>Soru çözümü</h2>
+                                <p className='sub-text'>Çözemediğin sorulara yardımcı olmak için alanında uzman eğitmenler seni bekliyor .</p>
                             </div>
                         </div>
-                    </Container>
+                        <div className="item">
+                            <div className="image-container">
+                                <img src={expected2} alt="item"/>
+                            </div>
+                            <div className="text-container text-center">
+                                <h2 className='sub-title text-center mb-3'>Canlı Ders</h2>
+                                <p className='sub-text'>Soru sormak dışında süreyi uzatarak eğitmenden konu anlatmasını da isteyebilirsin.</p>
+                            </div>
+                        </div>
+                        <div className="item text-center">
+                            <div className="image-container">
+                                <img src={expected3} alt="item"/>
+                            </div>
+                            <div className="text-container text-center">
+                                <h2 className='sub-title text-center mb-3'>Danışmanlık</h2>
+                                <p className='sub-text'>Tercih ve akademik danışma konusunda yardım alabileceğin eğitmenler de SOOR'da.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className='students-comments-container'>
-                    <Container>
-                        <h2 className='title text-center'>Öğrenci Yorumları</h2>
-                        <div className='comment-list'>
+                <div className="instructors-container">
+                    <h2 className='title text-center'>SOOR'da ders veren eğitmenlerden bazıları :</h2>
+                    <div className="instructor-list">
+                        {
+                            store!.instructorList.isLoading ?
+                            <>
+                            <Spinner /> 
+                            </>:
+                            store!.instructorList.results!.map((item : any, index : number)=>(
+                                <InstructorCard key={index} image={item.instructor.image} first_name={item.first_name} last_name={item.last_name} job={item.instructor.job} rate={item.instructor.rate} slug={item.instructor.slug} />
+                            ))
+                        }
+                    </div>
+                </div>
+            </Container>
+            <div className="total-datas-container">
+                <Container className='total-datas-content'>
+                    <div className="row">
+                        <div className="col-md-6 col-12 text-center">
+                            <h2 className="total-datas-title">SOOR olarak her geçen gün büyümeye devam ediyoruz.</h2>
+                        </div>
+                        <div className="col-md-6 col-12">
+                            <p className='total-datas-text title text-center mb-4'>Şimdiye kadar toplam : </p>
                             {
-                                studentComments.map((item, index)=>(
-                                    <Comment key={index} image={item.image} name={item.name} content={item.content} rate={item.rate} />
-                                ))
+                                store!.totalData.isLoading ?
+                                <Spinner /> :
+                                <div className="items">
+                                    <div className="item">
+                                        <span className='title'>{store!.totalData.total_student}</span>
+                                        <span className='sub-title'>Öğrenci</span>
+                                    </div>
+                                    <div className="item">
+                                        <span className='title'>{store!.totalData.total_instructor}</span>
+                                        <span className='sub-title'>Eğitmen</span>
+                                    </div>
+                                    <div className="item">
+                                        <span className='title'>{store!.totalData.total_lesson}</span>
+                                        <span className='sub-title'>Canlı Ders</span>
+                                    </div>
+                                </div>
                             }
                         </div>
-                    </Container>
-                </div>
+                    </div>
+                </Container>
             </div>
-            <Footer />
-        </>
+            <div className='students-comments-container'>
+                <Container>
+                    <h2 className='title text-center'>Öğrenci Yorumları</h2>
+                    <div className='comment-list'>
+                        {
+                            studentComments.map((item, index)=>(
+                                <Comment key={index} image={item.image} name={item.name} content={item.content} rate={item.rate} />
+                            ))
+                        }
+                    </div>
+                </Container>
+            </div>
+        </div>
     );
 })) ;
 
 export default Index;
-
-/*
-    const instructors = [ 
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-1-1.jpg', name:'Justin Hammer', slug:'justin-hammer', job:'Matematik Öğretmeni', rate:4, price: 80 },
-        { image:'https://images.unsplash.com/photo-1499358517822-d8578907a095?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTM0fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Barbara Hammer', slug:'barbara-hammer', job:'Kimya Öğretmeni', rate:3, price: 100 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-2.jpg', name:'Jessica Jones', slug:'jessica-jones', job:'Fizik Öğretmeni', rate:4, price: 80 },
-        { image:'https://images.unsplash.com/photo-1517677129300-07b130802f46?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTM1fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Ashley Jones', slug:'ashley-jones', job:'Türkçe Öğretmeni', rate:4, price: 80 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-3.jpg', name:'Barbara Hammer', slug:'barbara-hammer', job:'Edebiyat Öğretmeni', rate:5, price: 100 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-4.jpg', name:'Rebecca Hammer', slug:'rebecca-jones', job:'Matematik Öğretmeni', rate:4, price: 80 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-5.jpg', name:'Jason Roy', slug:'jason-roy', job:'Kimya Öğretmeni', rate:4, price: 80 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-6.jpg', name:'Katherine Roy', slug:'katherine-roy', job:'Tarih Öğretmeni', rate:5, price: 80 },
-        { image:'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzV8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Itav Roy', slug:'itav-roy', job:'Fizik Öğretmeni', rate:4, price: 100 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/Team-7.jpg', name:'John Roy', slug:'john-roy', job:'Biyoloji Öğretmeni', rate:4, price: 80 },
-        { image:'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-7.jpg', name:'Natasha John', slug:'natasha-john', job:'Coğrafya Öğretmeni', rate:5, price: 80 },
-        { image:'https://images.unsplash.com/photo-1529957713629-c085c35d0ef5?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTk0fHxnaXJsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', name:'Victoria John', slug:'victoria-john', job:'Tarih Öğretmeni', rate:5, price: 100 },
-    ]
-*/

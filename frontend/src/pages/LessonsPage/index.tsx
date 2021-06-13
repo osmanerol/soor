@@ -81,10 +81,8 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore', 'Stud
     return (
         <>
             <div className='lessons-page-container'>
+                <h2 className='title text-center py-4'>Derslerim</h2>
                 <Container>
-                        <div className='text-center py-4'>
-                            <h2 className='title'>Derslerim</h2>
-                        </div>
                         {
                             store!.lessonList.isLoading ? 
                             <Spinner /> :

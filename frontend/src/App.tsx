@@ -2,12 +2,13 @@ import React, { FC, useEffect } from 'react';
 import './App.scss';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
-import { Navbar } from './components'; 
+import { Navbar, Footer } from './components'; 
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import AboutPage from './pages/AboutPage';
 import AgreementPage from './pages/AgreementPage';
+import BalancePage from './pages/BalancePage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import ResetPasswordConfirmPage from './pages/ResetPasswordConfirmPage';
 import LessonFilterPage from './pages/LessonFilterPage';
@@ -66,6 +67,7 @@ const App : FC<IDefaultProps> = inject('UserStore', 'InstructorStore', 'StudentS
         <Route path='/signup' exact strict component={SignupPage} />
         <Route path='/about' exact strict component={AboutPage} />
         <Route path='/agreement' exact strict component={AgreementPage} />
+        <PrivateRoute path='/balance' exact strict component={BalancePage} />
         <Route path='/reset-password' exact strict component={ResetPasswordPage} />
         <Route path='/reset-password-confirm/:uid/:token' exact strict component={ResetPasswordConfirmPage} />
         <Route path='/lesson-filter' exact strict component={LessonFilterPage} />
@@ -77,6 +79,9 @@ const App : FC<IDefaultProps> = inject('UserStore', 'InstructorStore', 'StudentS
         <PrivateRoute path='/lessons' exact strict component={LessonsPage} />
         <Route exact strict component={NotFoundPage} />
       </Switch>
+      {
+        !location.pathname.includes('call') && <Footer />
+      }
     </>
   );
 }));

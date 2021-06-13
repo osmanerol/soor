@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import './index.scss';
 import { inject, observer } from 'mobx-react';
-import { Button, TakeLessonModal, Empty, Spinner, CommentDetail, Footer } from '../../components';
+import { Button, TakeLessonModal, Empty, Spinner, CommentDetail } from '../../components';
 import { useParams } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { StarIcon } from '@chakra-ui/icons';
@@ -161,7 +161,6 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'CommentStore', 'Stu
                     </Container>
                 </div>
             }
-            <Footer />
         </>
     );
 }));

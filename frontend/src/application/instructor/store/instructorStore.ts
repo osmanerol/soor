@@ -154,6 +154,13 @@ class InstructorStore{
     @action async updateStatus(status : number){
         await http.put('api/instructor/update-status', { status : status });
     }
+
+    @action async updateBalance(balanceInfo : any){
+        this.isLoading = true;
+        await http.put('api/instructor/update-balance', { amount : Number(balanceInfo.amount) });
+        this.instructor.instructor.balance -= Number(balanceInfo.amount);
+        this.isLoading = false;
+    }
 }
 
 export default new InstructorStore();

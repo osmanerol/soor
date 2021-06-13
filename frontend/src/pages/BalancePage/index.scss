@@ -1,0 +1,42 @@
+.balance-page-container{
+    margin-top: 70px;
+    min-height: 70vh;
+    .title{
+        background-color: #eee;
+    }
+    .balance{
+        .balance-form{
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            .chakra-button{
+                background-color: #488bf8;
+                color: #fff;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px){
+    .balance-page-container{
+        .balance{
+            display: flex;
+            justify-content: center;
+            .balance-form{
+                width: 100%;
+                padding: 40px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px){
+    .balance-page-container{
+        .balance{
+            display: flex;
+            justify-content: center;
+            .balance-form{
+                width: 600px;
+                padding: 40px;
+            }
+        }
+    }
+}

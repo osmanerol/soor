@@ -89,3 +89,12 @@ class InstructorUpdateStatusAPIView(APIView):
         instructor.status = request.data['status']
         instructor.save()
         return Response({ 'detail' : 'status updated' })
+        
+class InstructorUpdateBalanceAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request):
+        instructor = Instructor.objects.get(user__id = self.request.user.id)
+        instructor.balance -= request.data['amount']
+        instructor.save()
+        return Response({ 'detail' : 'balance updated' })

@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import './index.scss';
 import { inject, observer } from 'mobx-react';
-import { Input, Autocomplete, TextArea, PasswordInput, Spinner, Button, Footer } from '../../components';
+import { Input, Autocomplete, TextArea, PasswordInput, Spinner, Button } from '../../components';
 import { Container } from 'react-bootstrap';
 import { useToast } from "@chakra-ui/react";
 import { useForm } from 'react-hook-form';
@@ -202,7 +202,11 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'UserStore', 'Lectur
                                             <Input text='Bölüm' id='department' size='sm' variant='flushed' className='mb-3' defaultValue={store!.instructor.instructor.department} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.instructor.department = event.target.value } />
                                             <Input text='Meslek' id='job' size='sm' variant='flushed' className='mb-3' defaultValue={store!.instructor.instructor.job} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.instructor.job = event.target.value} />
                                             <Input text='Ders ücreti' id='lessonPrice' size='sm' variant='flushed' className='mb-3' type='number' defaultValue={store!.instructor.instructor.lessonPrice.toString()} selectRef={register} errors={errors} onChange={(event : any)=>store!.instructor.instructor.lessonPrice = parseInt(event.target.value)} />
-                                            <Input text='Bakiye' id='balance' size='sm' variant='flushed' className='mb-3' type='number' defaultValue={store!.instructor.instructor.balance.toString()} disabled={true} />
+                                            {
+                                                /* 
+                                                <Input text='Bakiye' id='balance' size='sm' variant='flushed' className='mb-3' type='number' defaultValue={store!.instructor.instructor.balance.toString()} disabled={true} />
+                                                */
+                                            }
                                             <Autocomplete text='Verdiğin dersler' id='lessons' className='mb-3' options={lectureStore!.lectureList.results} defaultValue={lectureStore!.lectureList.results.filter((item : any)=> store!.instructor.instructor.lectures.find((data : any)=> data === item.id))} errors={errors} control={control} onChange={(event: any)=>{ store!.instructor.instructor.lectures = event ; setValue('lessons', event);}} label='name' value='id' />
                                             <TextArea text='Hakkında' id='about' size='sm' variant='flushed' className='mb-3' defaultValue={store!.instructor.instructor.about} selectRef={register} errors={errors} onChange={(event: any)=>store!.instructor.instructor.about = event.target.value} />
                                             <Button text='Profil bilgilerini güncelle' size='sm' className='button save-button mx-auto mt-1' type='submit' />
@@ -232,7 +236,6 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'UserStore', 'Lectur
                             </div>
                         </Container>
                     </div>
-                    <Footer />
                 </>
             }
         </>
@@ -240,24 +243,3 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'UserStore', 'Lectur
 }));
 
 export default Index;
-
-    /*
-    const [user, setUser] = useState({
-        image: 'https://exponentwptheme.com/startup/wp-content/uploads/sites/12/2019/01/download-4.jpg',
-        first_name: 'Jessica',
-        last_name: 'Jones',
-        status: 1,
-        job: 'Fizik Öğretmeni',
-        email: 'jessicajones@gmail.com',
-        university: 'İstanbul Üniversitesi Cerrahpaşa',
-        department: 'Fizik Öğretmenliği',
-        rate: 4.1,
-        totalLesson: 22, 
-        lessonPrice: 80,
-        totalComment: 30,
-        lessons: [{id: 1, name: 'Fizik'}, {id: 2, name: 'Matematik'}, {id: 3, name: 'Geometri'}],
-        about: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis doloremque reprehenderit excepturi voluptatem in odit quas mollitia! Recusandae doloremque sed necessitatibus doloribus voluptas corrupti iste rerum, nemo repellat incidunt expedita.Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis iste, dolorum, quaerat suscipit sed provident quisquam dignissimos, minus velit sit quae nihil asperiores officia fugiat accusamus non cum! Ullam, soluta!'
-    });
-    const [selectedLessons, setSelectedLessons] = useState(user.lessons);
-    const lessonsArray=[{id: 0, name: 'Fizik'}, { id: 1, name: 'Matematik'}, { id: 2, name: 'Geometri'}, { id: 3, name: 'Kimya'}, { id: 4, name: 'Edebiyat'}, { id: 5, name: 'Tarih'}];
-    */

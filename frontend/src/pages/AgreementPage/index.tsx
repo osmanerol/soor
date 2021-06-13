@@ -1,29 +1,19 @@
 import React, { useEffect } from 'react';
 import './index.scss';
 import { Container } from 'react-bootstrap';
-import { Footer } from '../../components';
 
 const Index = () => {
-    const elements = [
-        {
-            title: 'Sözleşmenin Konusu',
-            content: "İşbu Sözleşme'nin konusu SOOR'un sahip olduğu internet sitesi www.soorapp.com'dan üyenin faydalanma şartlarının belirlenmesidir."
-        },
-        {
-            title: 'Tarafların Hak ve Yükümlülükleri',
-            content: "İşbu Sözleşme'nin konusu SOOR'un sahip olduğu internet sitesi www.soorapp.com'dan üyenin faydalanma şartlarının belirlenmesidir."
-        },
-    ]
+
     useEffect(()=>{
         document.title = 'Soor - Üyelik Sözleşmesi';
         window.scrollTo(0,0);
     }, [])
 
     return (
-        <>
-            <Container className='agreement-page-container pb-4'>
-                <h2 className='title text-center py-4'>Üyelik Sözleşmesi</h2>
-                <p className='muted  mb-4'>Sitemize üye olmadan önce aşağıda yer alan sözleşmeyi dikkatlice okuyunuz.</p>
+        <div className='agreement-page-container pb-4'>
+            <h2 className='title text-center py-4'>Üyelik Sözleşmesi</h2>
+            <Container>
+                <p className='muted my-4'>Sitemize üye olmadan önce aşağıda yer alan sözleşmeyi dikkatlice okuyunuz.</p>
                 <h3 className='sub-title mb-2'>1. Sözleşmenin Konusu</h3>
                 <p className='text mb-4'>İşbu Sözleşme'nin konusu SOOR'un sahip olduğu internet sitesi www.soorapp.com'dan üyenin faydalanma şartlarının belirlenmesidir.</p>
                 <h3 className='sub-title mb-2'>2. Tarafların Hak ve Yükümlülükleri</h3>
@@ -41,8 +31,7 @@ const Index = () => {
                 <h3 className='sub-title mb-2'>4. Yürürlük</h3>
                 <p className='text mb-4'>Üyenin, üyelik kaydı yapması üyenin üyelik sözleşmesinde yer alan tüm maddeleri okuduğu ve üyelik sözleşmesinde yer alan maddeleri kabul ettiği anlamına gelir. İşbu Sözleşme üyenin üye olması anında akdedilmiş ve karşılıklı olarak yürürlülüğe girmiştir.</p>
             </Container>
-            <Footer />
-        </>
+        </div>
     );
 };
 

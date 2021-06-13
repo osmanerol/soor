@@ -41,3 +41,11 @@ class StudentDecreaseCreditAPIView(APIView):
         student.credit -= request.data['lessonPrice']
         student.save()
         return Response({ 'detail' : 'credit decreased'})
+
+class StudentUpdateCreditAPIView(APIView):
+    
+    def put(self, request):
+        student = Student.objects.get(user__id = self.request.user.id)
+        student.credit += request.data['amount']
+        student.save()
+        return Response({ 'detail' : 'credit updated'})

@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import './index.scss';
 import { inject, observer } from 'mobx-react';
-import { Input, PasswordInput, Spinner, Button, Footer } from '../../components';
+import { Input, PasswordInput, Spinner, Button } from '../../components';
 import { Container } from 'react-bootstrap';
 import { useToast } from "@chakra-ui/react";
 import { useForm } from 'react-hook-form';
@@ -212,7 +212,6 @@ const Index : FC<IDefaultProps> = inject('StudentStore', 'UserStore')(observer((
                             </div>
                         </Container>
                     </div>
-                    <Footer />
                 </>
             }
         </>
