@@ -50,7 +50,6 @@ const Index : FC<IDefaultProps> = inject('InstructorStore', 'StudentStore')(obse
 
     const onChangeInstructorIbanInput = (event : any) => {
         let value = event.target.value;
-        console.log(value.length);
         if(value.length < 2){
             instructorInfo.ibanNo = 'TR';
         }
