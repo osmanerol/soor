@@ -46,7 +46,7 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
             else{
                 toast({
                     title: 'Başarılı',
-                    description: 'Şifre sıfırlama linki mailinize gönderildi.',
+                    description: 'Şifre sıfırlama linki mailinize gönderildi. Spam veya gereksiz alanlarını kontrol edin.',
                     status: 'success',
                     duration: 2000,
                     isClosable: true,

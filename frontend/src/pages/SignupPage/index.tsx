@@ -111,7 +111,7 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
                         }} />
                         <Button text={`Kaydol ${(store!.signupUser.is_student || store!.signupUser.is_instructor) ? store!.signupUser.is_student ? '( Öğrenci )' : '( Eğitmen )' : ''}`}  className='submit-button mt-2' size='sm' type='submit' disabled={(!store!.signupUser.is_student && !store!.signupUser.is_instructor) || store?.isLoading} isLoading={store?.isLoading} />
                     </form>
-                    <small className='text-center aggrements text-muted'>Kaydolduğunuzda <Link to='/'>üyelik</Link> ve <Link to='/'>gizlilik</Link> sözleşmesini kabul etmiş olursunuz.</small>
+                    <small className='text-center aggrements text-muted'>Kaydolduğunuzda <Link to='/'>üyelik sözleşmesini</Link> kabul etmiş olursunuz.</small>
                     <div className='go-other-sign text-center'>
                         <small className='text-muted'>Zaten hesabınız var mı ? <Link to='/login'>Giriş Yap</Link></small>
                     </div>

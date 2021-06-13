@@ -6,6 +6,8 @@ import { Navbar } from './components';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import AboutPage from './pages/AboutPage';
+import AgreementPage from './pages/AgreementPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import ResetPasswordConfirmPage from './pages/ResetPasswordConfirmPage';
 import LessonFilterPage from './pages/LessonFilterPage';
@@ -62,6 +64,8 @@ const App : FC<IDefaultProps> = inject('UserStore', 'InstructorStore', 'StudentS
         <Route path='/' exact strict component={HomePage} />
         <Route path='/login' exact strict component={LoginPage} />
         <Route path='/signup' exact strict component={SignupPage} />
+        <Route path='/about' exact strict component={AboutPage} />
+        <Route path='/agreement' exact strict component={AgreementPage} />
         <Route path='/reset-password' exact strict component={ResetPasswordPage} />
         <Route path='/reset-password-confirm/:uid/:token' exact strict component={ResetPasswordConfirmPage} />
         <Route path='/lesson-filter' exact strict component={LessonFilterPage} />

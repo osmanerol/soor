@@ -26,6 +26,7 @@ interface IDefaultProps{
 const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore', 'StudentStore')(observer((props : IDefaultProps) => {
     const { LessonStore : lessonStore, InstructorStore : instructorStore, StudentStore : studentStore, lessons, lessonPrice, credit, disabled, instructorId } = props;
     const [fileError, setFileError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { control } = useForm();
     const toast = useToast();
@@ -36,12 +37,14 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore', 'Stud
     }, [lessonStore])
 
     const clickConfirm =async () => {
+        setIsLoading(true);
         const callDoc = firestore.collection('calls').doc();
         lessonStore!.lesson.link = callDoc.id;
         lessonStore!.lesson.instructor = instructorId;
         await lessonStore?.createLessonRequest();
         await instructorStore!.increaseInstructorBalance(instructorId);
         await studentStore!.decreasetudentCredit(lessonPrice);
+        setIsLoading(false);
         history.push('/lessons');
     }
 
@@ -99,7 +102,7 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore', 'Stud
                     <ModalFooter>
                         <Button text='Vazgeç' size='sm' className='cancel-button' onClick={onClose} />
                         {
-                            credit >= lessonPrice && <Button text='Onayla' size='sm' className='confirm-button' disabled={lessonStore!.lesson.lecture === 0 || fileError} onClick={clickConfirm} />
+                            credit >= lessonPrice && <Button text='Onayla' size='sm' className='confirm-button' disabled={lessonStore!.lesson.lecture === 0 || fileError || isLoading} isLoading={isLoading} onClick={clickConfirm} />
                         }
                     </ModalFooter>
                 </ModalContent>

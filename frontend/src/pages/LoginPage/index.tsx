@@ -38,10 +38,9 @@ const Index : FC<IDefaultProps> = inject('UserStore')(observer((props : IDefault
         if(store!.loginUser.email !== '' && store!.loginUser.password !== ''){
             await store!.login();
             if(store?.error){
-                let error = Object.values(store?.error);
                 toast({
                     title: 'Hata',
-                    description: error,
+                    description: 'Kullanıcı adı veya şifre hatalı.',
                     status: 'error',
                     duration: 2000,
                     isClosable: true,

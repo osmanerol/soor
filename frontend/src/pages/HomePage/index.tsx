@@ -49,7 +49,7 @@ const Index : FC<IDefaultProps> = inject('GeneralStore')(observer((props : IDefa
                     <Container>
                         <div className="col-lg-7 col-md-9 col-sm-10 col-12 content">
                             <p className='cover-title'>Yüzlerce Çevrimiçi Eğitmene Sorularını SOOR</p>
-                            <p className='cover-text'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, quam? Ea quasi autem deleniti alias? Aperiam blanditiis exercitationem ea eligendi</p>
+                            <p className='cover-text'>Alanında uzman eğitmenler, çözemediğin sorulara yardımcı olmak için seni bekliyor. Zaman kaybetmeden giriş yap ve sorularını eğitmenlere sor.</p>
                             <div className="button-container">
                                 {
                                     localStorage.getItem('token') ? 
@@ -75,7 +75,7 @@ const Index : FC<IDefaultProps> = inject('GeneralStore')(observer((props : IDefa
                                 </div>
                                 <div className="text-container text-center">
                                     <h2 className='sub-title text-center mb-3'>Soru çözümü</h2>
-                                    <p className='sub-text'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo recusandae consequuntur quaerat reiciendis .</p>
+                                    <p className='sub-text'>Çözemediğin sorulara yardımcı olmak için alanında uzman eğitmenler seni bekliyor .</p>
                                 </div>
                             </div>
                             <div className="item">
@@ -84,7 +84,7 @@ const Index : FC<IDefaultProps> = inject('GeneralStore')(observer((props : IDefa
                                 </div>
                                 <div className="text-container text-center">
                                     <h2 className='sub-title text-center mb-3'>Canlı Ders</h2>
-                                    <p className='sub-text'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo recusandae consequuntur quaerat reiciendis .</p>
+                                    <p className='sub-text'>Soru sormak dışında süreyi uzatarak eğitmenden konu anlatmasını da isteyebilirsin.</p>
                                 </div>
                             </div>
                             <div className="item text-center">
@@ -93,7 +93,7 @@ const Index : FC<IDefaultProps> = inject('GeneralStore')(observer((props : IDefa
                                 </div>
                                 <div className="text-container text-center">
                                     <h2 className='sub-title text-center mb-3'>Danışmanlık</h2>
-                                    <p className='sub-text'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo recusandae consequuntur quaerat reiciendis .</p>
+                                    <p className='sub-text'>Tercih ve akademik danışma konusunda yardım alabileceğin eğitmenler de SOOR'da.</p>
                                 </div>
                             </div>
                         </div>

@@ -3,7 +3,8 @@ import './index.scss';
 import { Container } from 'react-bootstrap';
 import { Heading } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { GrMail, GrTwitter, GrLinkedin, GrInstagram } from 'react-icons/gr';
+import { GrMail } from 'react-icons/gr';
+//import { GrTwitter, GrLinkedin, GrInstagram } from 'react-icons/gr';
 
 const Index = () => {
     return (
@@ -13,10 +14,14 @@ const Index = () => {
                     <div className='about'>
                         <Heading as='h6' size='sm'>Kurumsal</Heading>
                         <ul>
-                            <li><Link to='/' className='sub-text'>Hakkımızda</Link></li>
-                            <li><Link to='/' className='sub-text'>Üyelik Sözleşmesi</Link></li>
-                            <li><Link to='/' className='sub-text'>Gizlilik Sözleşmesi</Link></li>
-                            <li><Link to='/' className='sub-text'>Kullanıcı Yorumları</Link></li>
+                            <li><Link to='/about' className='sub-text'>Hakkımızda</Link></li>
+                            <li><Link to='/agreement' className='sub-text'>Üyelik Sözleşmesi</Link></li>
+                            {
+                                /*
+                                    <li><Link to='/' className='sub-text'>Gizlilik Sözleşmesi</Link></li>
+                                    <li><Link to='/' className='sub-text'>Kullanıcı Yorumları</Link></li>
+                                */
+                            }
                         </ul>
                     </div>
                     <div className='personel'>
@@ -32,9 +37,13 @@ const Index = () => {
                         <Heading as='h6' size='sm'>İletişim</Heading>
                         <ul>
                             <li><a href='mailto:info@soor.com' className='sub-text'><GrMail className='icon' /> Mail</a></li>
-                            <li><Link to='/' className='sub-text'><GrTwitter className='icon' />Twitter</Link></li>
-                            <li><Link to='/' className='sub-text'><GrLinkedin className='icon' />LinkedIn</Link></li>
-                            <li><Link to='/' className='sub-text'><GrInstagram className='icon' />Instagram</Link></li>
+                            {
+                                /*
+                                    <li><Link to='/' className='sub-text'><GrTwitter className='icon' />Twitter</Link></li>
+                                    <li><Link to='/' className='sub-text'><GrLinkedin className='icon' />LinkedIn</Link></li>
+                                    <li><Link to='/' className='sub-text'><GrInstagram className='icon' />Instagram</Link></li>
+                                */
+                            }
                         </ul>
                     </div>
                 </div>
