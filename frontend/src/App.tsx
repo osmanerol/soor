@@ -9,6 +9,7 @@ import SignupPage from './pages/SignupPage';
 import AboutPage from './pages/AboutPage';
 import AgreementPage from './pages/AgreementPage';
 import BalancePage from './pages/BalancePage';
+import DrawerPage from './pages/DrawerPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import ResetPasswordConfirmPage from './pages/ResetPasswordConfirmPage';
 import LessonFilterPage from './pages/LessonFilterPage';
@@ -67,6 +68,7 @@ const App : FC<IDefaultProps> = inject('UserStore', 'InstructorStore', 'StudentS
         <Route path='/signup' exact strict component={SignupPage} />
         <Route path='/about' exact strict component={AboutPage} />
         <Route path='/agreement' exact strict component={AgreementPage} />
+        <Route path='/drawer' exact strict component={DrawerPage} />
         <PrivateRoute path='/balance' exact strict component={BalancePage} />
         <Route path='/reset-password' exact strict component={ResetPasswordPage} />
         <Route path='/reset-password-confirm/:uid/:token' exact strict component={ResetPasswordConfirmPage} />
@@ -80,7 +82,7 @@ const App : FC<IDefaultProps> = inject('UserStore', 'InstructorStore', 'StudentS
         <Route exact strict component={NotFoundPage} />
       </Switch>
       {
-        !location.pathname.includes('call') && <Footer />
+        (!location.pathname.includes('call') && !location.pathname.includes('drawer')) && <Footer />
       }
     </>
   );

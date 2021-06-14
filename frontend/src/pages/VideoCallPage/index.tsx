@@ -6,6 +6,7 @@ import { useToast, useDisclosure } from '@chakra-ui/react';
 import { Container } from 'react-bootstrap';
 import { Button, CommentModal } from '../../components/index';
 import { IoVideocam, IoVideocamOff } from 'react-icons/io5';
+import { FaPen } from 'react-icons/fa';
 import { IoMdMic, IoMdMicOff } from 'react-icons/io';
 import { MdScreenShare, MdStopScreenShare, MdFileDownload } from 'react-icons/md';
 import { VscChromeClose } from 'react-icons/vsc';
@@ -78,6 +79,7 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore')(obser
     }
 
     const clickCloseButton = async () => {
+        localStorage.removeItem('image');
         await leaveCall();
         if(localStorage.getItem('userType') === '1'){
             onOpen();
@@ -153,6 +155,7 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore')(obser
         const getLesson = async () => {
             await lessonStore!.createLesson();
             await lessonStore!.getLesson(callId);
+            localStorage.setItem('image', lessonStore!.lesson.image);
             if (lessonStore!.lesson.id !== 0) {
                 if (lessonStore!.lesson.instructorStatus === 2 || lessonStore!.lesson.studentStatus === 2) {
                     toast({
@@ -212,7 +215,6 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore')(obser
     // to get lesson information
     useEffect(() => {
     }, [callId, lessonStore, history, instructorStore])
-
 
     // get peer's media stream
     pc.current.ontrack = (event : any) => {
@@ -346,6 +348,10 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore')(obser
         })
     }
 
+    const openDrawerPage = () => {
+        window.open('/drawer');
+    }
+
     return (
         <div className='video-call-page-container'>
             <Container>
@@ -403,6 +409,7 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore')(obser
                                 <Button className="item" leftIcon={audioSetting ? <IoMdMic /> : <IoMdMicOff />} onClick={clickAudioButton} />
                                 <Button className="item" leftIcon={!screenShareSetting ? <MdScreenShare /> : <MdStopScreenShare />} onClick={clickShareScreenButton} disabled={screenShareSetting} />
                                 <Button className="item" leftIcon={<MdFileDownload />} onClick={downloadImage} disabled={lessonStore!.lesson.image === ''} />
+                                <Button className="item" leftIcon={<FaPen />} onClick={openDrawerPage} />
                                 <Button className="item item-cancel" leftIcon={<VscChromeClose />} showConfirm={true} confirmText='Görüşmeyi sonlandırmak istediğinizden emin misiniz ?' onClick={clickCloseButton} />
                             </div>
                         </div>
