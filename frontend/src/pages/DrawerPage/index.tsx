@@ -20,7 +20,7 @@ const Index = () => {
                 brushColor='#444'
                 canvasWidth={600}
                 canvasHeight={600}
-                imgSrc={localStorage.getItem('image') ? "https://firebasestorage.googleapis.com/v0/b/soor-efd07.appspot.com/o/questions%2Fquestion.jpg?alt=media&token=60c3f39e-4716-4473-96be-2355d284168e" : ""}
+                imgSrc={localStorage.getItem('image') ? localStorage.getItem('image')! : ""}
                 ref={canvas}
             />
         </Container>
