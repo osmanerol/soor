@@ -1,7 +1,19 @@
 .drawer-page-container{
     margin-top: 70px;
     height: calc(100vh - 70px);
-    div{
+    .clear-button{
+        .chakra-button{
+            background-color: #34eb7a;
+            color: #fff;
+        }
+    }
+    .undo-button{
+        .chakra-button{
+            background-color: #345feb;
+            color: #fff;
+        }
+    }
+    div:last-child{
         width: 100%! important;
     }
 }
