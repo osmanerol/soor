@@ -10,7 +10,7 @@ import { FaPen } from 'react-icons/fa';
 import { IoMdMic, IoMdMicOff } from 'react-icons/io';
 import { MdScreenShare, MdStopScreenShare, MdFileDownload } from 'react-icons/md';
 import { VscChromeClose } from 'react-icons/vsc';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 import { firestore } from '../../services/firebaseConfig';
 import fileDownload from 'js-file-download';
 import LessonStore from '../../application/lesson/store/lessonStore';
@@ -23,6 +23,8 @@ interface IDefaultProps{
 
 const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore')(observer((props : IDefaultProps) => {
     const { InstructorStore : instructorStore, LessonStore : lessonStore } = props;
+    const location = useLocation();
+    const [decorator, setDecorator] = useState(false);
     const [cameraSetting, setCameraSetting] = useState(false);
     const [audioSetting, setAudioSetting] = useState(false);
     const [screenShareSetting, setScreenShareSetting] = useState(false);
@@ -79,25 +81,35 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore')(obser
     }
 
     const clickCloseButton = async () => {
-        localStorage.removeItem('image');
-        await leaveCall();
-        if(localStorage.getItem('userType') === '1'){
-            onOpen();
-        }
-        if(localStorage.getItem('userType') === '2'){
-            await instructorStore!.updateStatus(1);
-            toast({
-                title: 'Bilgi',
-                description: 'Görüşme sonlandı. Anasayfaya yönlendiriliyorsunuz.',
-                status: 'info',
-                duration: 2000,
-                isClosable: true,
-            });
-            setTimeout(()=>{
-                history.push('/');
-            }, 2000)
+        if(!decorator) {
+            localStorage.removeItem('image');
+            await leaveCall();
+            if(localStorage.getItem('userType') === '1'){
+                onOpen();
+            }
+            if(localStorage.getItem('userType') === '2'){
+                await instructorStore!.updateStatus(1);
+                toast({
+                    title: 'Bilgi',
+                    description: 'Görüşme sonlandı. Anasayfaya yönlendiriliyorsunuz.',
+                    status: 'info',
+                    duration: 2000,
+                    isClosable: true,
+                });
+                setTimeout(()=>{
+                    history.push('/');
+                }, 2000)
+            }
+            setDecorator(true);
         }
     }
+
+    // when page leave
+    useEffect(() => {
+        return () => {
+            clickCloseButton();
+        }
+    }, [location.pathname])
 
     // listen peer connection disconnected or not
     pc.current.oniceconnectionstatechange = async () => {
