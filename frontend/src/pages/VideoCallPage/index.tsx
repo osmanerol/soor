@@ -424,7 +424,11 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore')(obser
                                 <Button className="item" leftIcon={cameraSetting ? <IoVideocam /> : <IoVideocamOff />} onClick={clickCameraButton} />
                                 <Button className="item" leftIcon={audioSetting ? <IoMdMic /> : <IoMdMicOff />} onClick={clickAudioButton} />
                                 <Button className="item" leftIcon={!screenShareSetting ? <MdScreenShare /> : <MdStopScreenShare />} onClick={clickShareScreenButton} disabled={screenShareSetting} />
-                                <Button className="item" leftIcon={<MdFileDownload />} onClick={downloadImage} disabled={lessonStore!.lesson.image === ''} />
+                                {
+                                    /*
+                                        <Button className="item" leftIcon={<MdFileDownload />} onClick={downloadImage} disabled={lessonStore!.lesson.image === ''} />
+                                    */
+                                }
                                 <Button className="item" leftIcon={<FaPen />} onClick={openDrawerPage} />
                                 <Button className="item item-cancel" leftIcon={<VscChromeClose />} showConfirm={true} confirmText='Görüşmeyi sonlandırmak istediğinizden emin misiniz ?' onClick={clickCloseButton} />
                             </div>
