@@ -46,9 +46,7 @@ const App : FC<IDefaultProps> = inject('UserStore', 'InstructorStore', 'StudentS
         }
       }
     }
-    if(!location.pathname.includes('call') || !location.pathname.includes('drawer')){
-      getUser();
-    }
+    getUser();
   }, [])
 
   return ( 

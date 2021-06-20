@@ -10,7 +10,7 @@ import { FaPen } from 'react-icons/fa';
 import { IoMdMic, IoMdMicOff } from 'react-icons/io';
 import { MdScreenShare, MdStopScreenShare, MdFileDownload } from 'react-icons/md';
 import { VscChromeClose } from 'react-icons/vsc';
-import { useHistory, useParams, useLocation } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { firestore } from '../../services/firebaseConfig';
 import fileDownload from 'js-file-download';
 import LessonStore from '../../application/lesson/store/lessonStore';
@@ -23,7 +23,6 @@ interface IDefaultProps{
 
 const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore')(observer((props : IDefaultProps) => {
     const { InstructorStore : instructorStore, LessonStore : lessonStore } = props;
-    const location = useLocation();
     const [decorator, setDecorator] = useState(false);
     const [cameraSetting, setCameraSetting] = useState(false);
     const [audioSetting, setAudioSetting] = useState(false);
