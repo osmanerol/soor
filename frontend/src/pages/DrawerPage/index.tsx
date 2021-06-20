@@ -27,7 +27,7 @@ const Index = () => {
                 brushColor='#444'
                 canvasWidth={600}
                 canvasHeight={600}
-                imgSrc={localStorage.getItem('image') ? localStorage.getItem('image')! : ""}
+                imgSrc={localStorage.getItem('image') ? localStorage.getItem('image')!: ""}
             />
         </Container>
     );

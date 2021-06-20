@@ -21,10 +21,11 @@ interface IDefaultProps{
     credit: number,
     disabled: boolean,
     instructorId : number,
+    studentId : number,
 }
 
 const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore', 'StudentStore')(observer((props : IDefaultProps) => {
-    const { LessonStore : lessonStore, InstructorStore : instructorStore, StudentStore : studentStore, lessons, lessonPrice, credit, disabled, instructorId } = props;
+    const { LessonStore : lessonStore, InstructorStore : instructorStore, StudentStore : studentStore, lessons, lessonPrice, credit, disabled, instructorId, studentId } = props;
     const [fileError, setFileError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,6 +42,7 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore', 'Stud
         const callDoc = firestore.collection('calls').doc();
         lessonStore!.lesson.link = callDoc.id;
         lessonStore!.lesson.instructor = instructorId;
+        lessonStore!.lesson.student = studentId;
         await lessonStore?.createLessonRequest();
         await instructorStore!.increaseInstructorBalance(instructorId);
         await studentStore!.decreasetudentCredit(lessonPrice);

@@ -17,9 +17,11 @@ class LessonCreateAPIView(CreateAPIView):
 
     def perform_create(self, serializer):
         instructor = get_object_or_404(User, id = self.request.data.get('instructor'))
+        student = get_object_or_404(User, id = self.request.data.get('student'))
+        message = student.first_name + ' ' + student.last_name + ' isimli öğrenci yeni bir ders talebi oluşturdu.  https://soor.vercel.app/call/' + self.request.data.get('link') + ' alanından derse gidebilirsiniz.'
         send_mail(
             'Yeni ders',
-            'Yeni bir ders kaydı oluşturuldu. Derslerim alanından derse gidebilirsiniz.',
+            message,
             'soorappdev@gmail.com',
             [instructor.email],
             fail_silently=False,
