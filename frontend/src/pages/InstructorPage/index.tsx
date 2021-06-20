@@ -5,7 +5,7 @@ import { Button, TakeLessonModal, Empty, Spinner, CommentDetail } from '../../co
 import { useParams } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { StarIcon } from '@chakra-ui/icons';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import DefaultProfile from '../../assets/images/defaultProfile.png';
 import InstructorStore from '../../application/instructor/store/instructorStore';
 import CommentStore from '../../application/comment/store/commentStore';
@@ -22,16 +22,11 @@ interface IDefaultProps{
 const Index : FC<IDefaultProps> = inject('InstructorStore', 'CommentStore', 'StudentStore', 'GeneralStore')(observer((props : IDefaultProps) => {
     const { InstructorStore : store, CommentStore : commentStore, StudentStore : studentStore, GeneralStore : generalStore } = props;
     const { slug } = useParams<{ slug : string }>();
-    const location = useLocation();
 
     useEffect(()=>{
         document.title = 'Soor - Eğitmen';
         window.scrollTo(0,0);
-        console.log(location.pathname);
-        return () => {
-            console.log(location.pathname);
-        }
-    }, [location.pathname])
+    }, [])
 
     useEffect(()=>{
         commentStore.pageNumber = 1;
