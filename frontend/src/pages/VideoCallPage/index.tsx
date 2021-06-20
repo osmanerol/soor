@@ -105,11 +105,13 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore')(obser
     }
 
     // when page leave
+    /*
     useEffect(() => {
         return () => {
             clickCloseButton();
         }
     }, [location.pathname])
+    */
 
     // listen peer connection disconnected or not
     pc.current.oniceconnectionstatechange = async () => {
@@ -158,9 +160,11 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore')(obser
         return `${getMinutes} : ${getSeconds}`;
     }
 
+    /*
     window.onpopstate = () => {
         clickCloseButton();
     }
+    */
 
     useEffect(() => {
         document.title = 'Soor - Arama';
