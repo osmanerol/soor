@@ -122,8 +122,8 @@ const Index : FC<IDefaultProps> = inject('LessonStore', 'InstructorStore')(obser
         }
         if(pc.current.iceConnectionState === 'disconnected') {
             // peer baglantisi kesildi
-            clickCloseButton();
-            stopTime();
+            //clickCloseButton();
+            //stopTime();
         }
     }
 
